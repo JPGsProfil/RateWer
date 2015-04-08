@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_world">DE: Hallo Sabine und Daniel!</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_settings2">Beenden</string>
+</resources>

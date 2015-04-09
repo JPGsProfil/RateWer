@@ -4,14 +4,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class StartActivity extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        final Button bEnd = (Button) findViewById(R.id.bEnd);
+        bEnd.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+
     }
 
 
@@ -33,6 +47,14 @@ public class StartActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if (id == R.id.aEnd || id == R.id.bEnd)
+        {
+            finish();
+            return true;
+        }
+
+
 
         return super.onOptionsItemSelected(item);
     }

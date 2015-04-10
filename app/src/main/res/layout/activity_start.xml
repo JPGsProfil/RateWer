@@ -32,8 +32,18 @@
         android:layout_height="wrap_content"
         android:text="@string/txt_end"
         android:id="@+id/bEnd"
-        android:layout_below="@+id/bOptions"
+        android:layout_marginBottom="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/bOptions"
+        android:layout_alignStart="@+id/bOptions" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_bStatistic"
+        android:id="@+id/bStatistic"
+        android:layout_above="@+id/bEnd"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp" />
+        android:layout_marginBottom="34dp" />
 
 </RelativeLayout>

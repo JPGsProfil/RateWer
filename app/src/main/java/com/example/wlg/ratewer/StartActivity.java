@@ -37,6 +37,16 @@ public class StartActivity extends ActionBarActivity {
             }
         });
 
+
+        final Button bStatistics = (Button) findViewById(R.id.bStatistic);
+        bStatistics.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                final Intent firstIntent = new Intent(v.getContext(), StatisticActivity.class);
+                startActivity(firstIntent);
+            }
+        });
+
         final Button bEnd = (Button) findViewById(R.id.bEnd);
         bEnd.setOnClickListener( new View.OnClickListener()
         {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">indovina chi</string>
+
+    <string name="hello_world">Ciao Sabine e Daniel!</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="action_settings2">rottura</string>
+    <string name="txt_start">Inizia Il Gioco</string>
+    <string name="txt_options">Opzioni</string>
+    <string name="txt_end">rottura</string>
+    <string name="title_activity_game">Gioco</string>
+    <string name="title_activity_options">Opzioni</string>
+    <string name="txt_language">lingua</string>
+    <string name="txt_Statistic_title">statistico</string>
+    <string name="txt_bStatistic">statistico</string>
+    <string name="title_activity_statistic">statistico</string>
+
+
+    <string-array name="lang_array">
+        <item>Il Tedesco</item>
+        <item>inglese</item>
+        <item>italiano</item>
+    </string-array>
+
+
+</resources>

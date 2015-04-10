@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">RateWer</string>
 
     <string name="hello_world">Hallo Sabine und Daniel!</string>
@@ -11,7 +12,8 @@
     <string name="title_activity_options">OptionsActivity</string>
     <string name="txt_language">Sprache</string>
     <string name="txt_Statistic_title">Statistiken</string>
-
+    <string name="txt_bStatistic">Statistik</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
 
 
     <string-array name="lang_array">
@@ -19,5 +21,8 @@
         <item>Englisch</item>
         <item>Italienisch</item>
     </string-array>
-    <string name="title_activity_statistic">StatisticActivity</string>
+
+
+
+
 </resources>

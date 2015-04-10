@@ -1,5 +1,6 @@
 package com.example.wlg.ratewer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,26 @@ public class StartActivity extends ActionBarActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+
+
+        final Button bStartGame = (Button) findViewById(R.id.bStart);
+        bStartGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                final Intent firstIntent = new Intent(v.getContext(), GameActivity.class);
+                startActivity(firstIntent);
+            }
+        });
+
+        final Button bOptions = (Button) findViewById(R.id.bOptions);
+        bOptions.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                final Intent firstIntent = new Intent(v.getContext(), OptionsActivity.class);
+                startActivity(firstIntent);
+            }
+        });
 
         final Button bEnd = (Button) findViewById(R.id.bEnd);
         bEnd.setOnClickListener( new View.OnClickListener()

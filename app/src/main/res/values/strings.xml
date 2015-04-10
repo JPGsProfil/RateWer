@@ -7,4 +7,6 @@
     <string name="txt_start">Spiel Starten</string>
     <string name="txt_options">Optionen</string>
     <string name="txt_end">Beenden</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_options">OptionsActivity</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="hello_world">DE: Hallo Sabine und Daniel!</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_settings2">Beenden</string> <string name="app_name">Guess Who</string>
-
+    a
 
     <string-array name="lang_array">
         <item>German</item>

@@ -1,9 +1,11 @@
-package com.example.wlg.ratewer;
+package com.example.wlg.ratewer.Activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.wlg.ratewer.R;
 
 
 public class StatisticActivity extends ActionBarActivity {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="primary" type="color">#FF66CC00</item>
+    <item name="primarydark" type="color">#FF223300</item>
+    <item name="accentpositiv" type="color">#FF99CC00</item>
+    <item name="accentnegativ" type="color">#FFCC0000</item>
+
+
+
+</resources>

@@ -1,5 +1,15 @@
 <resources>
 
+
+    <!--
+    startmenu.
+    card.
+    attributes.
+    overlays.
+    headlines.
+    -->
+
+
     <string name="app_name">RateWer</string>
 
     <string name="hello_world">Hallo Sabine und Daniel!</string>

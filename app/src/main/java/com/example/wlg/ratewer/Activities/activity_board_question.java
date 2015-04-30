@@ -1,12 +1,10 @@
 package com.example.wlg.ratewer.Activities;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
@@ -32,17 +30,24 @@ public class activity_board_question extends ActionBarActivity {
         for(int CurrentCard=0; CurrentCard<3; CurrentCard++)
         {
             // Schleife für Spalte fehlt noch
-            GridLayout.Spec row = GridLayout.spec(0, 1);
-            GridLayout.Spec colspan = GridLayout.spec(CurrentCard, 1);
-            GridLayout.LayoutParams gridLayoutParam = new GridLayout.LayoutParams(row, colspan);
+            //GridLayout.Spec row = GridLayout.spec(0, 1);
+            //GridLayout.Spec colspan = GridLayout.spec(CurrentCard, 1);
+            //GridLayout.LayoutParams gridLayoutParam = new GridLayout.LayoutParams(row, colspan);
 
             // create a new button
             ImageButton ib = new ImageButton(this);
 
-            int imageid = 0;
+            int imageid;
             imageid = getResources().getIdentifier("drawable/lego50x50_"+CurrentCard,"drawable", getPackageName());
+            //if(imageid == 0)
+           // {
+            //    imageid = 1;    // should be changed to getIdentifier(noimage ...)
+            //}
+            System.out.println("Imageid "+CurrentCard+" ist: "+imageid);
             ib.setClickable(true);
-            ib.setId(CurrentCard);
+            ib.setId(CurrentCard); // not used anymore because of conflicts
+            // @all: better solution, but needs api17
+            //ib.generateViewId(); // needs api 17 would be better in my opinion
             ib.setImageResource(imageid);
 
             ib.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 
 import com.example.wlg.ratewer.R;
 
@@ -33,24 +35,24 @@ public class activity_board_question extends ActionBarActivity {
             GridLayout.Spec row = GridLayout.spec(0, 1);
             GridLayout.Spec colspan = GridLayout.spec(CurrentCard, 1);
             GridLayout.LayoutParams gridLayoutParam = new GridLayout.LayoutParams(row, colspan);
-            //GridLayout.addView(button_to_add,gridLayoutParam);
 
-            // new Button:
-            Button newButton = new Button (this);
-            //newButton.setLayoutParams(new GridLayout.LayoutParams( GridLayout.LayoutParams.MATCH_PARENT));
-            newButton.setOnClickListener(new View.OnClickListener()
-            {
+            // create a new button
+            ImageButton ib = new ImageButton(this);
+
+            int imageid = 0;
+            imageid = getResources().getIdentifier("drawable/lego50x50_"+CurrentCard,"drawable", getPackageName());
+            ib.setClickable(true);
+            ib.setId(CurrentCard);
+            ib.setImageResource(imageid);
+
+            ib.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
+                public void onClick(View view) {
                     System.out.println("id clicked: " + view.getId());
                 }
             });
 
-            gridCards.addView(newButton);
-
-
-
+            gridCards.addView(ib);
 
         }
     }

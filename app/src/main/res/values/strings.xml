@@ -31,6 +31,7 @@
         <item>Englisch</item>
         <item>Italienisch</item>
     </string-array>
+    <string name="title_activity_activity_board_question">activity_board_question</string>
 
 
 

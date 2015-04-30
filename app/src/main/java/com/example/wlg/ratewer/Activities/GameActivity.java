@@ -1,9 +1,13 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.wlg.ratewer.R;
 
@@ -11,14 +15,61 @@ import com.example.wlg.ratewer.R;
 public class GameActivity extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_board_question);
+
+
+        View.OnClickListener imageClickListener;
+        imageClickListener = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("id clicked: " + v.getId());
+            }
+        };
+
+
+        for (int i = 0; i<10; i++)
+        {
+            LinearLayout il = new LinearLayout(this);
+            il.setOrientation(LinearLayout.HORIZONTAL);
+            il.setMinimumHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+            il.setMinimumWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            int imageid = 0;
+            ImageButton ib;
+            BitmapDrawable imagebd;
+            imageid = getResources().getIdentifier("drawable/lego50x50", null, null);
+            //imageid = getResources().getIdentifier("drawable/" + images[i], null, getPackageName());
+            //imagebd = resizeImage(imageid);
+            ib = new ImageButton(this);
+
+
+            ib.setClickable(true);
+            ib.setId(i);
+            ib.setOnClickListener(imageClickListener);
+            //ib.setImageDrawable(imagebd);
+            //ib.setMinimumHeight(size);
+            //ib.setMinimumWidth(size);
+            //ib.setMaxHeight(size);
+            //ib.setMaxWidth(size);
+            //imageButtons.add(ib);
+            il.addView(ib);
+            System.out.println("id: " + ib.getId());
+
+            //ll.addView(il);
+        }
+        //this.setContentView(sv);
+
     }
 
 
+
+
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_game, menu);
         return true;

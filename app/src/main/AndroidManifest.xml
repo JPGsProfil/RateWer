@@ -36,6 +36,14 @@
             android:name=".Activities.StatisticActivity"
             android:label="@string/title_activity_statistic" >
         </activity>
+        <activity
+            android:name=".Activities.activity_board_question"
+            android:label="@string/title_activity_activity_board_question"
+            android:parentActivityName=".Activities.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartActivity" />
+        </activity>
     </application>
 
 </manifest>

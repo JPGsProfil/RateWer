@@ -5,58 +5,51 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by Jean on 21.04.2015.
+ * class for board options and properties
  */
-/*
+
 public class Board
 {
-    // kommt dann in die gameActivity
-    public void onCreate(Bundle savedInstanceState)
+    public static final int COLUMN_PER_ROW = 4;   // later dynamic or depending on oriantation
+    public static final int AMOUNT_OF_PERSON = 24;
+    // list for random placed cards (order)
+    private List<Integer> cardsOrder;
+    public Board()
     {
-        super.onCreate(savedInstanceState);
-
-
-        View.OnClickListener imageClickListener;
-        imageClickListener = new OnClickListener()
+        cardsOrder = new ArrayList<>();
+        for (int index = 0; index < AMOUNT_OF_PERSON; ++index)
         {
-
-            @Override
-            public void onClick(View v) {
-                System.out.println("id clicked: " + v.getId());
-            }
-        };
-    // Ende GameActivity
-
-        for (int i = 0; i<images.length; i++)
-        {
-            GridLayout il = new GridLayout(this);
-
-            int imageid = 0;
-            ImageButton ib;
-            BitmapDrawable imagebd;
-            imageid = getResources().getIdentifier("drawable/" + images[i], null, getPackageName());
-            imagebd = resizeImage(imageid);
-            ib = new ImageButton(this);
-            ib.setId(i);
-
-
-            ib.setClickable(true);
-            ib.setOnClickListener(imageClickListener);
-            ib.setImageDrawable(imagebd);
-            ib.setMinimumHeight(size);
-            ib.setMinimumWidth(size);
-            ib.setMaxHeight(size);
-            ib.setMaxWidth(size);
-            imageButtons.add(ib);
-            il.addView(ib);
-            System.out.println("id: " + ib.getId());
-
-            ll.addView(il);
+            cardsOrder.add(index);
         }
-        this.setContentView(sv);
+        Collections.shuffle(cardsOrder);
+    }
 
+    public int GetCardAtIndex(int index)
+    {
+        return cardsOrder.get(index);
+    }
+
+    public int GetAmountOfCards()
+    {
+        return cardsOrder.size();
+    }
+
+
+
+
+
+
+    //outsourced function of this class, instead left this:
+    // delete it
+    public int returnNumerTwo()
+    {
+        return 2;
     }
 
 }
-*/

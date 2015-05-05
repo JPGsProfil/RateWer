@@ -19,7 +19,7 @@ public class Board
     public static final int COLUMN_PER_ROW = 4;   // later dynamic or depending on oriantation
     public static final int AMOUNT_OF_PERSON = 24;
     // list for random placed cards (order)
-    private List<Integer> cardsOrder;
+    private List<Integer> cardsOrder; // to shuffle the cards
     public Board()
     {
         cardsOrder = new ArrayList<>();

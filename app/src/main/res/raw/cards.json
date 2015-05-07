@@ -1,0 +1,32 @@
+[
+	{
+	  "id": "1",
+	  "name": "Tim",
+	  "attributes": 
+		{
+		"hair": "brown",
+		"eye": "blue",
+		"moustache": "1"
+		}
+	},
+	{
+	  "id": "2",
+	  "name": "Tom",
+	  "attributes": 
+		{
+		"hair": "black",
+		"eye": "grey",
+		"moustache": "0"
+		}
+	},
+	{
+	  "id": "3",
+	  "name": "Sandra",
+	  "attributes": 
+		{
+		"hair": "blond",
+		"eye": "blue",
+		"moustache": "0"
+		}
+	}
+]

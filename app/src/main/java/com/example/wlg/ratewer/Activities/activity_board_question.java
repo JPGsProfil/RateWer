@@ -2,14 +2,23 @@ package com.example.wlg.ratewer.Activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.R;
+import com.google.gson.Gson;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class activity_board_question extends ActionBarActivity {
 
@@ -19,6 +28,7 @@ public class activity_board_question extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
         addButtonsDynamic();
+        DoGSON();
     }
 
 
@@ -101,6 +111,47 @@ public class activity_board_question extends ActionBarActivity {
         }
 
     }
+
+    private void DoGSON()
+    {
+
+        Gson gson = new Gson();
+        String jsonString = ReturnJSONAsString();
+        JSONCards[] response = gson.fromJson(jsonString, JSONCards[].class);
+        System.out.println("Erster Name: " + response[0].getName());
+    }
+
+
+    private String ReturnJSONAsString()
+    {
+        InputStream is = getResources().openRawResource(R.raw.cards);
+        return ReadTextFile(is);
+    }
+
+
+
+    private String ReadTextFile(InputStream _InputStream)
+    {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte Buffer[] = new byte[1024];
+        int Length;
+        try
+        {
+            while ((Length = _InputStream.read(Buffer)) != -1)
+            {
+                outputStream.write(Buffer, 0, Length);
+            }
+            outputStream.close();
+            _InputStream.close();
+        }
+        catch (IOException e)
+        {
+            Log.d("Exception by file reading", e.getMessage());
+        }
+        return outputStream.toString();
+    }
+
 
 
 

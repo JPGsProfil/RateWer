@@ -1,2 +1,3 @@
 Speicherproblem -> Überbleibsel wenn zurück button und neues Spiel
--> Speicherfreigabe nach Beenden sicherstellen, weil wenn zu oft -> Absturz
+-> Speicherfreigabe nach zurück-button sicherstellen, weil wenn zu oft -> Absturz
+activity beenden oder so

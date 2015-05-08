@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
@@ -138,16 +139,21 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Begin onclick");
                     JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
+                    System.out.println("KartenId2: " + cardList.get(view.getId()-1).getImageId() + " Name = " + cardList.get(view.getId()-1).getName());
+                    Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).getName()+" angeklickt!!!",
+                            Toast.LENGTH_LONG).show();
 
+                    /*
                     int currentIndex = 0;
                     while (currentIndex < cardList.size() && cardList.get(currentIndex).getImageId() != view.getId())
                     {
                         currentCard = cardList.get(currentIndex);
                         currentIndex++;
                     }
+                    */
                     if (currentCard != null)
                     {
-                       System.out.println("KartenId: " + currentCard.getImageId() + " Name = " + currentCard.getName());
+                       //System.out.println("KartenId: " + currentCard.getImageId() + " Name = " + currentCard.getName());
                     }
 
 

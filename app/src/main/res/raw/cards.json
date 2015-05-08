@@ -4,20 +4,23 @@
 	  "name": "Tim",
 	  "hair": "brown",
 	  "eye": "blue",
-	  "moustache": "1"
+	  "moustache": "1",
+	  "image":"lego50x50_3"
 	},
 	{
 	  "id": 2,
 	  "name": "Tom",
 	  "hair": "black",
 	  "eye": "grey",
-	  "moustache": "0"
+	  "moustache": "0",
+	  "image":"lego50x50_1"
 	},
 	{
 	  "id": 3,
 	  "name": "Sandra",
 	  "hair": "blond",
 	  "eye": "blue",
-	  "moustache": "0"
+	  "moustache": "0",
+	  "image":"lego50x50_16"
 	}
 ]

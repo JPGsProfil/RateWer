@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.R;
@@ -122,35 +123,17 @@ public class activity_board_question extends ActionBarActivity {
     }
 
 
+    // because later maybe different sets (chinese, latino, ... ) -> maybe different files
     private String ReturnJSONAsString()
     {
+        // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         InputStream is = getResources().openRawResource(R.raw.cards);
-        return ReadTextFile(is);
+        return FileToString.ReadTextFile(is);
     }
 
 
 
-    private String ReadTextFile(InputStream _InputStream)
-    {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        byte Buffer[] = new byte[1024];
-        int Length;
-        try
-        {
-            while ((Length = _InputStream.read(Buffer)) != -1)
-            {
-                outputStream.write(Buffer, 0, Length);
-            }
-            outputStream.close();
-            _InputStream.close();
-        }
-        catch (IOException e)
-        {
-            Log.d("Exception by file reading", e.getMessage());
-        }
-        return outputStream.toString();
-    }
 
 
 

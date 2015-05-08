@@ -10,17 +10,17 @@ public class JSONCards
     @SerializedName("id")
     private int id;
 
-    @SerializedName("name")
     private String name;
 
-    @SerializedName("hair")
     private String hair;
 
-    @SerializedName("eye")
     private String eye;
 
     @SerializedName("moustache")
     private Boolean moustache;
+
+    @SerializedName("image")
+    private Boolean imageName;
 
 
     public int getId()
@@ -68,4 +68,8 @@ public class JSONCards
     public void setMoustache(Boolean moustache) {
         this.moustache = moustache;
     }
+
+    public Boolean isImageName() { return imageName;  }
+
+    public void setImageName(Boolean imageName) { this.imageName = imageName; }
 }

@@ -20,10 +20,10 @@ public class Board
     public static final int AMOUNT_OF_PERSON = 24;
     // list for random placed cards (order)
     private List<Integer> cardsOrder; // to shuffle the cards
-    public Board()
+    public Board(int _amountOfCards)
     {
         cardsOrder = new ArrayList<>();
-        for (int index = 0; index < AMOUNT_OF_PERSON; ++index)
+        for (int index = 0; index < _amountOfCards; ++index)
         {
             cardsOrder.add(index);
         }

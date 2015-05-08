@@ -20,16 +20,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class activity_board_question extends ActionBarActivity {
+public class activity_board_question extends ActionBarActivity
+{
+
+    static List<JSONCards> cardList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
-        addButtonsDynamic();
-        DoGSON();
+        System.out.println("Nach setContentView");
+        GetCardobjectsAsArray(cardList);
+        System.out.println("Nach GetCardobjectsAsArray()");
+        if(cardList.size()>0)
+        {
+            System.out.println("cardList Groesse ist: "+cardList.size());
+                    addButtonsDynamic(cardList);
+        }
+        else
+        {
+            // later replace with gui element, Karten sind addon
+            System.out.println("Karten konnten nicht eingelesen werden");
+        }
     }
 
 
@@ -65,11 +82,21 @@ public class activity_board_question extends ActionBarActivity {
 
 
     // maybe could be outsourced to Board.java
-    public void addButtonsDynamic()
+    public boolean addButtonsDynamic(final List<JSONCards> _cardList)
     {
+        // nothing to add -> nothing else to do
+        if(_cardList.size() < 1)
+        {
+            return false;
+        }
         final int COLUMN = Board.COLUMN_PER_ROW;
-        final int AMOUNT_OF_PERSON = Board.AMOUNT_OF_PERSON;
+        final int AMOUNT_OF_PERSON = _cardList.size();
+
         int rows = AMOUNT_OF_PERSON / COLUMN;
+        if(rows < 1)
+        {
+            rows = 1;
+        }
 
         // Set the Grid Layout where the cards will be placed in
         GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
@@ -77,49 +104,75 @@ public class activity_board_question extends ActionBarActivity {
         gridCards.setRowCount(rows);
 
         // create an instance of the board, needed for random, later outsourced
-        Board board = new Board(); // later in controller and there a function displayBoard(Board _board)
+        //Board board = new Board(_cardList.size()); // later in controller and there a function displayBoard(Board _board)
 
         // loop for all cards, new row after 6 cards
-        for (int CurrentCard = 0; CurrentCard < board.GetAmountOfCards(); CurrentCard++)
+        for (int currentCardID = 0; currentCardID < _cardList.size(); currentCardID++)
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
 
+            // android internal id to get access to image file in android
             int imageID;
-            imageID = getResources().getIdentifier("drawable/lego50x50_" + board.GetCardAtIndex(CurrentCard) , "drawable", getPackageName());
+            imageID = getResources().getIdentifier("drawable/" + _cardList.get(currentCardID).getImageName() , "drawable", getPackageName());
             //if(imageID == 0)  // not working because it's seems not be a normal int
             // {
             //    imageID = 1;    // should be changed to getIdentifier(noimage ...)
             //}
-            System.out.println("Imageid " + CurrentCard + " ist: " + imageID);
+            System.out.println("Imageid " + currentCardID + " ist: " + imageID);
             ib.setClickable(true);
-            //ib.setId(CurrentCard); // not used anymore because of conflicts
+            //ib.setId(CurrentCardID); // not used anymore because of conflicts
             // @all: better solution, but needs api17
             //ib.generateViewId(); // needs api 17 would be better in my opinion
             ib.setId(ImageButton.generateViewId());
             ib.setImageResource(imageID);
+
+            // set image id in class to find it later
+            _cardList.get(currentCardID).setImageId(imageID);
 
             ib.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View view)
                 {
+                    //System.out.println("Begin onclick");
+                    JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
+
+                    int currentIndex = 0;
+                    while (currentIndex < cardList.size() && cardList.get(currentIndex).getImageId() != view.getId())
+                    {
+                        currentCard = cardList.get(currentIndex);
+                        currentIndex++;
+                    }
+                    if (currentCard != null)
+                    {
+                       System.out.println("KartenId: " + currentCard.getImageId() + " Name = " + currentCard.getName());
+                    }
+
+
                 }
             });
             // place the card at the next free position of the grid
             gridCards.addView(ib);
         }
-
+        return true;
     }
 
-    private void DoGSON()
+    private void GetCardobjectsAsArray(List<JSONCards> _cardList)
     {
 
         Gson gson = new Gson();
         String jsonString = ReturnJSONAsString();
         JSONCards[] response = gson.fromJson(jsonString, JSONCards[].class);
-        System.out.println("Erster Name: " + response[0].getName());
+        //System.out.println("Erster Name: " + response[0].getName());
+        for (int index = 0; index < response.length; ++index)
+        {
+            _cardList.add(response[index]);
+        }
+        Collections.shuffle(_cardList);
+        System.out.println("Erster Name: " + _cardList.get(0).getName());
+        //return cardList;
     }
 
 
@@ -130,9 +183,6 @@ public class activity_board_question extends ActionBarActivity {
         InputStream is = getResources().openRawResource(R.raw.cards);
         return FileToString.ReadTextFile(is);
     }
-
-
-
 
 
 

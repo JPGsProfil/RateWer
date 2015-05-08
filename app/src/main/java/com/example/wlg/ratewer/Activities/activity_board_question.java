@@ -140,8 +140,7 @@ public class activity_board_question extends ActionBarActivity
                     JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
                     System.out.println("KartenId2: " + cardList.get(view.getId()-1).getImageId() + " Name = " + cardList.get(view.getId()-1).getName());
-                    Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).getName()+" angeklickt!!!",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).getName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
 
                     /*
                     int currentIndex = 0;

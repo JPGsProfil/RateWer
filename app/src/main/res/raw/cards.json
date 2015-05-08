@@ -5,7 +5,7 @@
 	  "hair": "brown",
 	  "eye": "blue",
 	  "moustache": "1",
-	  "image":"lego50x50_3"
+	  "image":"lego50x50_0"
 	},
 	{
 	  "id": 2,
@@ -21,6 +21,174 @@
 	  "hair": "blond",
 	  "eye": "blue",
 	  "moustache": "0",
-	  "image":"lego50x50_16"
-	}
+	  "image":"lego50x50_2"
+	},
+  {
+	"id": 4,
+	"name": "Tino",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_3"
+  },
+  {
+	"id": 5,
+	"name": "Fabulunder",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_4"
+  },
+  {
+	"id": 6,
+	"name": "Jan",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_5"
+  },
+  {
+	"id": 7,
+	"name": "Jasmine",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_6"
+  },
+  {
+	"id": 8,
+	"name": "Norbert",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_7"
+  },
+  {
+	"id": 9,
+	"name": "Namenloser Typ",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_8"
+  },
+  {
+	"id": 10,
+	"name": "Jens",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_9"
+  },
+  {
+	"id": 11,
+	"name": "Jürgen",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_10"
+  },
+  {
+	"id": 12,
+	"name": "Sandra2",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_11"
+  },
+  {
+	"id": 13,
+	"name": "Sandra3",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_12"
+  },
+  {
+	"id": 14,
+	"name": "Sandra4",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_13"
+  },
+  {
+	"id": 15,
+	"name": "Sandra5",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_14"
+  },
+  {
+	"id": 16,
+	"name": "Sandra6",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_15"
+  },
+  {
+	"id": 17,
+	"name": "Sandra7",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_16"
+  },
+  {
+	"id": 18,
+	"name": "Sandra8",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_17"
+  },
+  {
+	"id": 19,
+	"name": "Sandra9",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_18"
+  },
+  {
+	"id": 20,
+	"name": "Sandra10",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_19"
+  },
+  {
+	"id": 21,
+	"name": "Sandra11",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_20"
+  },
+  {
+	"id": 22,
+	"name": "Sandra12",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_21"
+  },
+  {
+	"id": 23,
+	"name": "JPG",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_22"
+  },
+  {
+	"id": 24,
+	"name": "Bert",
+	"hair": "blond",
+	"eye": "blue",
+	"moustache": "0",
+	"image":"lego50x50_23"
+  }
 ]

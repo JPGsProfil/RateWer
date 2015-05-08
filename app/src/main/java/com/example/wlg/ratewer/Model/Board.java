@@ -17,8 +17,9 @@ import java.util.List;
 public class Board
 {
     public static final int COLUMN_PER_ROW = 4;   // later dynamic or depending on oriantation
-    public static final int AMOUNT_OF_PERSON = 24;
+   // public static final int AMOUNT_OF_PERSON = 24;
     // list for random placed cards (order)
+    /*
     private List<Integer> cardsOrder; // to shuffle the cards
     public Board(int _amountOfCards)
     {
@@ -40,16 +41,16 @@ public class Board
         return cardsOrder.size();
     }
 
-
+*/
 
 
 
 
     //outsourced function of this class, instead left this:
     // delete it
-    public int returnNumerTwo()
-    {
-        return 2;
-    }
+   // public int returnNumerTwo()
+   // {
+    //    return 2;
+   // }
 
 }

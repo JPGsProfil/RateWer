@@ -19,69 +19,108 @@ public class JSONCards
     @SerializedName("moustache")
     private Boolean moustache;
 
+    private Boolean isWoman;
+
+    private Boolean wearGlasses;
+
     @SerializedName("image")
     private String imageName;
 
     private int imageId;
 
 
-    public int getId()
+    public int GetId()
     {
         return id;
     }
 
 
 
-    public void setId(int id)
+    public void SetId(int id)
     {
         this.id = id;
     }
 
-    public String getName()
+    public String GetName()
     {
         return name;
     }
 
-    public void setName(String name)
+    public void SetName(String name)
     {
         this.name = name;
     }
 
-    public String getHair() {
+    public String GetHair() {
         return hair;
     }
 
-    public void setHair(String hair) {
+    public void SetHair(String hair)
+    {
         this.hair = hair;
     }
 
-    public String getEye() {
+    public String GetEye() {
         return eye;
     }
 
-    public void setEye(String eye) {
-        this.eye = eye;
-    }
 
-    public Boolean isMoustache() {
+    public Boolean HasMoustache()
+    {
         return moustache;
     }
 
-    public void setMoustache(Boolean moustache) {
-        this.moustache = moustache;
-    }
 
-    public String getImageName() { return imageName;  }
+    public String GetImageName() { return imageName;  }
 
-    public void setImageName(String imageName) { this.imageName = imageName; }
-
-    public int getImageId()
+    public int GetImageId()
     {
         return imageId;
     }
 
-    public void setImageId(int imageId)
+    public void SetImageId(int imageId)
     {
         this.imageId = imageId;
+    }
+
+    public Boolean IsWoman()
+    {
+        return isWoman;
+    }
+
+
+
+
+    public Boolean IsWearGlasses()
+    {
+        return wearGlasses;
+    }
+
+
+    public String GetGender()
+    {
+        if(isWoman == true)
+        {
+            return "Frau";
+        }
+        else
+        {
+            return "Mann";
+        }
+    }
+
+    public void SetMoustache(Boolean moustache)
+    {
+        this.moustache = moustache;
+    }
+
+    public void SetIsWoman(Boolean isWoman)
+    {
+        this.isWoman = isWoman;
+    }
+
+    public void SetWearGlasses(Boolean wearGlasses)
+    {
+        this.wearGlasses = wearGlasses;
     }
 }

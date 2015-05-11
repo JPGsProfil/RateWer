@@ -1,5 +1,8 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -110,7 +113,7 @@ public class activity_board_question extends ActionBarActivity
 
             // android internal id to get access to image file in android
             int imageID;
-            imageID = getResources().getIdentifier("drawable/" + _cardList.get(currentCardID).getImageName() , "drawable", getPackageName());
+            imageID = getResources().getIdentifier("drawable/" + _cardList.get(currentCardID).GetImageName() , "drawable", getPackageName());
             //if(imageID == 0)  // not working because it's seems not be a normal int
             // {
             //    imageID = 1;    // should be changed to getIdentifier(noimage ...)
@@ -124,7 +127,7 @@ public class activity_board_question extends ActionBarActivity
             ib.setImageResource(imageID);
 
             // set image id in class to find it later
-            _cardList.get(currentCardID).setImageId(imageID);
+            _cardList.get(currentCardID).SetImageId(imageID);
 
             ib.setOnClickListener(new View.OnClickListener()
             {
@@ -134,9 +137,9 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Begin onclick");
                     JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
-                    System.out.println("KartenId2: " + cardList.get(view.getId()-1).getImageId() + " Name = " + cardList.get(view.getId()-1).getName());
-                    Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).getName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
-
+                    System.out.println("KartenId2: " + cardList.get(view.getId() - 1).GetImageId() + " Name = " + cardList.get(view.getId() - 1).GetName());
+                    //Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).GetName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
+                    DisplayAttribus(cardList.get(view.getId()-1));
                     /*
                     int currentIndex = 0;
                     while (currentIndex < cardList.size() && cardList.get(currentIndex).getImageId() != view.getId())
@@ -145,10 +148,10 @@ public class activity_board_question extends ActionBarActivity
                         currentIndex++;
                     }
                     */
-                    if (currentCard != null)
-                    {
+                    //if (currentCard != null)
+                    //{
                        //System.out.println("KartenId: " + currentCard.getImageId() + " Name = " + currentCard.getName());
-                    }
+                    //}
 
 
                 }
@@ -171,7 +174,7 @@ public class activity_board_question extends ActionBarActivity
             _cardList.add(response[index]);
         }
         Collections.shuffle(_cardList);
-        System.out.println("Erster Name: " + _cardList.get(0).getName());
+        System.out.println("Erster Name: " + _cardList.get(0).GetName());
         //return cardList;
     }
 
@@ -182,6 +185,43 @@ public class activity_board_question extends ActionBarActivity
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         InputStream is = getResources().openRawResource(R.raw.cards);
         return FileToString.ReadTextFile(is);
+    }
+
+
+    private void DisplayAttribus(JSONCards currentCards)
+    {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity_board_question.this);
+
+        // set title
+        alertDialogBuilder.setTitle(currentCards.GetName());
+
+        //System.out.println("Bin in Display");
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Eingenschaften:"
+                                + "\nGeschlecht: " + currentCards.GetGender()
+                                + "\nAuge: " + currentCards.GetEye()
+                                + "\nHaar: " + currentCards.GetHair()
+                                + "\nBrille: " + currentCards.IsWearGlasses()
+                                + "\nBart: " + currentCards.HasMoustache()
+                )
+                // not need to click ok to cancel alert, simply click outside the box
+                .setCancelable(true)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // if this button is clicked, close
+                        // current activity
+                        //activity_board_question.this.finish();
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show alert
+        alertDialog.show();
     }
 
 

@@ -150,9 +150,8 @@ public class activity_board_question extends ActionBarActivity
                     if (currentCard != null)
                     {
                         System.out.println("KartenViewId: " + currentCard.GetViewId() + " Name = " + currentCard.GetName() + " ViewID: "+view.getId());
-                        DisplayAttribus(cardList.get(currentIndex));
+                        DisplayAttributes(cardList.get(currentIndex));
                     }
-
 
                 }
             });
@@ -188,10 +187,9 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    private void DisplayAttribus(JSONCards currentCards)
+    private void DisplayAttributes(JSONCards currentCards)
     {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity_board_question.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
         // set title
         alertDialogBuilder.setTitle(currentCards.GetName());

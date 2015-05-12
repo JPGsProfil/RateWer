@@ -1,3 +1,12 @@
 Speicherproblem -> Überbleibsel wenn zurück button und neues Spiel
 -> Speicherfreigabe nach zurück-button sicherstellen, weil wenn zu oft -> Absturz
 activity beenden oder so
+
+KI: is it? random -> später ki, damit Zug möglich ist
+ausgeschlossenbyplayerone
+
+wenn Karte umgeklappt, dann visibility --
+und setclickable = false
+
+image handling via glide
+glide resizing image

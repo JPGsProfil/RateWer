@@ -34,12 +34,13 @@ public class activity_board_question extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
         System.out.println("Nach setContentView");
+        cardList.clear();
         GetCardobjectsAsArray(cardList);
         System.out.println("Nach GetCardobjectsAsArray()");
         if(cardList.size()>0)
         {
             System.out.println("cardList Groesse ist: "+cardList.size());
-                    addButtonsDynamic(cardList);
+            addButtonsDynamic(cardList);
         }
         else
         {
@@ -114,18 +115,16 @@ public class activity_board_question extends ActionBarActivity
             // android internal id to get access to image file in android
             int imageID;
             imageID = getResources().getIdentifier("drawable/" + _cardList.get(currentCardID).GetImageName() , "drawable", getPackageName());
-            //if(imageID == 0)  // not working because it's seems not be a normal int
-            // {
-            //    imageID = 1;    // should be changed to getIdentifier(noimage ...)
-            //}
+
             System.out.println("Imageid " + currentCardID + " ist: " + imageID);
             ib.setClickable(true);
-            //ib.setId(CurrentCardID); // not used anymore because of conflicts
-            // @all: better solution, but needs api17
-            //ib.generateViewId(); // needs api 17 would be better in my opinion
-            ib.setId(ImageButton.generateViewId());
-            ib.setImageResource(imageID);
 
+            //ib.generateViewId(); // needs api 17 would be better in my opinion
+            int viewId = ImageButton.generateViewId();
+            ib.setId(viewId);
+            cardList.get(currentCardID).SetViewId(viewId);
+
+            ib.setImageResource(imageID);
             // set image id in class to find it later
             _cardList.get(currentCardID).SetImageId(imageID);
 
@@ -137,21 +136,22 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Begin onclick");
                     JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
-                    System.out.println("KartenId2: " + cardList.get(view.getId() - 1).GetImageId() + " Name = " + cardList.get(view.getId() - 1).GetName());
+                    //System.out.println("KartenId2: " + cardList.get(view.getId() - 1).GetImageId() + " Name = " + cardList.get(view.getId() - 1).GetName());
                     //Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).GetName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
-                    DisplayAttribus(cardList.get(view.getId()-1));
-                    /*
+                    //DisplayAttribus(cardList.get(view.getId() - 1));  // geht nicht, da durch den zurückbutton neue View-ID
+
                     int currentIndex = 0;
-                    while (currentIndex < cardList.size() && cardList.get(currentIndex).getImageId() != view.getId())
+                    while (currentIndex < cardList.size() && cardList.get(currentIndex).GetViewId() != view.getId())
                     {
                         currentCard = cardList.get(currentIndex);
                         currentIndex++;
                     }
-                    */
-                    //if (currentCard != null)
-                    //{
-                       //System.out.println("KartenId: " + currentCard.getImageId() + " Name = " + currentCard.getName());
-                    //}
+
+                    if (currentCard != null)
+                    {
+                        System.out.println("KartenViewId: " + currentCard.GetViewId() + " Name = " + currentCard.GetName() + " ViewID: "+view.getId());
+                        DisplayAttribus(cardList.get(currentIndex));
+                    }
 
 
                 }

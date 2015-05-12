@@ -2,7 +2,7 @@
 <resources>
 
 
-    <string name="hello_world">Hello Sabine and Daniel!</string>
+    <string name="hello_world">Hello Sabine!</string>
     <string name="action_settings">Settings</string>
     <string name="action_settings2">Close</string>
     <string name="txt_start">Start game</string>

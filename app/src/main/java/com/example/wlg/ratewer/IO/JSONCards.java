@@ -28,6 +28,9 @@ public class JSONCards
 
     private int imageId;
 
+    private int viewId;
+
+
 
     public int GetId()
     {
@@ -122,5 +125,15 @@ public class JSONCards
     public void SetWearGlasses(Boolean wearGlasses)
     {
         this.wearGlasses = wearGlasses;
+    }
+
+    public int GetViewId()
+    {
+        return viewId;
+    }
+
+    public void SetViewId(int viewId)
+    {
+        this.viewId = viewId;
     }
 }

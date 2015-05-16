@@ -7,9 +7,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +29,7 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class activity_board_question extends ActionBarActivity
@@ -32,6 +39,13 @@ public class activity_board_question extends ActionBarActivity
     private static List<PlayerController> players = new ArrayList<>();
     private static boolean HavePlayersSelectedWhoTheyAre = false;
     private static int currentPlayer = 0;
+
+
+    // menu:
+    private Animation animUp;
+    private Animation animDown;
+    private RelativeLayout rl;
+    private boolean isMenuVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +64,7 @@ public class activity_board_question extends ActionBarActivity
         if(cardList.size()>0)
         {
             System.out.println("cardList Groesse ist: "+cardList.size());
-            addButtonsDynamic(cardList, players);
+            addButtonsDynamic();
         }
         else
         {
@@ -58,6 +72,68 @@ public class activity_board_question extends ActionBarActivity
             System.out.println("Karten konnten nicht eingelesen werden");
         }
         // end of: set cards
+
+        MenuButton();
+
+
+    }
+
+    private void MenuButton()
+    {
+        /*
+        Spinner sp_menu = (Spinner) findViewById(R.id.sp_menu);
+
+        // fill spinner:
+        List<String> list = new ArrayList<String>();
+        list.add("Bart");
+        list.add("Brille");
+        list.add("list 3");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_menu.setAdapter(dataAdapter);
+*/
+
+        /*
+        // add menu
+        rl = (RelativeLayout) findViewById(R.id.menuUpDown);
+        rl.setMinimumHeight(500);
+        rl.setVisibility(View.GONE);
+        animUp = AnimationUtils.loadAnimation(this, R.anim.anim_up);
+        animDown = AnimationUtils.loadAnimation(this, R.anim.anim_down);
+
+
+        ////////////////////////////////////////////////
+
+        ImageButton ib = new ImageButton(this);
+
+        // android internal id to get access to image file in android
+        //int imageID;
+        //imageID = getResources().getIdentifier("drawable/menuicon30" , "drawable", getPackageName());
+        //ib.setImageResource(imageID);
+        ib.setClickable(true);
+
+        ib.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(isMenuVisible)
+                {
+                    rl.setVisibility(View.GONE);
+                }
+                else
+                {
+                    rl.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+        });
+
+        ///////////////////////////////////////////////////
+
+    */
     }
 
 
@@ -68,7 +144,61 @@ public class activity_board_question extends ActionBarActivity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
+
+
+        //the menu option text is defined in resources
+        menu.add(R.string.txt_menu_beard);
+        menu.add(R.string.txt_menu_isWoman);
+        menu.add(R.string.txt_menu_glasses);
+
+        //get a SubMenu reference
+        SubMenu sm = menu.addSubMenu(R.string.txt_menu_eye);
+        // get eyecolors dynamic from xml
+        HashSet <String> eyeColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
+        {
+            eyeColors.add(cardList.get(index).GetEye());
+        }
+        List<String> eyeColorsUnique = new ArrayList<>();
+        eyeColorsUnique.addAll(eyeColors);
+        for(int index=0; index < eyeColorsUnique.size(); index++)
+        {
+            //add menu items to the submenu
+            sm.add(eyeColorsUnique.get(index));
+        }
+        // End of: get eyecolors dynamic from xml
+
+
+        SubMenu smhair = menu.addSubMenu(R.string.txt_menu_hair);
+        //add menu items to the submenu
+        HashSet <String> hairColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
+        {
+            hairColors.add(cardList.get(index).GetHair());
+        }
+        List<String> hairColorsUnique = new ArrayList<>();
+        hairColorsUnique.addAll(hairColors);
+        for(int index=0; index < hairColorsUnique.size(); index++)
+        {
+            //add menu items to the submenu
+            smhair.add(hairColorsUnique.get(index));
+        }
+
+        //it is better to use final variables for IDs than constant values
+        //menu.add(Menu.NONE,1,Menu.NONE,"Exit");
+
+        //get the MenuItem reference
+        //MenuItem item = menu.add(Menu.NONE,ID_MENU_EXIT,Menu.NONE,R.string.exitOption);
+        //set the shortcut
+        //item.setShortcut('5', 'x');
+
+        //the menu option text is defined as constant String
+        //menu.add("Restart");
+
         return true;
+
+
+       // return true;
     }
 
     @Override
@@ -93,15 +223,15 @@ public class activity_board_question extends ActionBarActivity
 
 
     // maybe could be outsourced to Board.java
-    public boolean addButtonsDynamic(final List<JSONCards> _cardList, List<PlayerController> _players)
+    public boolean addButtonsDynamic()
     {
         // nothing to add -> nothing else to do
-        if(_cardList.size() < 1)
+        if(cardList.size() < 1)
         {
             return false;
         }
         final int COLUMN = Board.COLUMN_PER_ROW;
-        final int AMOUNT_OF_PERSON = _cardList.size();
+        final int AMOUNT_OF_PERSON = cardList.size();
 
         int rows = AMOUNT_OF_PERSON / COLUMN;
         if(rows < 1)
@@ -118,14 +248,14 @@ public class activity_board_question extends ActionBarActivity
         //Board board = new Board(_cardList.size()); // later in controller and there a function displayBoard(Board _board)
 
         // loop for all cards, new row after 6 cards
-        for (int currentCardID = 0; currentCardID < _cardList.size(); currentCardID++)
+        for (int currentCardID = 0; currentCardID < cardList.size(); currentCardID++)
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
 
             // android internal id to get access to image file in android
             int imageID;
-            imageID = getResources().getIdentifier("drawable/" + _cardList.get(currentCardID).GetImageName() , "drawable", getPackageName());
+            imageID = getResources().getIdentifier("drawable/" + cardList.get(currentCardID).GetImageName() , "drawable", getPackageName());
 
             System.out.println("Imageid " + currentCardID + " ist: " + imageID);
             ib.setClickable(true);
@@ -137,7 +267,7 @@ public class activity_board_question extends ActionBarActivity
 
             ib.setImageResource(imageID);
             // set image id in class to find it later
-            _cardList.get(currentCardID).SetImageId(imageID);
+            cardList.get(currentCardID).SetImageId(imageID);
 
             ib.setOnClickListener(new View.OnClickListener()
             {

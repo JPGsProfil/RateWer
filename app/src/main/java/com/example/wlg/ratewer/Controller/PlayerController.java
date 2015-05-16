@@ -7,11 +7,15 @@ public class PlayerController
 {
     private int ChosenCardId;
     private boolean isCPU;
+    private static int amountOfPlayers = 0;
+    private int playerID;
 
     public PlayerController()
     {
         ChosenCardId = -1;
         isCPU = false;
+        amountOfPlayers++;
+        playerID = amountOfPlayers;
     }
 
     public void ChooseQuestion()
@@ -31,7 +35,7 @@ public class PlayerController
     {
         this.isCPU = true;
         // for debugging
-        this.ChosencardId = 10;
+        this.ChosenCardId = 10;
     }
 
 
@@ -55,4 +59,12 @@ public class PlayerController
     {
         this.isCPU = isCPU;
     }
+
+    // id of the current player, starting by 1
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+
+
 }

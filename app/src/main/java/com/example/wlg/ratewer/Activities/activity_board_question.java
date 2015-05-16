@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.Board;
@@ -26,27 +28,36 @@ import java.util.List;
 public class activity_board_question extends ActionBarActivity
 {
 
-    static List<JSONCards> cardList = new ArrayList<>();
+    private static List<JSONCards> cardList = new ArrayList<>();
+    private static List<PlayerController> players = new ArrayList<>();
+    private static boolean HavePlayersSelectedWhoTheyAre = false;
+    private static int currentPlayer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
-        System.out.println("Nach setContentView");
+
+        // set player
+        players.add(new PlayerController());
+        players.add(new PlayerController());
+
+        // set cards
         cardList.clear();
         GetCardobjectsAsArray(cardList);
         System.out.println("Nach GetCardobjectsAsArray()");
         if(cardList.size()>0)
         {
             System.out.println("cardList Groesse ist: "+cardList.size());
-            addButtonsDynamic(cardList);
+            addButtonsDynamic(cardList, players);
         }
         else
         {
             // later replace with gui element, Karten sind addon
             System.out.println("Karten konnten nicht eingelesen werden");
         }
+        // end of: set cards
     }
 
 
@@ -82,7 +93,7 @@ public class activity_board_question extends ActionBarActivity
 
 
     // maybe could be outsourced to Board.java
-    public boolean addButtonsDynamic(final List<JSONCards> _cardList)
+    public boolean addButtonsDynamic(final List<JSONCards> _cardList, List<PlayerController> _players)
     {
         // nothing to add -> nothing else to do
         if(_cardList.size() < 1)
@@ -138,7 +149,7 @@ public class activity_board_question extends ActionBarActivity
                     System.out.println("id clicked: " + view.getId());
                     //System.out.println("KartenId2: " + cardList.get(view.getId() - 1).GetImageId() + " Name = " + cardList.get(view.getId() - 1).GetName());
                     //Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).GetName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
-                    //DisplayAttribus(cardList.get(view.getId() - 1));  // geht nicht, da durch den zurückbutton neue View-ID
+                    //DisplayAttribus(cardList.get(view.getId() - 1));  // geht nicht, da durch den zurueckbutton neue View-ID
 
                     int currentIndex = 0;
                     while (currentIndex < cardList.size() && cardList.get(currentIndex).GetViewId() != view.getId())
@@ -149,8 +160,18 @@ public class activity_board_question extends ActionBarActivity
 
                     if (currentCard != null)
                     {
-                        System.out.println("KartenViewId: " + currentCard.GetViewId() + " Name = " + currentCard.GetName() + " ViewID: "+view.getId());
-                        DisplayAttributes(cardList.get(currentIndex));
+                        // at the beginning choose which character you want to be, could be outsourced, but nearly same code
+                        if (!HavePlayersSelectedWhoTheyAre)
+                        {
+                            SelectWhoYouAre(cardList.get(currentIndex));
+
+                        }
+                        else
+                        {
+                            System.out.println("KartenViewId: " + currentCard.GetViewId() + " Name = " + currentCard.GetName() + " ViewID: " + view.getId());
+                            DisplayAttributes(cardList.get(currentIndex));
+                        }
+
                     }
 
                 }
@@ -187,22 +208,22 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    private void DisplayAttributes(JSONCards currentCards)
+    private void DisplayAttributes(JSONCards currentCard)
     {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
         // set title
-        alertDialogBuilder.setTitle(currentCards.GetName());
+        alertDialogBuilder.setTitle(currentCard.GetName());
 
         //System.out.println("Bin in Display");
         // set dialog message
         alertDialogBuilder
                 .setMessage("Eingenschaften:"
-                                + "\nGeschlecht: " + currentCards.GetGender()
-                                + "\nAuge: " + currentCards.GetEye()
-                                + "\nHaar: " + currentCards.GetHair()
-                                + "\nBrille: " + currentCards.IsWearGlasses()
-                                + "\nBart: " + currentCards.HasMoustache()
+                                + "\nGeschlecht: " + currentCard.GetGender()
+                                + "\nAuge: " + currentCard.GetEye()
+                                + "\nHaar: " + currentCard.GetHair()
+                                + "\nBrille: " + currentCard.IsWearGlasses()
+                                + "\nBart: " + currentCard.HasMoustache()
                 )
                 // not need to click ok to cancel alert, simply click outside the box
                 .setCancelable(true)
@@ -223,7 +244,67 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
+    private void SelectWhoYouAre(final JSONCards _currentCard)
+    {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
+        // set title
+        alertDialogBuilder.setTitle("Wer moechtest du sein?");
+
+        //System.out.println("Bin in Display");
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Moechtest du "+_currentCard.GetName()+" sein?")
+                        // choose yes or no
+                .setCancelable(false)
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        HavePlayersSelectedWhoTheyAre = true;
+                        players.get(currentPlayer).SetCardId(_currentCard.GetId());
+                        dialog.cancel();
+                        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+                        tv_title.setText("Spieler " + players.get(currentPlayer).GetPlayerID() + ": Mache deinen Zug!");
+                    }
+                })
+                .setNegativeButton("Nein", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.cancel();
+                    }
+                })
+        ;
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show alert
+        alertDialog.show();
+    }
+
+
+
+    // only working with two players
+    private boolean ChangeCurrentPlayer()
+    {
+        if(players.size()<2)
+        {
+            return false;
+        }
+        else
+        {
+            if(currentPlayer == 0)
+            {
+                currentPlayer = 1;
+            }
+            else
+            {
+                currentPlayer = 0;
+            }
+        }
+        return true;
+
+    }
 
 
 }

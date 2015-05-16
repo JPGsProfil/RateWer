@@ -5,12 +5,12 @@ package com.example.wlg.ratewer.Controller;
  */
 public class PlayerController
 {
-    private int ChosencardId;
+    private int ChosenCardId;
     private boolean isCPU;
 
     public PlayerController()
     {
-        ChosencardId = 1;
+        ChosenCardId = -1;
         isCPU = false;
     }
 
@@ -37,12 +37,12 @@ public class PlayerController
 
     public int GetCardId()
     {
-        return ChosencardId;
+        return ChosenCardId;
     }
 
     public void SetCardId(int cardId)
     {
-        this.ChosencardId = cardId;
+        this.ChosenCardId = cardId;
     }
 
 

@@ -1,7 +1,6 @@
 package com.example.wlg.ratewer.Activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,21 +9,21 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wlg.ratewer.Controller.PlayerController;
+import com.example.wlg.ratewer.IO.Attributes;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.R;
 import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -47,6 +46,9 @@ public class activity_board_question extends ActionBarActivity
     private RelativeLayout rl;
     private boolean isMenuVisible = false;
 
+    List<String> eyeColorsUnique = new ArrayList<>();
+    List<String> hairColorsUnique = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,6 +63,7 @@ public class activity_board_question extends ActionBarActivity
         cardList.clear();
         GetCardobjectsAsArray(cardList);
         System.out.println("Nach GetCardobjectsAsArray()");
+        SetUniqueEyeAndHairColors();
         if(cardList.size()>0)
         {
             System.out.println("cardList Groesse ist: "+cardList.size());
@@ -72,8 +75,37 @@ public class activity_board_question extends ActionBarActivity
             System.out.println("Karten konnten nicht eingelesen werden");
         }
         // end of: set cards
-
+        GetCards();
         MenuButton();
+
+
+    }
+
+
+
+
+    private void ListWithAttributes()
+    {
+        List<Attributes> attributList = new ArrayList<>();
+        attributList.add(new Attributes("Haare", "Haarfarbe"));
+    }
+
+
+    private void SetUniqueEyeAndHairColors()
+    {
+        HashSet <String> eyeColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
+        {
+            eyeColors.add(cardList.get(index).GetEye());
+        }
+        eyeColorsUnique.addAll(eyeColors);
+
+        HashSet <String> hairColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
+        {
+            hairColors.add(cardList.get(index).GetHair());
+        }
+        hairColorsUnique.addAll(hairColors);
 
 
     }
@@ -154,13 +186,7 @@ public class activity_board_question extends ActionBarActivity
         //get a SubMenu reference
         SubMenu sm = menu.addSubMenu(R.string.txt_menu_eye);
         // get eyecolors dynamic from xml
-        HashSet <String> eyeColors = new HashSet<String>();
-        for(int index=0; index < cardList.size(); index++)
-        {
-            eyeColors.add(cardList.get(index).GetEye());
-        }
-        List<String> eyeColorsUnique = new ArrayList<>();
-        eyeColorsUnique.addAll(eyeColors);
+
         for(int index=0; index < eyeColorsUnique.size(); index++)
         {
             //add menu items to the submenu
@@ -171,34 +197,16 @@ public class activity_board_question extends ActionBarActivity
 
         SubMenu smhair = menu.addSubMenu(R.string.txt_menu_hair);
         //add menu items to the submenu
-        HashSet <String> hairColors = new HashSet<String>();
-        for(int index=0; index < cardList.size(); index++)
-        {
-            hairColors.add(cardList.get(index).GetHair());
-        }
-        List<String> hairColorsUnique = new ArrayList<>();
-        hairColorsUnique.addAll(hairColors);
+
         for(int index=0; index < hairColorsUnique.size(); index++)
         {
             //add menu items to the submenu
             smhair.add(hairColorsUnique.get(index));
         }
 
-        //it is better to use final variables for IDs than constant values
-        //menu.add(Menu.NONE,1,Menu.NONE,"Exit");
-
-        //get the MenuItem reference
-        //MenuItem item = menu.add(Menu.NONE,ID_MENU_EXIT,Menu.NONE,R.string.exitOption);
-        //set the shortcut
-        //item.setShortcut('5', 'x');
-
-        //the menu option text is defined as constant String
-        //menu.add("Restart");
-
         return true;
 
 
-       // return true;
     }
 
     @Override
@@ -215,8 +223,17 @@ public class activity_board_question extends ActionBarActivity
             return true;
         }
 
+
+
+
+
+
         return super.onOptionsItemSelected(item);
+
     }
+
+
+
 
 
 
@@ -329,11 +346,55 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
+    private void GetCards()
+    {
+        List<Attributes> attriList = new ArrayList<>();
+
+
+        String jsonString = ReturnCardAttributesAsString();
+        System.out.println("jsonString "+jsonString);
+        try
+        {
+            JSONObject reader = new JSONObject(jsonString);
+            JSONObject attri  = reader.getJSONObject("attributes");
+            System.out.println("Nach getJSONObj(attributes)");
+            //for (int i=0; i < sys.length(); i++)
+            //{
+            //    JSONObject obj = sys.getJSONObject("");
+           //     System.out.println("Array: "+obj.toString());
+           // }
+            String hair = attri.getString("hair");
+            System.out.println("nach hair");
+            System.out.println("hair: "+hair);
+            //System.out.println("JObj: +sys.toString()");
+            JSONArray jArr = attri.getJSONArray("hair");
+            for (int i=0; i < jArr.length(); i++)
+            {
+               JSONObject obj = jArr.getJSONObject(i);
+                System.out.println("Array: "+obj.getString("haircolor"));
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
     // because later maybe different sets (chinese, latino, ... ) -> maybe different files
     private String ReturnJSONAsString()
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         InputStream is = getResources().openRawResource(R.raw.cards);
+        return FileToString.ReadTextFile(is);
+    }
+
+    private String ReturnCardAttributesAsString()
+    {
+        // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
+        InputStream is = getResources().openRawResource(R.raw.cardattributes);
         return FileToString.ReadTextFile(is);
     }
 

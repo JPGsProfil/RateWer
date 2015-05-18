@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 public class activity_board_question extends ActionBarActivity
@@ -357,6 +358,15 @@ public class activity_board_question extends ActionBarActivity
         {
             JSONObject reader = new JSONObject(jsonString);
             JSONObject attri  = reader.getJSONObject("attributes");
+            Iterator keys = attri.keys();
+            while (keys.hasNext())
+            {
+                String key = (String) keys.next();
+                System.out.println("Keys: "+key);
+            }
+
+
+
             System.out.println("Nach getJSONObj(attributes)");
             //for (int i=0; i < sys.length(); i++)
             //{

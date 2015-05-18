@@ -19,6 +19,7 @@ import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.Board;
+import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.R;
 import com.google.gson.Gson;
 
@@ -64,6 +65,8 @@ public class activity_board_question extends ActionBarActivity
 
         PlaceCardsOnField();
         m_Attribs = new AttributList(ReturnCardAttributesAsString());
+        CardList cardList2 = new CardList(ReturnJSONAsString());
+        System.out.println("Cardlist2: "+cardList2.m_cardList.size());
 
 
         //MenuButton();
@@ -93,13 +96,7 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    //private void ListWithAttributes()
-   // {
-    //    List<Attributes> attributList = new ArrayList<>();
-        //attributList.add(new Attributes("Haare", "Haarfarbe"));
-    //}
-
-
+    // later outdated, is in extra json
     private void SetUniqueEyeAndHairColors()
     {
         HashSet <String> eyeColors = new HashSet<String>();
@@ -118,66 +115,6 @@ public class activity_board_question extends ActionBarActivity
 
 
     }
-
-    //private void MenuButton()
-    //{
-        /*
-        Spinner sp_menu = (Spinner) findViewById(R.id.sp_menu);
-
-        // fill spinner:
-        List<String> list = new ArrayList<String>();
-        list.add("Bart");
-        list.add("Brille");
-        list.add("list 3");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_menu.setAdapter(dataAdapter);
-*/
-
-        /*
-        // add menu
-        rl = (RelativeLayout) findViewById(R.id.menuUpDown);
-        rl.setMinimumHeight(500);
-        rl.setVisibility(View.GONE);
-        animUp = AnimationUtils.loadAnimation(this, R.anim.anim_up);
-        animDown = AnimationUtils.loadAnimation(this, R.anim.anim_down);
-
-
-        ////////////////////////////////////////////////
-
-        ImageButton ib = new ImageButton(this);
-
-        // android internal id to get access to image file in android
-        //int imageID;
-        //imageID = getResources().getIdentifier("drawable/menuicon30" , "drawable", getPackageName());
-        //ib.setImageResource(imageID);
-        ib.setClickable(true);
-
-        ib.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if(isMenuVisible)
-                {
-                    rl.setVisibility(View.GONE);
-                }
-                else
-                {
-                    rl.setVisibility(View.VISIBLE);
-                }
-
-
-            }
-        });
-
-        ///////////////////////////////////////////////////
-
-    */
-    //}
-
-
 
 
     @Override
@@ -257,9 +194,8 @@ public class activity_board_question extends ActionBarActivity
         int rows = AMOUNT_OF_PERSON / COLUMN;
         if(rows < 1)
         {
-            rows = 1;
+            rows = 1;   // otherwhise exception
         }
-
         // Set the Grid Layout where the cards will be placed in
         GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
         gridCards.setColumnCount(COLUMN);
@@ -298,9 +234,6 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Begin onclick");
                     JSONCards currentCard = null;
                     System.out.println("id clicked: " + view.getId());
-                    //System.out.println("KartenId2: " + cardList.get(view.getId() - 1).GetImageId() + " Name = " + cardList.get(view.getId() - 1).GetName());
-                    //Toast.makeText(getApplicationContext(), "Du hast "+cardList.get(view.getId()-1).GetName()+" angeklickt!!!", Toast.LENGTH_SHORT).show();
-                    //DisplayAttribus(cardList.get(view.getId() - 1));  // geht nicht, da durch den zurueckbutton neue View-ID
 
                     int currentIndex = 0;
                     while (currentIndex < cardList.size() && cardList.get(currentIndex).GetViewId() != view.getId())
@@ -333,6 +266,8 @@ public class activity_board_question extends ActionBarActivity
         return true;
     }
 
+
+    // gson, outdated later
     private void GetCardobjectsAsArray(List<JSONCards> _cardList)
     {
 
@@ -349,13 +284,7 @@ public class activity_board_question extends ActionBarActivity
         //return cardList;
     }
 
-/*
-    private void GetAttributes()
-    {
-        String jsonString = ReturnCardAttributesAsString();
-        FileToString.GetAttributeList(jsonString);
-    }
-*/
+
 
 
     // because later maybe different sets (chinese, latino, ... ) -> maybe different files

@@ -1,0 +1,63 @@
+{
+  "attributes":
+  {
+  "hair": [
+	{
+	  "haircolor": "brown"
+	},
+	{
+	  "haircolor": "black"
+	},
+	{
+	  "haircolor": "blond"
+	},
+	{
+	  "haircolor": "none"
+	},
+	{
+	  "haircolor": "darkbrown"
+	}
+  ],
+  "eye": [
+	{
+	  "eyecolor": "brown"
+	},
+	{
+	  "eyecolor": "blond"
+	},
+	{
+	  "eyecolor": "black"
+	},
+	{
+	  "eyecolor": "blue"
+	},
+	{
+	  "eyecolor": "green"
+	}
+  ],
+  "moustache": [
+	{
+	  "hasMoustache": "yes"
+	},
+	{
+	  "hasMoustache": "no"
+	}
+  ],
+  "isWoman": [
+	{
+	  "isWoman": "yes"
+	},
+	{
+	  "isWoman": "no"
+	}
+  ],
+  "wearGlasses":[
+	{
+	  "isWearGlasses": "yes"
+	},
+	{
+	  "isWearGlasses": "no"
+	}
+  ]
+  }
+}

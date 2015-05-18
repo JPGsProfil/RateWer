@@ -88,7 +88,7 @@ public class activity_board_question extends ActionBarActivity
     private void ListWithAttributes()
     {
         List<Attributes> attributList = new ArrayList<>();
-        attributList.add(new Attributes("Haare", "Haarfarbe"));
+        //attributList.add(new Attributes("Haare", "Haarfarbe"));
     }
 
 
@@ -357,19 +357,30 @@ public class activity_board_question extends ActionBarActivity
         try
         {
             JSONObject reader = new JSONObject(jsonString);
-            JSONObject attri  = reader.getJSONObject("attributes");
-            Iterator keys = attri.keys();
-            while (keys.hasNext())
+            JSONObject jkategories  = reader.getJSONObject("attributes");
+
+            // Get questions
+            JSONObject jquestions = reader.getJSONObject("questionobj");
+            JSONArray jquestionsArray  = jquestions.getJSONArray("questions");
+
+            // end of: get questions
+
+
+            Iterator curCategoryIt = jkategories.keys();
+            int groupId = 1;
+            while (curCategoryIt.hasNext())
             {
-                String key = (String) keys.next();
-                System.out.println("Kathegory: "+key);
-                JSONArray values  = attri.getJSONArray(key);
+                String curCat = (String) curCategoryIt.next();
+                //System.out.println("Kathegory: "+curCat);
+                JSONArray values  = jkategories.getJSONArray(curCat);
                 for(int i=0;i<values.length(); i++)
                 {
                     String val = values.get(i).toString();
-                    System.out.println("values: " + val);
+                    System.out.println("Kathegory " + curCat + "  values: " + val + "  Groupid " + groupId);
+                    //attriList.add(new Attributes());
                 }
 
+                groupId++;
                 //Iterator ivalues = values.keys();
                 //while (keys.hasNext())
                 //{
@@ -381,22 +392,7 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-            //System.out.println("Nach getJSONObj(attributes)");
-            //for (int i=0; i < sys.length(); i++)
-            //{
-            //    JSONObject obj = sys.getJSONObject("");
-           //     System.out.println("Array: "+obj.toString());
-           // }
-            //String hair = attri.getString("hair");
-            //System.out.println("nach hair");
-            //System.out.println("hair: "+hair);
-            //System.out.println("JObj: +sys.toString()");
-           // JSONArray jArr = attri.getJSONArray("hair");
-            //for (int i=0; i < jArr.length(); i++)
-            //{
-            //   JSONObject obj = jArr.getJSONObject(i);
-            //    System.out.println("Array: "+obj.getString("haircolor"));
-           // }
+
 
         }
         catch (Exception e)

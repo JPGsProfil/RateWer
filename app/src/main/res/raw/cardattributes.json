@@ -9,7 +9,6 @@
 	  "blond",
 	  "darkbrown"
 	]
-
   ,
   "eye":
   [
@@ -33,5 +32,17 @@
   ["yes",
     "no"
   ]
+  },
+  "questionobj":
+  {
+    "questions":
+    [
+      "Welche Haarfarbe?",
+      "Welche Augenfarbe?",
+      "Hat Bart?",
+      "Ist Frau?",
+      "Trägt Brille?"
+    ]
   }
+
 }

@@ -1,0 +1,37 @@
+{
+  "attributes":
+  {
+  "hair":
+	[
+	  "brown",
+	  "black",
+	  "blond",
+	  "none",
+	  "darkbrown"
+	]
+
+  ,
+  "eye":
+  [
+	"brown",
+	"blond",
+	"black",
+	"blue",
+	"green"
+  ],
+  "moustache":
+  [
+	"yes",
+	"no"
+  ],
+  "isWoman":
+  [
+    "yes",
+    "no"
+  ],
+  "wearGlasses":
+  ["yes",
+    "no"
+  ]
+  }
+}

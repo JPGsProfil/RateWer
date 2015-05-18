@@ -362,27 +362,41 @@ public class activity_board_question extends ActionBarActivity
             while (keys.hasNext())
             {
                 String key = (String) keys.next();
-                System.out.println("Keys: "+key);
+                System.out.println("Kathegory: "+key);
+                JSONArray values  = attri.getJSONArray(key);
+                for(int i=0;i<values.length(); i++)
+                {
+                    String val = values.get(i).toString();
+                    System.out.println("values: " + val);
+                }
+
+                //Iterator ivalues = values.keys();
+                //while (keys.hasNext())
+                //{
+                //    String keyOfValues = (String) keys.next();
+                //    System.out.println("values: "+keyOfValues);
+                //}
+
             }
 
 
 
-            System.out.println("Nach getJSONObj(attributes)");
+            //System.out.println("Nach getJSONObj(attributes)");
             //for (int i=0; i < sys.length(); i++)
             //{
             //    JSONObject obj = sys.getJSONObject("");
            //     System.out.println("Array: "+obj.toString());
            // }
-            String hair = attri.getString("hair");
-            System.out.println("nach hair");
-            System.out.println("hair: "+hair);
+            //String hair = attri.getString("hair");
+            //System.out.println("nach hair");
+            //System.out.println("hair: "+hair);
             //System.out.println("JObj: +sys.toString()");
-            JSONArray jArr = attri.getJSONArray("hair");
-            for (int i=0; i < jArr.length(); i++)
-            {
-               JSONObject obj = jArr.getJSONObject(i);
-                System.out.println("Array: "+obj.getString("haircolor"));
-            }
+           // JSONArray jArr = attri.getJSONArray("hair");
+            //for (int i=0; i < jArr.length(); i++)
+            //{
+            //   JSONObject obj = jArr.getJSONObject(i);
+            //    System.out.println("Array: "+obj.getString("haircolor"));
+           // }
 
         }
         catch (Exception e)

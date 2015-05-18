@@ -40,6 +40,7 @@ public class activity_board_question extends ActionBarActivity
     private static List<PlayerController> players = new ArrayList<>();
     private static boolean HavePlayersSelectedWhoTheyAre = false;
     private static int currentPlayer = 0;
+    private static AttributList m_Attribs;
 
 
     // menu:
@@ -62,6 +63,7 @@ public class activity_board_question extends ActionBarActivity
         players.add(new PlayerController());
 
         PlaceCardsOnField();
+        m_Attribs = new AttributList(ReturnCardAttributesAsString());
 
 
         //MenuButton();
@@ -185,7 +187,7 @@ public class activity_board_question extends ActionBarActivity
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
 
 
-        AttributList m_Attribs = new AttributList(ReturnCardAttributesAsString());
+
 
         // dynamically add menue item
 
@@ -199,39 +201,11 @@ public class activity_board_question extends ActionBarActivity
             currGroupId= m_Attribs.attriList.get(index).groupId;
             while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
             {
-                sm.add(m_Attribs.attriList.get(index).attribute);
+                //sm.add(m_Attribs.attriList.get(index).attribute);
+                sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attribute);
                 index++;
             }
-
         }
-
-
-        //the menu option text is defined in resources
-        //menu.add(R.string.txt_menu_beard);
-        //menu.add(R.string.txt_menu_isWoman);
-        //menu.add(R.string.txt_menu_glasses);
-
-        //get a SubMenu reference
-        //SubMenu sm = menu.addSubMenu(R.string.txt_menu_eye);
-        // get eyecolors dynamic from xml
-
-        //for(int index=0; index < eyeColorsUnique.size(); index++)
-        //{
-            //add menu items to the submenu
-        //    sm.add(eyeColorsUnique.get(index));
-        //}
-        // End of: get eyecolors dynamic from xml
-
-
-        //SubMenu smhair = menu.addSubMenu(R.string.txt_menu_hair);
-        //add menu items to the submenu
-
-       // for(int index=0; index < hairColorsUnique.size(); index++)
-        //{
-            //add menu items to the submenu
-        //    smhair.add(hairColorsUnique.get(index));
-        //}
-
         return true;
 
 
@@ -244,6 +218,8 @@ public class activity_board_question extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        System.out.println("Selected id: "+item.getItemId());
+        System.out.println("zugehoeriges Item: "+m_Attribs.attriList.get(item.getItemId()).attribute);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)

@@ -53,17 +53,17 @@ public class CardList
                     String curCat = (String) curCardKeysIt.next();
                     String curValue = curCardobj.getString(curCat);
                     //System.out.println("curCat " + curCat + "   value: "+curValue);
-                    if(curCat=="name")
+                    if(curCat.equals("name"))
                     {
                         curName = curValue;
                     }
                     else
-                    if(curCat=="image")
+                    if(curCat.equals("image"))
                     {
                         curimage = curValue;
                     }
                     else
-                    if(curCat=="id")
+                    if(curCat.equals("id"))
                     {
                         curId = curValue;
                     }

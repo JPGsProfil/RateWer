@@ -25,6 +25,11 @@ public class Card
         attriList = new ArrayList<>();
         attriList = _attriList;
         image = _image;
+        if(_name.equals(""))
+        {
+            _name = "er";
+        }
+        name = _name;
     }
 
 }

@@ -13,6 +13,7 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
@@ -159,33 +160,47 @@ public class activity_board_question extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        System.out.println("Selected id: "+item.getItemId());
-        System.out.println("zugehoeriges Item: "+m_Attribs.attriList.get(item.getItemId()).attribute);
+       // System.out.println("Selected id: "+item.getItemId());
+       // System.out.println("zugehoeriges Item: "+m_Attribs.attriList.get(item.getItemId()).attribute);
         String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
         if(item.getItemId() > 0)
         {
             for (int index1=0; index1 < cardList2.m_cardList.size()-1; index1++)
             {
-                System.out.println("cardList2.m_cardList.size() "+cardList2.m_cardList.size());
-                 System.out.println("In for1:"+index1);
+                //System.out.println("cardList2.m_cardList.size() "+cardList2.m_cardList.size());
+                 //System.out.println("In for1:"+index1);
                 for(int index2=0; index2 < cardList2.m_cardList.get(index1).attriList.size()-1; index2++)
                 {
-                    System.out.println("cardList2.m_cardList.get(index1).attriList.size() "+cardList2.m_cardList.get(index1).attriList.size());
-                    System.out.println("In for2: index1: "+index1+ " index2: "+index2);
-                    System.out.println(" m_Attribs.attriList.get(item.getItemId()).kategory "+m_Attribs.attriList.get(item.getItemId()).kategory);
-                    System.out.println(" cardList2.m_cardList.get(index1).attriList.get(index1).attr "+cardList2.m_cardList.get(index1).attriList.get(index1).attr);
-                    if(cardList2.m_cardList.get(index1).attriList.get(index2).attr == m_Attribs.attriList.get(item.getItemId()).kategory)
+                    //System.out.println("cardList2.m_cardList.get(index1).attriList.size() "+cardList2.m_cardList.get(index1).attriList.size());
+                    //System.out.println("In for2: index1: "+index1+ " index2: "+index2);
+                    //System.out.println(" m_Attribs.attriList.get(item.getItemId()).kategory "+m_Attribs.attriList.get(item.getItemId()).kategory);
+                    //String attr = cardList2.m_cardList.get(index1).attriList.get(index2).attr;
+                    //String fromItem = m_Attribs.attriList.get(item.getItemId()).kategory;
+                    //System.out.println(" cardList2.m_cardList.get(index1).attriList.get(index1).attr "+cardList2.m_cardList.get(index1).attriList.get(index2).attr);
+                    if(cardList2.m_cardList.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(item.getItemId()).kategory))
                     {
-                        if(cardList2.m_cardList.get(index1).attriList.get(index2).value == m_Attribs.attriList.get(item.getItemId()).attribute)
+                        System.out.println("Bin in if");
+                        if(cardList2.m_cardList.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(item.getItemId()).attribute))
                         {
+                            System.out.println("Bin in if2");
                             personsWithSameValue +=cardList2.m_cardList.get(index1).name+"\n";
                             System.out.println("personsWithSameValue "+personsWithSameValue);
                             break;
                         }
+                        //else
+                        //{
+                        //    System.out.println(cardList2.m_cardList.get(index1).attriList.get(index2).value+ " != " + m_Attribs.attriList.get(item.getItemId()).attribute);
+                        //}
                     }
+                    //else
+                    //{
+                    //    System.out.println(m_Attribs.attriList.get(item.getItemId()).kategory +" != "
+                    //            + cardList2.m_cardList.get(index1).attriList.get(index2).attr);
+                    //}
                 }
             }
             System.out.println("Personen: "+personsWithSameValue);
+            Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
         }
 
 

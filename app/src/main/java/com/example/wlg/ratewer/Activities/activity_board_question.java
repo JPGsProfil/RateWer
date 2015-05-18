@@ -15,9 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Controller.PlayerController;
-import com.example.wlg.ratewer.IO.Attributes;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.IO.JSONCards;
+import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.R;
 import com.google.gson.Gson;
@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,10 +43,10 @@ public class activity_board_question extends ActionBarActivity
 
 
     // menu:
-    private Animation animUp;
-    private Animation animDown;
-    private RelativeLayout rl;
-    private boolean isMenuVisible = false;
+    //private Animation animUp;
+    //private Animation animDown;
+    //private RelativeLayout rl;
+    //private boolean isMenuVisible = false;
 
     List<String> eyeColorsUnique = new ArrayList<>();
     List<String> hairColorsUnique = new ArrayList<>();
@@ -60,6 +61,17 @@ public class activity_board_question extends ActionBarActivity
         players.add(new PlayerController());
         players.add(new PlayerController());
 
+        PlaceCardsOnField();
+
+
+        //MenuButton();
+
+
+    }
+
+    // called at beginning of increate
+    private void PlaceCardsOnField()
+    {
         // set cards
         cardList.clear();
         GetCardobjectsAsArray(cardList);
@@ -76,20 +88,14 @@ public class activity_board_question extends ActionBarActivity
             System.out.println("Karten konnten nicht eingelesen werden");
         }
         // end of: set cards
-        GetCards();
-        MenuButton();
-
-
     }
 
 
-
-
-    private void ListWithAttributes()
-    {
-        List<Attributes> attributList = new ArrayList<>();
+    //private void ListWithAttributes()
+   // {
+    //    List<Attributes> attributList = new ArrayList<>();
         //attributList.add(new Attributes("Haare", "Haarfarbe"));
-    }
+    //}
 
 
     private void SetUniqueEyeAndHairColors()
@@ -111,8 +117,8 @@ public class activity_board_question extends ActionBarActivity
 
     }
 
-    private void MenuButton()
-    {
+    //private void MenuButton()
+    //{
         /*
         Spinner sp_menu = (Spinner) findViewById(R.id.sp_menu);
 
@@ -167,7 +173,7 @@ public class activity_board_question extends ActionBarActivity
         ///////////////////////////////////////////////////
 
     */
-    }
+    //}
 
 
 
@@ -179,31 +185,52 @@ public class activity_board_question extends ActionBarActivity
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
 
 
+        AttributList m_Attribs = new AttributList(ReturnCardAttributesAsString());
+
+        // dynamically add menue item
+
+        // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
+
+        int currGroupId = -1;
+        for (int index = 0; index < m_Attribs.attriList.size();)
+        {
+            SubMenu sm = menu.addSubMenu(m_Attribs.attriList.get(index).question);
+            String que = m_Attribs.attriList.get(index).question;
+            currGroupId= m_Attribs.attriList.get(index).groupId;
+            while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+            {
+                sm.add(m_Attribs.attriList.get(index).attribute);
+                index++;
+            }
+
+        }
+
+
         //the menu option text is defined in resources
-        menu.add(R.string.txt_menu_beard);
-        menu.add(R.string.txt_menu_isWoman);
-        menu.add(R.string.txt_menu_glasses);
+        //menu.add(R.string.txt_menu_beard);
+        //menu.add(R.string.txt_menu_isWoman);
+        //menu.add(R.string.txt_menu_glasses);
 
         //get a SubMenu reference
-        SubMenu sm = menu.addSubMenu(R.string.txt_menu_eye);
+        //SubMenu sm = menu.addSubMenu(R.string.txt_menu_eye);
         // get eyecolors dynamic from xml
 
-        for(int index=0; index < eyeColorsUnique.size(); index++)
-        {
+        //for(int index=0; index < eyeColorsUnique.size(); index++)
+        //{
             //add menu items to the submenu
-            sm.add(eyeColorsUnique.get(index));
-        }
+        //    sm.add(eyeColorsUnique.get(index));
+        //}
         // End of: get eyecolors dynamic from xml
 
 
-        SubMenu smhair = menu.addSubMenu(R.string.txt_menu_hair);
+        //SubMenu smhair = menu.addSubMenu(R.string.txt_menu_hair);
         //add menu items to the submenu
 
-        for(int index=0; index < hairColorsUnique.size(); index++)
-        {
+       // for(int index=0; index < hairColorsUnique.size(); index++)
+        //{
             //add menu items to the submenu
-            smhair.add(hairColorsUnique.get(index));
-        }
+        //    smhair.add(hairColorsUnique.get(index));
+        //}
 
         return true;
 
@@ -346,61 +373,13 @@ public class activity_board_question extends ActionBarActivity
         //return cardList;
     }
 
-
-    private void GetCards()
+/*
+    private void GetAttributes()
     {
-        List<Attributes> attriList = new ArrayList<>();
-
-
         String jsonString = ReturnCardAttributesAsString();
-        System.out.println("jsonString "+jsonString);
-        try
-        {
-            JSONObject reader = new JSONObject(jsonString);
-            JSONObject jkategories  = reader.getJSONObject("attributes");
-
-            // Get questions
-            JSONObject jquestions = reader.getJSONObject("questionobj");
-            JSONArray jquestionsArray  = jquestions.getJSONArray("questions");
-
-            // end of: get questions
-
-
-            Iterator curCategoryIt = jkategories.keys();
-            int groupId = 1;
-            while (curCategoryIt.hasNext())
-            {
-                String curCat = (String) curCategoryIt.next();
-                //System.out.println("Kathegory: "+curCat);
-                JSONArray values  = jkategories.getJSONArray(curCat);
-                for(int i=0;i<values.length(); i++)
-                {
-                    String val = values.get(i).toString();
-                    System.out.println("Kathegory " + curCat + "  values: " + val + "  Groupid " + groupId);
-                    //attriList.add(new Attributes());
-                }
-
-                groupId++;
-                //Iterator ivalues = values.keys();
-                //while (keys.hasNext())
-                //{
-                //    String keyOfValues = (String) keys.next();
-                //    System.out.println("values: "+keyOfValues);
-                //}
-
-            }
-
-
-
-
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
+        FileToString.GetAttributeList(jsonString);
     }
+*/
 
 
     // because later maybe different sets (chinese, latino, ... ) -> maybe different files

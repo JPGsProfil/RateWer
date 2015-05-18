@@ -5,8 +5,12 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,6 +21,8 @@ import java.util.List;
 public class Board
 {
     public static final int COLUMN_PER_ROW = 4;   // later dynamic or depending on oriantation
+
+
    // public static final int AMOUNT_OF_PERSON = 24;
     // list for random placed cards (order)
     /*

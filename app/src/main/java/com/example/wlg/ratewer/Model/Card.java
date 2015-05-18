@@ -6,4 +6,5 @@ package com.example.wlg.ratewer.Model;
 public class Card
 {
 
+
 }

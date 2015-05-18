@@ -44,6 +44,9 @@ public class activity_board_question extends ActionBarActivity
     private static AttributList m_Attribs;
 
 
+    private static CardList cardList2;
+
+
     // menu:
     //private Animation animUp;
     //private Animation animDown;
@@ -65,8 +68,9 @@ public class activity_board_question extends ActionBarActivity
 
         PlaceCardsOnField();
         m_Attribs = new AttributList(ReturnCardAttributesAsString());
-        CardList cardList2 = new CardList(ReturnJSONAsString());
-        System.out.println("Cardlist2: "+cardList2.m_cardList.size());
+        cardList2 = new CardList(ReturnJSONAsString());
+        System.out.println("Cardlist2: " + cardList2.m_cardList.size());
+        System.out.println("Testwert: "+ cardList2.m_cardList.get(2).attriList.get(2).attr);
 
 
         //MenuButton();
@@ -157,6 +161,36 @@ public class activity_board_question extends ActionBarActivity
         int id = item.getItemId();
         System.out.println("Selected id: "+item.getItemId());
         System.out.println("zugehoeriges Item: "+m_Attribs.attriList.get(item.getItemId()).attribute);
+        String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
+        if(item.getItemId() > 0)
+        {
+            for (int index1=0; index1 < cardList2.m_cardList.size()-1; index1++)
+            {
+                System.out.println("cardList2.m_cardList.size() "+cardList2.m_cardList.size());
+                 System.out.println("In for1:"+index1);
+                for(int index2=0; index2 < cardList2.m_cardList.get(index1).attriList.size()-1; index2++)
+                {
+                    System.out.println("cardList2.m_cardList.get(index1).attriList.size() "+cardList2.m_cardList.get(index1).attriList.size());
+                    System.out.println("In for2: index1: "+index1+ " index2: "+index2);
+                    System.out.println(" m_Attribs.attriList.get(item.getItemId()).kategory "+m_Attribs.attriList.get(item.getItemId()).kategory);
+                    System.out.println(" cardList2.m_cardList.get(index1).attriList.get(index1).attr "+cardList2.m_cardList.get(index1).attriList.get(index1).attr);
+                    if(cardList2.m_cardList.get(index1).attriList.get(index2).attr == m_Attribs.attriList.get(item.getItemId()).kategory)
+                    {
+                        if(cardList2.m_cardList.get(index1).attriList.get(index2).value == m_Attribs.attriList.get(item.getItemId()).attribute)
+                        {
+                            personsWithSameValue +=cardList2.m_cardList.get(index1).name+"\n";
+                            System.out.println("personsWithSameValue "+personsWithSameValue);
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println("Personen: "+personsWithSameValue);
+        }
+
+
+
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)

@@ -11,18 +11,20 @@ public class Card
     private static int INIT_ID = 0;
     public int id;
     public String name;
+    public String image;
     public List<AttribValue> attriList;
     //public String kategory;
     //public int androidId;
     //public int groupId;
 
-    public Card( String _name,  List<AttribValue> _attriList)
+    public Card( String _name, String _image, List<AttribValue> _attriList)
     {
         INIT_ID ++;
         id          = INIT_ID;
         //groupId     = _groupId;
         attriList = new ArrayList<>();
         attriList = _attriList;
+        image = _image;
     }
 
 }

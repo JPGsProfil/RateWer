@@ -23,6 +23,11 @@ public class CardList
         FillCardList(jsonCardString);
     }
 
+    public int GetLenght()
+    {
+        return m_cardList.size();
+    }
+
 
     private void FillCardList(String _jsonCardString)
     {
@@ -32,69 +37,46 @@ public class CardList
             JSONArray allCards = new JSONArray(_jsonCardString);
             for(int index = 0; index < allCards.length(); index ++)
             {
-                String cardStri = allCards.get(index).toString();
+                //Card curCard = new Card();
+                //String cardStri = allCards.get(index).toString();
                 //System.out.println("cardstri[i] " + cardStri);
-                JSONObject curCard = new JSONObject(allCards.get(index).toString());
-                Iterator curCardKeysIt = curCard.keys();
+                String curName = "";
+                String curimage = "";
+                String curId = "0";
+                List<AttribValue> curAttrValueList = new ArrayList<>();
+
+                JSONObject curCardobj = new JSONObject(allCards.get(index).toString());
+                Iterator curCardKeysIt = curCardobj.keys();
                 //Iterator curCardValueIt = ;
                 while (curCardKeysIt.hasNext())
                 {
                     String curCat = (String) curCardKeysIt.next();
-                    String curValue = curCard.getString(curCat);
+                    String curValue = curCardobj.getString(curCat);
                     //System.out.println("curCat " + curCat + "   value: "+curValue);
-                    AttribValue curAttribValue = new AttribValue(curCat,curValue);
-                    //m_cardList.add(new Card())
-                }
-
-                //JSONObject jkategories  = reader.getJSONObject("attributes");
-            }
-/*
-            JSONObject reader = new JSONObject(_jsonCardString);
-            JSONObject jkategories  = reader.getJSONObject("attributes");
-
-            // Get questions
-            JSONObject jquestions = reader.getJSONObject("questionobj");
-            JSONArray jquestionsArray  = jquestions.getJSONArray("questions");
-
-            // end of: get questions
-
-
-            Iterator curCategoryIt = jkategories.keys();
-            int groupId = 1;
-            while (curCategoryIt.hasNext())
-            {
-                String curCat = (String) curCategoryIt.next();
-                //System.out.println("Kathegory: "+curCat);
-                String question = jquestionsArray.get(groupId-1).toString();
-                JSONArray values  = jkategories.getJSONArray(curCat);
-                for(int i=0;i<values.length(); i++)
-                {
-                    String val = values.get(i).toString();
-                    System.out.println("Kathegory " + curCat + "  values: " + val + "  Groupid " + groupId);
-                    if( jquestionsArray.length() >= groupId)
+                    if(curCat=="name")
                     {
-                        //System.out.println("Bin in if jquestionobj, Laenge: "+jquestionsArray.length());
-                        // regular add (should be called always, otherwhise json file not correct
-                        // System.out.println("question3: "+question + " val: "+val);
-                        attriList.add(new Attributes(curCat, val, question ,groupId));
+                        curName = curValue;
+                    }
+                    else
+                    if(curCat=="image")
+                    {
+                        curimage = curValue;
+                    }
+                    else
+                    if(curCat=="id")
+                    {
+                        curId = curValue;
                     }
                     else
                     {
-                        // System.out.println("Bin in else jquestionobj");
-                        // json file incorrect, fill Question with "Frage 1,2,3,...)
-                        String Frage = "Frage"+i;
-                        attriList.add(new Attributes(curCat, val,Frage,groupId));
+                        AttribValue curAttribValue = new AttribValue(curCat,curValue);
+                        curAttrValueList.add(curAttribValue);
                     }
 
                 }
-
-                groupId++;
-
+                Card curCard = new Card(curName,curimage,curAttrValueList);
+                m_cardList.add(curCard);
             }
-
-
-            //System.out.println("Attrisize: "+attriList.size());
-*/
 
         }
         catch (Exception e)

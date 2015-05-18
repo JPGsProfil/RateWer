@@ -15,3 +15,6 @@ done:
 Speicherproblem -> Überbleibsel wenn zurück button und neues Spiel
 -> Speicherfreigabe nach zurück-button sicherstellen, weil wenn zu oft -> Absturz
 activity beenden oder so
+
+id auf -1 bei optionsmenü items die unwichtig sind,
+dann index bei 0 statt 1 beginnen (ansonten fehlen Elemente)

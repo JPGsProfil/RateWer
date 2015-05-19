@@ -70,8 +70,9 @@ public class activity_board_question extends ActionBarActivity
         PlaceCardsOnField();
         m_Attribs = new AttributList(ReturnCardAttributesAsString());
         cardList2 = new CardList(ReturnJSONAsString());
-        System.out.println("Cardlist2: " + cardList2.m_cardList.size());
-        System.out.println("Testwert: "+ cardList2.m_cardList.get(2).attriList.get(2).attr);
+
+                System.out.println("Cardlist2: " + cardList2.m_List.size());
+        System.out.println("Testwert: "+ cardList2.m_List.get(2).attriList.get(2).attr);
 
 
         //MenuButton();
@@ -190,25 +191,25 @@ public class activity_board_question extends ActionBarActivity
         String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
         if(item.getItemId() >= 0)
         {
-            for (int index1=0; index1 < cardList2.m_cardList.size()-1; index1++)
+            for (int index1=0; index1 < cardList2.m_List.size()-1; index1++)
             {
-                //System.out.println("cardList2.m_cardList.size() "+cardList2.m_cardList.size());
+                //System.out.println("cardList2.m_List.size() "+cardList2.m_List.size());
                  //System.out.println("In for1:"+index1);
-                for(int index2=0; index2 < cardList2.m_cardList.get(index1).attriList.size()-1; index2++)
+                for(int index2=0; index2 < cardList2.m_List.get(index1).attriList.size()-1; index2++)
                 {
-                    //System.out.println("cardList2.m_cardList.get(index1).attriList.size() "+cardList2.m_cardList.get(index1).attriList.size());
+                    //System.out.println("cardList2.m_List.get(index1).attriList.size() "+cardList2.m_List.get(index1).attriList.size());
                     //System.out.println("In for2: index1: "+index1+ " index2: "+index2);
                     //System.out.println(" m_Attribs.attriList.get(item.getItemId()).kategory "+m_Attribs.attriList.get(item.getItemId()).kategory);
-                    //String attr = cardList2.m_cardList.get(index1).attriList.get(index2).attr;
+                    //String attr = cardList2.m_List.get(index1).attriList.get(index2).attr;
                     //String fromItem = m_Attribs.attriList.get(item.getItemId()).kategory;
-                    //System.out.println(" cardList2.m_cardList.get(index1).attriList.get(index1).attr "+cardList2.m_cardList.get(index1).attriList.get(index2).attr);
-                    if(cardList2.m_cardList.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(item.getItemId()).kategory))
+                    //System.out.println(" cardList2.m_List.get(index1).attriList.get(index1).attr "+cardList2.m_List.get(index1).attriList.get(index2).attr);
+                    if(cardList2.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(item.getItemId()).kategory))
                     {
                         System.out.println("Bin in if");
-                        if(cardList2.m_cardList.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(item.getItemId()).attribute))
+                        if(cardList2.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(item.getItemId()).attribute))
                         {
                             System.out.println("Bin in if2");
-                            personsWithSameValue +=cardList2.m_cardList.get(index1).name+"\n";
+                            personsWithSameValue +=cardList2.m_List.get(index1).name+"\n";
                             System.out.println("personsWithSameValue "+personsWithSameValue);
                             // only funny:
                             //if(m_Attribs.attriList.get(item.getItemId()).id == players.get(GetIndexForNextPlayer()).GetCardId())
@@ -219,13 +220,13 @@ public class activity_board_question extends ActionBarActivity
                         }
                         //else
                         //{
-                        //    System.out.println(cardList2.m_cardList.get(index1).attriList.get(index2).value+ " != " + m_Attribs.attriList.get(item.getItemId()).attribute);
+                        //    System.out.println(cardList2.m_List.get(index1).attriList.get(index2).value+ " != " + m_Attribs.attriList.get(item.getItemId()).attribute);
                         //}
                     }
                     //else
                     //{
                     //    System.out.println(m_Attribs.attriList.get(item.getItemId()).kategory +" != "
-                    //            + cardList2.m_cardList.get(index1).attriList.get(index2).attr);
+                    //            + cardList2.m_List.get(index1).attriList.get(index2).attr);
                     //}
                 }
             }
@@ -423,7 +424,7 @@ public class activity_board_question extends ActionBarActivity
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
         // set title
-        alertDialogBuilder.setTitle("Wer moechtest du sein?");
+        alertDialogBuilder.setTitle("Wer möchtest du sein?");
 
         //System.out.println("Bin in Display");
         // set dialog message

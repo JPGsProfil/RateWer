@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,25 +15,31 @@ import java.util.List;
  */
 public class CardList
 {
-    public List<Card> m_cardList;
+    public List<Card> m_List;
     private String jsonCardString;
 
     public CardList(String _jsonCardString)
     {
-        m_cardList = new ArrayList<>();
+        m_List = new ArrayList<>();
         jsonCardString = _jsonCardString;
         FillCardList(jsonCardString);
+        ShuffleList();
+    }
+
+    private void ShuffleList()
+    {
+        Collections.shuffle(m_List);
     }
 
     public int GetLenght()
     {
-        return m_cardList.size();
+        return m_List.size();
     }
 
 
     private void FillCardList(String _jsonCardString)
     {
-        System.out.println("jsonString "+_jsonCardString);
+        //System.out.println("jsonString "+_jsonCardString);
         try
         {
             JSONArray allCards = new JSONArray(_jsonCardString);
@@ -88,7 +96,7 @@ public class CardList
 
                 }
                 Card curCard = new Card(curName,curimage,curAttrValueList);
-                m_cardList.add(curCard);
+                m_List.add(curCard);
             }
 
         }

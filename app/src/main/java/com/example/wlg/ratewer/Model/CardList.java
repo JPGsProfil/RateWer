@@ -53,9 +53,6 @@ public class CardList
             JSONArray allCards = new JSONArray(_jsonCardString);
             for(int index = 0; index < allCards.length(); index ++)
             {
-                //Card curCard = new Card();
-                //String cardStri = allCards.get(index).toString();
-                //System.out.println("cardstri[i] " + cardStri);
                 String curName = "";
                 String curimage = "";
                 String curId = "0";
@@ -101,7 +98,6 @@ public class CardList
                         AttribValue curAttribValue = new AttribValue(curCat,curValue);
                         curAttrValueList.add(curAttribValue);
                     }
-
                 }
                 Card curCard = new Card(curName,curimage,curAttrValueList);
                 m_List.add(curCard);
@@ -112,10 +108,5 @@ public class CardList
         {
             e.printStackTrace();
         }
-
-
     }
-
-
-
 }

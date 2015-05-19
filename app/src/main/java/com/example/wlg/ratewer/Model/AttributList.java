@@ -26,7 +26,7 @@ public class AttributList
 
     private void FillAttributeList(String jsonAttriString)
     {
-        System.out.println("jsonString "+jsonAttriString);
+        //System.out.println("jsonString "+jsonAttriString);
         try
         {
             JSONObject reader = new JSONObject(jsonAttriString);
@@ -53,27 +53,18 @@ public class AttributList
                     System.out.println("Kathegory " + curCat + "  values: " + val + "  Groupid " + groupId);
                     if( jquestionsArray.length() >= groupId)
                     {
-                        //System.out.println("Bin in if jquestionobj, Laenge: "+jquestionsArray.length());
-                        // regular add (should be called always, otherwhise json file not correct
-                       // System.out.println("question3: "+question + " val: "+val);
                         attriList.add(new StringsToDisplayAttributs(curCat, val, question ,groupId));
                     }
                     else
                     {
-                       // System.out.println("Bin in else jquestionobj");
                         // json file incorrect, fill Question with "Frage 1,2,3,...)
                         String Frage = "Frage"+i;
                         attriList.add(new StringsToDisplayAttributs(curCat, val,Frage,groupId));
                     }
-
                 }
-
                 groupId++;
-
             }
 
-
-            //System.out.println("Attrisize: "+attriList.size());
 
 
         }

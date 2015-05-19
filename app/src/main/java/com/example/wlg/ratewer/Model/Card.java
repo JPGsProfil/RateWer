@@ -15,9 +15,6 @@ public class Card
     public int viewID;
     public int imageID;
     public List<AttribValue> attriList;
-    //public String kategory;
-    //public int androidId;
-    //public int groupId;
 
     public Card( String _name, String _image, List<AttribValue> _attriList)
     {

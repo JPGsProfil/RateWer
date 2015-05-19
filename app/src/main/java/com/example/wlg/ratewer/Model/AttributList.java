@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class AttributList
 {
-    public List<Attributes> attriList = new ArrayList<>();
+    public List<StringsToDisplayAttributs> attriList = new ArrayList<>();
 
 
     private String jsonAttriString;
@@ -56,14 +56,14 @@ public class AttributList
                         //System.out.println("Bin in if jquestionobj, Laenge: "+jquestionsArray.length());
                         // regular add (should be called always, otherwhise json file not correct
                        // System.out.println("question3: "+question + " val: "+val);
-                        attriList.add(new Attributes(curCat, val, question ,groupId));
+                        attriList.add(new StringsToDisplayAttributs(curCat, val, question ,groupId));
                     }
                     else
                     {
                        // System.out.println("Bin in else jquestionobj");
                         // json file incorrect, fill Question with "Frage 1,2,3,...)
                         String Frage = "Frage"+i;
-                        attriList.add(new Attributes(curCat, val,Frage,groupId));
+                        attriList.add(new StringsToDisplayAttributs(curCat, val,Frage,groupId));
                     }
 
                 }

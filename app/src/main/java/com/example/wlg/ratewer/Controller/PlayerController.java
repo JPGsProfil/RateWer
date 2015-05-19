@@ -1,21 +1,28 @@
 package com.example.wlg.ratewer.Controller;
 
+import com.example.wlg.ratewer.Model.PlayerInformation;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jean on 21.04.2015.
  */
 public class PlayerController
 {
-    private int ChosenCardId;
-    private boolean isCPU;
-    private static int amountOfPlayers = 0;
-    private int playerID;
+    private int currentPlayerIndex = 0;
+    private static List<PlayerInformation> players = new ArrayList<>();
 
     public PlayerController()
     {
-        ChosenCardId = -1;
-        isCPU = false;
-        amountOfPlayers++;
-        playerID = amountOfPlayers;
+        // maybe later more than two player
+        for (int i=0; i<2; i++)
+        {
+            PlayerInformation newPlayer = new PlayerInformation();
+            players.add(newPlayer);
+        }
+        players.get(1).SetToAI();
+
     }
 
     public void ChooseQuestion()
@@ -31,39 +38,54 @@ public class PlayerController
 
     }
 
-    public void SetToCPU()
+
+
+    // only working with two players
+    private boolean ChangeCurrentPlayer()
     {
-        this.isCPU = true;
-        // for debugging
-        this.ChosenCardId = 10;
+        if(players.size()<2)
+        {
+            return false;
+        }
+        else
+        {
+            if(currentPlayerIndex == 0)
+            {
+                currentPlayerIndex = 1;
+            }
+            else
+            {
+                currentPlayerIndex = 0;
+            }
+        }
+        return true;
+
     }
 
 
-    public int GetCardId()
+
+    private int GetIndexForNextPlayer()
     {
-        return ChosenCardId;
+        if(currentPlayerIndex == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
-    public void SetCardId(int cardId)
+    private void SetIndexForNextPlayer()
     {
-        this.ChosenCardId = cardId;
-    }
-
-
-    public boolean IsCPU()
-    {
-        return isCPU;
-    }
-
-    public void SetIsCPU(boolean isCPU)
-    {
-        this.isCPU = isCPU;
-    }
-
-    // id of the current player, starting by 1
-    public int GetPlayerID()
-    {
-        return playerID;
+        if(currentPlayerIndex == 0)
+        {
+            currentPlayerIndex = 1;
+        }
+        else
+        {
+            currentPlayerIndex = 0;
+        }
     }
 
 

@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
-import com.example.wlg.ratewer.IO.JSONCards;
 import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.Model.Card;
@@ -40,9 +39,8 @@ public class activity_board_question extends ActionBarActivity
 {
 
     //private static List<JSONCards> cardList = new ArrayList<>();
-    private static List<PlayerController> players = new ArrayList<>();
+
     private static boolean HavePlayersSelectedWhoTheyAre = false;
-    private static int currentPlayerIndex = 0;
     private static AttributList m_Attribs;
 
 
@@ -65,14 +63,12 @@ public class activity_board_question extends ActionBarActivity
         setContentView(R.layout.activity_activity_board_question);
 
         // set player
-        players.add(new PlayerController());
-        players.add(new PlayerController());
-        cardList2 = new CardList(ReturnJSONAsString());
+        //players.add(new PlayerController());
+        //players.add(new PlayerController());
+        cardList2 = new CardList(ReturnCardJSONAsString());
         PlaceCardsOnField();
         m_Attribs = new AttributList(ReturnCardAttributesAsString());
-
-
-                System.out.println("Cardlist2: " + cardList2.m_List.size());
+        System.out.println("Cardlist2: " + cardList2.m_List.size());
         System.out.println("Testwert: "+ cardList2.m_List.get(2).attriList.get(2).attr);
 
 
@@ -81,39 +77,10 @@ public class activity_board_question extends ActionBarActivity
 
     }
 
-    private int GetIndexForNextPlayer()
-    {
-        if(currentPlayerIndex == 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    private void SetIndexForNextPlayer()
-    {
-        if(currentPlayerIndex == 0)
-        {
-            currentPlayerIndex = 1;
-        }
-        else
-        {
-            currentPlayerIndex = 0;
-        }
-    }
-
     // called at beginning of increate
     private void PlaceCardsOnField()
     {
         // set cards
-        //cardList.clear();
-        //GetCardobjectsAsArray(cardList);
-        System.out.println("Nach GetCardobjectsAsArray()");
-        //SetUniqueEyeAndHairColors();
-
         if(cardList2.GetSize()>0)
         {
             //System.out.println("cardList Groesse ist: "+cardList.size());
@@ -122,41 +89,19 @@ public class activity_board_question extends ActionBarActivity
         else
         {
             // later replace with gui element, Karten sind addon
-            System.out.println("Karten konnten nicht eingelesen werden");
+            String error = "Karten konnten nicht eingelesen werden";
+            System.out.println(error);
+            Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
         }
         // end of: set cards
     }
 
-/*
-    // later outdated, is in extra json
-    private void SetUniqueEyeAndHairColors()
-    {
-        HashSet <String> eyeColors = new HashSet<String>();
-        for(int index=0; index < cardList.size(); index++)
-        {
-            eyeColors.add(cardList.get(index).GetEye());
-        }
-        eyeColorsUnique.addAll(eyeColors);
-
-        HashSet <String> hairColors = new HashSet<String>();
-        for(int index=0; index < cardList.size(); index++)
-        {
-            hairColors.add(cardList.get(index).GetHair());
-        }
-        hairColorsUnique.addAll(hairColors);
-
-
-    }
-*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
-
-
-
 
         // dynamically add menue item
 
@@ -177,8 +122,6 @@ public class activity_board_question extends ActionBarActivity
             }
         }
         return true;
-
-
     }
 
     @Override
@@ -238,18 +181,11 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
             return true;
         }
-
-
-
-
-
 
         return super.onOptionsItemSelected(item);
 
@@ -313,10 +249,11 @@ public class activity_board_question extends ActionBarActivity
                 @Override
                 public void onClick(View view)
                 {
-                    //System.out.println("Begin onclick");
+                    // map clicked id with card from cardlist
                     Card currentCard = null;
                     System.out.println("id clicked: " + view.getId());
 
+                    // map clicked id with card from cardlist -> iterate cardlist
                     int currentIndex = 0;
                     while (currentIndex < cardList2.GetSize() && cardList2.m_List.get(currentIndex).viewID != view.getId())
                     {
@@ -330,16 +267,13 @@ public class activity_board_question extends ActionBarActivity
                         if (!HavePlayersSelectedWhoTheyAre)
                         {
                             SelectWhoYouAre(cardList2.m_List.get(currentIndex));
-
                         }
-                        else
+                        else    // player selected who he want to be -> now onclick to view details
                         {
                             System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
                             DisplayAttributes(cardList2.m_List.get(currentIndex));
                         }
-
                     }
-
                 }
             });
             // place the card at the next free position of the grid
@@ -349,28 +283,8 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    // gson, outdated later
-    private void GetCardobjectsAsArray(List<JSONCards> _cardList)
-    {
-
-        Gson gson = new Gson();
-        String jsonString = ReturnJSONAsString();
-        JSONCards[] response = gson.fromJson(jsonString, JSONCards[].class);
-        //System.out.println("Erster Name: " + response[0].getName());
-        for (int index = 0; index < response.length; ++index)
-        {
-            _cardList.add(response[index]);
-        }
-        Collections.shuffle(_cardList);
-        System.out.println("Erster Name: " + _cardList.get(0).GetName());
-        //return cardList;
-    }
-
-
-
-
     // because later maybe different sets (chinese, latino, ... ) -> maybe different files
-    private String ReturnJSONAsString()
+    private String ReturnCardJSONAsString()
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         InputStream is = getResources().openRawResource(R.raw.cards);
@@ -460,28 +374,30 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
+}
 
-    // only working with two players
-    private boolean ChangeCurrentPlayer()
+
+
+
+/*
+    // later outdated, is in extra json
+    private void SetUniqueEyeAndHairColors()
     {
-        if(players.size()<2)
+        HashSet <String> eyeColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
         {
-            return false;
+            eyeColors.add(cardList.get(index).GetEye());
         }
-        else
+        eyeColorsUnique.addAll(eyeColors);
+
+        HashSet <String> hairColors = new HashSet<String>();
+        for(int index=0; index < cardList.size(); index++)
         {
-            if(currentPlayerIndex == 0)
-            {
-                currentPlayerIndex = 1;
-            }
-            else
-            {
-                currentPlayerIndex = 0;
-            }
+            hairColors.add(cardList.get(index).GetHair());
         }
-        return true;
+        hairColorsUnique.addAll(hairColors);
+
 
     }
+*/
 
-
-}

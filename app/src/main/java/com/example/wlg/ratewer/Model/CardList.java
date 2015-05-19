@@ -52,6 +52,19 @@ public class CardList
                 {
                     String curCat = (String) curCardKeysIt.next();
                     String curValue = curCardobj.getString(curCat);
+                    // handle bool
+                    if (curValue.equals("") || curValue.equals(0) || curValue.equals("0"))
+                    {
+                        curValue = "no";
+                    }
+                    else
+                    {
+                        if(curValue.equals(1) || curValue.equals("1") || curValue.equals("true"))
+                        {
+                            curValue = "yes";
+                        }
+                    }
+
                     //System.out.println("curCat " + curCat + "   value: "+curValue);
                     if(curCat.equals("name"))
                     {

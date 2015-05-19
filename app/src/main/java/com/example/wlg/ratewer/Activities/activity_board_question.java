@@ -162,7 +162,8 @@ public class activity_board_question extends ActionBarActivity
         int currGroupId = -1;
         for (int index = 0; index < m_Attribs.attriList.size();)
         {
-            SubMenu sm = menu.addSubMenu(m_Attribs.attriList.get(index).question);
+            //SubMenu sm = menu.addSubMenu(m_Attribs.attriList.get(index).question);
+            SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).question);
             String que = m_Attribs.attriList.get(index).question;
             currGroupId= m_Attribs.attriList.get(index).groupId;
             while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
@@ -187,7 +188,7 @@ public class activity_board_question extends ActionBarActivity
        // System.out.println("Selected id: "+item.getItemId());
        // System.out.println("zugehoeriges Item: "+m_Attribs.attriList.get(item.getItemId()).attribute);
         String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
-        if(item.getItemId() > 0)
+        if(item.getItemId() >= 0)
         {
             for (int index1=0; index1 < cardList2.m_cardList.size()-1; index1++)
             {

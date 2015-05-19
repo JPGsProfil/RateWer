@@ -41,7 +41,7 @@ public class activity_board_question extends ActionBarActivity
     private static List<JSONCards> cardList = new ArrayList<>();
     private static List<PlayerController> players = new ArrayList<>();
     private static boolean HavePlayersSelectedWhoTheyAre = false;
-    private static int currentPlayer = 0;
+    private static int currentPlayerIndex = 0;
     private static AttributList m_Attribs;
 
 
@@ -77,6 +77,30 @@ public class activity_board_question extends ActionBarActivity
         //MenuButton();
 
 
+    }
+
+    private int GetIndexForNextPlayer()
+    {
+        if(currentPlayerIndex == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    private void SetIndexForNextPlayer()
+    {
+        if(currentPlayerIndex == 0)
+        {
+            currentPlayerIndex = 1;
+        }
+        else
+        {
+            currentPlayerIndex = 0;
+        }
     }
 
     // called at beginning of increate
@@ -185,6 +209,11 @@ public class activity_board_question extends ActionBarActivity
                             System.out.println("Bin in if2");
                             personsWithSameValue +=cardList2.m_cardList.get(index1).name+"\n";
                             System.out.println("personsWithSameValue "+personsWithSameValue);
+                            // only funny:
+                            //if(m_Attribs.attriList.get(item.getItemId()).id == players.get(GetIndexForNextPlayer()).GetCardId())
+                            //{
+                           //     Toast.makeText(getApplicationContext(), "Du hast zufaelligerweise die Person angeklickt, die der Gegner ausgewaehlt hat!\n Aber psssst!!!!", Toast.LENGTH_LONG).show();
+                            //}
                             break;
                         }
                         //else
@@ -406,10 +435,10 @@ public class activity_board_question extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id)
                     {
                         HavePlayersSelectedWhoTheyAre = true;
-                        players.get(currentPlayer).SetCardId(_currentCard.GetId());
+                        players.get(currentPlayerIndex).SetCardId(_currentCard.GetId());
                         dialog.cancel();
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                        tv_title.setText("Spieler " + players.get(currentPlayer).GetPlayerID() + ": Mache deinen Zug!");
+                        tv_title.setText("Spieler " + players.get(currentPlayerIndex).GetPlayerID() + ": Mache deinen Zug!");
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()
@@ -437,13 +466,13 @@ public class activity_board_question extends ActionBarActivity
         }
         else
         {
-            if(currentPlayer == 0)
+            if(currentPlayerIndex == 0)
             {
-                currentPlayer = 1;
+                currentPlayerIndex = 1;
             }
             else
             {
-                currentPlayer = 0;
+                currentPlayerIndex = 0;
             }
         }
         return true;

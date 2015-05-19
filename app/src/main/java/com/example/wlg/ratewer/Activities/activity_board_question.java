@@ -111,16 +111,36 @@ public class activity_board_question extends ActionBarActivity
         int currGroupId = -1;
         for (int index = 0; index < m_Attribs.attriList.size();)
         {
-            //SubMenu sm = menu.addSubMenu(m_Attribs.attriList.get(index).question);
-            SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).question);
-            String que = m_Attribs.attriList.get(index).question;
+            // at the beginning, set new group id, not necessary if stay the same (if below)
             currGroupId= m_Attribs.attriList.get(index).groupId;
-            while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+            // if more than two -> submenu required, if one or two not (like bool)
+            if(index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
             {
-                //sm.add(m_Attribs.attriList.get(index).attribute);
-                sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attribute);
-                index++;
+                SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).question);
+                String que = m_Attribs.attriList.get(index).question;
+
+                while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+                {
+                    //sm.add(m_Attribs.attriList.get(index).attribute);
+                    sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attribute);
+                    index++;
+                }
             }
+            else
+            {
+                menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).question);
+                if(m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                {
+                    index +=2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
+                }
+                else
+                {
+                    index++;
+                }
+
+            }
+
+
         }
         return true;
     }

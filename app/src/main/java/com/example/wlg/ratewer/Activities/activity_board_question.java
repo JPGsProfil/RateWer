@@ -168,7 +168,7 @@ public class activity_board_question extends ActionBarActivity
                     }
                 }
             }
-            System.out.println("Personen: "+personsWithSameValue);
+            System.out.println("Personen: "+personsWithSameValue); //
             Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
         }
 
@@ -237,13 +237,10 @@ public class activity_board_question extends ActionBarActivity
                 @Override
                 public void onClick(View view)
                 {
-                    // map clicked id with card from cardlist
-                    Card currentCard = null;
-                    System.out.println("id clicked: " + view.getId());
+                    System.out.println("id clicked: " + view.getId());  // needed for debugging
 
                     // map clicked id with card from cardlist -> iterate cardlist
-
-                    currentCard = cardList.m_List.get(0);
+                    Card currentCard = cardList.m_List.get(0);
                     int currentIndex = 0;
                     while (currentIndex < cardList.GetSize() && cardList.m_List.get(currentIndex).viewID != view.getId())
                     {

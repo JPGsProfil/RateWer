@@ -158,11 +158,6 @@ public class activity_board_question extends ActionBarActivity
                             System.out.println("Bin in if2");
                             personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
                             System.out.println("personsWithSameValue "+personsWithSameValue);
-                            // only funny:
-                            if(m_Attribs.attriList.get(itemId).id == m_PlayerController.GetNextPlayer().GetChosenCardId())
-                            {
-                                Toast.makeText(getApplicationContext(), "Du hast zufaelligerweise die Person angeklickt, die der Gegner ausgewaehlt hat!\n Aber psssst!!!!", Toast.LENGTH_LONG).show();
-                            }
                             break;
                         }
                     }
@@ -175,7 +170,7 @@ public class activity_board_question extends ActionBarActivity
 
 
         //noinspection SimplifiableIfStatement
-        if (itemId == R.id.action_settings)
+        if (itemId == R.id.action_settings) // bug when clicking on options
         {
             Toast.makeText(getApplicationContext(), "Hier könnte später evtl. einmal die Sprache geändert werden", Toast.LENGTH_LONG).show();
             return true;
@@ -258,6 +253,12 @@ public class activity_board_question extends ActionBarActivity
                         else    // player selected who he want to be -> now onclick to view details
                         {
                             System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
+
+                            // only funny:
+                            if(currentCard.id == m_PlayerController.GetNextPlayer().GetChosenCardId())
+                            {
+                                Toast.makeText(getApplicationContext(), "Du hast zufaelligerweise die Person angeklickt, die der Gegner ausgewaehlt hat!\n Aber psssst!!!!", Toast.LENGTH_SHORT).show();
+                            }
                             DisplayAttributes(cardList.m_List.get(currentIndex));
                         }
                     }

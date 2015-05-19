@@ -20,6 +20,7 @@ public class PlayerController
         {
             PlayerInformation newPlayer = new PlayerInformation();
             players.add(newPlayer);
+            System.out.println("index "+ i + "= "+players.get(i).GetPlayerID());
         }
         players.get(1).SetToAI();
 
@@ -36,6 +37,16 @@ public class PlayerController
     public void SelectCard()
     {
 
+    }
+
+    public PlayerInformation GetCurrentPlayer()
+    {
+        return players.get(currentPlayerIndex);
+    }
+
+    public PlayerInformation GetNextPlayer()
+    {
+        return players.get(GetIndexForNextPlayer());
     }
 
 

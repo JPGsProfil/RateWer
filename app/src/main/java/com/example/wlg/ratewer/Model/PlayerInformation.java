@@ -16,7 +16,6 @@ public class PlayerInformation
         amountOfPlayers++;
         chosenCardId = -1;
         isAI = false;
-        amountOfPlayers++;
         playerID = amountOfPlayers;
     }
 
@@ -27,4 +26,21 @@ public class PlayerInformation
         // for debugging
         this.chosenCardId = 10;
     }
+
+    public int GetChosenCardId()
+    {
+        return chosenCardId;
+    }
+
+    public void SetChosenCardId(int chosenCardId)
+    {
+        this.chosenCardId = chosenCardId;
+    }
+
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+
+
 }

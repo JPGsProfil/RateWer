@@ -45,6 +45,7 @@ public class activity_board_question extends ActionBarActivity
 
 
     private static CardList cardList2;
+    private static PlayerController m_PlayerController = new PlayerController();
 
 
     // menu:
@@ -353,10 +354,11 @@ public class activity_board_question extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id)
                     {
                         HavePlayersSelectedWhoTheyAre = true;
-                        players.get(currentPlayerIndex).SetCardId(_currentCard.id);
+                        m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
+                        System.out.println("Du hast "+_currentCard.name + " ausgewaehlt");
                         dialog.cancel();
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                        tv_title.setText("Spieler " + players.get(currentPlayerIndex).GetPlayerID() + ": Mache deinen Zug!");
+                        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()

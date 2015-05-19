@@ -12,6 +12,8 @@ public class Card
     public int id;
     public String name;
     public String image;
+    public int viewID;
+    public int imageID;
     public List<AttribValue> attriList;
     //public String kategory;
     //public int androidId;
@@ -30,6 +32,8 @@ public class Card
             _name = "er";
         }
         name = _name;
+        viewID = 0;
+        imageID = 0;
     }
 
 }

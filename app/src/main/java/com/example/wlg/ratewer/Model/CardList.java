@@ -15,15 +15,15 @@ import java.util.List;
  */
 public class CardList
 {
-    public List<Card> m_List;
+    public List<Card> m_List = new ArrayList<>();
     private String jsonCardString;
 
     public CardList(String _jsonCardString)
     {
-        m_List = new ArrayList<>();
         jsonCardString = _jsonCardString;
         FillCardList(jsonCardString);
         ShuffleList();
+        System.out.println("geshuffelt!!!");
     }
 
     private void ShuffleList()
@@ -31,9 +31,17 @@ public class CardList
         Collections.shuffle(m_List);
     }
 
-    public int GetLenght()
+    public int GetSize()
     {
-        return m_List.size();
+        if(m_List == null)
+        {
+            return 0;
+        }
+        else
+        {
+            return m_List.size();
+        }
+
     }
 
 

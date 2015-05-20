@@ -15,4 +15,26 @@ public class AttribValue
         attr    = _attr;
         value   = _value;
     }
+
+
+    @Override public boolean equals(Object _second)
+    {
+        if (!(_second instanceof AttribValue))
+        {
+            return false;
+        }
+        else
+        {
+            if(this.attr.equals (((AttribValue) _second).attr) && this.value.equals (((AttribValue) _second).value))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+    }
 }

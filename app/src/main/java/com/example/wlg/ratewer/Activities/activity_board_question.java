@@ -61,9 +61,9 @@ public class activity_board_question extends ActionBarActivity
         setContentView(R.layout.activity_activity_board_question);
 
 
-        cardList = new CardList(ReturnCardJSONAsString("defaultset"));
+        cardList = new CardList(ReturnCardJSONAsString("simpsons"));
         PlaceCardsOnField();
-        m_Attribs = new AttributList(ReturnCardJSONAsString("defaultset"));
+        m_Attribs = new AttributList(cardList); // OR "defaultset" possible
         System.out.println("Cardlist2: " + cardList.m_List.size());
         System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
 

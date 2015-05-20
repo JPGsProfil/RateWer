@@ -2,63 +2,75 @@
   "cards": [
 	{
 	  "id": 1,
-	  "name": "Kurt",
-	  "hair": "none",
-	  "eye": "brown",
+	  "name": "Abe",
+	  "hair": "yellow",
+	  "eye": "black",
 	  "moustache": "true",
 	  "isWoman": "false",
-	  "wearGlasses": "false",
-	  "image": "man1"
+	  "wearGlasses": "true",
+	  "age": "Rentner",
+	  "Arbeitsplatz": "arbeitslos",
+	  "image": "si_abe"
 	},
 	{
 	  "id": 2,
-	  "name": "Fabulunder",
-	  "hair": "brown",
-	  "eye": "grey",
-	  "moustache": "false",
+	  "name": "Apu",
+	  "hair": "darkgrey",
+	  "eye": "black",
+	  "moustache": "yes",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man2"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Versorgungsindustrie",
+	  "image": "si_apu"
 	},
 	{
 	  "id": 3,
-	  "name": "Peter",
-	  "hair": "black",
+	  "name": "Bart",
+	  "hair": "yellow",
 	  "eye": "black",
-	  "moustache": "true",
+	  "moustache": "false",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man3"
+	  "age": "Kind",
+	  "Arbeitsplatz": "arbeitslos",
+	  "image": "si_bart"
 	},
 	{
 	  "id": 4,
-	  "name": "Tino",
-	  "hair": "black",
+	  "name": "Burns",
+	  "hair": "grey",
 	  "eye": "black",
 	  "moustache": "false",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man4"
+	  "age": "Rentner",
+	  "Arbeitsplatz": "Versorgungsindustrie",
+	  "image": "si_burns"
 	},
 	{
 	  "id": 5,
-	  "name": "Tom",
-	  "hair": "blond",
-	  "eye": "green",
+	  "name": "Horatio",
+	  "hair": "grey",
+	  "eye": "black",
 	  "moustache": "false",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man5"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Versorgungsindustrie",
+	  "image": "si_captain_horatio"
 	},
 	{
 	  "id": 6,
-	  "name": "Tony",
-	  "hair": "none",
-	  "eye": "brown",
-	  "moustache": "true",
-	  "isWoman": "false",
+	  "name": "Edna",
+	  "hair": "brown",
+	  "eye": "black",
+	  "moustache": "false",
+	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "man6"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Schule",
+	  "image": "si_edna"
 	},
 	{
 	  "id": 7,
@@ -68,7 +80,9 @@
 	  "moustache": "true",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man7"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_gheet"
 	},
 	{
 	  "id": 8,
@@ -78,7 +92,9 @@
 	  "moustache": "false",
 	  "isWoman": "false",
 	  "wearGlasses": "true",
-	  "image": "man8"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Versorgungsindustrie",
+	  "image": "si_homer"
 	},
 	{
 	  "id": 9,
@@ -88,7 +104,9 @@
 	  "moustache": "true",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man9"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_janey"
 	},
 	{
 	  "id": 10,
@@ -98,7 +116,9 @@
 	  "moustache": "true",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man10"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Unterhaltung",
+	  "image": "si_kent"
 	},
 	{
 	  "id": 11,
@@ -108,7 +128,9 @@
 	  "moustache": "true",
 	  "isWoman": "false",
 	  "wearGlasses": "true",
-	  "image": "man11"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_lisa"
 	},
 	{
 	  "id": 12,
@@ -118,7 +140,9 @@
 	  "moustache": "false",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man12"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_maggie"
 	},
 	{
 	  "id": 13,
@@ -128,7 +152,9 @@
 	  "moustache": "true",
 	  "isWoman": "false",
 	  "wearGlasses": "false",
-	  "image": "man13"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_manjula"
 	},
 	{
 	  "id": 14,
@@ -138,7 +164,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman1"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_marge"
 	},
 	{
 	  "id": 15,
@@ -148,7 +176,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman2"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Unterhaltung",
+	  "image": "si_mel"
 	},
 	{
 	  "id": 16,
@@ -158,7 +188,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman3"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_milhouse"
 	},
 	{
 	  "id": 17,
@@ -168,7 +200,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman4"
+	  "age": "Rentner",
+	  "Arbeitsplatz": "Versorgungsindustrie",
+	  "image": "si_ned"
 	},
 	{
 	  "id": 18,
@@ -178,7 +212,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman5"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_nelson"
 	},
 	{
 	  "id": 19,
@@ -188,7 +224,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman6"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_ralph"
 	},
 	{
 	  "id": 20,
@@ -198,7 +236,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman7"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_sashi"
 	},
 	{
 	  "id": 21,
@@ -208,7 +248,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman8"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Schule",
+	  "image": "si_skinner"
 	},
 	{
 	  "id": 22,
@@ -218,7 +260,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "false",
-	  "image": "woman9"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Unterhaltung",
+	  "image": "si_stu"
 	},
 	{
 	  "id": 23,
@@ -228,7 +272,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "true",
-	  "image": "woman10"
+	  "age": "Kind",
+	  "Arbeitsplatz": "keinen",
+	  "image": "si_todd"
 	},
 	{
 	  "id": 24,
@@ -238,7 +284,9 @@
 	  "moustache": "false",
 	  "isWoman": "true",
 	  "wearGlasses": "true",
-	  "image": "woman11"
+	  "age": "Erwachsen",
+	  "Arbeitsplatz": "Schule",
+	  "image": "si_willie"
 	}
   ],
   "attribandquestions": {
@@ -268,7 +316,18 @@
 	  "wearGlasses": [
 		"yes",
 		"no"
-	  ]
+	  ],
+	  "age": [
+		"Erwachsen",
+		"Kind",
+		"Rentner"
+		],
+	  "Arbeitsplatz": [
+		"Unterhaltung",
+		"keinen",
+		"Schule"
+		]
+
 	},
 	"questionobj": {
 	  "questions": [
@@ -276,7 +335,9 @@
 		"Welche Augenfarbe?",
 		"Hat Bart?",
 		"Ist Frau?",
-		"Trägt Brille?"
+		"Trägt Brille?",
+		"Alter der Person",
+		"Angestellt in"
 	  ]
 	}
   }

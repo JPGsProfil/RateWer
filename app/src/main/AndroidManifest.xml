@@ -44,6 +44,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wlg.ratewer.Activities.StartActivity" />
         </activity>
+        <activity
+            android:name=".StartNewGameActivity"
+            android:label="@string/title_activity_start_new_game"
+            android:parentActivityName=".Activities.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartActivity" />
+        </activity>
     </application>
 
 </manifest>

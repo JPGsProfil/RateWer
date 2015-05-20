@@ -38,14 +38,18 @@
     <string name="txt_menu_hair_blond">Blond</string>
     <string name="txt_menu_isWoman">Ist die Person eine Frau?</string>
 
+    <!-- Start new game options menu-->
+    <string name="tv_startng_selectCardset">Wähle ein Kartenset!</string>
+    <string name="b_sng_startGame">Spiel starten</string>
+
     <string-array name="lang_array">
         <item>Deutsch</item>
         <item>Englisch</item>
         <item>Italienisch</item>
     </string-array>
     <string name="title_activity_activity_board_question">activity_board_question</string>
-
-
+    <string name="title_activity_start_new_game">StartNewGameActivity</string>
+    <string name="tv_Select_Cardset">Da</string>
 
 
 </resources>

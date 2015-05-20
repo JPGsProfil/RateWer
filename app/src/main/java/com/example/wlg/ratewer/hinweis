@@ -1,1 +1,2 @@
-cardattributes eigentlich nicht benötigt, ist Ersatz für GSON
+Keine Datei in den ORdner RAW speichern (außer Kartensets), aus diesem werden dynamisch cardsets eingelesen
+alternativ könnten die jsons verschoben werden, aber da dieser Ordner für solche Dateien gedacht ist ...

@@ -39,6 +39,11 @@ public class AttribValue implements Comparable<AttribValue>
     public int compareTo(AttribValue _attr2)
     {
         //write code here for compare name
-        return _attr2.attr.compareTo(this.attr);
+        int compareAttr = this.attr.compareTo(_attr2.attr);
+        if(compareAttr == 0)    // same attrib -> look for value
+        {
+            return this.value.compareTo(_attr2.value);
+        }
+        else return compareAttr;
     }
 }

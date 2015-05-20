@@ -60,7 +60,7 @@ public class activity_board_question extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
 
-        String usedCardset = "defaultset"; // "simpsons" OR "defaultset" possible
+        String usedCardset = "simpsons"; // "simpsons" OR "defaultset" possible
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
         PlaceCardsOnField();
         m_Attribs = new AttributList(cardList);

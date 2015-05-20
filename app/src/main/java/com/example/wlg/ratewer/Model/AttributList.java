@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -42,35 +44,38 @@ public class AttributList
                 String curValue     = _cardList.m_List.get(index1).attriList.get(iValues).value;
                 AttribValue newAttribValue = new AttribValue(curAttrib,curValue);
                 // check whether list contains this key value
-                boolean isAlreadyInList = false;
-                for(int iAttrValueList = 0; iAttrValueList < attribValueList.size(); iAttrValueList++)
-                {
-                    if (newAttribValue.equals(attribValueList.get(iAttrValueList)))
-                    {
-                        //System.out.println("Sind gleich");
-                        isAlreadyInList = true;
-                    }
-
-                }
-                if(!isAlreadyInList)
+                if(!attribValueList.contains(newAttribValue))
                 {
                     attribValueList.add(newAttribValue);
                 }
             }
         }
 
-        // first fill all categories, look at entry 1 should be enough because all have the same attributes, otherwhise change loop
-
-
-       // List<AttribValue> attribValueList = new ArrayList<>(KeyValuesUnique);
-
+        // to display in cathegories and order (menu)
+        Collections.sort(attribValueList);
         // debugging: display if works:
         System.out.println("Print Set!!!!!");
-        for(int index = 0; index <attribValueList.size(); index ++)
+        for(int index = 0; index <attribValueList.size(); index++)
         {
             System.out.println(attribValueList.get(index).attr+"   "+attribValueList.get(index).value);
         }
 
+
+        String prevAttrib = "-1";
+        int curGroupId = 0;
+        // now we know how many values contain to one attribute -> make list with groupid ...
+        for(int index = 0; index < attribValueList.size(); index ++)
+        {
+            if(!attribValueList.get(index).attr.equals(prevAttrib))
+            {
+                curGroupId++;
+            }
+            String curAttr = attribValueList.get(index).attr;
+            String curValue = attribValueList.get(index).value;
+
+            attriList.add(new StringsToDisplayAttributs(curAttr, curValue,curAttr,curGroupId));
+            prevAttrib =curAttr;
+        }
 
     }
 

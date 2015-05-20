@@ -46,6 +46,10 @@ public class AttribValue implements Comparable<AttribValue>
             {
                 retval = "ja".compareTo("nein");
             }
+            else if(this.value.equals("false") || this.value.equals("no") )
+            {
+                retval = "nein".compareTo("ja");
+            }
             else
             {
                 retval = this.value.compareTo(_attr2.value);

@@ -8,19 +8,21 @@ public class StringsToDisplayAttributs
     private static int INIT_ID = 0;
     public int id;
     public int groupId;
-    public String attribute;
-    public String kategory;
-    public String question;
+    public String attr;
+    public String value;
+    //public String kategory;
+    //public String question;
     public int androidId;
 
-    public StringsToDisplayAttributs(String _kategory, String _attribute, String _question, int _groupId)
+    public StringsToDisplayAttributs(String _attribute, String _value, int _groupId)
     {
         INIT_ID ++;
         id          = INIT_ID;
-        kategory   = _kategory;
+        //kategory   = _kategory;
         groupId     = _groupId;
-        attribute   = _attribute;
-        question    = _question;
+        attr   = _attribute;
+        value       = _value;
+        //question    = _question;
         //androidId   = _androidId;
     }
 

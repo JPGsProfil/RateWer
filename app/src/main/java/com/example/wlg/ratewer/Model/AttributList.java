@@ -73,7 +73,7 @@ public class AttributList
             String curAttr = attribValueList.get(index).attr;
             String curValue = attribValueList.get(index).value;
 
-            attriList.add(new StringsToDisplayAttributs(curAttr, curValue,curAttr,curGroupId));
+            attriList.add(new StringsToDisplayAttributs(curAttr, curValue,curGroupId));
             prevAttrib =curAttr;
         }
 

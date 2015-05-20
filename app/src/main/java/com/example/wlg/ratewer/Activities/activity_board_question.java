@@ -60,10 +60,10 @@ public class activity_board_question extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
 
-
-        cardList = new CardList(ReturnCardJSONAsString("simpsons"));
+        String usedCardset = "defaultset"; // "simpsons" OR "defaultset" possible
+        cardList = new CardList(ReturnCardJSONAsString(usedCardset));
         PlaceCardsOnField();
-        m_Attribs = new AttributList(cardList); // OR "defaultset" possible
+        m_Attribs = new AttributList(cardList);
         System.out.println("Cardlist2: " + cardList.m_List.size());
         System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
 
@@ -99,6 +99,7 @@ public class activity_board_question extends ActionBarActivity
         // dynamically add menue item
         // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
         int currGroupId = -1;
+        // iterate all attributs
         for (int index = 0; index < m_Attribs.attriList.size();)
         {
             // at the beginning, set new group id, not necessary if stay the same (if below)
@@ -106,19 +107,22 @@ public class activity_board_question extends ActionBarActivity
             // if more than two -> submenu required, if one or two not (like bool)
             if(index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
             {
-                SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).question);
-                String que = m_Attribs.attriList.get(index).question;
+                SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).attr);
+                //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
+                String que = m_Attribs.attriList.get(index).attr;
 
                 while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
                 {
                     //sm.add(m_Attribs.attriList.get(index).attribute);
-                    sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attribute);
+                    sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).value);
+                    //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
                     index++;
                 }
             }
             else
             {
-                menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).question);
+                menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
+                System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
                 if(m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
                 {
                     index +=2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
@@ -140,18 +144,18 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
         String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
-        if(itemId >= 0)
+        if(itemId > 0)
         {
-            for (int index1=0; index1 < cardList.m_List.size()-1; index1++)
+            for (int index1=0; index1 < cardList.m_List.size(); index1++)
             {
-                //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
+                System.out.println("cardList.m_List.size() "+cardList.m_List.size());
                  //System.out.println("In for1:"+index1);
-                for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size()-1; index2++)
+                for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
                 {
-                    if(cardList.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(itemId).kategory))
+                    if(cardList.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(itemId).attr))
                     {
                         System.out.println("Bin in if");
-                        if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).attribute))
+                        if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
                         {
                             System.out.println("Bin in if2");
                             personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
@@ -163,6 +167,10 @@ public class activity_board_question extends ActionBarActivity
             }
             System.out.println("Personen: "+personsWithSameValue); //
             Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            System.out.println("komische item id");
         }
 
 

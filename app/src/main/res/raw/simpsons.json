@@ -328,17 +328,6 @@
 		"Schule"
 		]
 
-	},
-	"questionobj": {
-	  "questions": [
-		"Welche Haarfarbe?",
-		"Welche Augenfarbe?",
-		"Hat Bart?",
-		"Ist Frau?",
-		"Trägt Brille?",
-		"Alter der Person",
-		"Angestellt in"
-	  ]
 	}
   }
 }

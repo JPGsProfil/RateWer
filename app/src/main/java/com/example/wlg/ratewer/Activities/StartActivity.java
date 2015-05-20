@@ -25,7 +25,7 @@ public class StartActivity extends ActionBarActivity {
         bStartGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                final Intent firstIntent = new Intent(v.getContext(), activity_board_question.class);
+                final Intent firstIntent = new Intent(v.getContext(), StartNewGameActivity.class);
                 startActivity(firstIntent);
             }
         });

@@ -6,7 +6,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.example.wlg.ratewer.StartNewGameActivity">
+                tools:context="com.example.wlg.ratewer.Activities.StartNewGameActivity">
 
     <TextView
         android:text="@string/hello_world"
@@ -26,7 +26,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
+        android:id="@+id/sp_cardsets"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"/>
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="KI"
         android:id="@+id/textView4"
-        android:layout_below="@+id/spinner2"
+        android:layout_below="@+id/sp_cardsets"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"/>
 
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/b_sng_startGame"
-        android:id="@+id/button"
+        android:id="@+id/b_sng_start"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp"/>

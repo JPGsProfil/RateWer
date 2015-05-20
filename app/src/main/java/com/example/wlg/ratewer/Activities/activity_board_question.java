@@ -2,6 +2,7 @@ package com.example.wlg.ratewer.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -60,7 +61,19 @@ public class activity_board_question extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_board_question);
 
+
         String usedCardset = "simpsons"; // "simpsons" OR "defaultset" possible
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+        {
+            String newCardSet = extras.getString("chosenCardSet");
+            if (newCardSet != null)
+            {
+                usedCardset = newCardSet;
+            }
+        }
+
+
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
         PlaceCardsOnField();
         m_Attribs = new AttributList(cardList);

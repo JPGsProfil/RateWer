@@ -9,6 +9,8 @@ und setclickable = false
 image handling via glide
 glide resizing image
 
+sauebere Implementierung von compareTo in AttribValue bzw. Festlegung eines Standards für bool (true, false, 0,1, ja, nein ...) (json)
+
 
 
 done:

@@ -29,11 +29,13 @@ public class AttributList
         //System.out.println("jsonString "+jsonAttriString);
         try
         {
-            JSONObject reader = new JSONObject(jsonAttriString);
-            JSONObject jkategories  = reader.getJSONObject("attributes");
+            JSONObject JSONcomplete = new JSONObject(jsonAttriString);
+            JSONObject attribandquestions = JSONcomplete.getJSONObject("attribandquestions");
+            //JSONObject reader = new JSONObject(jsonAttriString);
+            JSONObject jkategories  = attribandquestions.getJSONObject("attributes");
 
             // Get questions
-            JSONObject jquestions = reader.getJSONObject("questionobj");
+            JSONObject jquestions = attribandquestions.getJSONObject("questionobj");
             JSONArray jquestionsArray  = jquestions.getJSONArray("questions");
 
             // end of: get questions

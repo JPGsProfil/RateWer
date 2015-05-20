@@ -61,15 +61,13 @@ public class activity_board_question extends ActionBarActivity
         setContentView(R.layout.activity_activity_board_question);
 
 
-        cardList = new CardList(ReturnCardJSONAsString());
+        cardList = new CardList(ReturnCardJSONAsString("defaultset"));
         PlaceCardsOnField();
-        m_Attribs = new AttributList(ReturnCardAttributesAsString());
+        m_Attribs = new AttributList(ReturnCardJSONAsString("defaultset"));
         System.out.println("Cardlist2: " + cardList.m_List.size());
         System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
 
         //MenuButton();
-
-
     }
 
     // called at beginning of increate
@@ -272,20 +270,22 @@ public class activity_board_question extends ActionBarActivity
 
 
     // because later maybe different sets (chinese, latino, ... ) -> maybe different files
-    private String ReturnCardJSONAsString()
+    private String ReturnCardJSONAsString(String _cardsetName)
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
-        InputStream is = getResources().openRawResource(R.raw.cards);
+        int ressourceId =getResources().getIdentifier(_cardsetName, "raw",getPackageName());
+        InputStream is = getResources().openRawResource(ressourceId);
         return FileToString.ReadTextFile(is);
     }
 
+    /*  // now only ReturnCardJSONAsString
     private String ReturnCardAttributesAsString()
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         InputStream is = getResources().openRawResource(R.raw.cardattributes);
         return FileToString.ReadTextFile(is);
     }
-
+*/
 
     private void DisplayAttributes(Card currentCard)
     {

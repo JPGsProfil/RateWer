@@ -50,7 +50,9 @@ public class CardList
         //System.out.println("jsonString "+_jsonCardString);
         try
         {
-            JSONArray allCards = new JSONArray(_jsonCardString);
+            JSONObject JSONcomplete = new JSONObject(_jsonCardString);
+            JSONArray allCards = JSONcomplete.getJSONArray("cards");
+            //JSONArray allCards = new JSONArray(_jsonCardString);
             for(int index = 0; index < allCards.length(); index ++)
             {
                 String curName = "";

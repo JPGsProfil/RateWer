@@ -28,8 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/sp_cardsets"
         android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"/>
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,14 +43,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true"/>
 
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar2"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -86,5 +85,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp"/>
+
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_sng_FlipCardsAuto"
+        android:id="@+id/tv_sng_FlipCardsAuto"
+        android:checked="true"
+        android:layout_below="@+id/seekBar3"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="49dp"/>
 
 </RelativeLayout>

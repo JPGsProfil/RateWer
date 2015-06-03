@@ -153,6 +153,9 @@ public class activity_board_question extends ActionBarActivity
         if(m_PlayerController.GetNextPlayer().GetChosenCardId() == checkedId)
         {
             AIout+= "ja, ist es!!! Ich habe gewonnen!!!";
+            final Intent lastIntent = new Intent(this, EndGameActivity.class);
+            lastIntent.putExtra("msg","verloren");
+            startActivity(lastIntent);
         }
         else
         {
@@ -170,6 +173,12 @@ public class activity_board_question extends ActionBarActivity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
+
+        SubMenu sm1 = menu.addSubMenu(100, -1,100, "Ist es?");
+        for(int index = 0; index < cardList.m_List.size(); index ++)
+        {
+            sm1.add(100, 100 + index, 0, cardList.m_List.get(index).name);
+        }
         menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry)
 
         // dynamically add menue item
@@ -219,116 +228,129 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
 
-
-        if(itemId == 10000) // end turn
+        if(!HavePlayersSelectedWhoTheyAre)
         {
-            EndTurn();
-            isTurnOver = false;
+            Toast.makeText(getApplicationContext(), "Du musst erst einen Spieler auswählen!!", Toast.LENGTH_SHORT).show();
         }
-
-
-        // print all Persons with same attribut (as klicked in view), useful for debugging
-        else if(itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
+        else // begin of -> first choose your character!!
         {
-            if(isTurnOver == true)
+
+
+            if (itemId == 10000) // end turn
             {
-                Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
+                EndTurn();
+                isTurnOver = false;
             }
-            else
+
+
+            // print all Persons with same attribut (as klicked in view), useful for debugging
+            else if (itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
             {
-
-
-                // print of target person has this attribut:
-                boolean hasId = false;
-                // get playerCard (enemy)
-                Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
-                System.out.println("Gegner ist: " + cardEnemy.name);
-                for (int index = 0; index < cardEnemy.attriList.size(); index++)
+                if (isTurnOver == true)
                 {
-                    // look for attribut
-                    if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
-                    {
-                        // attribut (kategory) found, now compare value
-                        if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
-                        {
-                            hasId = true;
-                            break;
-                        }
-                    }
-                }
-                if (hasId)
-                {
-                    Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
                 } else
                 {
-                    Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
-                }
-                // End of: print of target person has this attribut
 
 
-                String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
-
-                // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
-                for (int index1 = 0; index1 < cardList.m_List.size(); index1++)
-                {
-                    //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
-                    //System.out.println("In for1:"+index1);
-                    // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
-                    for (int index2 = 0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
+                    // print of target person has this attribut:
+                    boolean hasId = false;
+                    // get playerCard (enemy)
+                    Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
+                    System.out.println("Gegner ist: " + cardEnemy.name);
+                    for (int index = 0; index < cardEnemy.attriList.size(); index++)
                     {
-
-                        if (cardList.m_List.get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
+                        // look for attribut
+                        if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
                         {
-                            //System.out.println("Bin in if");
-                            // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
-                            // wenn ja:
-                            if (hasId)
+                            // attribut (kategory) found, now compare value
+                            if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
                             {
-                                // add persons to list who have this attribute (klicked)
-                                if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
-                                {
-                                    //System.out.println("Bin in if2");
-                                    personsWithSameValue += cardList.m_List.get(index1).name + "\n";
-                                    //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                    break;
-                                }
-                                else
-                                {
-                                    ImageButton btn=(ImageButton)findViewById(cardList.m_List.get(index1).viewID);
-                                    btn.setAlpha(0.4f);
-                                    btn.setClickable(false);
-                                }
+                                hasId = true;
+                                break;
                             }
-                            else
-                            {
-                                // only add person to list (print) if they don't have this attribute
-                                if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
-                                {
-                                    ImageButton btn=(ImageButton)findViewById(cardList.m_List.get(index1).viewID);
-                                    btn.setAlpha(0.4f);
-                                    btn.setClickable(false);
-                                }
-                                else    // only add person if not the same value (like other haircolor)
-                                {
-                                    //System.out.println("Bin in if3");
-                                    personsWithSameValue += cardList.m_List.get(index1).name + "\n";
-                                    //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                    break;
-                                }
-
-                            }
-
                         }
                     }
+                    if (hasId)
+                    {
+                        Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+                    } else
+                    {
+                        Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
+                    }
+                    // End of: print of target person has this attribut
+
+
+                    String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
+
+                    // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
+                    for (int index1 = 0; index1 < cardList.m_List.size(); index1++)
+                    {
+                        //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
+                        //System.out.println("In for1:"+index1);
+                        // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
+                        for (int index2 = 0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
+                        {
+
+                            if (cardList.m_List.get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
+                            {
+                                //System.out.println("Bin in if");
+                                // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
+                                // wenn ja:
+                                if (hasId)
+                                {
+                                    // add persons to list who have this attribute (klicked)
+                                    if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                    {
+                                        //System.out.println("Bin in if2");
+                                        personsWithSameValue += cardList.m_List.get(index1).name + "\n";
+                                        //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                        break;
+                                    } else
+                                    {
+                                        ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
+                                        btn.setAlpha(0.4f);
+                                        btn.setClickable(false);
+                                    }
+                                } else
+                                {
+                                    // only add person to list (print) if they don't have this attribute
+                                    if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                    {
+                                        ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
+                                        btn.setAlpha(0.4f);
+                                        btn.setClickable(false);
+                                    } else    // only add person if not the same value (like other haircolor)
+                                    {
+                                        //System.out.println("Bin in if3");
+                                        personsWithSameValue += cardList.m_List.get(index1).name + "\n";
+                                        //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                        break;
+                                    }
+
+                                }
+
+                            }
+                        }
+                    }
+                    System.out.println("Personen: " + personsWithSameValue); //
+                    Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+
+                    // turn is over !!!
+                    isTurnOver = true;
                 }
-                System.out.println("Personen: " + personsWithSameValue); //
-                Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
-
-                // turn is over !!!
-                isTurnOver = true;
+            } else if (itemId >= 100 && itemId < 200)
+            {
+                int curPlayerId = itemId - 100;
+                System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
+                if (m_PlayerController.GetCurrentPlayer().GetChosenCardId() == curPlayerId)
+                {
+                    final Intent lastIntent = new Intent(this, EndGameActivity.class);
+                    lastIntent.putExtra("msg", "gewonnen");
+                    startActivity(lastIntent);
+                }
             }
-        }
-
+        } // end of -> first choose your character!!
 
         else    // only for debugging, can be removed
         {

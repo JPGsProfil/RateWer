@@ -52,6 +52,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wlg.ratewer.Activities.StartActivity" />
         </activity>
+        <activity
+            android:name=".Activities.EndGameActivity"
+            android:label="@string/title_activity_end_game"
+            android:parentActivityName=".Activities.StartNewGameActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
+        </activity>
     </application>
 
 </manifest>

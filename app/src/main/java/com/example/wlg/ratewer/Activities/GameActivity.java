@@ -40,20 +40,12 @@ public class GameActivity extends ActionBarActivity {
             ImageButton ib;
             BitmapDrawable imagebd;
             imageid = getResources().getIdentifier("drawable/lego50x50", null, null);
-            //imageid = getResources().getIdentifier("drawable/" + images[i], null, getPackageName());
-            //imagebd = resizeImage(imageid);
             ib = new ImageButton(this);
 
 
             ib.setClickable(true);
             ib.setId(i);
             ib.setOnClickListener(imageClickListener);
-            //ib.setImageDrawable(imagebd);
-            //ib.setMinimumHeight(size);
-            //ib.setMinimumWidth(size);
-            //ib.setMaxHeight(size);
-            //ib.setMaxWidth(size);
-            //imageButtons.add(ib);
             il.addView(ib);
             System.out.println("id: " + ib.getId());
 

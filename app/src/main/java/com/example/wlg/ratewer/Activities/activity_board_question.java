@@ -73,9 +73,10 @@ public class activity_board_question extends ActionBarActivity
             }
         }
 
-
+        // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
         PlaceCardsOnField();
+        // List with all attributes, unique, generated from cardlist
         m_Attribs = new AttributList(cardList);
         System.out.println("Cardlist2: " + cardList.m_List.size());
         System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
@@ -83,13 +84,12 @@ public class activity_board_question extends ActionBarActivity
         //MenuButton();
     }
 
-    // called at beginning of increate
+    // called in oncreate
     private void PlaceCardsOnField()
     {
         // set cards
         if(cardList.GetSize()>0)
         {
-            //System.out.println("cardList Groesse ist: "+cardList.size());
             addButtonsDynamic();
         }
         else
@@ -126,13 +126,12 @@ public class activity_board_question extends ActionBarActivity
 
                 while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
                 {
-                    //sm.add(m_Attribs.attriList.get(index).attribute);
                     sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).value);
                     //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
                     index++;
                 }
             }
-            else
+            else    // only bool attributes (like wearGlasses ...) -> no submenu required
             {
                 menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
                 System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
@@ -142,7 +141,7 @@ public class activity_board_question extends ActionBarActivity
                 }
                 else
                 {
-                    index++;    // not really necesarry, because always min. yes or no in question, otherwhise not a question
+                    index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
                 }
             }
         }
@@ -157,17 +156,54 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
         String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
+
+        // print all Persons with same attribut (as klicked in view), useful for debugging
         if(itemId > 0)
         {
+
+            // print of target person has this attribut:
+            boolean hasId = false;
+            for(int index = 0; index <cardList.m_List.size(); index++)
+            {
+                // look for attribut
+                if(m_Attribs.attriList.get(itemId).attr.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index).attr))
+                {
+                    // attribut (kategory) found, now compare value
+                    if(m_Attribs.attriList.get(itemId).value.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index).value))
+                    {
+                        hasId = true;
+                    }
+                }
+            }
+            if(hasId)
+            {
+                Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_LONG).show();
+            }
+            // End of: print of target person has this attribut
+
+
+
+            // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
             for (int index1=0; index1 < cardList.m_List.size(); index1++)
             {
                 System.out.println("cardList.m_List.size() "+cardList.m_List.size());
                  //System.out.println("In for1:"+index1);
                 for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
                 {
+
                     if(cardList.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(itemId).attr))
                     {
                         System.out.println("Bin in if");
+                        // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
+                        // wenn ja:
+                        if(cardList.m_List.get(index1).attriList.get(index2).value.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index2).value))
+                        {
+
+                        }
                         if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
                         {
                             System.out.println("Bin in if2");
@@ -181,14 +217,14 @@ public class activity_board_question extends ActionBarActivity
             System.out.println("Personen: "+personsWithSameValue); //
             Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
         }
-        else
+        else    // only for debugging, can be removed
         {
             System.out.println("komische item id");
         }
 
 
 
-        //noinspection SimplifiableIfStatement
+        // can be removed
         if (itemId == R.id.action_settings) // bug when clicking on options
         {
             Toast.makeText(getApplicationContext(), "Hier könnte später evtl. einmal die Sprache geändert werden", Toast.LENGTH_LONG).show();
@@ -308,6 +344,7 @@ public class activity_board_question extends ActionBarActivity
     }
 */
 
+    // ingame klick on card -> displays attributes of this card (from json, )
     private void DisplayAttributes(Card currentCard)
     {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
@@ -343,6 +380,7 @@ public class activity_board_question extends ActionBarActivity
         alertDialog.show();
     }
 
+    // at the beginning of the game you have to select who you are
     private void SelectWhoYouAre(final Card _currentCard)
     {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);

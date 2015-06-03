@@ -196,25 +196,42 @@ public class activity_board_question extends ActionBarActivity
             {
                 //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
                  //System.out.println("In for1:"+index1);
+                // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
                 for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
                 {
 
                     if(cardList.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(itemId).attr))
                     {
-                        System.out.println("Bin in if");
+                        //System.out.println("Bin in if");
                         // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
                         // wenn ja:
-                        if(cardList.m_List.get(index1).attriList.get(index2).value.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index2).value))
+                        if(hasId)
                         {
+                            // add persons to list who have this attribute (klicked)
+                            if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
+                            {
+                                //System.out.println("Bin in if2");
+                                personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
+                                //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            // only add person to list (print) if they don't have this attribute
+                            if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
+                            {
+                            }
+                            else    // only add person if not the same value (like other haircolor)
+                            {
+                                //System.out.println("Bin in if3");
+                                personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
+                                //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                break;
+                            }
 
                         }
-                        if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
-                        {
-                            System.out.println("Bin in if2");
-                            personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
-                            System.out.println("personsWithSameValue "+personsWithSameValue);
-                            break;
-                        }
+
                     }
                 }
             }
@@ -314,10 +331,12 @@ public class activity_board_question extends ActionBarActivity
                             System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
 
                             // only funny:
+                            /*
                             if(currentCard.id == m_PlayerController.GetNextPlayer().GetChosenCardId())
                             {
                                 Toast.makeText(getApplicationContext(), "Du hast zufaelligerweise die Person angeklickt, die der Gegner ausgewaehlt hat!\n Aber psssst!!!!", Toast.LENGTH_SHORT).show();
                             }
+                            */
                             DisplayAttributes(cardList.m_List.get(currentIndex));
                         }
                     }

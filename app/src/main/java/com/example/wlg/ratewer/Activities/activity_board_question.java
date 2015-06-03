@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wlg.ratewer.Controller.AIController;
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttributList;
@@ -46,6 +47,9 @@ public class activity_board_question extends ActionBarActivity
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
     private static PlayerController m_PlayerController = new PlayerController();    // initialize two players, accessable via list or Get
+    private static AIController m_AIController = new AIController();
+
+    private static boolean isTurnOver = false;
 
 
     // menu:
@@ -102,12 +106,70 @@ public class activity_board_question extends ActionBarActivity
         // end of: set cards
     }
 
+    // ends players turn, do ai stuff, starts with player turn again
+    private void EndTurn()
+    {
+        // change backgorund
+        m_PlayerController.ChangeCurrentPlayer();
+        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+        // end of: change background
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+        // set title
+        alertDialogBuilder.setTitle("Zug beendet");
+        alertDialogBuilder
+                .setMessage("Spieler" + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " ist dran")
+                        // not need to click ok to cancel alert, simply click outside the box
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        if (m_PlayerController.GetCurrentPlayer().GetPlayerID() % 2 == 0)   // only call ai if it's ai's turn
+                        {
+                            AITurn();
+                        }
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+    }
+
+
+    private void AITurn()
+    {
+        String AIout = "Ich bin die Ki und bin jetzt dran!!!\n";
+        int checkedId = m_AIController.CalculateCard();
+        AIout+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
+
+
+        if(m_PlayerController.GetNextPlayer().GetChosenCardId() == checkedId)
+        {
+            AIout+= "ja, ist es!!! Ich habe gewonnen!!!";
+        }
+        else
+        {
+            AIout+= "nein, leider nicht!!! Du bist!";
+        }
+        Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
+        EndTurn();
+
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
+        menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry)
 
         // dynamically add menue item
         // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
@@ -156,88 +218,106 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
 
-        // print all Persons with same attribut (as klicked in view), useful for debugging
-        if(itemId > 0)
-        {
 
-            // print of target person has this attribut:
-            boolean hasId = false;
-            // get playerCard (enemy)
-            Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
-            System.out.println("Gegner ist: "+cardEnemy.name);
-            for(int index = 0; index <cardEnemy.attriList.size(); index++)
+        if(itemId == 10000) // end turn
+        {
+            EndTurn();
+            isTurnOver = false;
+        }
+
+
+        // print all Persons with same attribut (as klicked in view), useful for debugging
+        else if(itemId > 0)
+        {
+            if(isTurnOver == true)
             {
-                // look for attribut
-                if(m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
-                {
-                    // attribut (kategory) found, now compare value
-                    if(m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
-                    {
-                        hasId = true;
-                        break;
-                    }
-                }
-            }
-            if(hasId)
-            {
-                Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
-            }
-            // End of: print of target person has this attribut
 
 
-            String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
-
-            // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
-            for (int index1=0; index1 < cardList.m_List.size(); index1++)
-            {
-                //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
-                 //System.out.println("In for1:"+index1);
-                // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
-                for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
+                // print of target person has this attribut:
+                boolean hasId = false;
+                // get playerCard (enemy)
+                Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
+                System.out.println("Gegner ist: " + cardEnemy.name);
+                for (int index = 0; index < cardEnemy.attriList.size(); index++)
                 {
-
-                    if(cardList.m_List.get(index1).attriList.get(index2).attr.equals( m_Attribs.attriList.get(itemId).attr))
+                    // look for attribut
+                    if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
                     {
-                        //System.out.println("Bin in if");
-                        // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
-                        // wenn ja:
-                        if(hasId)
+                        // attribut (kategory) found, now compare value
+                        if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
                         {
-                            // add persons to list who have this attribute (klicked)
-                            if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
-                            {
-                                //System.out.println("Bin in if2");
-                                personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
-                                //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                break;
-                            }
+                            hasId = true;
+                            break;
                         }
-                        else
-                        {
-                            // only add person to list (print) if they don't have this attribute
-                            if(cardList.m_List.get(index1).attriList.get(index2).value.equals( m_Attribs.attriList.get(itemId).value))
-                            {
-                            }
-                            else    // only add person if not the same value (like other haircolor)
-                            {
-                                //System.out.println("Bin in if3");
-                                personsWithSameValue +=cardList.m_List.get(index1).name+"\n";
-                                //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                break;
-                            }
-
-                        }
-
                     }
                 }
+                if (hasId)
+                {
+                    Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
+                }
+                // End of: print of target person has this attribut
+
+
+                String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
+
+                // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
+                for (int index1 = 0; index1 < cardList.m_List.size(); index1++)
+                {
+                    //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
+                    //System.out.println("In for1:"+index1);
+                    // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
+                    for (int index2 = 0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
+                    {
+
+                        if (cardList.m_List.get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
+                        {
+                            //System.out.println("Bin in if");
+                            // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
+                            // wenn ja:
+                            if (hasId)
+                            {
+                                // add persons to list who have this attribute (klicked)
+                                if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                {
+                                    //System.out.println("Bin in if2");
+                                    personsWithSameValue += cardList.m_List.get(index1).name + "\n";
+                                    //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                    break;
+                                }
+                            } else
+                            {
+                                // only add person to list (print) if they don't have this attribute
+                                if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                {
+                                } else    // only add person if not the same value (like other haircolor)
+                                {
+                                    //System.out.println("Bin in if3");
+                                    personsWithSameValue += cardList.m_List.get(index1).name + "\n";
+                                    //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                    break;
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+                System.out.println("Personen: " + personsWithSameValue); //
+                Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+
+                // turn is over !!!
+                isTurnOver = true;
             }
-            System.out.println("Personen: "+personsWithSameValue); //
-            Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
         }
+
+
         else    // only for debugging, can be removed
         {
             System.out.println("komische item id");
@@ -441,6 +521,12 @@ public class activity_board_question extends ActionBarActivity
         AlertDialog alertDialog = alertDialogBuilder.create();
         // show alert
         alertDialog.show();
+    }
+
+
+    private void DisplayCurrentPlayerInBox()
+    {
+
     }
 
 

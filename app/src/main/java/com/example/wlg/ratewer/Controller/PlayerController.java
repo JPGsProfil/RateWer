@@ -52,7 +52,7 @@ public class PlayerController
 
 
     // only working with two players
-    private boolean ChangeCurrentPlayer()
+    public boolean ChangeCurrentPlayer()
     {
         if(players.size()<2)
         {

@@ -228,6 +228,7 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
 
+        // game can't start if player hasn't chosen his card, maybe extra activity later
         if(!HavePlayersSelectedWhoTheyAre)
         {
             Toast.makeText(getApplicationContext(), "Du musst erst einen Spieler auswählen!!", Toast.LENGTH_SHORT).show();

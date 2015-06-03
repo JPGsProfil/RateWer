@@ -134,7 +134,7 @@ public class activity_board_question extends ActionBarActivity
             else    // only bool attributes (like wearGlasses ...) -> no submenu required
             {
                 menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
-                System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
+                System.out.println("add: currGroupId "+currGroupId+ "  eintrag:"+m_Attribs.attriList.get(index).attr);
                 if(m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
                 {
                     index +=2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
@@ -155,7 +155,6 @@ public class activity_board_question extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
-        String personsWithSameValue = "Folgende Personen haben die angeklickte Eigenschaft:\n";
 
         // print all Persons with same attribut (as klicked in view), useful for debugging
         if(itemId > 0)
@@ -163,34 +162,39 @@ public class activity_board_question extends ActionBarActivity
 
             // print of target person has this attribut:
             boolean hasId = false;
-            for(int index = 0; index <cardList.m_List.size(); index++)
+            // get playerCard (enemy)
+            Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
+            System.out.println("Gegner ist: "+cardEnemy.name);
+            for(int index = 0; index <cardEnemy.attriList.size(); index++)
             {
                 // look for attribut
-                if(m_Attribs.attriList.get(itemId).attr.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index).attr))
+                if(m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
                 {
                     // attribut (kategory) found, now compare value
-                    if(m_Attribs.attriList.get(itemId).value.equals(cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).attriList.get(index).value))
+                    if(m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
                     {
                         hasId = true;
+                        break;
                     }
                 }
             }
             if(hasId)
             {
-                Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
             }
             // End of: print of target person has this attribut
 
 
+            String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
 
             // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
             for (int index1=0; index1 < cardList.m_List.size(); index1++)
             {
-                System.out.println("cardList.m_List.size() "+cardList.m_List.size());
+                //System.out.println("cardList.m_List.size() "+cardList.m_List.size());
                  //System.out.println("In for1:"+index1);
                 for(int index2=0; index2 < cardList.m_List.get(index1).attriList.size(); index2++)
                 {

@@ -3,6 +3,7 @@ package com.example.wlg.ratewer.Activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -227,7 +228,7 @@ public class activity_board_question extends ActionBarActivity
 
 
         // print all Persons with same attribut (as klicked in view), useful for debugging
-        else if(itemId > 0)
+        else if(itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
         {
             if(isTurnOver == true)
             {
@@ -291,12 +292,23 @@ public class activity_board_question extends ActionBarActivity
                                     //System.out.println("personsWithSameValue "+personsWithSameValue);
                                     break;
                                 }
-                            } else
+                                else
+                                {
+                                    ImageButton btn=(ImageButton)findViewById(cardList.m_List.get(index1).viewID);
+                                    btn.setAlpha(0.4f);
+                                    btn.setClickable(false);
+                                }
+                            }
+                            else
                             {
                                 // only add person to list (print) if they don't have this attribute
                                 if (cardList.m_List.get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
                                 {
-                                } else    // only add person if not the same value (like other haircolor)
+                                    ImageButton btn=(ImageButton)findViewById(cardList.m_List.get(index1).viewID);
+                                    btn.setAlpha(0.4f);
+                                    btn.setClickable(false);
+                                }
+                                else    // only add person if not the same value (like other haircolor)
                                 {
                                     //System.out.println("Bin in if3");
                                     personsWithSameValue += cardList.m_List.get(index1).name + "\n";
@@ -320,7 +332,8 @@ public class activity_board_question extends ActionBarActivity
 
         else    // only for debugging, can be removed
         {
-            System.out.println("komische item id");
+
+            System.out.println("komische item id :"+itemId);
         }
 
 

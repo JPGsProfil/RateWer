@@ -240,11 +240,15 @@ public class activity_board_question extends ActionBarActivity
                 // dynamically add menue item
                 // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
                 int currGroupId = -1;
+                //int itemId = 0;
                 // iterate all attributs
                 for (int index = 0; index < m_Attribs.attriList.size(); )
                 {
                     // at the beginning, set new group id, not necessary if stay the same (if below)
                     currGroupId = m_Attribs.attriList.get(index).groupId;
+
+
+
                     // if more than two -> submenu required, if one or two not (like bool)
                     if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
                     {
@@ -254,18 +258,23 @@ public class activity_board_question extends ActionBarActivity
 
                         while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
                         {
-                            sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).value);
+                            sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
+                            //itemId++;
                             //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
                             index++;
                         }
-                    } else    // only bool attributes (like wearGlasses ...) -> no submenu required
+                    }
+                    else    // only bool attributes (like wearGlasses ...) -> no submenu required
                     {
-                        menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
-                        System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
+
                         if (m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
                         {
+                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
+                            menu.add(currGroupId, index, 0, attriValStr);
+                            //itemId ++;
+                            System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
                             index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
-                        } else
+                        } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
                         {
                             index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
                         }
@@ -283,7 +292,8 @@ public class activity_board_question extends ActionBarActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
-
+        System.out.println("itemId ist: "+itemId);
+        SetCurrentCardList();
         //SetCurrentCardList(); // here not really necessary because turn starts with onPrepareOptionsmenu ///////////////////////////////////
 
         // game can't start if player hasn't chosen his card, maybe extra activity later
@@ -315,7 +325,16 @@ public class activity_board_question extends ActionBarActivity
                     // print of target person has this attribut:
                     boolean hasId = false;
                     // get playerCard (enemy)
-                    Card cardEnemy = cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId());
+                    Card cardEnemy =  cardList.m_List.get(0);
+                    for (int i=0; i< cardList.GetSize(); i++)
+                    {
+                        // because index not working anymore (because most cards have been deleted)
+                        if(cardList.m_List.get(i).id == m_PlayerController.GetNextPlayer().GetChosenCardId())
+                        {
+                            cardEnemy = cardList.m_List.get(i);
+                            break;
+                        }
+                    }
                     System.out.println("Gegner ist: " + cardEnemy.name);
                     for (int index = 0; index < cardEnemy.attriList.size(); index++)
                     {
@@ -413,7 +432,7 @@ public class activity_board_question extends ActionBarActivity
                     // remove unwanted cards:
                     //debug
 
-
+                    ///// auslagern!!!!
                     for(int index = CardsToRemove.size() -1; index >= 0; index-- )
                     {
 
@@ -424,6 +443,13 @@ public class activity_board_question extends ActionBarActivity
                         }
                         System.out.println(pers);
 
+                        // set visibility of imagebutton
+                        ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(CardsToRemove.get(index)).viewID);
+                        btn.setAlpha(0.4f);
+                        btn.setClickable(false);
+
+
+                        // remove from option menu
                         System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+cardList.m_List.get(CardsToRemove.get(index)).name);
                         cardList.m_List.remove(cardList.m_List.get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
                         System.out.println("Cards after remove: " + cardList.GetSize());
@@ -431,7 +457,7 @@ public class activity_board_question extends ActionBarActivity
 
                     // now update option menu list:
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
-
+                    // Ende auslagern!!!!
 
                 }
             } else if (itemId >= 100 && itemId < 200)
@@ -448,10 +474,16 @@ public class activity_board_question extends ActionBarActivity
                 else
                 {
                     String playerName = cardList.m_List.get(curPlayerId).name;
+
+                    ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(curPlayerId).viewID);
+                    btn.setAlpha(0.4f);
+                    btn.setClickable(false);
+
                     String msg = "Es ist nicht "+playerName;
-                    cardList.m_List.remove(curPlayerId);
+                    cardList.m_List.remove(cardList.m_List.get(curPlayerId));
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    System.out.println("msg: "+msg);
                 }
             }
 

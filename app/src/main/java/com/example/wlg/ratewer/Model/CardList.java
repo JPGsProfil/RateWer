@@ -45,6 +45,18 @@ public class CardList
 
     }
 
+    public int GetIndexFromCardId(int _cardId)
+    {
+        for(int i=0; i<m_List.size(); i++)
+        {
+            if(m_List.get(i).id == _cardId)
+            {
+                return i;
+            }
+        }
+        return 0;   //only if no card found, should not happen
+    }
+
 
 
     private void ShuffleList()
@@ -111,17 +123,15 @@ public class CardList
                     {
                         curName = curValue;
                     }
-                    else
-                    if(curCat.equals("image"))
+                    else if(curCat.equals("image"))
                     {
                         curimage = curValue;
                     }
-                    /*
-                    else
-                    if(curCat.equals("id"))
+
+                    else if(curCat.equals("id"))
                     {
-                        curId = curValue;
-                    }*/
+                        //curId = curValue; not needed, shuffle later
+                    }
                     else
                     {
                         AttribValue curAttribValue = new AttribValue(curCat,curValue);

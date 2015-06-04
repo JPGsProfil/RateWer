@@ -20,13 +20,22 @@ public class AttributList
     public List<StringsToDisplayAttributs> attriList = new ArrayList<>();
 
 
-    private String jsonAttriString;
+    //private String jsonAttriString;
 
     public AttributList(CardList _cardList)
     {
         //jsonAttriString = _jsonAttriString;
         //FillAttributeList(jsonAttriString);
         FillAttributeListFromCardList(_cardList);
+    }
+
+    public AttributList(AttributList _attributList)
+    {
+        for(int index=0; index < _attributList.attriList.size(); index ++)
+        {
+            StringsToDisplayAttributs newEntry = new StringsToDisplayAttributs(_attributList.attriList.get(index));
+            attriList.add(newEntry);
+        }
     }
 
 

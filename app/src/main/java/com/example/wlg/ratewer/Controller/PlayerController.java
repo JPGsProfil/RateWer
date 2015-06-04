@@ -19,7 +19,7 @@ public class PlayerController
         // maybe later more than two player
         for (int i=0; i<2; i++)
         {
-            PlayerInformation newPlayer = new PlayerInformation();
+            PlayerInformation newPlayer = new PlayerInformation(_cardList);
             players.add(newPlayer);
             System.out.println("index "+ i + "= "+players.get(i).GetPlayerID());
         }

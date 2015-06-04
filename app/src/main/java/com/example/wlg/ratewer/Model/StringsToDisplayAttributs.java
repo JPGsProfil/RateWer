@@ -26,6 +26,15 @@ public class StringsToDisplayAttributs
         //androidId   = _androidId;
     }
 
+    // copy function
+    public StringsToDisplayAttributs(StringsToDisplayAttributs _stringsToDisplayAttributs)
+    {
+        id          = _stringsToDisplayAttributs.id;
+        groupId     = _stringsToDisplayAttributs.groupId;
+        attr        = _stringsToDisplayAttributs.attr;
+        value       = _stringsToDisplayAttributs.value;
+    }
+
 
 
 

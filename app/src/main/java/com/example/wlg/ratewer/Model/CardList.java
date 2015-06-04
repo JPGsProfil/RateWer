@@ -28,11 +28,21 @@ public class CardList
     // copy cardlist
     public CardList(CardList _cardList)
     {
-        for(int index=0; index < m_List.size(); index ++)
-        {
-            Card cardToAdd = new Card(m_List.get(index));   // should be a copy
-            m_List.add(cardToAdd);
-        }
+
+            for(int index=0; index < _cardList.m_List.size(); index ++)
+            {
+                System.out.println("vor copy Card: ");
+                System.out.println("Groeße uebergebener Cardlist: "+_cardList.m_List.size());
+                System.out.println("_cardList.m_List.get(index) "+_cardList.m_List.get(index).name);
+                Card cardToAdd = new Card(_cardList.m_List.get(index));   // should be a copy
+
+                System.out.println("vor ABsturz: "+cardToAdd.name);
+                m_List.add(cardToAdd);
+
+            }
+
+
+
     }
 
 

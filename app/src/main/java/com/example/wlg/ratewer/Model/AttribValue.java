@@ -16,6 +16,12 @@ public class AttribValue implements Comparable<AttribValue>
         value   = _value;
     }
 
+    public AttribValue(AttribValue _attribValue)
+    {
+        attr    = _attribValue.attr;
+        value   = _attribValue.value;
+    }
+
 
     @Override public boolean equals(Object _second)
     {

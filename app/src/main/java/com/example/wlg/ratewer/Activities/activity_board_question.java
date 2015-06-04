@@ -44,10 +44,10 @@ public class activity_board_question extends ActionBarActivity
     //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
 
     private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
-    private static AttributList m_Attribs;
+    private static AttributList m_Attribs;  // attribs of the current player, only reference
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
-    private static PlayerController m_PlayerController = new PlayerController(cardList);    // initialize two players, accessable via list or Get
+    private static PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
     private static AIController m_AIController;
 
     private static boolean isTurnOver = false;
@@ -88,15 +88,17 @@ public class activity_board_question extends ActionBarActivity
         }
         m_AIController = new AIController("difficulty");
 
-
-
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
+
         PlaceCardsOnField();
+        m_PlayerController = new PlayerController(cardList);
+        m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+
         // List with all attributes, unique, generated from cardlist
-        m_Attribs = new AttributList(cardList);
-        System.out.println("Cardlist2: " + cardList.m_List.size());
-        System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
+        //m_Attribs = new AttributList(cardList);
+        //System.out.println("Cardlist2: " + cardList.m_List.size());
+        //System.out.println("Testwert: "+ cardList.m_List.get(2).attriList.get(2).attr);
 
         //MenuButton();
     }
@@ -154,9 +156,16 @@ public class activity_board_question extends ActionBarActivity
 
     }
 
+    // call this function to make sure you use the correct cardlist (because each player has it's own)
+    private void SetCurrentCardList()
+    {
+        cardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
+    }
+
 
     private void AITurn()
     {
+        SetCurrentCardList();
         String AIout = "Ich bin die Ki und bin jetzt dran!!!\n";
         int checkedId = m_AIController.CalculateCard();
         AIout+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
@@ -183,6 +192,7 @@ public class activity_board_question extends ActionBarActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
+        SetCurrentCardList();   // make sure you use the the correct cardlist (of the current player)
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
         menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
@@ -190,6 +200,7 @@ public class activity_board_question extends ActionBarActivity
         {
             if (!isTurnOver)
             {
+
                 // submenu to choose "is it ...?"
                 SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
                 for (int index = 0; index < cardList.m_List.size(); index++)
@@ -204,6 +215,9 @@ public class activity_board_question extends ActionBarActivity
 
             if (!isTurnOver)
             {
+                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+                System.out.println("playercontroller cardRem: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
+                System.out.println("playercontroller attribremaining: "+m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.attriList.size());
                 // dynamically add menue item
                 // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
                 int currGroupId = -1;
@@ -275,8 +289,7 @@ public class activity_board_question extends ActionBarActivity
                     Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
                 } else
                 {
-
-
+                    m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
                     // print of target person has this attribut:
                     boolean hasId = false;
                     // get playerCard (enemy)
@@ -335,6 +348,7 @@ public class activity_board_question extends ActionBarActivity
                                         ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
                                         btn.setAlpha(0.4f);
                                         btn.setClickable(false);
+
                                     }
                                 } else
                                 {
@@ -404,7 +418,7 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-    // maybe could be outsourced to Board.java
+    // maybe could be outsourced to Board.java, called at the beginning of the game
     public boolean addButtonsDynamic()
     {
         // nothing to add -> nothing else to do

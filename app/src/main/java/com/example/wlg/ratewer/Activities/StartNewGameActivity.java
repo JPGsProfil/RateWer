@@ -26,6 +26,7 @@ public class StartNewGameActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_new_game);
         FillCardSetSpinner();
+        FillDifficicultySpinner();
 
         final Button bStartGame = (Button) findViewById(R.id.b_sng_start);
         bStartGame.setOnClickListener(new View.OnClickListener()
@@ -36,7 +37,11 @@ public class StartNewGameActivity extends ActionBarActivity
 
                 Spinner sp_cardsets = (Spinner)findViewById(R.id.sp_cardsets);
                 String cardSet = sp_cardsets.getSelectedItem().toString();
-                firstIntent.putExtra("chosenCardSet",cardSet);
+                firstIntent.putExtra("chosenCardSet", cardSet);
+
+                Spinner sp_difficulty = (Spinner)findViewById(R.id.sp_sng_difficulty);
+                String diff = sp_difficulty.getSelectedItem().toString();
+                firstIntent.putExtra("difficulty",diff);
 
 
                 startActivity(firstIntent);
@@ -48,7 +53,7 @@ public class StartNewGameActivity extends ActionBarActivity
     {
         Spinner sp_cardsets = (Spinner)findViewById(R.id.sp_cardsets);
 
-        List<String> cardsets = new ArrayList<String>();
+        List<String> cardsets = new ArrayList<>();
 
         Field[] fields=R.raw.class.getFields();
 
@@ -58,9 +63,25 @@ public class StartNewGameActivity extends ActionBarActivity
             //System.out.println("Raw Asset: " + fields[count].getName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, cardsets);
         sp_cardsets.setAdapter(adapter);
+    }
+
+
+    private void FillDifficicultySpinner()
+    {
+        Spinner sp_diff = (Spinner)findViewById(R.id.sp_sng_difficulty);
+
+        List<String> difflist = new ArrayList<>();
+        difflist.add("einfach");
+        difflist.add("normal");
+        difflist.add("Hellseher");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, difflist);
+        sp_diff.setAdapter(adapter);
     }
 
     @Override

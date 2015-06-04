@@ -48,7 +48,7 @@ public class activity_board_question extends ActionBarActivity
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
     private static PlayerController m_PlayerController = new PlayerController();    // initialize two players, accessable via list or Get
-    private static AIController m_AIController = new AIController();
+    private static AIController m_AIController;
 
     private static boolean isTurnOver = false;
 
@@ -68,15 +68,27 @@ public class activity_board_question extends ActionBarActivity
 
 
         String usedCardset = "simpsons"; // "simpsons" OR "defaultset" possible
+        String difficulty = "einfach";
         Bundle extras = getIntent().getExtras();
         if (extras != null)
         {
+            // get chosen cardset from prev. activity:
             String newCardSet = extras.getString("chosenCardSet");
             if (newCardSet != null)
             {
                 usedCardset = newCardSet;
             }
+
+            // get difficulty from prev. activity:
+            String diff = extras.getString("difficulty");
+            if (diff != null)
+            {
+                difficulty = diff;
+            }
         }
+        m_AIController = new AIController("difficulty");
+
+
 
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
@@ -169,54 +181,65 @@ public class activity_board_question extends ActionBarActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
+    public boolean onPrepareOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
-
-        SubMenu sm1 = menu.addSubMenu(100, -1,100, "Ist es?");
-        for(int index = 0; index < cardList.m_List.size(); index ++)
+        menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
+        if(HavePlayersSelectedWhoTheyAre)
         {
-            sm1.add(100, 100 + index, 0, cardList.m_List.get(index).name);
-        }
-        menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry)
-
-        // dynamically add menue item
-        // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
-        int currGroupId = -1;
-        // iterate all attributs
-        for (int index = 0; index < m_Attribs.attriList.size();)
-        {
-            // at the beginning, set new group id, not necessary if stay the same (if below)
-            currGroupId= m_Attribs.attriList.get(index).groupId;
-            // if more than two -> submenu required, if one or two not (like bool)
-            if(index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
+            if (!isTurnOver)
             {
-                SubMenu sm = menu.addSubMenu(currGroupId, -1,0, m_Attribs.attriList.get(index).attr);
-                //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
-                String que = m_Attribs.attriList.get(index).attr;
-
-                while( index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+                // submenu to choose "is it ...?"
+                SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
+                for (int index = 0; index < cardList.m_List.size(); index++)
                 {
-                    sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).value);
-                    //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
-                    index++;
+                    // add the names of the card (person)
+                    sm1.add(100, 100 + index, 0, cardList.m_List.get(index).name);
                 }
             }
-            else    // only bool attributes (like wearGlasses ...) -> no submenu required
+            // menu entry to end own turn
+            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry)
+
+
+            if (!isTurnOver)
             {
-                menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
-                System.out.println("add: currGroupId "+currGroupId+ "  eintrag:"+m_Attribs.attriList.get(index).attr);
-                if(m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                // dynamically add menue item
+                // first has to be menu, needed because java won't let you do this with if else, even if "if" is always the first
+                int currGroupId = -1;
+                // iterate all attributs
+                for (int index = 0; index < m_Attribs.attriList.size(); )
                 {
-                    index +=2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
+                    // at the beginning, set new group id, not necessary if stay the same (if below)
+                    currGroupId = m_Attribs.attriList.get(index).groupId;
+                    // if more than two -> submenu required, if one or two not (like bool)
+                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
+                    {
+                        SubMenu sm = menu.addSubMenu(currGroupId, -1, 0, m_Attribs.attriList.get(index).attr);
+                        //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
+                        String que = m_Attribs.attriList.get(index).attr;
+
+                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+                        {
+                            sm.add(currGroupId, index, 0, m_Attribs.attriList.get(index).value);
+                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
+                            index++;
+                        }
+                    } else    // only bool attributes (like wearGlasses ...) -> no submenu required
+                    {
+                        menu.add(currGroupId, index, 0, m_Attribs.attriList.get(index).attr);
+                        System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
+                        if (m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                        {
+                            index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
+                        } else
+                        {
+                            index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
+                        }
+                    }
                 }
-                else
-                {
-                    index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
-                }
-            }
-        }
+            }   // end of: only display categories if players turn isn't over
+        }   // end of: option menu only visible if both players have chosen their character
         return true;
     }
 
@@ -247,7 +270,7 @@ public class activity_board_question extends ActionBarActivity
             // print all Persons with same attribut (as klicked in view), useful for debugging
             else if (itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
             {
-                if (isTurnOver == true)
+                if (isTurnOver)
                 {
                     Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
                 } else
@@ -344,22 +367,28 @@ public class activity_board_question extends ActionBarActivity
             {
                 int curPlayerId = itemId - 100;
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
+                isTurnOver = true;
                 if (m_PlayerController.GetCurrentPlayer().GetChosenCardId() == curPlayerId)
                 {
                     final Intent lastIntent = new Intent(this, EndGameActivity.class);
                     lastIntent.putExtra("msg", "gewonnen");
                     startActivity(lastIntent);
                 }
+                else
+                {
+                    String playerName = cardList.m_List.get(curPlayerId).name;
+                    String msg = "Es ist nicht "+playerName;
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                }
             }
+
+
+            else    // only for debugging, can be removed
+            {
+                System.out.println("komische item id :"+itemId);
+            }
+
         } // end of -> first choose your character!!
-
-        else    // only for debugging, can be removed
-        {
-
-            System.out.println("komische item id :"+itemId);
-        }
-
-
 
         // can be removed
         if (itemId == R.id.action_settings) // bug when clicking on options
@@ -367,6 +396,8 @@ public class activity_board_question extends ActionBarActivity
             Toast.makeText(getApplicationContext(), "Hier könnte später evtl. einmal die Sprache geändert werden", Toast.LENGTH_LONG).show();
             return true;
         }
+
+        invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
 
@@ -538,6 +569,7 @@ public class activity_board_question extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id)
                     {
                         HavePlayersSelectedWhoTheyAre = true;
+                        invalidateOptionsMenu();    // because now we have entries
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
                         System.out.println("Du hast " + _currentCard.name + " ausgewaehlt");
                         dialog.cancel();

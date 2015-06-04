@@ -16,10 +16,13 @@ public class AIController
     private CardList m_cardList;
     private String m_difficulty;
 
-    public AIController()
+    public AIController(String _difficulty)
     {
-        m_difficulty = "simple"; // needed for CalculateNextMove
-
+        m_difficulty = "einfach"; // needed for CalculateNextMove
+        if(_difficulty != null)
+        {
+            m_difficulty = _difficulty;
+        }
     }
 
     // spaeter attribValue vom Typ, da nach Eigenschaften gesucht, later

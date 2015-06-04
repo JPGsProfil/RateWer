@@ -90,7 +90,7 @@ public class activity_board_question extends ActionBarActivity
 
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
-
+        System.out.println("Ein leichter Gegner haette ausgewaehlt: "+cardList.m_List.get(10).name);
         PlaceCardsOnField();
         m_PlayerController = new PlayerController(cardList);
         m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
@@ -267,7 +267,7 @@ public class activity_board_question extends ActionBarActivity
                     else    // only bool attributes (like wearGlasses ...) -> no submenu required
                     {
 
-                        if (m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
                         {
                             String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
                             menu.add(currGroupId, index, 0, attriValStr);
@@ -465,8 +465,12 @@ public class activity_board_question extends ActionBarActivity
                 int curPlayerId = itemId - 100;
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
                 isTurnOver = true;
-                if (m_PlayerController.GetCurrentPlayer().GetChosenCardId() == curPlayerId)
+                int cardId = cardList.m_List.get(curPlayerId).id;
+                if (curPlayerId == cardId)
                 {
+                    /////// BUG bug ////////////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////
                     final Intent lastIntent = new Intent(this, EndGameActivity.class);
                     lastIntent.putExtra("msg", "gewonnen");
                     startActivity(lastIntent);

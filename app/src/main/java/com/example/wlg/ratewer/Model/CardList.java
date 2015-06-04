@@ -59,6 +59,7 @@ public class CardList
 
 
 
+
     private void ShuffleList()
     {
         Collections.shuffle(m_List);

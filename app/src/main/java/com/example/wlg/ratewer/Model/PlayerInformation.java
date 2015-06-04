@@ -9,6 +9,8 @@ public class PlayerInformation
     private boolean isAI;
     private int playerID;
     private static int amountOfPlayers = 0;
+    public AttributList m_AttribsRemaining; // each player has his/her own attributlist(each player can see individual option menu)
+    public CardList cardListRemaining;  // same as attriblist
 
 
     public PlayerInformation()

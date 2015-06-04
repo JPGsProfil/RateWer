@@ -47,7 +47,7 @@ public class activity_board_question extends ActionBarActivity
     private static AttributList m_Attribs;
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
-    private static PlayerController m_PlayerController = new PlayerController();    // initialize two players, accessable via list or Get
+    private static PlayerController m_PlayerController = new PlayerController(cardList);    // initialize two players, accessable via list or Get
     private static AIController m_AIController;
 
     private static boolean isTurnOver = false;

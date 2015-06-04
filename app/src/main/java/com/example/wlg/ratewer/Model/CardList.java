@@ -16,15 +16,26 @@ import java.util.List;
 public class CardList
 {
     public List<Card> m_List = new ArrayList<>();
-    private String jsonCardString;
+    //private String jsonCardString;
 
     public CardList(String _jsonCardString)
     {
-        jsonCardString = _jsonCardString;
-        FillCardList(jsonCardString);
+        FillCardList(_jsonCardString);
         ShuffleList();
         System.out.println("geshuffelt!!!");
     }
+
+    // copy cardlist
+    public CardList(CardList _cardList)
+    {
+        for(int index=0; index < m_List.size(); index ++)
+        {
+            Card cardToAdd = new Card(m_List.get(index));   // should be a copy
+            m_List.add(cardToAdd);
+        }
+    }
+
+
 
     private void ShuffleList()
     {

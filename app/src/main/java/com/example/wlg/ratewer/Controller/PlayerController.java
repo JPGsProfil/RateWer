@@ -1,5 +1,6 @@
 package com.example.wlg.ratewer.Controller;
 
+import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.Model.PlayerInformation;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class PlayerController
     private int currentPlayerIndex = 0;
     private static List<PlayerInformation> players = new ArrayList<>();
 
-    public PlayerController()
+    public PlayerController(CardList _cardList)
     {
         // maybe later more than two player
         for (int i=0; i<2; i++)

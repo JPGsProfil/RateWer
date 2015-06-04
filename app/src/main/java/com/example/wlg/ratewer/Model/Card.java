@@ -33,4 +33,20 @@ public class Card
         INIT_ID ++;
     }
 
+    // copy object
+    public Card(Card _card)
+    {
+        id =_card.id;
+        name = _card.name;
+        image = _card.image;
+        viewID = _card.viewID;
+        imageID = _card.imageID;
+        for(int index = 0; index < _card.attriList.size(); index ++)
+        {
+            AttribValue curAttriValue = new AttribValue(_card.attriList.get(index).attr,_card.attriList.get(index).value);
+            attriList.add(curAttriValue);
+        }
+    }
+
+
 }

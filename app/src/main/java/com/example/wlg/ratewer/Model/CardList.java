@@ -31,12 +31,12 @@ public class CardList
 
             for(int index=0; index < _cardList.m_List.size(); index ++)
             {
-                System.out.println("vor copy Card: ");
-                System.out.println("Groeße uebergebener Cardlist: "+_cardList.m_List.size());
-                System.out.println("_cardList.m_List.get(index) "+_cardList.m_List.get(index).name);
+                //System.out.println("vor copy Card: ");
+                //System.out.println("Groesse uebergebener Cardlist: "+_cardList.m_List.size());
+                //System.out.println("_cardList.m_List.get(index) "+_cardList.m_List.get(index).name);
                 Card cardToAdd = new Card(_cardList.m_List.get(index));   // should be a copy
 
-                System.out.println("vor ABsturz: "+cardToAdd.name);
+                //System.out.println("vor ABsturz: "+cardToAdd.name);
                 m_List.add(cardToAdd);
 
             }
@@ -78,7 +78,7 @@ public class CardList
             {
                 String curName = "";
                 String curimage = "";
-                String curId = "0";
+                //String curId = "0";
                 List<AttribValue> curAttrValueList = new ArrayList<>();
 
                 JSONObject curCardobj = new JSONObject(allCards.get(index).toString());
@@ -89,13 +89,13 @@ public class CardList
                     String curCat = (String) curCardKeysIt.next();
                     String curValue = curCardobj.getString(curCat);
                     // handle bool
-                    if (curValue.equals("") || curValue.equals(0) || curValue.equals("0") || curValue.equals("false"))
+                    if (curValue.equals("")  || curValue.equals("0") || curValue.equals("false"))
                     {
                         curValue = "no";
                     }
                     else
                     {
-                        if(curValue.equals(1) || curValue.equals("1") || curValue.equals("true"))
+                        if( curValue.equals("1") || curValue.equals("true"))
                         {
                             curValue = "yes";
                         }
@@ -111,11 +111,12 @@ public class CardList
                     {
                         curimage = curValue;
                     }
+                    /*
                     else
                     if(curCat.equals("id"))
                     {
                         curId = curValue;
-                    }
+                    }*/
                     else
                     {
                         AttribValue curAttribValue = new AttribValue(curCat,curValue);

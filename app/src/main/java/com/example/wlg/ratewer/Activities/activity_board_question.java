@@ -181,7 +181,12 @@ public class activity_board_question extends ActionBarActivity
         else
         {
             AIout+= "nein, leider nicht!!! Du bist!";
+            // cardList.m_List.remove(CardsToRemove.get(index));   // int list of  all cards wich should be deleted //  later implemented
+
         }
+        // now update option menu list:
+        //m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();   // later
+
         Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
         EndTurn();
 
@@ -265,6 +270,8 @@ public class activity_board_question extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int itemId = item.getItemId();
 
+        //SetCurrentCardList(); // here not really necessary because turn starts with onPrepareOptionsmenu ///////////////////////////////////
+
         // game can't start if player hasn't chosen his card, maybe extra activity later
         if(!HavePlayersSelectedWhoTheyAre)
         {
@@ -287,7 +294,8 @@ public class activity_board_question extends ActionBarActivity
                 if (isTurnOver)
                 {
                     Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
-                } else
+                }
+                else
                 {
                     m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
                     // print of target person has this attribut:
@@ -318,6 +326,8 @@ public class activity_board_question extends ActionBarActivity
                     // End of: print of target person has this attribut
 
 
+                    List<Integer> CardsToRemove = new ArrayList<>();
+
                     String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
 
                     // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
@@ -342,12 +352,15 @@ public class activity_board_question extends ActionBarActivity
                                         //System.out.println("Bin in if2");
                                         personsWithSameValue += cardList.m_List.get(index1).name + "\n";
                                         //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                        break;
+                                        //break; // because we want to delete all cards exept those with this attribute / value
                                     } else
                                     {
                                         ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
                                         btn.setAlpha(0.4f);
                                         btn.setClickable(false);
+                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                        System.out.println("zu loeschende Person: " + cardList.m_List.get(index1).name+ " index = "+index1);
+
 
                                     }
                                 } else
@@ -358,12 +371,15 @@ public class activity_board_question extends ActionBarActivity
                                         ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
                                         btn.setAlpha(0.4f);
                                         btn.setClickable(false);
-                                    } else    // only add person if not the same value (like other haircolor)
+                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                        System.out.println("zu loeschende Person: "+cardList.m_List.get(index1).name+ "index = "+index1);
+                                    }
+                                    else    // only add person if not the same value (like other haircolor)
                                     {
                                         //System.out.println("Bin in if3");
                                         personsWithSameValue += cardList.m_List.get(index1).name + "\n";
                                         //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                        break;
+                                        //break;
                                     }
 
                                 }
@@ -371,11 +387,38 @@ public class activity_board_question extends ActionBarActivity
                             }
                         }
                     }
-                    System.out.println("Personen: " + personsWithSameValue); //
+                    //System.out.println("Personen: " + personsWithSameValue); //
                     Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
 
                     // turn is over !!!
                     isTurnOver = true;
+
+
+                    System.out.println("Anz Karten: "+cardList.GetSize());
+                    System.out.println("cardsToRemove: "+CardsToRemove.size());
+                    // remove unwanted cards:
+                    //debug
+
+
+                    for(int index = CardsToRemove.size() -1; index >= 0; index-- )
+                    {
+
+                        String pers = "Personen: ";
+                        for(int i=0;i<cardList.GetSize(); i++)
+                        {
+                            pers += cardList.m_List.get(i).name+ "  ";
+                        }
+                        System.out.println(pers);
+
+                        System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+cardList.m_List.get(CardsToRemove.get(index)).name);
+                        cardList.m_List.remove(cardList.m_List.get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
+                        System.out.println("Cards after remove: " + cardList.GetSize());
+                    }
+
+                    // now update option menu list:
+                    m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
+
+
                 }
             } else if (itemId >= 100 && itemId < 200)
             {
@@ -392,6 +435,8 @@ public class activity_board_question extends ActionBarActivity
                 {
                     String playerName = cardList.m_List.get(curPlayerId).name;
                     String msg = "Es ist nicht "+playerName;
+                    cardList.m_List.remove(curPlayerId);
+                    m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                 }
             }

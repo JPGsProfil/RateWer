@@ -21,13 +21,18 @@ public class PlayerInformation
         playerID = amountOfPlayers;
 
         // make copy from orig list for user (each user has own carlist)
-        CardList userCardList = new CardList(_cardList);    // call copy constructor
-        cardListRemaining = userCardList;
-        System.out.println("srcCardListSize:"+_cardList.GetSize() + "  dst size: "+cardListRemaining.GetSize());
+
+        cardListRemaining= new CardList(_cardList);    // call copy constructor
+        //System.out.println("srcCardListSize:"+_cardList.GetSize() + "  dst size: "+cardListRemaining.GetSize());
 
         // generate own AttribList for optionsmenu:
-        AttributList attrlistcpy = new AttributList(cardListRemaining);
-        m_AttribsRemaining = attrlistcpy;
+
+        m_AttribsRemaining = new AttributList(cardListRemaining);
+    }
+
+    public void RecalculateRemainingAttributes()
+    {
+        m_AttribsRemaining = new AttributList(cardListRemaining);
     }
 
 

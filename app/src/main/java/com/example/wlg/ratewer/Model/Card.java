@@ -37,21 +37,21 @@ public class Card
     public Card(Card _card)
     {
         attriList = new ArrayList<>();
-        System.out.println("Bin in copy constructor von Card");
+        //System.out.println("Bin in copy constructor von Card");
         id =_card.id;
         name = _card.name;
         image = _card.image;
         viewID = _card.viewID;
         imageID = _card.imageID;
-        System.out.println("AttriValue List Groesse: "+_card.attriList.size());
+        //System.out.println("AttriValue List Groesse: "+_card.attriList.size());
         for(int index = 0; index < _card.attriList.size(); index ++)
         {
 
             AttribValue curAttriValue = new AttribValue(_card.attriList.get(index));
-            System.out.println("curAttriValue " + curAttriValue.attr);
+            //System.out.println("curAttriValue " + curAttriValue.attr);
             attriList.add(curAttriValue);
         }
-        System.out.println("Fertig mit cpy Card, neue attrvalList: "+attriList.size());
+        //System.out.println("Fertig mit cpy Card, neue attrvalList: "+attriList.size());
     }
 
 

@@ -50,6 +50,11 @@ public class CardList
     private void ShuffleList()
     {
         Collections.shuffle(m_List);
+        // after shuffle -> id doesn't match anymore
+        for(int index = 0; index < m_List.size(); index++)
+        {
+            m_List.get(index).id = index;
+        }
     }
 
     public int GetSize()

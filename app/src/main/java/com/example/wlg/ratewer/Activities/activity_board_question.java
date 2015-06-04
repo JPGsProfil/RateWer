@@ -166,10 +166,11 @@ public class activity_board_question extends ActionBarActivity
     private void AITurn()
     {
         SetCurrentCardList();
-        String AIout = "Ich bin die Ki und bin jetzt dran!!!\n";
+        String AIout = "Ich bin die Ki und Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID() +" und bin jetzt dran!!!\n";
         int checkedId = m_AIController.CalculateCard();
         AIout+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
-
+        //String debug = "debug: \n";
+        //debug+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
 
         if(m_PlayerController.GetNextPlayer().GetChosenCardId() == checkedId)
         {
@@ -180,7 +181,20 @@ public class activity_board_question extends ActionBarActivity
         }
         else
         {
-            AIout+= "nein, leider nicht!!! Du bist!";
+            AIout+= "nein, leider nicht!!! \n Du bist!";
+            //debug+="Spieler "+m_PlayerController.GetNextPlayer().GetPlayerID()+" hat: ";
+            //debug+= cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name;
+            //debug+= "kartenid: "+m_PlayerController.GetNextPlayer().GetChosenCardId();
+
+
+            String pers = "Meine Personen: ";
+            for(int i=0;i<cardList.GetSize(); i++)
+            {
+                pers += cardList.m_List.get(i).name+ "  ";
+            }
+            System.out.println(pers);
+            //System.out.println(debug);
+
             // cardList.m_List.remove(CardsToRemove.get(index));   // int list of  all cards wich should be deleted //  later implemented
 
         }
@@ -519,10 +533,12 @@ public class activity_board_question extends ActionBarActivity
                     // map clicked id with card from cardlist -> iterate cardlist
                     Card currentCard = cardList.m_List.get(0);  // = get(0) not needed
                     int currentIndex = 0;
+
                     while (currentIndex < cardList.GetSize()-1 && cardList.m_List.get(currentIndex).viewID != view.getId())
                     {
                         currentIndex++; // because we already checked index 0 in while loop
                         currentCard = cardList.m_List.get(currentIndex);
+
                     }
 
                     if (currentCard != null)
@@ -628,12 +644,13 @@ public class activity_board_question extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id)
                     {
                         HavePlayersSelectedWhoTheyAre = true;
-                        invalidateOptionsMenu();    // because now we have entries
+
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
-                        System.out.println("Du hast " + _currentCard.name + " ausgewaehlt");
+                        System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = "+_currentCard.id);
                         dialog.cancel();
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+                        invalidateOptionsMenu();    // because now we have entries
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()

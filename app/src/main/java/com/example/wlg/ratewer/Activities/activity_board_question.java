@@ -225,7 +225,8 @@ public class activity_board_question extends ActionBarActivity
                 for (int index = 0; index < cardList.m_List.size(); index++)
                 {
                     // add the names of the card (person)
-                    sm1.add(100, 100 + index, 0, cardList.m_List.get(index).name);
+                    int newItemId = 100 + cardList.m_List.get(index).id;
+                    sm1.add(100, newItemId, 0, cardList.m_List.get(index).name);
                 }
             }
             // menu entry to end own turn
@@ -465,11 +466,16 @@ public class activity_board_question extends ActionBarActivity
                 int curPlayerId = itemId - 100;
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
                 isTurnOver = true;
-                int cardId = cardList.m_List.get(curPlayerId).id;
-                if (curPlayerId == cardId)
+                //int cardId = cardList.GetIndexFromCardId(curPlayerId);
+                if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
                 {
                     /////// BUG bug ////////////////////////////////////////////////////////////////////////////////////
                     ////////////////////////////////////////////////////////////////////////
+                    // optionsmenü itemid muss immer cardlist.get(i).id sein, ansonten später nciht mehr zuordbar
+                    // = prepareoptionsmenu
+
+                    //beim Auslesen:
+                    // funktion zum Zuordnen der alten id -> return index i für übergebene cardid
                     ////////////////////////////////////////////////////////////////////////////
                     final Intent lastIntent = new Intent(this, EndGameActivity.class);
                     lastIntent.putExtra("msg", "gewonnen");

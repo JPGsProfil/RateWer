@@ -458,12 +458,12 @@ public class activity_board_question extends ActionBarActivity
                     System.out.println("id clicked: " + view.getId());  // needed for debugging
 
                     // map clicked id with card from cardlist -> iterate cardlist
-                    Card currentCard = cardList.m_List.get(0);
+                    Card currentCard = cardList.m_List.get(0);  // = get(0) not needed
                     int currentIndex = 0;
-                    while (currentIndex < cardList.GetSize() && cardList.m_List.get(currentIndex).viewID != view.getId())
+                    while (currentIndex < cardList.GetSize()-1 && cardList.m_List.get(currentIndex).viewID != view.getId())
                     {
+                        currentIndex++; // because we already checked index 0 in while loop
                         currentCard = cardList.m_List.get(currentIndex);
-                        currentIndex++;
                     }
 
                     if (currentCard != null)
@@ -471,7 +471,7 @@ public class activity_board_question extends ActionBarActivity
                         // at the beginning choose which character you want to be, could be outsourced, but nearly same code
                         if (!HavePlayersSelectedWhoTheyAre)
                         {
-                            SelectWhoYouAre(cardList.m_List.get(currentIndex));    // if say
+                            SelectWhoYouAre(cardList.m_List.get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
                         }
                         else    // player selected who he want to be -> now onclick to view details
                         {

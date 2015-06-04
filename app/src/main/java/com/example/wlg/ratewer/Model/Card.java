@@ -18,7 +18,6 @@ public class Card
 
     public Card( String _name, String _image, List<AttribValue> _attriList)
     {
-        INIT_ID ++;
         id          = INIT_ID;
         //groupId     = _groupId;
         attriList = new ArrayList<>();
@@ -31,6 +30,7 @@ public class Card
         name = _name;
         viewID = 0;
         imageID = 0;
+        INIT_ID ++;
     }
 
 }

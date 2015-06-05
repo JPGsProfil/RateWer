@@ -1,10 +1,11 @@
 
+Design (StartNewGame bsp Auswahl der Schwierigkeitsstufe als Slider statt aufklappend ...)
+Optionsmenu Design wenn nur noch 2 Elemente übrig sind -> Hat Bart ja, hat Bart nein ...
+Verzögerung zwischen 2 Bildschirmausgaben einbauen
+Extra Thread für Hellseher ZUgberechnung,
+    diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
+    Hellseher Performance Optimierung
 
-KI: is it? random -> später ki, damit Zug möglich ist
-ausgeschlossenbyplayerone
-
-wenn Karte umgeklappt, dann visibility --
-und setclickable = false
 
 image handling via glide
 glide resizing image
@@ -20,3 +21,9 @@ activity beenden oder so
 
 id auf -1 bei optionsmenü items die unwichtig sind,
 dann index bei 0 statt 1 beginnen (ansonten fehlen Elemente)
+
+KI: is it? random -> später ki, damit Zug möglich ist
+ausgeschlossenbyplayerone
+
+wenn Karte umgeklappt, dann visibility --
+und setclickable = false

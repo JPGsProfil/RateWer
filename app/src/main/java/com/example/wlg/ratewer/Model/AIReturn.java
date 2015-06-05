@@ -5,8 +5,9 @@ package com.example.wlg.ratewer.Model;
  */
 public class AIReturn
 {
-    int attrValId;
-    int rating;
+    public int attrValId;
+    public int rating;
+    public int deepestDeep;
     public AIReturn()
     {
         attrValId = 0;

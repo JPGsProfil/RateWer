@@ -17,9 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wlg.ratewer.Controller.AIController;
+//import com.example.wlg.ratewer.Controller.AIController;
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
+import com.example.wlg.ratewer.Model.AttribValue;
 import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.Model.Card;
@@ -48,7 +49,7 @@ public class activity_board_question extends ActionBarActivity
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
     private static PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
-    private static AIController m_AIController;
+    //private static AIController m_AIController;   // not used anymore
 
     private static boolean isTurnOver = false;
 
@@ -83,16 +84,26 @@ public class activity_board_question extends ActionBarActivity
             String diff = extras.getString("difficulty");
             if (diff != null)
             {
+                if(diff.equals("Hellseher"))
+                {
+                    String msg = "Ein Hellseher braucht beim ersten ANlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+
                 difficulty = diff;
             }
         }
-        m_AIController = new AIController(difficulty);
+        //m_AIController = new AIController(difficulty);
         //  m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);   // not used at the moment
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
-        System.out.println("Ein leichter Gegner haette ausgewaehlt: "+cardList.m_List.get(10).name);
+        System.out.println("Ein leichter Gegner haette ausgewaehlt: " + cardList.m_List.get(10).name);
         PlaceCardsOnField();
         m_PlayerController = new PlayerController(cardList);
+        if(m_PlayerController.GetSecondPlayer().IsAI())
+        {
+            m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);
+        }
         m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
 
         // List with all attributes, unique, generated from cardlist
@@ -122,7 +133,7 @@ public class activity_board_question extends ActionBarActivity
     }
 
     // ends players turn, do ai stuff, starts with player turn again
-    private void EndTurn()
+    private void BeginNewTurn()
     {
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
@@ -142,7 +153,8 @@ public class activity_board_question extends ActionBarActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        if (m_PlayerController.GetCurrentPlayer().GetPlayerID() % 2 == 0)   // only call ai if it's ai's turn
+                        System.out.println("Spielerid:"+m_PlayerController.GetCurrentPlayer().GetPlayerID());
+                        if (m_PlayerController.GetCurrentPlayer().IsAI())   // only call ai if it's ai's turn
                         {
                             AITurn();
                         }
@@ -152,9 +164,9 @@ public class activity_board_question extends ActionBarActivity
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-
-
     }
+
+
 
     // call this function to make sure you use the correct cardlist (because each player has it's own)
     private void SetCurrentCardList()
@@ -166,43 +178,72 @@ public class activity_board_question extends ActionBarActivity
     private void AITurn()
     {
         SetCurrentCardList();
-        String AIout = "Ich bin die Ki und Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID() +" und bin jetzt dran!!!\n";
-        int checkedId = m_AIController.CalculateCard(m_PlayerController.GetCurrentPlayer(),m_PlayerController.GetNextPlayer());
-        AIout+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
-        //String debug = "debug: \n";
-        //debug+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
 
-        if(m_PlayerController.GetNextPlayer().GetChosenCardId() == checkedId)
-        {
-            AIout+= "ja, ist es!!! Ich habe gewonnen!!!";
-            final Intent lastIntent = new Intent(this, EndGameActivity.class);
-            lastIntent.putExtra("msg","verloren");
-            startActivity(lastIntent);
-        }
-        else
-        {
-            AIout+= "nein, leider nicht!!! \n Du bist!";
-            //debug+="Spieler "+m_PlayerController.GetNextPlayer().GetPlayerID()+" hat: ";
-            //debug+= cardList.m_List.get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name;
-            //debug+= "kartenid: "+m_PlayerController.GetNextPlayer().GetChosenCardId();
-
-
-            String pers = "Meine Personen: ";
-            for(int i=0;i<cardList.GetSize(); i++)
-            {
-                pers += cardList.m_List.get(i).name+ "  ";
-            }
-            System.out.println(pers);
-            //System.out.println(debug);
-
-            // cardList.m_List.remove(CardsToRemove.get(index));   // int list of  all cards wich should be deleted //  later implemented
-
-        }
         // now update option menu list:
         //m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();   // later
+        if(m_PlayerController.GetCurrentPlayer().IsAI())
+        {
+            String AIout = "";
+            AttribValue move = m_PlayerController.MakeMove();
+            if(move.attr.equals("aHumanPlayer"))
+            {
+                AIout = "Ich bin die Ki und Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID() +" und bin jetzt dran!!!\n";
+                // do nothing special
+            }
+            else if(move.attr.equals("IsIt"))
+            {
+                // move value is int here
+                int ivalue = Integer.parseInt(move.value);
+                AIout+= "Ist es "+cardList.m_List.get(ivalue).name +" ?\n";
 
-        Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
-        EndTurn();
+                int idEnemy = m_PlayerController.GetNextPlayer().GetChosenCardId(); // first get Id of enemy card, can't be used now because dynamic
+                int indexEnemyCard = m_PlayerController.GetCurrentPlayer().cardListRemaining.GetIndexFromCardId(idEnemy);
+                if(indexEnemyCard == ivalue)
+                {
+                    AIout+= "ja, ist es!!! Ich habe gewonnen!!!";
+                    final Intent lastIntent = new Intent(this, EndGameActivity.class);
+                    lastIntent.putExtra("msg","verloren");
+                    startActivity(lastIntent);
+                }
+                else
+                {
+                    m_PlayerController.GetCurrentPlayer().cardListRemaining.m_List.remove(ivalue);
+                    AIout+= "nein, leider nicht!!! \n Du bist!";
+                /*
+                String pers = "Meine Personen: ";
+                for(int i=0;i<cardList.GetSize(); i++)
+                {
+                    pers += cardList.m_List.get(i).name+ "  ";
+                }
+                System.out.println(pers);*/
+                    //System.out.println(debug);
+
+                    // cardList.m_List.remove(CardsToRemove.get(index));   // int list of  all cards wich should be deleted //  later implemented
+
+                }
+            }
+            else    // reduce cardlist by attrib and value
+            {
+                AIout+= "Meine Wahl: "+move.value + " "+move.attr;
+                int idEnemy = m_PlayerController.GetNextPlayer().GetChosenCardId(); // first get Id of enemy card, can't be used now because dynamic
+                int indexEnemyCard = m_PlayerController.GetCurrentPlayer().cardListRemaining.GetIndexFromCardId(idEnemy);   // because dynamic list, index can be different
+                Card cardEnemy = m_PlayerController.GetCurrentPlayer().cardListRemaining.m_List.get(indexEnemyCard);
+                if(cardEnemy.DoesCardContainAttrValue(move.attr,move.value))
+                {
+                    AIout+= "\n Juhu,deine Person hat die Eigenschaft";
+                    cardList.RemoveCardsWithoutAttriValue(move.attr,move.value);
+                }
+                else
+                {
+                    AIout+= "\n Schade";
+                    cardList.RemoveCardsWithAttriValue(move.attr, move.value);
+                }
+                System.out.println("verbleibende Karten: "+cardList.GetSize());
+            }
+
+            Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
+            BeginNewTurn();
+        }
 
     }
 
@@ -273,7 +314,7 @@ public class activity_board_question extends ActionBarActivity
                             String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
                             menu.add(currGroupId, index, 0, attriValStr);
                             //itemId ++;
-                            System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
+                            //System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
                             index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
                         } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
                         {
@@ -308,7 +349,7 @@ public class activity_board_question extends ActionBarActivity
 
             if (itemId == 10000) // end turn
             {
-                EndTurn();
+                BeginNewTurn();
                 isTurnOver = false;
             }
 
@@ -451,9 +492,9 @@ public class activity_board_question extends ActionBarActivity
 
 
                         // remove from option menu
-                        System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+cardList.m_List.get(CardsToRemove.get(index)).name);
+                        //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+cardList.m_List.get(CardsToRemove.get(index)).name);
                         cardList.m_List.remove(cardList.m_List.get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
-                        System.out.println("Cards after remove: " + cardList.GetSize());
+                        //System.out.println("Cards after remove: " + cardList.GetSize());
                     }
 
                     // now update option menu list:

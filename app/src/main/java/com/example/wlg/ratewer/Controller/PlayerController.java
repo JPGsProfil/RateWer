@@ -1,5 +1,8 @@
 package com.example.wlg.ratewer.Controller;
 
+import com.example.wlg.ratewer.Model.AIReturn;
+import com.example.wlg.ratewer.Model.AttribValue;
+import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.Model.PlayerInformation;
 
@@ -24,21 +27,8 @@ public class PlayerController
             System.out.println("index "+ i + "= "+players.get(i).GetPlayerID());
         }
         players.get(1).SetToAI();
-
     }
 
-    public void ChooseQuestion()
-    {
-
-    }
-    public void DisableCard()
-    {
-
-    }
-    public void SelectCard()
-    {
-
-    }
 
     public PlayerInformation GetFirstPlayer()
     {
@@ -60,54 +50,199 @@ public class PlayerController
         return players.get(GetIndexForNextPlayer());
     }
 
-
-
-    // only working with two players
+    // set to next player, working with more than 2 players
     public boolean ChangeCurrentPlayer()
     {
-        if(players.size()<2)
-        {
-            return false;
-        }
-        else
-        {
-            if(currentPlayerIndex == 0)
-            {
-                currentPlayerIndex = 1;
-            }
-            else
-            {
-                currentPlayerIndex = 0;
-            }
-        }
-        return true;
-
+        //System.out.println("Changed from "+ currentPlayerIndex + " to "+GetIndexForNextPlayer());
+        currentPlayerIndex = GetIndexForNextPlayer();
+        return true;    // always true, if one player, next is player 1 ..
     }
-
 
 
     private int GetIndexForNextPlayer()
     {
-        if(currentPlayerIndex == 0)
+        if(players.size()<2)
         {
-            return 1;
+            System.out.println("players.size()<2");
+            return 0;
         }
         else
         {
-            return 0;
+            //int plsmi1 = +players.size()-1;
+            //System.out.println(""+ currentPlayerIndex +" < " + plsmi1);
+            if(currentPlayerIndex < players.size()-1)
+            {
+                return currentPlayerIndex + 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 
-    private void SetIndexForNextPlayer()
+    public AttribValue MakeMove()
     {
-        if(currentPlayerIndex == 0)
+        AttribValue attribValueReturn = new AttribValue("aHumanPlayer","-1");
+        if(GetCurrentPlayer().IsAI())
         {
-            currentPlayerIndex = 1;
+            attribValueReturn = AIMove( GetCurrentPlayer(),GetNextPlayer());
         }
-        else
+        return attribValueReturn;
+
+        // later here -> change player ...
+    }
+
+
+    ////////////////////////////////////////////////
+    //////////////////////////////////////////////77
+    // AI move:
+
+    private static int MAKEMOVECALLED = 0;
+    private AttribValue AIMove(PlayerInformation _curPlayer, PlayerInformation _nextPlayer)
+    {
+        System.out.println("Bin in AIMove");
+        AttribValue attribValueReturn = new AttribValue("IsIt",Integer.toString(MAKEMOVECALLED));   // if chosen easy or invalid KI, go through index
+        MAKEMOVECALLED += 1;  // start with card one, then card 2, ...    // only for simple and error (invalid difficulty)
+        /*
+        if(_curPlayer.GetAiDifficulty().equals("einfach"))
         {
-            currentPlayerIndex = 0;
+            calculatedMove = MAKEMOVECALLED -1;
+        }else */
+        if(_curPlayer.GetAiDifficulty().equals("Hellseher"))
+        {
+            attribValueReturn = Hellseher(_curPlayer, _nextPlayer);
         }
+        else if(_curPlayer.GetAiDifficulty().equals("normal"))
+        {
+            System.out.println("normale KI");
+            attribValueReturn = GoodEnemy(_curPlayer, _nextPlayer);
+        }
+        return attribValueReturn;
+    }
+
+
+    private AttribValue GoodEnemy(PlayerInformation _curPlayer, PlayerInformation _enemy)
+    {
+        AttribValue AttribValReturn = new AttribValue("IsIt","0");
+        CardList _cardListRemaining = _curPlayer.cardListRemaining;
+
+        int bestMoveId = 0;
+        if(_cardListRemaining.GetSize()<=2) // only to cards left, no need for attributs -> choose first of them
+        {
+            return AttribValReturn; // only to players, ask for the first one
+        }
+        int targetId = _enemy.GetChosenCardId();
+        AttributList attrList = new AttributList(_cardListRemaining);
+        int lowestRemainingCards = 50000;
+        for(int index=0; index < attrList.attriList.size(); index ++)
+        {
+            //System.out.println("deb: Index ist: "+index);
+            CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
+            int clcpysize = cardListCpy.GetSize();
+            //System.out.println("cardListCpy Groesse: "+clcpysize+ " OrigListSize: "+_cardListRemaining.GetSize()); // wenn veraendert, dann nicht kopiert, sondern referenz
+            // if enemy card has the target attribute -> remove all cards wich have not
+            if(cardListCpy.m_List.get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            {
+                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
+            }
+            else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
+            {
+                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
+            }
+
+            int remainingCardsNew = cardListCpy.GetSize();
+            //System.out.println("nach remove: cardListCpy Groesse: "+clcpysize+ " OrigListSize: "+_cardListRemaining.GetSize()); // wenn veraendert, dann nicht kopiert, sondern referenz
+
+            if(lowestRemainingCards > remainingCardsNew)
+            {
+                lowestRemainingCards = remainingCardsNew;
+                bestMoveId = index;
+            }
+        }
+        //System.out.println("geschafft");
+
+        // get Attrib and Value from list id
+        AttributList attrListOrig = new AttributList(_cardListRemaining);
+        AttribValReturn.attr  = attrListOrig.attriList.get(bestMoveId).attr;
+        AttribValReturn.value = attrListOrig.attriList.get(bestMoveId).value;
+        return AttribValReturn;
+    }
+
+
+    private AttribValue Hellseher(PlayerInformation _curPlayer, PlayerInformation _enemy)
+    {
+        CardList _cardListRemaining = _curPlayer.cardListRemaining;
+        CardList cardListcpy = new CardList(_cardListRemaining);
+        AIReturn bestMove = DeepSearch(cardListcpy, 0, _enemy.GetChosenCardId());
+
+        AttributList attrListOrig = new AttributList(_cardListRemaining);
+        AttribValue AttribValReturn = new AttribValue("IsIt","0");
+        if(bestMove.attrValId != -1)
+        {
+            AttribValReturn.attr  = attrListOrig.attriList.get(bestMove.attrValId).attr;
+            AttribValReturn.value = attrListOrig.attriList.get(bestMove.attrValId).value;
+        }
+        // else use isIt instead of looking after attributes
+
+        return AttribValReturn;
+    }
+
+    // used by Hellseher, don't call it otherwise
+    private AIReturn DeepSearch(CardList _cardListRemaining, int _curDeep, int _targetCardId)
+    {
+        _curDeep++;
+        AIReturn bestAIReturn = new AIReturn();
+        int remainingCards = _cardListRemaining.GetSize();
+        // if something changed:    // look at next deep
+
+        AttributList attrList = new AttributList(_cardListRemaining);
+        for(int index=0; index < attrList.attriList.size(); index ++)
+        {
+            //System.out.println("Deep: "+_curDeep+ "  index: "+index);
+            CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
+            // get current index of the target card id:
+            int targetId = cardListCpy.GetIndexFromCardId(_targetCardId);
+
+            // if enemy card has the target attribute -> remove all cards wich have not
+            if(cardListCpy.m_List.get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            {
+                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
+            }
+            else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
+            {
+                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
+            }
+
+            int remainingCardsNew = cardListCpy.GetSize();
+            if(remainingCards != remainingCardsNew && _curDeep < 4)
+            {
+                AIReturn tempReturn = DeepSearch(cardListCpy, _curDeep, _targetCardId);
+                if(tempReturn.rating < bestAIReturn.rating)
+                {
+                    bestAIReturn = tempReturn;
+                    bestAIReturn.attrValId = index;     // because we want the next move, move in 4 rounds doesn't matter
+                }
+            }
+            else
+            {
+                bestAIReturn.deepestDeep = _curDeep;
+                bestAIReturn.rating = (_curDeep * 1000) + cardListCpy.GetSize() * 600;
+                bestAIReturn.attrValId = index;     // todo -> should be saved into list because it won't change -> you don't have to calculate the best move each round
+                // rating = remaining cards * 600, 5 cards left -> worse rating
+
+                if(_curDeep == 1 && remainingCardsNew <= 3)
+                {
+                    bestAIReturn.deepestDeep = _curDeep;
+                    bestAIReturn.rating = 5;
+                    bestAIReturn.attrValId = -1;
+                    return bestAIReturn;    // game could end now, ask for person, not for attribute
+                }
+
+            }
+        }
+        System.out.println("bestAIReturn:"+bestAIReturn);
+        return bestAIReturn;
     }
 
 

@@ -10,6 +10,7 @@ import com.example.wlg.ratewer.Model.PlayerInformation;
  */
 public class AIController
 {
+    /*
     private static int CURRENTROUND = 0;
 
     private AttributList m_Attribs;

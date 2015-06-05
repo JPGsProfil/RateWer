@@ -46,6 +46,14 @@ public class CardList
 
     }
 
+    /**
+     * used to compare ChosenCard of the enemy with the card from current cardList
+     * necessary because cardList is dynamic
+     * some cards will be removed each turn
+     *
+     * @param _cardId each card has it's own id for identification
+     * @return current index of the card with this id
+     */
     public int GetIndexFromCardId(int _cardId)
     {
         for(int i=0; i<m_List.size(); i++)
@@ -58,8 +66,14 @@ public class CardList
         return 0;   //only if no card found, should not happen
     }
 
+    /**
+     * if player is asking for an attribute which the enemy card doesn't have -> player can flip all cards with this attribute
+     * @param _attr category
+     * @param _value    the value depending to the category
+     */
     public void RemoveCardsWithAttriValue(String _attr, String _value)
     {
+        // backwards because deleting arrayentries backwards is much more easy
         for(int i = m_List.size()-1; i > 0; i--)
         {
             boolean hasAttrBeenFound = m_List.get(i).DoesCardContainAttrValue(_attr,_value);
@@ -70,6 +84,11 @@ public class CardList
         }
     }
 
+    /**
+     * if player is asking for an attribute which the enemy card has -> player can flip all cards without this attribute (many !!)
+     * @param _attr category
+     * @param _value    the value depending to the category
+     */
     public void RemoveCardsWithoutAttriValue(String _attr, String _value)
     {
         for(int i = m_List.size()-1; i > 0; i--)
@@ -83,10 +102,10 @@ public class CardList
     }
 
 
-
-
-
-
+    /**
+     * called at the beginning
+     * changes order of cards to make game more varied
+     */
     private void ShuffleList()
     {
         Collections.shuffle(m_List);
@@ -97,6 +116,11 @@ public class CardList
         }
     }
 
+    /**
+     * amount of cards in this list
+     * so you don't have to call CardList.mList.size()
+     * @return
+     */
     public int GetSize()
     {
         if(m_List == null)
@@ -111,6 +135,12 @@ public class CardList
     }
 
 
+    /**
+     * get cards from json
+     * save them into list
+     * only done one time (at the beginning of the game)
+     * @param _jsonCardString
+     */
     private void FillCardList(String _jsonCardString)
     {
         //System.out.println("jsonString "+_jsonCardString);
@@ -134,6 +164,7 @@ public class CardList
                     String curCat = (String) curCardKeysIt.next();
                     String curValue = curCardobj.getString(curCat);
                     // handle bool
+                    // not necessary if well formed json
                     if (curValue.equals("")  || curValue.equals("0") || curValue.equals("false"))
                     {
                         curValue = "no";

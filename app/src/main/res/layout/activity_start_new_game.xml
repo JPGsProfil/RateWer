@@ -23,15 +23,6 @@
         android:layout_below="@+id/textView3"
         android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="KI"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/sp_cardsets"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"/>
-
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,35 +30,27 @@
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true"/>
 
-    <SeekBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar2"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="menchlische Spieler"
         android:id="@+id/textView5"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sp_cardsets"/>
 
     <SeekBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar3"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/seekBar2"
-        android:layout_alignStart="@+id/textView4"/>
+        android:layout_alignBottom="@+id/sp_sng_difficulty"
+        android:layout_toEndOf="@+id/seekBar"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ki Schwierigkeit"
         android:id="@+id/textView6"
-        android:layout_alignTop="@+id/seekBar3"
+        android:layout_alignTop="@+id/sp_sng_difficulty"
         android:layout_alignParentStart="true"/>
 
     <Button
@@ -87,15 +70,16 @@
         android:text="@string/txt_sng_FlipCardsAuto"
         android:id="@+id/tv_sng_FlipCardsAuto"
         android:checked="true"
-        android:layout_below="@+id/seekBar3"
+        android:layout_above="@+id/b_sng_start"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp"/>
+        android:layout_marginBottom="36dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sp_sng_difficulty"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toEndOf="@+id/seekBar2"/>
+        android:layout_below="@+id/seekBar"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginTop="35dp"/>
 
 </RelativeLayout>

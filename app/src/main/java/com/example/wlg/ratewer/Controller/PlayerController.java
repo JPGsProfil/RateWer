@@ -40,6 +40,16 @@ public class PlayerController
 
     }
 
+    public PlayerInformation GetFirstPlayer()
+    {
+        return players.get(0);
+    }
+
+    public PlayerInformation GetSecondPlayer()
+    {
+        return players.get(1);
+    }
+
     public PlayerInformation GetCurrentPlayer()
     {
         return players.get(currentPlayerIndex);

@@ -15,11 +15,12 @@ import java.util.List;
  */
 public class CardList
 {
-    public List<Card> m_List = new ArrayList<>();
+    public List<Card> m_List ;
     //private String jsonCardString;
 
     public CardList(String _jsonCardString)
     {
+        m_List = new ArrayList<>();
         FillCardList(_jsonCardString);
         ShuffleList();
         System.out.println("geshuffelt!!!");
@@ -28,7 +29,7 @@ public class CardList
     // copy cardlist
     public CardList(CardList _cardList)
     {
-
+            m_List = new ArrayList<>();
             for(int index=0; index < _cardList.m_List.size(); index ++)
             {
                 //System.out.println("vor copy Card: ");
@@ -56,6 +57,32 @@ public class CardList
         }
         return 0;   //only if no card found, should not happen
     }
+
+    public void RemoveCardsWithAttriValue(String _attr, String _value)
+    {
+        for(int i = m_List.size()-1; i > 0; i--)
+        {
+            boolean hasAttrBeenFound = m_List.get(i).DoesCardContainAttrValue(_attr,_value);
+            if (hasAttrBeenFound)
+            {
+                m_List.remove(i);
+            }
+        }
+    }
+
+    public void RemoveCardsWithoutAttriValue(String _attr, String _value)
+    {
+        for(int i = m_List.size()-1; i > 0; i--)
+        {
+            boolean hasAttrBeenFound = m_List.get(i).DoesCardContainAttrValue(_attr,_value);
+            if (!hasAttrBeenFound)
+            {
+                m_List.remove(i);
+            }
+        }
+    }
+
+
 
 
 

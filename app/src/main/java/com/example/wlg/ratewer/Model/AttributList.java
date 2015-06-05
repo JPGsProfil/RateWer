@@ -38,6 +38,25 @@ public class AttributList
         }
     }
 
+    public boolean contains(String _attr, String _val)
+    {
+        for(int i=0; i<attriList.size(); i++)
+        {
+            if(attriList.get(i).attr.equals(_attr))
+            {
+                if(attriList.get(i).value.equals(_val))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
 
 
     private void FillAttributeListFromCardList(CardList _cardList)
@@ -63,11 +82,11 @@ public class AttributList
         // to display in cathegories and order (menu)
         Collections.sort(attribValueList);
         // debugging: display if works:
-        System.out.println("Print Set!!!!!");
-        for(int index = 0; index <attribValueList.size(); index++)
-        {
-            System.out.println(attribValueList.get(index).attr+"   "+attribValueList.get(index).value);
-        }
+        //System.out.println("Print Set!!!!!");
+        //for(int index = 0; index <attribValueList.size(); index++)
+        //{
+        //    System.out.println(attribValueList.get(index).attr+"   "+attribValueList.get(index).value);
+        //}
 
 
         String prevAttrib = "-1";

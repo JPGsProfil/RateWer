@@ -54,5 +54,24 @@ public class Card
         //System.out.println("Fertig mit cpy Card, neue attrvalList: "+attriList.size());
     }
 
+    public boolean DoesCardContainAttrValue(String _attr, String _val)
+    {
+        for (int i=0; i<attriList.size(); i++)
+        {
+            if(attriList.get(i).attr.equals(_attr))
+            {
+                if(attriList.get(i).value.equals(_val))
+                {
+                    return true;
+                }
+                else    // may not have 2 attributes (hair = yellow, hair = black) -> if value doesn't match, break)
+                {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

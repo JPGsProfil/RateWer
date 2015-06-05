@@ -1,0 +1,6 @@
+ImageButton btn = (ImageButton) findViewById(cardList.m_List.get(index1).viewID);
+                                        btn.setAlpha(0.4f);
+                                        btn.setClickable(false);
+
+auslagern, mehrfach verwendet
+Design

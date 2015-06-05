@@ -86,8 +86,8 @@ public class activity_board_question extends ActionBarActivity
                 difficulty = diff;
             }
         }
-        m_AIController = new AIController("difficulty");
-
+        m_AIController = new AIController(difficulty);
+        //  m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);   // not used at the moment
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));
         System.out.println("Ein leichter Gegner haette ausgewaehlt: "+cardList.m_List.get(10).name);
@@ -167,7 +167,7 @@ public class activity_board_question extends ActionBarActivity
     {
         SetCurrentCardList();
         String AIout = "Ich bin die Ki und Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID() +" und bin jetzt dran!!!\n";
-        int checkedId = m_AIController.CalculateCard();
+        int checkedId = m_AIController.CalculateCard(m_PlayerController.GetCurrentPlayer(),m_PlayerController.GetNextPlayer());
         AIout+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";
         //String debug = "debug: \n";
         //debug+= "Ist es "+cardList.m_List.get(checkedId).name +" ?\n";

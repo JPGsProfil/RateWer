@@ -66,10 +66,10 @@ public class AttributList
 
         for(int index1 = 0; index1 < _cardList.GetSize(); index1 ++)
         {
-            for(int iValues = 0; iValues < _cardList.m_List.get(0).attriList.size(); iValues ++)
+            for(int iValues = 0; iValues < _cardList.Get(0).attriList.size(); iValues ++)
             {
-                String curAttrib    = _cardList.m_List.get(index1).attriList.get(iValues).attr;
-                String curValue     = _cardList.m_List.get(index1).attriList.get(iValues).value;
+                String curAttrib    = _cardList.Get(index1).attriList.get(iValues).attr;
+                String curValue     = _cardList.Get(index1).attriList.get(iValues).value;
                 AttribValue newAttribValue = new AttribValue(curAttrib,curValue);
                 // check whether list contains this key value
                 if(!attribValueList.contains(newAttribValue))

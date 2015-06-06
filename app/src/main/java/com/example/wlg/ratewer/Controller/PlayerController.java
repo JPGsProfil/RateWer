@@ -142,7 +142,7 @@ public class PlayerController
             int clcpysize = cardListCpy.GetSize();
             //System.out.println("cardListCpy Groesse: "+clcpysize+ " OrigListSize: "+_cardListRemaining.GetSize()); // wenn veraendert, dann nicht kopiert, sondern referenz
             // if enemy card has the target attribute -> remove all cards wich have not
-            if(cardListCpy.m_List.get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            if(cardListCpy.Get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
             {
                 cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
             }
@@ -169,7 +169,7 @@ public class PlayerController
         return AttribValReturn;
     }
 
-
+    static double CheckedWays = 0;
     private AttribValue Hellseher(PlayerInformation _curPlayer, PlayerInformation _enemy)
     {
         CardList _cardListRemaining = _curPlayer.cardListRemaining;
@@ -184,9 +184,10 @@ public class PlayerController
             AttribValReturn.value = attrListOrig.attriList.get(bestMove.attrValId).value;
         }
         // else use isIt instead of looking after attributes
-
+        System.out.println("checked ways: "+CheckedWays);
         return AttribValReturn;
     }
+
 
     // used by Hellseher, don't call it otherwise
     private AIReturn DeepSearch(CardList _cardListRemaining, int _curDeep, int _targetCardId)
@@ -199,13 +200,14 @@ public class PlayerController
         AttributList attrList = new AttributList(_cardListRemaining);
         for(int index=0; index < attrList.attriList.size(); index ++)
         {
+            CheckedWays +=1;
             //System.out.println("Deep: "+_curDeep+ "  index: "+index);
             CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
             // get current index of the target card id:
             int targetId = cardListCpy.GetIndexFromCardId(_targetCardId);
 
             // if enemy card has the target attribute -> remove all cards wich have not
-            if(cardListCpy.m_List.get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            if(cardListCpy.Get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
             {
                 cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
             }
@@ -227,7 +229,7 @@ public class PlayerController
             else
             {
                 bestAIReturn.deepestDeep = _curDeep;
-                bestAIReturn.rating = (_curDeep * 1000) + cardListCpy.GetSize() * 600;
+                bestAIReturn.rating = (_curDeep * 1000) + cardListCpy.GetSize() * 150;
                 bestAIReturn.attrValId = index;     // todo -> should be saved into list because it won't change -> you don't have to calculate the best move each round
                 // rating = remaining cards * 600, 5 cards left -> worse rating
 

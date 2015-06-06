@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class CardList
 {
-    public List<Card> m_List ;
+    private List<Card> m_List ;
     //private String jsonCardString;
 
     public CardList(String _jsonCardString)
@@ -26,6 +26,22 @@ public class CardList
         System.out.println("geshuffelt!!!");
     }
 
+    public Card Get(int index)
+    {
+        return m_List.get(index);
+    }
+
+    public void Remove(int index)
+    {
+        m_List.remove(index);
+    }
+
+    public void Remove(Card _card)
+    {
+       m_List.remove(_card);
+    }
+
+
     // copy cardlist
     public CardList(CardList _cardList)
     {
@@ -34,16 +50,26 @@ public class CardList
             {
                 //System.out.println("vor copy Card: ");
                 //System.out.println("Groesse uebergebener Cardlist: "+_cardList.m_List.size());
-                //System.out.println("_cardList.m_List.get(index) "+_cardList.m_List.get(index).name);
-                Card cardToAdd = new Card(_cardList.m_List.get(index));   // should be a copy
+                //System.out.println("_cardList.Get(index) "+_cardList.Get(index).name);
+                Card cardToAdd = new Card(_cardList.Get(index));   // should be a copy
 
                 //System.out.println("vor ABsturz: "+cardToAdd.name);
                 m_List.add(cardToAdd);
 
             }
 
+    }
 
-
+    public boolean DoesCardIdExist(int _cardId)
+    {
+        for(int i=0; i<m_List.size(); i++)
+        {
+            if(m_List.get(i).id == _cardId)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -58,13 +84,20 @@ public class CardList
     {
         for(int i=0; i<m_List.size(); i++)
         {
-            if(m_List.get(i).id == _cardId)
+            if (Get(i).id == _cardId)
             {
                 return i;
             }
         }
         return 0;   //only if no card found, should not happen
     }
+
+    // used to draw CardGrid
+    public Card GetCardByID(int _id)
+    {
+        return m_List.get(GetIndexFromCardId(_id));
+    }
+
 
     /**
      * if player is asking for an attribute which the enemy card doesn't have -> player can flip all cards with this attribute
@@ -76,7 +109,7 @@ public class CardList
         // backwards because deleting arrayentries backwards is much more easy
         for(int i = m_List.size()-1; i > 0; i--)
         {
-            boolean hasAttrBeenFound = m_List.get(i).DoesCardContainAttrValue(_attr,_value);
+            boolean hasAttrBeenFound = Get(i).DoesCardContainAttrValue(_attr,_value);
             if (hasAttrBeenFound)
             {
                 m_List.remove(i);
@@ -93,7 +126,7 @@ public class CardList
     {
         for(int i = m_List.size()-1; i > 0; i--)
         {
-            boolean hasAttrBeenFound = m_List.get(i).DoesCardContainAttrValue(_attr,_value);
+            boolean hasAttrBeenFound = Get(i).DoesCardContainAttrValue(_attr,_value);
             if (!hasAttrBeenFound)
             {
                 m_List.remove(i);
@@ -112,7 +145,7 @@ public class CardList
         // after shuffle -> id doesn't match anymore
         for(int index = 0; index < m_List.size(); index++)
         {
-            m_List.get(index).id = index;
+            Get(index).id = index;
         }
     }
 

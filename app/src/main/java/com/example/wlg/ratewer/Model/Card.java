@@ -14,6 +14,7 @@ public class Card
     public String image;
     public int viewID;
     public int imageID;
+    public boolean isVisible;
     public List<AttribValue> attriList; // attributes of this card (hair = yellow ...), extra class for options menu
 
     public Card( String _name, String _image, List<AttribValue> _attriList)
@@ -30,6 +31,7 @@ public class Card
         name = _name;
         viewID = 0;
         imageID = 0;
+        isVisible = true;
         INIT_ID ++;
     }
 

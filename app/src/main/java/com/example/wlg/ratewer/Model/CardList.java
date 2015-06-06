@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by Jean on 18.05.2015.
+ * list of all cards (characters), generated from json
  */
 public class CardList
 {
@@ -60,6 +60,12 @@ public class CardList
 
     }
 
+    /**
+     * needed to reload gridview
+     * each player has his / her own list -> removes unwanted cards from list, but on gridview are always all cards displayed
+     * @param _cardId id of the card from orig list
+     * @return true if demanded card still exist in players cardlist, else false
+     */
     public boolean DoesCardIdExist(int _cardId)
     {
         for(int i=0; i<m_List.size(); i++)
@@ -92,7 +98,12 @@ public class CardList
         return 0;   //only if no card found, should not happen
     }
 
-    // used to draw CardGrid
+    /**
+     * get one card
+     * used to draw CardGrid
+     * @param _id index in list
+     * @return single card
+     */
     public Card GetCardByID(int _id)
     {
         return m_List.get(GetIndexFromCardId(_id));
@@ -152,7 +163,7 @@ public class CardList
     /**
      * amount of cards in this list
      * so you don't have to call CardList.mList.size()
-     * @return
+     * @return size of  arraylist
      */
     public int GetSize()
     {
@@ -172,7 +183,7 @@ public class CardList
      * get cards from json
      * save them into list
      * only done one time (at the beginning of the game)
-     * @param _jsonCardString
+     * @param _jsonCardString String generated from json
      */
     private void FillCardList(String _jsonCardString)
     {
@@ -220,10 +231,10 @@ public class CardList
                         curimage = curValue;
                     }
 
-                    else if(curCat.equals("id"))
-                    {
+                    //else if(curCat.equals("id"))
+                    //{
                         //curId = curValue; not needed, shuffle later
-                    }
+                    //}
                     else
                     {
                         AttribValue curAttribValue = new AttribValue(curCat,curValue);

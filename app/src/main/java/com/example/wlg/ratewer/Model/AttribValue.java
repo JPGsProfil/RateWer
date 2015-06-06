@@ -3,7 +3,7 @@ package com.example.wlg.ratewer.Model;
 import org.w3c.dom.Attr;
 
 /**
- * Created by Jean on 18.05.2015.
+ * all cards have various categories (like hair) and values (e.g. black)
  */
 public class AttribValue implements Comparable<AttribValue>
 {
@@ -16,6 +16,10 @@ public class AttribValue implements Comparable<AttribValue>
         value   = _value;
     }
 
+    /**
+     * copy constructor
+     * @param _attribValue source
+     */
     public AttribValue(AttribValue _attribValue)
     {
         attr    = _attribValue.attr;
@@ -41,6 +45,12 @@ public class AttribValue implements Comparable<AttribValue>
             }
         }
     }
+
+    /**
+     * own compare function to display values in option menu in specific order
+     * @param _attr2 value 2
+     * @return order
+     */
     @Override
     public int compareTo(AttribValue _attr2)
     {

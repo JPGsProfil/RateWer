@@ -38,29 +38,28 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class activity_board_question extends ActionBarActivity
 {
 
-    //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
-
-    private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
     private static AttributList m_Attribs;  // attribs of the current player, only reference
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
     private static PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
-    //private static AIController m_AIController;   // not used anymore
-
-    private static boolean isTurnOver = false;
-
-
-    // menu:
-    //private Animation animUp;
-    //private Animation animDown;
-    //private RelativeLayout rl;
-    //private boolean isMenuVisible = false;
+    private static boolean isTurnOver = false;  // needed for human (can't ask two question in one turn)
+    //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
+    //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
 
 
+
+    /**
+     * fill member variables
+     * set players
+     * cardlist (used to display all cards, not only remaining)
+     * set ai, read from last Intent ...
+     * @param savedInstanceState get data from last Intent ...
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -100,21 +99,22 @@ public class activity_board_question extends ActionBarActivity
         System.out.println("Ein leichter Gegner haette ausgewaehlt: " + cardList.Get(10).name);
         PlaceCardsOnField();
         m_PlayerController = new PlayerController(cardList);
+        if(!difficulty.equals("Mensch"))
+        {
+            m_PlayerController.GetSecondPlayer().SetToAI();
+        }
         if(m_PlayerController.GetSecondPlayer().IsAI())
         {
             m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);
         }
         m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-
-        // List with all attributes, unique, generated from cardlist
-        //m_Attribs = new AttributList(cardList);
-        //System.out.println("Cardlist2: " + cardList.m_List.size());
-        //System.out.println("Testwert: "+ cardList.Get(2).attriList.get(2).attr);
-
-        //MenuButton();
     }
 
-    // called in oncreate
+    /**
+     * call function to fill gridview
+     * displays error msg if cardlist empty (json invalid ...)
+     * called in oncreate
+     */
     private void PlaceCardsOnField()
     {
         // set cards
@@ -132,7 +132,10 @@ public class activity_board_question extends ActionBarActivity
         // end of: set cards
     }
 
-    // ends players turn, do ai stuff, starts with player turn again
+
+    /**
+     * ends players turn, do ai stuff, starts with player turn again
+     */
     private void BeginNewTurn()
     {
         isTurnOver = false;
@@ -170,22 +173,43 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-    // call this function to make sure you use the correct cardlist (because each player has it's own)
-    //private void SetCurrentCardList()
-    //{
-    //    cardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-    //}
 
-
+    /**
+     * Ai's turn
+     * call makemove
+     * display result
+     */
     private void AITurn()
     {
         //SetCurrentCardList();  // because now each player has it's own
 
         // now update option menu list:
         //m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();   // later
-        if(m_PlayerController.GetCurrentPlayer().IsAI())
+
+        String AIout = "";
+
+        // KI has to select the a person
+        if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
         {
-            String AIout = "";
+            Random rand = new Random();
+            int randCardId = rand.nextInt(m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
+            m_PlayerController.GetCurrentPlayer().SetChosenCardId(randCardId);
+            m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs = true;
+            invalidateOptionsMenu(); // because ai doens't use the options menu
+            String msg = "Ich habe mich entschieden!!!";
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            String name = m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(randCardId).name;
+            System.out.println("Ki waehlte: " + name);
+            String debug = "Reihenfolge ids: \n";
+            for (int i=0; i<m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize(); i++)
+            {
+                debug+=" "+ m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(i).id;
+            }
+            System.out.println(debug);
+        }
+        // both players had selected one person -> ai can now make a move
+        else
+        {
             AttribValue move = m_PlayerController.MakeMove();
             if(move.attr.equals("aHumanPlayer"))
             {
@@ -211,16 +235,6 @@ public class activity_board_question extends ActionBarActivity
                 {
                     m_PlayerController.GetCurrentPlayer().cardListRemaining.Remove(ivalue);
                     AIout+= "nein, leider nicht!!! \n Du bist!";
-                /*
-                String pers = "Meine Personen: ";
-                for(int i=0;i<curCardList.GetSize(); i++)
-                {
-                    pers += curCardList.Get(i).name+ "  ";
-                }
-                System.out.println(pers);*/
-                    //System.out.println(debug);
-
-                    // curCardList.m_List.remove(CardsToRemove.get(index));   // int list of  all cards wich should be deleted //  later implemented
 
                 }
             }
@@ -248,11 +262,19 @@ public class activity_board_question extends ActionBarActivity
         }
         isTurnOver = true;
         UpdateFieldV2();
+        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
 
     }
 
 
-
+    /**
+     * to interact
+     * ask question or "is it.."
+     * diplayed values depending on game state (players turn, turn over) and remaining cards ...
+     * @param menu interact by using option menu
+     * @return always true
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
@@ -261,7 +283,14 @@ public class activity_board_question extends ActionBarActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
         menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
-        if(HavePlayersSelectedWhoTheyAre)
+        if(m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
+        {
+            // menu entry to end own turn, only possible if player already selected who he /she want to be
+            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry))
+        }
+
+
+        if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
         {
             if (!isTurnOver)
             {
@@ -274,13 +303,8 @@ public class activity_board_question extends ActionBarActivity
                     int newItemId = 100 + curCardList.Get(index).id;
                     sm1.add(100, newItemId, 0, curCardList.Get(index).name);
                 }
-            }
-            // menu entry to end own turn
-            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry)
 
-
-            if (!isTurnOver)
-            {
+                // part 2 : add questions
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
                 System.out.println("playercontroller cardRem: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
                 System.out.println("playercontroller attribremaining: "+m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.attriList.size());
@@ -332,6 +356,15 @@ public class activity_board_question extends ActionBarActivity
         return true;
     }
 
+
+    /**
+     * Check what human player has done
+     * if asked question -> compare question with enemy target and own cardlist
+     * switch gamestate : players turn, turn over ...
+     *
+     * @param item
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -345,7 +378,7 @@ public class activity_board_question extends ActionBarActivity
         //SetCurrentCardList(); // here not really necessary because turn starts with onPrepareOptionsmenu ///////////////////////////////////
 
         // game can't start if player hasn't chosen his card, maybe extra activity later
-        if(!HavePlayersSelectedWhoTheyAre)
+        if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
         {
             Toast.makeText(getApplicationContext(), "Du musst erst einen Spieler auswählen!!", Toast.LENGTH_SHORT).show();
         }
@@ -358,191 +391,193 @@ public class activity_board_question extends ActionBarActivity
                 BeginNewTurn();
                 //isTurnOver = false;
             }
-            else if(!m_PlayerController.GetCurrentPlayer().IsAI())
+
+            // print all Persons with same attribut (as klicked in view), useful for debugging
+            else if (itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
             {
-                // print all Persons with same attribut (as klicked in view), useful for debugging
-                if (itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
+                if (isTurnOver)
                 {
-                    if (isTurnOver)
+                    Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+                    // print of target person has this attribut:
+                    boolean hasId = false;
+                    // get playerCard (enemy)
+                    Card cardEnemy = curCardList.Get(0);
+                    for (int i = 0; i < curCardList.GetSize(); i++)
                     {
-                        Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
-                    } else
-                    {
-                        m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-                        // print of target person has this attribut:
-                        boolean hasId = false;
-                        // get playerCard (enemy)
-                        Card cardEnemy = curCardList.Get(0);
-                        for (int i = 0; i < curCardList.GetSize(); i++)
+                        // because index not working anymore (because most cards have been deleted)
+                        if (curCardList.Get(i).id == m_PlayerController.GetNextPlayer().GetChosenCardId())
                         {
-                            // because index not working anymore (because most cards have been deleted)
-                            if (curCardList.Get(i).id == m_PlayerController.GetNextPlayer().GetChosenCardId())
+                            cardEnemy = curCardList.Get(i);
+                            break;
+                        }
+                    }
+                    System.out.println("Gegner ist: " + cardEnemy.name);
+                    for (int index = 0; index < cardEnemy.attriList.size(); index++)
+                    {
+                        // look for attribut
+                        if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
+                        {
+                            // attribut (kategory) found, now compare value
+                            if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
                             {
-                                cardEnemy = curCardList.Get(i);
+                                hasId = true;
                                 break;
                             }
                         }
-                        System.out.println("Gegner ist: " + cardEnemy.name);
-                        for (int index = 0; index < cardEnemy.attriList.size(); index++)
+                    }
+                    if (hasId)
+                    {
+                        Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+                    } else
+                    {
+                        Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
+                    }
+                    // End of: print of target person has this attribut
+
+
+                    List<Integer> CardsToRemove = new ArrayList<>();
+
+                    String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
+
+                    // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
+                    for (int index1 = 0; index1 < curCardList.GetSize(); index1++)
+                    {
+                        //System.out.println("curCardList.m_List.size() "+curCardList.m_List.size());
+                        //System.out.println("In for1:"+index1);
+                        // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
+                        for (int index2 = 0; index2 < curCardList.Get(index1).attriList.size(); index2++)
                         {
-                            // look for attribut
-                            if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
+
+                            if (curCardList.Get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
                             {
-                                // attribut (kategory) found, now compare value
-                                if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
+                                //System.out.println("Bin in if");
+                                // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
+                                // wenn ja:
+                                if (hasId)
                                 {
-                                    hasId = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (hasId)
-                        {
-                            Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
-                        } else
-                        {
-                            Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
-                        }
-                        // End of: print of target person has this attribut
-
-
-                        List<Integer> CardsToRemove = new ArrayList<>();
-
-                        String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
-
-                        // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
-                        for (int index1 = 0; index1 < curCardList.GetSize(); index1++)
-                        {
-                            //System.out.println("curCardList.m_List.size() "+curCardList.m_List.size());
-                            //System.out.println("In for1:"+index1);
-                            // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
-                            for (int index2 = 0; index2 < curCardList.Get(index1).attriList.size(); index2++)
-                            {
-
-                                if (curCardList.Get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
-                                {
-                                    //System.out.println("Bin in if");
-                                    // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
-                                    // wenn ja:
-                                    if (hasId)
+                                    // add persons to list who have this attribute (klicked)
+                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
                                     {
-                                        // add persons to list who have this attribute (klicked)
-                                        if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
-                                        {
-                                            //System.out.println("Bin in if2");
-                                            personsWithSameValue += curCardList.Get(index1).name + "\n";
-                                            //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                            //break; // because we want to delete all cards exept those with this attribute / value
-                                        } else
-                                        {
-                                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                            btn.setAlpha(0.4f);
-                                            btn.setClickable(false);
-                                            CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                            System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
-
-
-                                        }
+                                        //System.out.println("Bin in if2");
+                                        personsWithSameValue += curCardList.Get(index1).name + "\n";
+                                        //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                        //break; // because we want to delete all cards exept those with this attribute / value
                                     } else
                                     {
-                                        // only add person to list (print) if they don't have this attribute
-                                        if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
-                                        {
-                                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                            btn.setAlpha(0.4f);
-                                            btn.setClickable(false);
-                                            CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                            System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
-                                        } else    // only add person if not the same value (like other haircolor)
-                                        {
-                                            //System.out.println("Bin in if3");
-                                            personsWithSameValue += curCardList.Get(index1).name + "\n";
-                                            //System.out.println("personsWithSameValue "+personsWithSameValue);
-                                            //break;
-                                        }
+                                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
+                                        btn.setAlpha(0.4f);
+                                        btn.setClickable(false);
+                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                        System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
 
+
+                                    }
+                                } else
+                                {
+                                    // only add person to list (print) if they don't have this attribute
+                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                    {
+                                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
+                                        btn.setAlpha(0.4f);
+                                        btn.setClickable(false);
+                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                        System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
+                                    } else    // only add person if not the same value (like other haircolor)
+                                    {
+                                        //System.out.println("Bin in if3");
+                                        personsWithSameValue += curCardList.Get(index1).name + "\n";
+                                        //System.out.println("personsWithSameValue "+personsWithSameValue);
+                                        //break;
                                     }
 
                                 }
+
                             }
                         }
-                        //System.out.println("Personen: " + personsWithSameValue); //
-                        Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
-
-                        // turn is over !!!
-                        isTurnOver = true;
-
-
-                        System.out.println("Anz Karten: " + curCardList.GetSize());
-                        System.out.println("cardsToRemove: " + CardsToRemove.size());
-                        // remove unwanted cards:
-                        //debug
-
-                        ///// auslagern!!!!
-                        for (int index = CardsToRemove.size() - 1; index >= 0; index--)
-                        {
-
-                            String pers = "Personen: ";
-                            for (int i = 0; i < curCardList.GetSize(); i++)
-                            {
-                                pers += curCardList.Get(i).name + "  ";
-                            }
-                            System.out.println(pers);
-
-                            // set visibility of imagebutton
-                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
-                            btn.setAlpha(0.4f);
-                            btn.setClickable(false);
-
-
-                            // remove from option menu
-                            //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
-                            curCardList.Remove(curCardList.Get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
-                            //System.out.println("Cards after remove: " + curCardList.GetSize());
-                        }
-
-                        // now update option menu list:
-                        m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
-                        // Ende auslagern!!!!
-
                     }
-                } else if (itemId >= 100 && itemId < 200)
-                {
-                    int curPlayerId = itemId - 100;
-                    System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
+                    //System.out.println("Personen: " + personsWithSameValue); //
+                    Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+
+                    // turn is over !!!
                     isTurnOver = true;
-                    //int cardId = curCardList.GetIndexFromCardId(curPlayerId);
-                    if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
-                    {
-                        /////// BUG bug ////////////////////////////////////////////////////////////////////////////////////
-                        ////////////////////////////////////////////////////////////////////////
-                        // optionsmenü itemid muss immer cardlist.get(i).id sein, ansonten später nciht mehr zuordbar
-                        // = prepareoptionsmenu
+                    TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+                    tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
 
-                        //beim Auslesen:
-                        // funktion zum Zuordnen der alten id -> return index i für übergebene cardid
-                        ////////////////////////////////////////////////////////////////////////////
-                        final Intent lastIntent = new Intent(this, EndGameActivity.class);
-                        lastIntent.putExtra("msg", "gewonnen");
-                        startActivity(lastIntent);
-                    } else
-                    {
-                        String playerName = curCardList.Get(curPlayerId).name;
 
-                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(curPlayerId).viewID);
+                    System.out.println("Anz Karten: " + curCardList.GetSize());
+                    System.out.println("cardsToRemove: " + CardsToRemove.size());
+                    // remove unwanted cards:
+                    //debug
+
+                    ///// auslagern!!!!
+                    for (int index = CardsToRemove.size() - 1; index >= 0; index--)
+                    {
+
+                        String pers = "Personen: ";
+                        for (int i = 0; i < curCardList.GetSize(); i++)
+                        {
+                            pers += curCardList.Get(i).name + "  ";
+                        }
+                        System.out.println(pers);
+
+                        // set visibility of imagebutton
+                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
                         btn.setAlpha(0.4f);
                         btn.setClickable(false);
 
-                        String msg = "Es ist nicht " + playerName;
-                        curCardList.Remove(curCardList.Get(curPlayerId));
-                        m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                        System.out.println("msg: " + msg);
+
+                        // remove from option menu
+                        //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
+                        curCardList.Remove(curCardList.Get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
+                        //System.out.println("Cards after remove: " + curCardList.GetSize());
                     }
-                } else    // only for debugging, can be removed
-                {
-                    System.out.println("komische item id :" + itemId);
+
+                    // now update option menu list:
+                    m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
+                    // Ende auslagern!!!!
+
                 }
+            } else if (itemId >= 100 && itemId < 200)
+            {
+                int curPlayerId = itemId - 100;
+                System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
+                isTurnOver = true;
+                TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+                tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
+                //int cardId = curCardList.GetIndexFromCardId(curPlayerId);
+                if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
+                {
+                    /////// BUG bug ////////////////////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////
+                    // optionsmenü itemid muss immer cardlist.get(i).id sein, ansonten später nciht mehr zuordbar
+                    // = prepareoptionsmenu
+
+                    //beim Auslesen:
+                    // funktion zum Zuordnen der alten id -> return index i für übergebene cardid
+                    ////////////////////////////////////////////////////////////////////////////
+                    final Intent lastIntent = new Intent(this, EndGameActivity.class);
+                    lastIntent.putExtra("msg", "gewonnen");
+                    startActivity(lastIntent);
+                } else
+                {
+                    String playerName = curCardList.Get(curPlayerId).name;
+
+                    ImageButton btn = (ImageButton) findViewById(curCardList.Get(curPlayerId).viewID);
+                    btn.setAlpha(0.4f);
+                    btn.setClickable(false);
+
+                    String msg = "Es ist nicht " + playerName;
+                    curCardList.Remove(curCardList.Get(curPlayerId));
+                    m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    System.out.println("msg: " + msg);
+                }
+            } else    // only for debugging, can be removed
+            {
+                System.out.println("komische item id :" + itemId);
             }
 
         } // end of -> first choose your character!!
@@ -559,9 +594,15 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-
-
-    // maybe could be outsourced to Board.java, called at the beginning of the game
+    /**
+     * fill gridView with cards, called at the beginning of the game
+     * 1. set Gridview
+     * 2. map cardattributes to class member (cardlist)
+     * 3. map attributes like id to button
+     * 4. add onclick listener (e.g. to display all card attributs for clicked card)
+     * maybe could be outsourced to Board.java, called at the beginning of the game
+     * @return false if no cards available, else true
+     */
     public boolean addButtonsDynamic()
     {
         // nothing to add -> nothing else to do
@@ -620,6 +661,7 @@ public class activity_board_question extends ActionBarActivity
 
                     while (currentIndex < cardList.GetSize()-1 && cardList.Get(currentIndex).viewID != view.getId())
                     {
+                        // stops at this index
                         currentIndex++; // because we already checked index 0 in while loop
                         currentCard = cardList.Get(currentIndex);
 
@@ -628,7 +670,7 @@ public class activity_board_question extends ActionBarActivity
                     if (currentCard != null)
                     {
                         // at the beginning choose which character you want to be, could be outsourced, but nearly same code
-                        if (!HavePlayersSelectedWhoTheyAre)
+                        if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
                         {
                             SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
                         }
@@ -654,58 +696,15 @@ public class activity_board_question extends ActionBarActivity
         return true;
     }
 
-    public boolean UpdateField()
-    {
-        final CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-        // nothing to add -> nothing else to do
-        if(curCardList.GetSize() < 1)
-        {
-            return false;
-        }
-        GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
-        gridCards.removeAllViews();
 
-        for (int currentCardID = 0; currentCardID < curCardList.GetSize(); currentCardID++)
-        {
-            // create a new button
-            ImageButton ib = new ImageButton(this);
-            ib.setClickable(true);
-            ib.setId(curCardList.Get(currentCardID).viewID);
-            ib.setImageResource(curCardList.Get(currentCardID).imageID);
-
-            ib.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    System.out.println("id clicked: " + view.getId());  // needed for debugging
-
-                    // map clicked id with card from cardlist -> iterate cardlist
-                    Card currentCard = curCardList.Get(0);  // = get(0) not needed
-                    int currentIndex = 0;
-
-                    while (currentIndex < curCardList.GetSize() - 1 && curCardList.Get(currentIndex).viewID != view.getId())
-                    {
-                        currentIndex++; // because we already checked index 0 in while loop
-                        currentCard = curCardList.Get(currentIndex);
-
-                    }
-
-                    if (currentCard != null)
-                    {
-                        System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
-                        DisplayAttributes(curCardList.Get(currentIndex));
-                    }
-                }
-            });
-            // place the card at the next free position of the grid
-            gridCards.addView(ib);
-        }
-        return true;
-    }
-
-
-    //
+    /**
+     * Version 2
+     * display cards on screen
+     * uses gridView
+     * displays all cards (incl. removed cards with less alpha)
+     * Version 1 removes unwanted cards from screen instead of alpha
+     * @return false if no cards to display, should never happen
+     */
     public boolean UpdateFieldV2()
     {
         // nothing to add -> nothing else to do
@@ -749,8 +748,16 @@ public class activity_board_question extends ActionBarActivity
 
                     if (currentCard != null)
                     {
-                        System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
-                        DisplayAttributes(cardList.Get(currentIndex));
+                        if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
+                        {
+                            SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
+                        }
+                        else
+                        {
+                            System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
+                            DisplayAttributes(cardList.Get(currentIndex));
+                        }
+
                     }
                 }
             });
@@ -761,12 +768,18 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    // because later maybe different sets (chinese, latino, ... ) -> maybe different files
+    /**
+     * reads cardsets from json file in raw folder
+     * put them into string
+     * because later maybe different sets (chinese, latino, ... ) -> maybe different files
+     * @param _cardsetName file name of the cardset
+     * @return String of extracted cardset json
+     */
     private String ReturnCardJSONAsString(String _cardsetName)
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
-        int ressourceId =getResources().getIdentifier(_cardsetName, "raw",getPackageName());
-        InputStream is = getResources().openRawResource(ressourceId);
+        int ressourceId = getResources().getIdentifier(_cardsetName, "raw",getPackageName());
+        InputStream is  = getResources().openRawResource(ressourceId);
         return FileToString.ReadTextFile(is);
     }
 
@@ -779,7 +792,10 @@ public class activity_board_question extends ActionBarActivity
     }
 */
 
-    // ingame klick on card -> displays attributes of this card (from json, )
+    /**
+     * ingame klick on card -> displays attributes of this card (from json, )
+     * @param currentCard needed to display card information in box
+     */
     private void DisplayAttributes(Card currentCard)
     {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
@@ -833,10 +849,15 @@ public class activity_board_question extends ActionBarActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        HavePlayersSelectedWhoTheyAre = true;
+                        m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs = true;
+                        //if (m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
+                        //{
+                        //    HavePlayersSelectedWhoTheyAre = true;
+                        //}
+
 
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
-                        System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = "+_currentCard.id);
+                        System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = " + _currentCard.id);
                         dialog.cancel();
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
@@ -858,11 +879,71 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    private void DisplayCurrentPlayerInBox()
+    /**
+     * alternative field, working, but not used anymore, can be activated
+     * removes all cards wich are irrelevant instead of decreasing alpha
+     * @return false if field doesn't contain cards
+     */
+    /*
+    public boolean UpdateField()
     {
+        final CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
+        // nothing to add -> nothing else to do
+        if(curCardList.GetSize() < 1)
+        {
+            return false;
+        }
+        GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
+        gridCards.removeAllViews();
 
+        for (int currentCardID = 0; currentCardID < curCardList.GetSize(); currentCardID++)
+        {
+            // create a new button
+            ImageButton ib = new ImageButton(this);
+            ib.setClickable(true);
+            ib.setId(curCardList.Get(currentCardID).viewID);
+            ib.setImageResource(curCardList.Get(currentCardID).imageID);
+
+            ib.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    System.out.println("id clicked: " + view.getId());  // needed for debugging
+
+
+                    // map clicked id with card from cardlist -> iterate cardlist
+                    Card currentCard = curCardList.Get(0);  // = get(0) not needed
+                    int currentIndex = 0;
+
+                    while (currentIndex < curCardList.GetSize() - 1 && curCardList.Get(currentIndex).viewID != view.getId())
+                    {
+                        currentIndex++; // because we already checked index 0 in while loop
+                        currentCard = curCardList.Get(currentIndex);
+                    }
+
+
+                    if (currentCard != null)
+                    {
+                        if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
+                        {
+                            SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
+                        }
+                        else
+                        {
+                            System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
+                            DisplayAttributes(curCardList.Get(currentIndex));
+                        }
+
+                    }
+                }
+            });
+            // place the card at the next free position of the grid
+            gridCards.addView(ib);
+        }
+        return true;
     }
-
+*/
 
 }
 

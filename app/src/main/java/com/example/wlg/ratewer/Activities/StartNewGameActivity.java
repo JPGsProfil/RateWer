@@ -49,6 +49,11 @@ public class StartNewGameActivity extends ActionBarActivity
         });
     }
 
+    /**
+     * players can select between different card sets
+     * available cardsets read from raw folder, only put valid json file there
+     * put them into spinner
+     */
     private void FillCardSetSpinner()
     {
         Spinner sp_cardsets = (Spinner)findViewById(R.id.sp_cardsets);
@@ -69,6 +74,11 @@ public class StartNewGameActivity extends ActionBarActivity
     }
 
 
+    /**
+     * available difficulties
+     * placed in spinner
+     * should be replaced be @string/ ...
+     */
     private void FillDifficicultySpinner()
     {
         Spinner sp_diff = (Spinner)findViewById(R.id.sp_sng_difficulty);
@@ -77,6 +87,7 @@ public class StartNewGameActivity extends ActionBarActivity
         difflist.add("einfach");
         difflist.add("normal");
         difflist.add("Hellseher");
+        difflist.add("Mensch");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,

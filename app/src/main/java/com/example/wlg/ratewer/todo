@@ -6,6 +6,22 @@ Extra Thread für Hellseher ZUgberechnung,
     diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
     Hellseher Performance Optimierung
 
+    Runde beenden : in FUnktionen auslagern, z.B.:
+    TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+            ist immer wieder das selbe, Spieler X, mache deinen ZUg, beende deinen ZUg ...
+
+Texte durch konstanten ersetzen, am besten in @string, damit mehrere sprachen möglich sind
+Bsp.:  StartNewGameActicity.java zeile87
+
+Siegernachricht ändern
+da Spieler gegen SPieler möglich ist
+"Du hast gewonnen oder verloren ungünstig"
+
+
+
+Optional: SPiel mit mehr als 2 Spielern
+bsp 4 -> runde geht rum, spieler 1 fragt spieler 2, spieler 2 fragt spieler 3, wenn runde vorbei ist, fragt spieler  1 spieler 3, spieler 2 spieler 4...
+wer als erstes einen Spieler erraten hat, ist Sieger
 
 image handling via glide
 glide resizing image

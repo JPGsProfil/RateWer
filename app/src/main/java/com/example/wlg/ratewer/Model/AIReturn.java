@@ -1,7 +1,10 @@
 package com.example.wlg.ratewer.Model;
 
 /**
- * Created by Jean on 05.06.2015.
+ * needed for deep search algorithm
+ * attrValId is the question id
+ * rating is needed to find out best move (in deep)
+ * deepestDeep is needed by "Hellseher" algorithm
  */
 public class AIReturn
 {

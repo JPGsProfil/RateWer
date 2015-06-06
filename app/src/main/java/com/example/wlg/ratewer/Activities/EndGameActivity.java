@@ -11,6 +11,10 @@ import com.example.wlg.ratewer.R;
 public class EndGameActivity extends ActionBarActivity
 {
 
+    /**
+     * display whether player one had one or not
+     * @param savedInstanceState get data from prev. activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

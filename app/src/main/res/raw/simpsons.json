@@ -81,7 +81,7 @@
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_gheet"
 	},
 	{
@@ -105,7 +105,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_janey"
 	},
 	{
@@ -129,7 +129,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_lisa"
 	},
 	{
@@ -141,7 +141,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_maggie"
 	},
 	{
@@ -153,7 +153,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Erwachsen",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_manjula"
 	},
 	{
@@ -165,7 +165,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Erwachsen",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_marge"
 	},
 	{
@@ -189,7 +189,7 @@
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "ja",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_milhouse"
 	},
 	{
@@ -213,7 +213,7 @@
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_nelson"
 	},
 	{
@@ -225,7 +225,7 @@
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_ralph"
 	},
 	{
@@ -237,7 +237,7 @@
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_sashi"
 	},
 	{
@@ -273,7 +273,7 @@
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "ja",
 	  "Alter": "Kind",
-	  "Arbeitsplatz": "keinen",
+	  "Arbeitsplatz": "arbeitslos",
 	  "image": "si_todd"
 	},
 	{

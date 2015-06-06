@@ -1,7 +1,7 @@
 package com.example.wlg.ratewer.Model;
 
 /**
- * Created by Jean on 21.04.2015.
+ * activity_board_question is gamemanager
  */
 public class GameManager
 {

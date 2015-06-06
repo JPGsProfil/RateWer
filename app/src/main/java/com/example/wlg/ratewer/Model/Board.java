@@ -14,9 +14,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by Jean on 21.04.2015.
  * class for board options and properties
+ * not used because board function have to be in activity
  */
+
 
 public class Board
 {

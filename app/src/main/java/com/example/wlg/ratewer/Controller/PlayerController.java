@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * Created by Jean on 21.04.2015.
+ * handles the players (access)
+ * initializes two players at the beginning
+ * more than 2 players possible in future
  */
 public class PlayerController
 {
@@ -26,31 +29,56 @@ public class PlayerController
             players.add(newPlayer);
             System.out.println("index "+ i + "= "+players.get(i).GetPlayerID());
         }
-        players.get(1).SetToAI();
+        //
     }
 
 
+    /**
+     * Get first player
+     * not needed, but second player is
+     * @return playernumber
+     */
     public PlayerInformation GetFirstPlayer()
     {
         return players.get(0);
     }
 
+    /**
+     * Get second player
+     * used to set the second player to ai
+     * @return playernumber
+     */
     public PlayerInformation GetSecondPlayer()
     {
         return players.get(1);
     }
 
+
+    /**
+     *returns the player who's turn it is
+     * could be player one, two, ...
+     * @return the current player
+     */
     public PlayerInformation GetCurrentPlayer()
     {
         return players.get(currentPlayerIndex);
     }
 
+    /**
+     * get next player
+     * e.g. used to get enemy card
+     * @return the next player
+     */
     public PlayerInformation GetNextPlayer()
     {
         return players.get(GetIndexForNextPlayer());
     }
 
-    // set to next player, working with more than 2 players
+    /**
+     * // set to current player to next player, working with more than 2 players
+     * bool used for future, but could be changed to void
+     * @return always true, later false if no players e.g. possible
+     */
     public boolean ChangeCurrentPlayer()
     {
         //System.out.println("Changed from "+ currentPlayerIndex + " to "+GetIndexForNextPlayer());
@@ -58,7 +86,27 @@ public class PlayerController
         return true;    // always true, if one player, next is player 1 ..
     }
 
+    /**
+     * game can only start if all player have selected the character they want to be
+     * @return true if all have, else false
+     */
+    public boolean HaveAllPlayersSelectedWhoTheyAre()
+    {
+        for(int index = 0; index < players.size(); index++)
+        {
+            if(!players.get(index).hasPlayersSelectedWhoHeIs)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
+
+    /**
+     * used to set next player
+     * @return index of the next player
+     */
     private int GetIndexForNextPlayer()
     {
         if(players.size()<2)
@@ -81,6 +129,11 @@ public class PlayerController
         }
     }
 
+    /**
+     * called by both player
+     * but only for ai, because human is making his /her move by using option menu and button
+     * @return the move the ai calculated (String type, String move), type could be "is it" or category
+     */
     public AttribValue MakeMove()
     {
         AttribValue attribValueReturn = new AttribValue("aHumanPlayer","-1");
@@ -98,7 +151,14 @@ public class PlayerController
     //////////////////////////////////////////////77
     // AI move:
 
+    // used by AIMove (e.g. if difficulty is easy or invalid, ask for card index)
     private static int MAKEMOVECALLED = 0;
+
+    /**
+     * move of the ai
+     * depending on difficulty
+     * if invalid difficulty, get next card index, ask is it ... (card 1, card 2, card 3)
+     */
     private AttribValue AIMove(PlayerInformation _curPlayer, PlayerInformation _nextPlayer)
     {
         System.out.println("Bin in AIMove");
@@ -122,6 +182,14 @@ public class PlayerController
     }
 
 
+    /**
+     * Best choice for an enemy,
+     * could be renamed to hard
+     * @param _curPlayer needed to get cardList and possible quesions
+     * @param _enemy e.g. needed for "Hellseher" for deep search
+     * @return calculated move (String type, String move)
+     * type could be "is it" or question
+     */
     private AttribValue GoodEnemy(PlayerInformation _curPlayer, PlayerInformation _enemy)
     {
         AttribValue AttribValReturn = new AttribValue("IsIt","0");
@@ -142,7 +210,7 @@ public class PlayerController
             int clcpysize = cardListCpy.GetSize();
             //System.out.println("cardListCpy Groesse: "+clcpysize+ " OrigListSize: "+_cardListRemaining.GetSize()); // wenn veraendert, dann nicht kopiert, sondern referenz
             // if enemy card has the target attribute -> remove all cards wich have not
-            if(cardListCpy.Get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            if (cardListCpy.Get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
             {
                 cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
             }
@@ -169,7 +237,17 @@ public class PlayerController
         return AttribValReturn;
     }
 
+
+    // used for statistic and debugging
     static double CheckedWays = 0;
+    /**
+     * like normal enemy, but with deep search
+     * needs a lot of time in first round
+     * not much better than hard
+     * @param _curPlayer
+     * @param _enemy
+     * @return calculated move (String type, String move)
+     */
     private AttribValue Hellseher(PlayerInformation _curPlayer, PlayerInformation _enemy)
     {
         CardList _cardListRemaining = _curPlayer.cardListRemaining;
@@ -189,7 +267,13 @@ public class PlayerController
     }
 
 
-    // used by Hellseher, don't call it otherwise
+    /**
+     * used by Hellseher, don't call it otherwise
+     * @param _cardListRemaining one card of this list is the card the enemy has chosen
+     * @param _curDeep  // current deep, needed because end game in 3 steps is better than 5 steps and to avoid overflow by calculating
+     * @param _targetCardId // if of enemy card, needed to find perfect question
+     * @return calculated move (String type, String move)
+     */
     private AIReturn DeepSearch(CardList _cardListRemaining, int _curDeep, int _targetCardId)
     {
         _curDeep++;
@@ -246,6 +330,5 @@ public class PlayerController
         System.out.println("bestAIReturn:"+bestAIReturn);
         return bestAIReturn;
     }
-
 
 }

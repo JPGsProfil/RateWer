@@ -11,7 +11,22 @@ Extra Thread für Hellseher ZUgberechnung,
             ist immer wieder das selbe, Spieler X, mache deinen ZUg, beende deinen ZUg ...
 
 Texte durch konstanten ersetzen, am besten in @string, damit mehrere sprachen möglich sind
-Bsp.:  StartNewGameActicity.java zeile87
+    Bsp.:  StartNewGameActicity.java zeile87
+    tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
+    lastIntent.putExtra("msg", "gewonnen");
+    String "msg" ersetzen
+
+
+Angezeigten Fragen optimieren: Traegt Brille : ja suboptimal (Zeile 315 ff)
+
+Landscape MOdus
+
+Landscape Modus
+
+Statistiken
+Profil Name bei Start
+
+neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen möglich
 
 Siegernachricht ändern
 da Spieler gegen SPieler möglich ist

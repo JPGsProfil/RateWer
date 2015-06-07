@@ -27,8 +27,9 @@ public class EndGameActivity extends ActionBarActivity
             String msg = extras.getString("msg");
             if (msg != null)
             {
+                // Display end game msg
                 TextView tv_title = (TextView) findViewById(R.id.tv_eg_msg);
-                tv_title.setText("Du hast: " + msg);
+                tv_title.setText(msg);
             }
         }
 

@@ -26,18 +26,6 @@
     <string name="title_activity_statistic">StatisticActivity</string>
 
 
-
-    <string name="txt_menu_beard">Hat die Person einen Bart?</string>
-    <string name="txt_menu_glasses">Trägt die Person eine Brille?</string>
-    <string name="txt_menu_eye">Augenfarbe:</string>
-    <string name="txt_menu_eye_brown">Braun</string>
-    <string name="txt_menu_eye_blue">Blau</string>
-    <string name="txt_menu_hair">Haarfarbe:</string>
-    <string name="txt_menu_hair_brown">Braun</string>
-    <string name="txt_menu_hair_black">Schwarz</string>
-    <string name="txt_menu_hair_blond">Blond</string>
-    <string name="txt_menu_isWoman">Ist die Person eine Frau?</string>
-
     <!-- Start new game options menu-->
     <string name="tv_startng_selectCardset">Wähle ein Kartenset!</string>
     <string name="b_sng_startGame">Spiel starten</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <string name="app_name">RateWer</string>
     <string name="hello_world">Hello Sabine!</string>
     <string name="action_settings">Settings</string>
     <string name="action_settings2">Close</string>
@@ -15,12 +15,21 @@
     <string name="txt_bStatistic">Statistics</string>
     <string name="title_activity_statistic">StatisticActivity</string>
 
+    <!-- Start new game options menu-->
+    <string name="tv_startng_selectCardset">Wähle ein Kartenset!</string>
+    <string name="b_sng_startGame">Spiel starten</string>
+    <string name="txt_sng_FlipCardsAuto">Karten automatisch umklappen?</string>
 
     <string-array name="lang_array">
         <item>German</item>
         <item>English</item>
         <item>Italian</item>
     </string-array>
+
+    <string name="title_activity_activity_board_question">activity_board_question</string>
+    <string name="title_activity_start_new_game">StartNewGameActivity</string>
+    <string name="tv_Select_Cardset">Da</string>
+    <string name="title_activity_end_game">EndGameActivity</string>
 
 
 </resources>

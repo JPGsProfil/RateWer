@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello_world">DE: Hallo Sabine!</string>
-    <string name="action_settings">Einstellungen</string>
-    <string name="action_settings2">Beenden</string> <string name="app_name">Guess Who</string>
 
+    <string name="app_name">RateWer</string>
+
+    <string name="hello_world">Hallo Sabine!</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_settings2">Beenden</string>
+    <string name="txt_start">Spiel Starten</string>
+    <string name="txt_options">Optionen</string>
+    <string name="txt_end">Beenden</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_options">OptionsActivity</string>
+    <string name="txt_language">Sprache</string>
+    <string name="txt_Statistic_title">Statistiken</string>
+    <string name="txt_bStatistic">Statistik</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
+
+
+    <!-- Start new game options menu-->
+    <string name="tv_startng_selectCardset">Wähle ein Kartenset!</string>
+    <string name="b_sng_startGame">Spiel starten</string>
+    <string name="txt_sng_FlipCardsAuto">Karten automatisch umklappen?</string>
 
     <string-array name="lang_array">
-        <item>German</item>
-        <item>English</item>
-        <item>Italian</item>
+        <item>Deutsch</item>
+        <item>Englisch</item>
+        <item>Italienisch</item>
     </string-array>
+    <string name="title_activity_activity_board_question">activity_board_question</string>
+    <string name="title_activity_start_new_game">StartNewGameActivity</string>
+    <string name="tv_Select_Cardset">Da</string>
+    <string name="title_activity_end_game">EndGameActivity</string>
+
+
 </resources>

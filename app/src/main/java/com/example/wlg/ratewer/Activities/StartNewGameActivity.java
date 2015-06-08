@@ -86,6 +86,7 @@ public class StartNewGameActivity extends ActionBarActivity
         List<String> difflist = new ArrayList<>();
         difflist.add("einfach");
         difflist.add("normal");
+        difflist.add("schwer");
         difflist.add("Hellseher");
         difflist.add("Mensch");
 

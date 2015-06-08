@@ -241,7 +241,7 @@ public class activity_board_question extends ActionBarActivity
             }
             else    // reduce cardlist by attrib and value
             {
-                AIout+= "Meine Wahl: "+move.value + " "+move.attr;
+                AIout+= "Meine Wahl: "+move.attr + ": "+move.value;
                 int idEnemy = m_PlayerController.GetNextPlayer().GetChosenCardId(); // first get Id of enemy card, can't be used now because dynamic
                 int indexEnemyCard = m_PlayerController.GetCurrentPlayer().cardListRemaining.GetIndexFromCardId(idEnemy);   // because dynamic list, index can be different
                 Card cardEnemy = m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(indexEnemyCard);
@@ -296,7 +296,6 @@ public class activity_board_question extends ActionBarActivity
         {
             if (!isTurnOver)
             {
-
                 // submenu to choose "is it ...?"
                 SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
                 for (int index = 0; index < curCardList.GetSize(); index++)

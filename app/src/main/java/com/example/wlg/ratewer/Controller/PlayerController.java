@@ -4,9 +4,12 @@ import com.example.wlg.ratewer.Model.AIReturn;
 import com.example.wlg.ratewer.Model.AttribValue;
 import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.CardList;
+import com.example.wlg.ratewer.Model.IntInt;
 import com.example.wlg.ratewer.Model.PlayerInformation;
+import com.example.wlg.ratewer.Model.StringsToDisplayAttributes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -176,10 +179,64 @@ public class PlayerController
         else if(_curPlayer.GetAiDifficulty().equals("normal"))
         {
             System.out.println("normale KI");
+            attribValueReturn = NormalEnemy(_curPlayer, _nextPlayer);
+        }
+        else if(_curPlayer.GetAiDifficulty().equals("schwer"))
+        {
+            System.out.println("schwere KI");
             attribValueReturn = GoodEnemy(_curPlayer, _nextPlayer);
         }
         return attribValueReturn;
     }
+
+
+
+    //normal enemy
+    private AttribValue NormalEnemy(PlayerInformation _curPlayer, PlayerInformation _enemy)
+    {
+        AttribValue AttribValReturn = new AttribValue("IsIt","0");
+        CardList _cardListRemaining = _curPlayer.cardListRemaining;
+        AttributList attrList = new AttributList(_cardListRemaining);
+        if(_cardListRemaining.GetSize()<=2) // only to cards left, no need for attributs -> choose first of them
+        {
+            return AttribValReturn; // only to players, ask for the first one
+        }
+
+
+        int lowestRemainingCards = 50000;
+        List<IntInt> amountList = new ArrayList<IntInt>();
+        for(int index=0; index < attrList.attriList.size(); index ++)
+        {
+            int amount = 0;
+            StringsToDisplayAttributes curAttribVal = attrList.attriList.get(index);
+            String debug = "verbleibende Pers: ";
+            for(int cardIndex=0; cardIndex < _cardListRemaining.GetSize(); cardIndex++)
+            {
+                debug += _cardListRemaining.Get(cardIndex).name + " ";
+                if(_cardListRemaining.Get(cardIndex).DoesCardContainAttrValue(curAttribVal.attr, curAttribVal.value))
+                {
+                    amount++;
+                }
+            }
+            System.out.println(debug);
+            System.out.println("attr "+curAttribVal.attr+ " value: "+curAttribVal.value + " = "+amount + " cardlist "+_cardListRemaining.GetSize());
+            if(amount != _cardListRemaining.GetSize())    // else this question wouldn't matter
+            {
+                amountList.add(new IntInt(index, amount));
+            }
+        }
+
+        if(amountList.size()>0)
+        {
+            Collections.sort(amountList);
+            int bestIndex = (_cardListRemaining.GetSize()-1)/2;
+            AttribValReturn.attr  = attrList.attriList.get(amountList.get(bestIndex).index).attr;
+            AttribValReturn.value = attrList.attriList.get(amountList.get(bestIndex).index).value;
+        }
+        return AttribValReturn;
+    }
+
+
 
 
     /**

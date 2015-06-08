@@ -104,7 +104,7 @@ public class CardList
      * @param _id index in list
      * @return single card
      */
-    public Card GetCardByID(int _id)
+    public Card GetCardByCardID(int _id)
     {
         return m_List.get(GetIndexFromCardId(_id));
     }
@@ -118,7 +118,7 @@ public class CardList
     public void RemoveCardsWithAttriValue(String _attr, String _value)
     {
         // backwards because deleting arrayentries backwards is much more easy
-        for(int i = m_List.size()-1; i > 0; i--)
+        for(int i = m_List.size()-1; i >= 0; i--)
         {
             boolean hasAttrBeenFound = Get(i).DoesCardContainAttrValue(_attr,_value);
             if (hasAttrBeenFound)
@@ -135,7 +135,7 @@ public class CardList
      */
     public void RemoveCardsWithoutAttriValue(String _attr, String _value)
     {
-        for(int i = m_List.size()-1; i > 0; i--)
+        for(int i = m_List.size()-1; i >= 0; i--)
         {
             boolean hasAttrBeenFound = Get(i).DoesCardContainAttrValue(_attr,_value);
             if (!hasAttrBeenFound)

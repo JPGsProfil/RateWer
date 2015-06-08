@@ -279,6 +279,7 @@ public class activity_board_question extends ActionBarActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
+        System.out.println("aktueller Spieler "+ m_PlayerController.GetCurrentPlayer().GetPlayerID());
         CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
         //SetCurrentCardList();   // make sure you use the the correct cardlist (of the current player)
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -396,7 +397,9 @@ public class activity_board_question extends ActionBarActivity
                     // print of target person has this attribut:
                     boolean hasId = false;
                     // get playerCard (enemy)
+                    //int enemyCardPos = curCardList.GetIndexFromCardId(m_PlayerController.GetNextPlayer().GetChosenCardId());  // not used because can't make sure it still exist
                     Card cardEnemy = curCardList.Get(0);
+
                     for (int i = 0; i < curCardList.GetSize(); i++)
                     {
                         // because index not working anymore (because most cards have been deleted)
@@ -504,12 +507,12 @@ public class activity_board_question extends ActionBarActivity
                     ///// auslagern!!!!
                     for (int index = CardsToRemove.size() - 1; index >= 0; index--)
                     {
-                        String pers = "Personen: ";
-                        for (int i = 0; i < curCardList.GetSize(); i++)
-                        {
-                            pers += curCardList.Get(i).name + "  ";
-                        }
-                        System.out.println(pers);
+                        //String pers = "Personen: ";
+                        //for (int i = 0; i < curCardList.GetSize(); i++)
+                        //{
+                        //    pers += curCardList.Get(i).name + "  ";
+                        //}
+                        //System.out.println(pers);
 
                         // set visibility of imagebutton
                         ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
@@ -531,7 +534,9 @@ public class activity_board_question extends ActionBarActivity
             else if (itemId >= 100 && itemId < 200)
             {
                 int curPlayerId = itemId - 100;
-                System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetCurrentPlayer().GetChosenCardId());
+                System.out.println("itemId "+curPlayerId+ " entspricht "+cardList.Get(cardList.GetIndexFromCardId(curPlayerId)).name);
+                System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
+                System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 isTurnOver = true;
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                 tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");

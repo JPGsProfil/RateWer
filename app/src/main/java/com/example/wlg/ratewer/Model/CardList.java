@@ -213,12 +213,9 @@ public class CardList
                     {
                         curValue = "no";
                     }
-                    else
+                    else if( curValue.equals("1") || curValue.equals("true"))
                     {
-                        if( curValue.equals("1") || curValue.equals("true"))
-                        {
-                            curValue = "yes";
-                        }
+                        curValue = "yes";
                     }
 
                     //System.out.println("curCat " + curCat + "   value: "+curValue);
@@ -231,10 +228,10 @@ public class CardList
                         curimage = curValue;
                     }
 
-                    //else if(curCat.equals("id"))
-                    //{
+                    else if(curCat.equals("id"))    // because we don't want the id as question
+                    {
                         //curId = curValue; not needed, shuffle later
-                    //}
+                    }
                     else
                     {
                         AttribValue curAttribValue = new AttribValue(curCat,curValue);

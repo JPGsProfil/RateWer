@@ -69,7 +69,7 @@
 	{
 	  "id": 7,
 	  "name": "Gheet",
-	  "Haarfarbe": "braun",
+	  "Haarfarbe": "schwarz",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -80,7 +80,7 @@
 	{
 	  "id": 8,
 	  "name": "Homer",
-	  "Haarfarbe": "blond",
+	  "Haarfarbe": "schwarz",
 	  "Hat Bart": "ja",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -91,7 +91,7 @@
 	{
 	  "id": 9,
 	  "name": "Janey",
-	  "Haarfarbe": "keine",
+	  "Haarfarbe": "braun",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -102,7 +102,7 @@
 	{
 	  "id": 10,
 	  "name": "Kent",
-	  "Haarfarbe": "braun",
+	  "Haarfarbe": "weiß",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -113,7 +113,7 @@
 	{
 	  "id": 11,
 	  "name": "Lisa",
-	  "Haarfarbe": "braun",
+	  "Haarfarbe": "gelb",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -124,7 +124,7 @@
 	{
 	  "id": 12,
 	  "name": "Maggie",
-	  "Haarfarbe": "blond",
+	  "Haarfarbe": "gelb",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -135,7 +135,7 @@
 	{
 	  "id": 13,
 	  "name": "Manjula",
-	  "Haarfarbe": "braun",
+	  "Haarfarbe": "schwarz",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -146,7 +146,7 @@
 	{
 	  "id": 14,
 	  "name": "Marge",
-	  "Haarfarbe": "dunkelbraun",
+	  "Haarfarbe": "blau",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -157,7 +157,7 @@
 	{
 	  "id": 15,
 	  "name": "Mel",
-	  "Haarfarbe": "dunkelbraun",
+	  "Haarfarbe": "grün",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -168,7 +168,7 @@
 	{
 	  "id": 16,
 	  "name": "Milhouse",
-	  "Haarfarbe": "dunkelbraun",
+	  "Haarfarbe": "blau",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "ja",
@@ -177,8 +177,8 @@
 	  "image": "si_milhouse"
 	},
 	{
-	  "id": Ned,
-	  "name": "Sandra7",
+	  "id": 17,
+	  "name": "Ned",
 	  "Haarfarbe": "braun",
 	  "Hat Bart": "ja",
 	  "Ist weiblich": "nein",
@@ -201,7 +201,7 @@
 	{
 	  "id": 19,
 	  "name": "Ralph",
-	  "Haarfarbe": "blond",
+	  "Haarfarbe": "schwarz",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -212,7 +212,7 @@
 	{
 	  "id": 20,
 	  "name": "Sashi",
-	  "Haarfarbe": "blond",
+	  "Haarfarbe": "schwarz",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "ja",
 	  "Trägt Brille": "nein",
@@ -223,7 +223,7 @@
 	{
 	  "id": 21,
 	  "name": "Skinner",
-	  "Haarfarbe": "blond",
+	  "Haarfarbe": "grau",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
@@ -234,7 +234,7 @@
 	{
 	  "id": 22,
 	  "name": "Stu",
-	  "Haarfarbe": "schwarz",
+	  "Haarfarbe": "braun",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "ja",
@@ -245,7 +245,7 @@
 	{
 	  "id": 23,
 	  "name": "Todd",
-	  "Haarfarbe": "schwarz",
+	  "Haarfarbe": "braun",
 	  "Hat Bart": "nein",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "ja",
@@ -255,15 +255,14 @@
 	},
 	{
 	  "id": 24,
-	  "name": "Willie",
-	  "Haarfarbe": "schwarz",
-	  "Augenfarbe": "green",
+	  "name": "Chalmers",
+	  "Haarfarbe": "grau",
 	  "Hat Bart": "ja",
 	  "Ist weiblich": "nein",
 	  "Trägt Brille": "nein",
 	  "Alter": "Erwachsen",
 	  "Arbeitsplatz": "Schule",
-	  "image": "si_willie"
+	  "image": "si_chalmers"
 	}
   ]
 }

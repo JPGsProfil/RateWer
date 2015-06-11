@@ -1,10 +1,28 @@
+Bugs: Landscape Modus -> Grid Anordnung der Karten, Wechsel bei Umschalten auf Landscape
+
+
+
+
+
+Sonstiges:
+Code auslagern in Gamemanager Controller
+
+Sabine:
+Hardgecoded Text Auslagern
+Karten automatisch umklappen
+Layover als ablöse für Navipunkt
+Bilder erstellen (Köpfe)
+Warten einbauen für anzeige vom KI Zug
+Daniel
+Optionsmenu unten
+GUI
+Jean
+
 
 Design (StartNewGame bsp Auswahl der Schwierigkeitsstufe als Slider statt aufklappend ...)
 Optionsmenu Design wenn nur noch 2 Elemente übrig sind -> Hat Bart ja, hat Bart nein ...
 Verzögerung zwischen 2 Bildschirmausgaben einbauen
-Extra Thread für Hellseher ZUgberechnung,
-    diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
-    Hellseher Performance Optimierung
+
 
     Runde beenden : in FUnktionen auslagern, z.B.:
     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
@@ -17,20 +35,9 @@ Texte durch konstanten ersetzen, am besten in @string, damit mehrere sprachen mö
     String "msg" ersetzen
 
 
-Angezeigten Fragen optimieren: Traegt Brille : ja suboptimal (Zeile 315 ff)
 
-Landscape MOdus
 
-Landscape Modus
 
-Statistiken
-Profil Name bei Start
-
-neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen möglich
-
-Siegernachricht ändern
-da Spieler gegen SPieler möglich ist
-"Du hast gewonnen oder verloren ungünstig"
 
 
 
@@ -38,8 +45,26 @@ Optional: SPiel mit mehr als 2 Spielern
 bsp 4 -> runde geht rum, spieler 1 fragt spieler 2, spieler 2 fragt spieler 3, wenn runde vorbei ist, fragt spieler  1 spieler 3, spieler 2 spieler 4...
 wer als erstes einen Spieler erraten hat, ist Sieger
 
+
+Angezeigten Fragen optimieren: Traegt Brille : ja suboptimal (Zeile 315 ff)
+
+Landscape Modus
+
+
+Statistiken
+Profil Name bei Start
+
+neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen möglich
+
+
+
 image handling via glide
 glide resizing image
+
+Extra Thread für Hellseher ZUgberechnung,
+    diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
+    Hellseher Performance Optimierung
+
 
 sauebere Implementierung von compareTo in AttribValue bzw. Festlegung eines Standards für bool (true, false, 0,1, ja, nein ...) (json)
 
@@ -58,3 +83,7 @@ ausgeschlossenbyplayerone
 
 wenn Karte umgeklappt, dann visibility --
 und setclickable = false
+
+Siegernachricht ändern
+da Spieler gegen SPieler möglich ist
+"Du hast gewonnen oder verloren ungünstig"

@@ -6,13 +6,13 @@ Bugs: Landscape Modus -> Grid Anordnung der Karten, Wechsel bei Umschalten auf L
 
 Sonstiges:
 Code auslagern in Gamemanager Controller
-
+landscape: in activity_board_question Fkt: addButtonsDynamic()
 Sabine:
-Hardgecoded Text Auslagern
-Karten automatisch umklappen
-Layover als ablöse für Navipunkt
+Hardgecoded Text Auslagern  (R.id. ...)
+Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
+Layover als ablöse für Navipunkt    // idealerweise custom option menu
 Bilder erstellen (Köpfe)
-Warten einbauen für anzeige vom KI Zug
+Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
 Daniel
 Optionsmenu unten
 GUI

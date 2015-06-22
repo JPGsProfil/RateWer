@@ -50,6 +50,7 @@ public class activity_board_question extends ActionBarActivity
     private static boolean isTurnOver = false;  // needed for human (can't ask two question in one turn)
     //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
     //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
+    private static boolean s_TurnCardsAuto = false;
 
 
 
@@ -78,6 +79,15 @@ public class activity_board_question extends ActionBarActivity
             {
                 usedCardset = newCardSet;
             }
+
+            int hasBeenChecked = extras.getInt("hasBeenChecked");
+            if (hasBeenChecked == 1)
+            {
+                System.out.println("hasBeenChecked");
+                s_TurnCardsAuto = true;
+            }
+
+
 
             // get difficulty from prev. activity:
             String diff = extras.getString("difficulty");
@@ -158,7 +168,7 @@ public class activity_board_question extends ActionBarActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        System.out.println("Spielerid:"+m_PlayerController.GetCurrentPlayer().GetPlayerID());
+                        System.out.println("Spielerid:" + m_PlayerController.GetCurrentPlayer().GetPlayerID());
                         if (m_PlayerController.GetCurrentPlayer().IsAI())   // only call ai if it's ai's turn
                         {
                             AITurn();
@@ -458,24 +468,28 @@ public class activity_board_question extends ActionBarActivity
                                         //break; // because we want to delete all cards exept those with this attribute / value
                                     } else
                                     {
-                                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                        btn.setAlpha(0.4f);
-                                        btn.setClickable(false);
-                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                        System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
-
-
+                                        if(s_TurnCardsAuto)
+                                        {
+                                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
+                                            btn.setAlpha(0.4f);
+                                            btn.setClickable(false);
+                                            CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                            System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
+                                        }
                                     }
                                 } else
                                 {
                                     // only add person to list (print) if they don't have this attribute
                                     if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
                                     {
-                                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                        btn.setAlpha(0.4f);
-                                        btn.setClickable(false);
-                                        CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                        System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
+                                        if(s_TurnCardsAuto)
+                                        {
+                                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
+                                            btn.setAlpha(0.4f);
+                                            btn.setClickable(false);
+                                            CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                            System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
+                                        }
                                     } else    // only add person if not the same value (like other haircolor)
                                     {
                                         //System.out.println("Bin in if3");
@@ -489,12 +503,21 @@ public class activity_board_question extends ActionBarActivity
                         }
                     }
                     //System.out.println("Personen: " + personsWithSameValue); //
-                    Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+                    if(s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())   // only display persons if cards turned by pc, else player want to find out by himself /herself
+                    {
+                        Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+                    }
+
 
                     // turn is over !!!
                     isTurnOver = true;
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                    tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
+                    String txt_display = ": Beende den Zug!";
+                    if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
+                    {
+                        txt_display = "  Drehe die Karten um!";
+                    }
+                    tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
 
 
                     //System.out.println("Anz Karten: " + curCardList.GetSize());
@@ -503,24 +526,29 @@ public class activity_board_question extends ActionBarActivity
                     //debug
 
                     ///// auslagern!!!!
-                    for (int index = CardsToRemove.size() - 1; index >= 0; index--)
+                    if(s_TurnCardsAuto)
                     {
-                        //String pers = "Personen: ";
-                        //for (int i = 0; i < curCardList.GetSize(); i++)
-                        //{
-                        //    pers += curCardList.Get(i).name + "  ";
-                        //}
-                        //System.out.println(pers);
+                        System.out.println();
+                        for (int index = CardsToRemove.size() - 1; index >= 0; index--)
+                        {
+                            //String pers = "Personen: ";
+                            //for (int i = 0; i < curCardList.GetSize(); i++)
+                            //{
+                            //    pers += curCardList.Get(i).name + "  ";
+                            //}
+                            //System.out.println(pers);
 
-                        // set visibility of imagebutton
-                        ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
-                        btn.setAlpha(0.4f);
-                        btn.setClickable(false);
+                            // set visibility of imagebutton
+                            ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
+                            btn.setAlpha(0.4f);
+                            btn.setClickable(false);
 
-                        // remove from option menu
-                        //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
-                        curCardList.Remove(curCardList.Get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
+                            // remove from option menu
+                            //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
+                            curCardList.Remove(curCardList.Get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
+                        }
                     }
+
 
                     // now update option menu list:
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
@@ -537,7 +565,12 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 isTurnOver = true;
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
+                String txt_display = ": Beende den Zug!";
+                if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
+                {
+                    txt_display = "  Drehe die Karten um!";
+                }
+                tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
                 //int cardId = curCardList.GetIndexFromCardId(curPlayerId);
                 if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
                 {
@@ -554,7 +587,10 @@ public class activity_board_question extends ActionBarActivity
                     btn.setClickable(false);
 
                     String msg = "Es ist nicht " + playerName;
-                    curCardList.Remove(curCardList.Get(curPlayerId));
+                    if(s_TurnCardsAuto)
+                    {
+                        curCardList.Remove(curCardList.Get(curPlayerId));
+                    }
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                     System.out.println("msg: " + msg);
@@ -657,7 +693,7 @@ public class activity_board_question extends ActionBarActivity
                         // at the beginning choose which character you want to be, could be outsourced, but nearly same code
                         if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
                         {
-                            SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
+                            SelectWhoYouAre(cardList.Get(currentIndex));
                         }
                         else    // player selected who he want to be -> now onclick to view details
                         {
@@ -728,6 +764,14 @@ public class activity_board_question extends ActionBarActivity
                         if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
                         {
                             SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
+                        }
+                        else if(s_TurnCardsAuto == false && isTurnOver && !m_PlayerController.GetCurrentPlayer().IsAI())
+                        {
+                            System.out.println("debug: bin in manuell umdrehen!");
+                            ImageButton btn = (ImageButton) findViewById(view.getId());
+                            btn.setAlpha(0.4f);
+                            btn.setClickable(false);
+                            m_PlayerController.GetCurrentPlayer().cardListRemaining.RemoveCardByViewId(view.getId());
                         }
                         else
                         {

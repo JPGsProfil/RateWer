@@ -78,6 +78,21 @@ public class CardList
         return false;
     }
 
+
+    public boolean RemoveCardByViewId(int _viewId)
+    {
+        for(int i=0; i<m_List.size(); i++)
+        {
+            if(m_List.get(i).viewID == _viewId)
+            {
+                m_List.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     /**
      * used to compare ChosenCard of the enemy with the card from current cardList
      * necessary because cardList is dynamic

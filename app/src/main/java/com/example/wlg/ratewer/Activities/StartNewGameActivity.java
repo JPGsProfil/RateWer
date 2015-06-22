@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.example.wlg.ratewer.R;
@@ -41,8 +42,15 @@ public class StartNewGameActivity extends ActionBarActivity
 
                 Spinner sp_difficulty = (Spinner)findViewById(R.id.sp_sng_difficulty);
                 String diff = sp_difficulty.getSelectedItem().toString();
-                firstIntent.putExtra("difficulty",diff);
+                firstIntent.putExtra("difficulty", diff);
 
+                CheckBox cb_TurnAuto = (CheckBox)findViewById(R.id.tv_sng_FlipCardsAuto);
+                int hasBeenChecked = 0;
+                if(cb_TurnAuto.isChecked())
+                {
+                    hasBeenChecked = 1;
+                }
+                firstIntent.putExtra("hasBeenChecked", hasBeenChecked);
 
                 startActivity(firstIntent);
             }

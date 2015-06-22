@@ -9,7 +9,6 @@ Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
 Sabine:
 Hardgecoded Text Auslagern  (R.id. ...)
-Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
 Layover als ablöse für Navipunkt    // idealerweise custom option menu
 Bilder erstellen (Köpfe)
 Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
@@ -18,6 +17,7 @@ Optionsmenu unten
 GUI
 Jean
 
+done: Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
 
 Design (StartNewGame bsp Auswahl der Schwierigkeitsstufe als Slider statt aufklappend ...)
 Optionsmenu Design wenn nur noch 2 Elemente übrig sind -> Hat Bart ja, hat Bart nein ...

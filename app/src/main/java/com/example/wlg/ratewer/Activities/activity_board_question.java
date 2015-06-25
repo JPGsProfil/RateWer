@@ -881,7 +881,7 @@ public class activity_board_question extends ActionBarActivity
                         System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = " + _currentCard.id);
                         dialog.cancel();
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+                        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
                     }
                 })

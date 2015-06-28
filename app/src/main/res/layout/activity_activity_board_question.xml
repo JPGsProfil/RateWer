@@ -6,15 +6,15 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.wlg.ratewer.Activities.activity_board_question">
 
+    <FrameLayout
+        style="@style/GreenBarTop"
+        android:id="@+id/aabq_gbt"></FrameLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Wähle deinen Charakter!"
         android:id="@+id/tv_Title_Ingame"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/aabq_gbt"
+        style="@style/NormalHeading"/>
 
     <GridLayout
         android:layout_width="fill_parent"

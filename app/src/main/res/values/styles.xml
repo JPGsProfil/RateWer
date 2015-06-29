@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+
     </style>
 
     <style name="NormalHeading" parent="@android:style/TextAppearance.Medium">
@@ -18,6 +18,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30px</item>
         <item name="android:background">#aeb32a</item>
+    </style>
+
+    <style name="StandartFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">17sp</item>
     </style>
 
 </resources>

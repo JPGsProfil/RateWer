@@ -42,6 +42,7 @@
     <string name="title_activity_start_new_game">StartNewGameActivity</string>
     <string name="tv_Select_Cardset">Da</string>
     <string name="title_activity_end_game">EndGameActivity</string>
+    <string name="title_activity_sliding_menu_up_test">slidingMenuUpTestActivity</string>
 
 
 </resources>

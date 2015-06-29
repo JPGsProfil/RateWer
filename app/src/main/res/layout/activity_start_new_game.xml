@@ -36,7 +36,9 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="@dimen/options_vertical_margin"
             android:textColor="@color/textcolorbright"
-            android:background="@color/primary"/>
+            android:background="@color/primary"
+            android:padding="5dp"
+            style="@style/StandartFont"/>
 
         <Spinner
             android:layout_width="wrap_content"
@@ -44,7 +46,10 @@
             android:id="@+id/sp_cardsets"
             android:layout_toEndOf="@+id/textView3"
             android:layout_alignParentRight="true"
-            android:gravity="left"></Spinner>
+            android:gravity="left"
+            android:layout_margin="5dp"
+            style="@style/StandartFont"
+            ></Spinner>
 
 
         <TextView
@@ -55,7 +60,9 @@
             android:layout_alignTop="@+id/sp_sng_difficulty"
             android:layout_alignParentStart="true"
             android:textColor="@color/textcolorbright"
-            android:background="@color/primary"/>
+            android:background="@color/primary"
+            android:padding="5dp"
+            style="@style/StandartFont"/>
 
 
         <Spinner
@@ -64,6 +71,8 @@
             android:id="@+id/sp_sng_difficulty"
             android:layout_below="@+id/seekBar"
             android:layout_toEndOf="@+id/textView3"
+            android:layout_margin="5dp"
+            style="@style/StandartFont"
             />
 
     </LinearLayout>
@@ -87,9 +96,11 @@
         android:id="@+id/b_sng_start"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
         android:background="@color/primary"
-        android:textColor="@color/textcolorbright"/>
+        android:textColor="@color/textcolorbright"
+        style="@style/StandartFont"
+        android:padding="20dp"
+        />
 
 
 

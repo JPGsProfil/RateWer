@@ -50,28 +50,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tv_startng_selectIsEnemyHuman"
-            android:id="@+id/textView5"
-            android:layout_below="@+id/trenner1"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/options_vertical_margin"
-            android:textColor="@color/textcolorbright"
-            android:background="@color/primary"/>
-
-        <SeekBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
-            android:layout_below="@+id/textView5"
-            android:layout_alignParentStart="true"/>
-
-
-
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/tv_startng_selectEnemyDifficulty"
             android:id="@+id/textView6"
             android:layout_alignTop="@+id/sp_sng_difficulty"
@@ -79,12 +57,6 @@
             android:textColor="@color/textcolorbright"
             android:background="@color/primary"/>
 
-        <SeekBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar3"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/seekBar"/>
 
         <Spinner
             android:layout_width="wrap_content"
@@ -94,37 +66,18 @@
             android:layout_toEndOf="@+id/textView3"
             />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
-            android:background="@color/primary"
-            android:id="@+id/trenner3"></FrameLayout>
-
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_sng_FlipCardsAuto"
-            android:id="@+id/tv_sng_FlipCardsAuto"
-            android:checked="true"
-            android:layout_above="@+id/b_sng_start"
-            android:layout_alignParentStart="true"
-            android:layout_margin="36dp"/>
-
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
-            android:background="@color/primary"
-            android:id="@+id/trenner4"></FrameLayout>
-
-
     </LinearLayout>
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_sng_FlipCardsAuto"
+        android:id="@+id/tv_sng_FlipCardsAuto"
+        android:checked="true"
+        android:layout_below="@+id/llHeader"
+        android:layout_above="@+id/b_sng_start"
+        android:layout_alignParentStart="true"
+        android:layout_margin="36dp"/>
 
 
     <Button

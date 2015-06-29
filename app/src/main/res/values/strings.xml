@@ -29,7 +29,7 @@
     <!-- Start new game options menu-->
     <string name="tv_startng_selectCardset">Wähle ein Kartenset!</string>
     <string name="tv_startng_selectIsEnemyHuman">Gegen einen Freund?</string>
-    <string name="tv_startng_selectEnemyDifficulty">Wähle Schwierigkeitsgrad</string>
+    <string name="tv_startng_selectEnemyDifficulty">Wähle deinen Gegner</string>
     <string name="b_sng_startGame">Spiel starten</string>
     <string name="txt_sng_FlipCardsAuto">Karten automatisch umklappen?</string>
 

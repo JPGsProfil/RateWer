@@ -40,23 +40,18 @@
                 android:layout_height="100sp"
                 android:gravity="center"
                 android:text="Wähle eine Frage!"
-                android:textSize="16sp"
+                style="@style/StandartFont"
                 android:background="@color/primary"
-                android:textColor="@color/textcolorbright"/>
+                android:textColor="@color/textcolorbright"
+                android:id="@+id/SlideUp_Heading"/>
 
-                 <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
+                <ExpandableListView
+                android:id="@+id/lvExp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:text="ldgkldkfgskfdl gjlsdkfpgjsögjlkjgköljgkgdfgödklfgjlkdfjglkfdsj"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:textColor="@color/primarydark"
-                android:background="@color/primary" />
+                android:layout_width="match_parent"/>
 
             <!-- Button is not Working correctly, yet -->
+            <!--
                 <at.markushi.ui.CircleButton
                     android:layout_width="64dip"
                     android:layout_height="64dip"
@@ -64,7 +59,7 @@
                     app:cb_color="#99CC00"
                     app:cb_pressedRingWidth="8dip"
                     android:gravity="center|top"/>
-
+            -->
 
 
         </LinearLayout>

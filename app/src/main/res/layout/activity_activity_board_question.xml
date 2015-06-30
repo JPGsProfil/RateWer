@@ -19,11 +19,11 @@
 
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
         android:id="@+id/GridForCards"
-        android:layout_below="@+id/aabq_gbt"
+        android:layout_below="@+id/tv_Title_Ingame"
+        android:layout_above="@+id/bFinished"
         android:layout_gravity="center_horizontal"
         android:padding="0dp">
     </GridLayout>

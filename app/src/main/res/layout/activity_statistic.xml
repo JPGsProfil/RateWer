@@ -56,14 +56,14 @@
                 android:textColor="@color/primarydark"
                 android:background="@color/primary" />
 
-            <!-- Button is not Working correctly, yet
+            <!-- Button is not Working correctly, yet -->
                 <at.markushi.ui.CircleButton
                     android:layout_width="64dip"
                     android:layout_height="64dip"
                     android:src="@drawable/arrow_up"
                     app:cb_color="#99CC00"
                     app:cb_pressedRingWidth="8dip"
-                    android:gravity="center|top"/> -->
+                    android:gravity="center|top"/>
 
 
 

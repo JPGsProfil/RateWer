@@ -9,13 +9,17 @@ Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
 Sabine:
 Hardgecoded Text Auslagern  (R.id. ...)
-Layover als ablöse für Navipunkt    // idealerweise custom option menu
+
 Bilder erstellen (Köpfe)
 Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
 Daniel
+Layover als ablöse für Navipunkt    // idealerweise custom option menu // done
 Optionsmenu unten
 GUI
 Jean
+bei ja nein Fragen:
+    ist person männlich? keine Antwort
+    Größe anpassen der bilder (Skallieren) oder scrollen
 
 done: Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
 

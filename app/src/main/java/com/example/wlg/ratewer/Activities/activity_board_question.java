@@ -47,7 +47,7 @@ public class activity_board_question extends ActionBarActivity
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
     private static CardList cardList;  // list where the cards will be saved (name and attributtes)
     private static PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
-    private static boolean isTurnOver = false;  // needed for human (can't ask two question in one turn)
+    private static boolean s_isTurnOver = false;  // needed for human (can't ask two question in one turn)
     //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
     //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
     private static boolean s_TurnCardsAuto = false;
@@ -148,7 +148,7 @@ public class activity_board_question extends ActionBarActivity
      */
     private void BeginNewTurn()
     {
-        isTurnOver = false;
+        s_isTurnOver = false;
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
         UpdateFieldV2(); // draw new grid with cards of the current player
@@ -271,7 +271,7 @@ public class activity_board_question extends ActionBarActivity
             Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
             //BeginNewTurn();
         }
-        isTurnOver = true;
+        s_isTurnOver = true;
         UpdateFieldV2();
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
@@ -304,7 +304,7 @@ public class activity_board_question extends ActionBarActivity
 
         if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
         {
-            if (!isTurnOver)
+            if (!s_isTurnOver)
             {
                 // submenu to choose "is it ...?"
                 SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
@@ -396,7 +396,7 @@ public class activity_board_question extends ActionBarActivity
             // handle selected question
             else if (itemId >= 0 && itemId < 100)    // over 100 for additional entries (end turn, solve (choose person )...
             {
-                if (isTurnOver)
+                if (s_isTurnOver)
                 {
                     Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
                 }
@@ -510,7 +510,7 @@ public class activity_board_question extends ActionBarActivity
 
 
                     // turn is over !!!
-                    isTurnOver = true;
+                    s_isTurnOver = true;
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -563,7 +563,7 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("itemId "+curPlayerId+ " entspricht "+cardList.Get(cardList.GetIndexFromCardId(curPlayerId)).name);
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
-                isTurnOver = true;
+                s_isTurnOver = true;
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                 String txt_display = ": Beende den Zug!";
                 if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -765,7 +765,7 @@ public class activity_board_question extends ActionBarActivity
                         {
                             SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
                         }
-                        else if(s_TurnCardsAuto == false && isTurnOver && !m_PlayerController.GetCurrentPlayer().IsAI())
+                        else if(s_TurnCardsAuto == false && s_isTurnOver && !m_PlayerController.GetCurrentPlayer().IsAI())
                         {
                             System.out.println("debug: bin in manuell umdrehen!");
                             ImageButton btn = (ImageButton) findViewById(view.getId());

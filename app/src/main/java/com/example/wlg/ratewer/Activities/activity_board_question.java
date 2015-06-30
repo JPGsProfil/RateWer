@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -671,6 +672,22 @@ public class activity_board_question extends ActionBarActivity
 
 
     /**
+     * to scale pictures depending on resolution
+     * @return with in px (also height, because square)
+     */
+    private int GetImageWithHeight()
+    {
+        // get Picture with:
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int screenHeigth = size.y;
+        float imageWidthHeightfloat = screenHeigth / 9.2f;   // 5 because 4 elements each row + border, padding ...
+        int imageWidthHeight = Math.round(imageWidthHeightfloat);
+        return imageWidthHeight;
+    }
+
+
+    /**
      * fill gridView with cards, called at the beginning of the game
      * 1. set Gridview
      * 2. map cardattributes to class member (cardlist)
@@ -699,12 +716,7 @@ public class activity_board_question extends ActionBarActivity
         gridCards.setColumnCount(COLUMN);
         //gridCards.setRowCount(rows);
 
-        // get Picture with:
-        Point size = new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
-        int screenHeigth = size.y;
-        float imageWidthHeightfloat = screenHeigth / 9.2f;   // 5 because 4 elements each row + border, padding ...
-        int imageWidthHeight = Math.round(imageWidthHeightfloat);
+        int imageWidthHeight = GetImageWithHeight();    // could be called in function, but would be calculated 24 times
 
         // margin:
         //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -719,8 +731,8 @@ public class activity_board_question extends ActionBarActivity
         for (int currentCardID = 0; currentCardID < cardList.GetSize(); currentCardID++)
         {
             // create a new button
-            ImageView ib = new ImageView(this);
-
+            ImageButton ib = new ImageButton(this);
+            ib.setPadding(3,3,3,3); // border between images
 
 
             //ib.setLayoutParams(lp);
@@ -734,7 +746,6 @@ public class activity_board_question extends ActionBarActivity
             Bitmap resized = Bitmap.createScaledBitmap(bm, imageWidthHeight, imageWidthHeight, true);
             ib.setImageBitmap(resized);
 
-
             System.out.println("Imageid " + currentCardID + " ist: " + imageID);
             ib.setClickable(true);
 
@@ -744,9 +755,7 @@ public class activity_board_question extends ActionBarActivity
             cardList.Get(currentCardID).viewID = viewId;
 
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(100, 100, 100, 100);
-            ib.setLayoutParams(lp);
+
 
 
 
@@ -813,13 +822,22 @@ public class activity_board_question extends ActionBarActivity
         GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
         gridCards.removeAllViews();
 
+        int imageWidthHeight = GetImageWithHeight();    // could be called in function, but would be calculated 24 times
+
         for (int currentCardID = 0; currentCardID < cardList.GetSize(); currentCardID++)
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
+            ib.setPadding(3,3,3,3); // border between images
             ib.setClickable(true);
             ib.setId(cardList.Get(currentCardID).viewID);
-            ib.setImageResource(cardList.Get(currentCardID).imageID);
+
+            // add scaled image
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), cardList.Get(currentCardID).imageID );
+            Bitmap resized = Bitmap.createScaledBitmap(bm, imageWidthHeight, imageWidthHeight, true);
+            ib.setImageBitmap(resized);
+            // ib.setImageResource(cardList.Get(currentCardID).imageID);  // obsolete, no scaled bitmap
+
             if(!m_PlayerController.GetCurrentPlayer().cardListRemaining.DoesCardIdExist(currentCardID))
             {
                 ib.setAlpha(0.4f);

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -118,7 +119,45 @@ public class activity_board_question extends ActionBarActivity
             m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);
         }
         m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+
+        InitializeFinishButton();   // place finish button, make it invisible at beginning
+
+    }   // end of OnCreate
+
+
+
+    private void InitializeFinishButton()
+    {
+        // make finish button:
+        Button bt = (Button)findViewById(R.id.bFinished);
+        bt.setOnClickListener(
+                new ImageButton.OnClickListener() {
+                    public void onClick(View v)
+                    {
+                        BeginNewTurn();
+                    }
+                }
+        );
+        bt.setClickable(false); // only visible if turn is over
+        bt.setAlpha(0);
     }
+
+    private void SetFinishBTVisibility(boolean _displayIt)
+    {
+        Button bt = (Button)findViewById(R.id.bFinished);
+        if(!_displayIt)
+        {
+            bt.setClickable(false); // only visible if turn is over
+            bt.setAlpha(0);
+        }
+        else
+        {
+            bt.setAlpha(1);
+            bt.setClickable(true); // only visible if turn is over
+        }
+
+    }
+
 
     /**
      * call function to fill gridview
@@ -149,6 +188,9 @@ public class activity_board_question extends ActionBarActivity
     private void BeginNewTurn()
     {
         s_isTurnOver = false;
+
+        SetFinishBTVisibility(false);    // make finish button invisible (first do turn)
+
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
         UpdateFieldV2(); // draw new grid with cards of the current player
@@ -275,6 +317,8 @@ public class activity_board_question extends ActionBarActivity
         UpdateFieldV2();
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
+
+        SetFinishBTVisibility(true);    // make finish bt visible
 
     }
 
@@ -519,6 +563,8 @@ public class activity_board_question extends ActionBarActivity
                     }
                     tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
 
+                    SetFinishBTVisibility(true);    // make finish button visible
+
 
                     //System.out.println("Anz Karten: " + curCardList.GetSize());
                     //System.out.println("cardsToRemove: " + CardsToRemove.size());
@@ -565,6 +611,9 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+
+                SetFinishBTVisibility(true);    // make finish button visible
+
                 String txt_display = ": Beende den Zug!";
                 if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
                 {
@@ -883,6 +932,8 @@ public class activity_board_question extends ActionBarActivity
                         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
+
+                        SetFinishBTVisibility(true);    // make finish button visible
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()

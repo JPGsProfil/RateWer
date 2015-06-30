@@ -3,17 +3,23 @@ package com.example.wlg.ratewer.Activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -682,16 +688,29 @@ public class activity_board_question extends ActionBarActivity
         }
         final int COLUMN = Board.COLUMN_PER_ROW;
         final int AMOUNT_OF_PERSON = cardList.GetSize();
-
+        /*
         int rows = AMOUNT_OF_PERSON / COLUMN;
         if(rows < 1)
         {
             rows = 1;   // otherwhise exception
-        }
+        }*/
         // Set the Grid Layout where the cards will be placed in
         GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
         gridCards.setColumnCount(COLUMN);
-        gridCards.setRowCount(rows);
+        //gridCards.setRowCount(rows);
+
+        // get Picture with:
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        int screenHeigth = size.y;
+        float imageWidthHeightfloat = screenHeigth / 9.2f;   // 5 because 4 elements each row + border, padding ...
+        int imageWidthHeight = Math.round(imageWidthHeightfloat);
+
+        // margin:
+        //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int margin = 10;
+        //lp.setMargins(margin, margin, margin, margin);
+
 
         // create an instance of the board, needed for random, later outsourced
         //Board board = new Board(_cardList.size()); // later in controller and there a function displayBoard(Board _board)
@@ -700,11 +719,21 @@ public class activity_board_question extends ActionBarActivity
         for (int currentCardID = 0; currentCardID < cardList.GetSize(); currentCardID++)
         {
             // create a new button
-            ImageButton ib = new ImageButton(this);
+            ImageView ib = new ImageView(this);
+
+
+
+            //ib.setLayoutParams(lp);
 
             // android internal id to get access to image file in android
             int imageID;
             imageID = getResources().getIdentifier("drawable/" + cardList.Get(currentCardID).image , "drawable", getPackageName());
+
+            // add scaled image
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), imageID );
+            Bitmap resized = Bitmap.createScaledBitmap(bm, imageWidthHeight, imageWidthHeight, true);
+            ib.setImageBitmap(resized);
+
 
             System.out.println("Imageid " + currentCardID + " ist: " + imageID);
             ib.setClickable(true);
@@ -714,7 +743,14 @@ public class activity_board_question extends ActionBarActivity
             ib.setId(viewId);
             cardList.Get(currentCardID).viewID = viewId;
 
-            ib.setImageResource(imageID);
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(100, 100, 100, 100);
+            ib.setLayoutParams(lp);
+
+
+
+            //ib.setImageResource(imageID);
             // set image id in class to find it later
             cardList.Get(currentCardID).imageID = imageID;
 

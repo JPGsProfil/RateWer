@@ -7,6 +7,7 @@ Bugs: Landscape Modus -> Grid Anordnung der Karten, Wechsel bei Umschalten auf L
 Sonstiges:
 Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
+
 Sabine:
 Hardgecoded Text Auslagern  (R.id. ...)
 
@@ -19,9 +20,9 @@ GUI
 Jean
 bei ja nein Fragen:
     ist person männlich? keine Antwort
-    Größe anpassen der bilder (Skallieren) oder scrollen
-
-done: Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
+    done: Größe anpassen der Bilder (Skallieren) oder scrollen
+    done: margin zwischen Bilder wie in Design
+    done: Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
 
 Design (StartNewGame bsp Auswahl der Schwierigkeitsstufe als Slider statt aufklappend ...)
 Optionsmenu Design wenn nur noch 2 Elemente übrig sind -> Hat Bart ja, hat Bart nein ...
@@ -62,10 +63,10 @@ neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen möglich
 
 
 
-image handling via glide
-glide resizing image
+done:image handling via glide
+done: glide resizing image  // without glide
 
-Extra Thread für Hellseher ZUgberechnung,
+Extra Thread für Hellseher Zugberechnung,
     diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
     Hellseher Performance Optimierung
 

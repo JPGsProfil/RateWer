@@ -732,7 +732,7 @@ public class activity_board_question extends ActionBarActivity
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
-            ib.setPadding(3,3,3,3); // border between images
+            ib.setPadding(0,0,5,5); // border between images
 
 
             //ib.setLayoutParams(lp);
@@ -828,7 +828,7 @@ public class activity_board_question extends ActionBarActivity
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
-            ib.setPadding(3,3,3,3); // border between images
+            ib.setPadding(0,0,5,5); // border between images
             ib.setClickable(true);
             ib.setId(cardList.Get(currentCardID).viewID);
 

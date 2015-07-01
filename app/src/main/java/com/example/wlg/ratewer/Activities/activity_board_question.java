@@ -152,23 +152,23 @@ public class activity_board_question extends ActionBarActivity
     {
 
         ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
-        elv.setVisibility(_visibility);
+        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
+        //elv.setVisibility(_visibility);
         boolean bool = true;
         if(_visibility == 1)
         {
             bool = false;
-            expListView.bringToFront();
-            //expListView.setX(1);
+            elv.setVisibility(View.VISIBLE);
+            tvExp.setVisibility(View.VISIBLE);
         }
         else
         {
-            //expListView.setX(-1);
+            elv.setVisibility(View.INVISIBLE);
+            tvExp.setVisibility(View.INVISIBLE);
         }
         elv.setClickable(bool);
-
-        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
-        tvExp.setVisibility(_visibility);
         tvExp.setClickable(bool);
+
         System.out.println("Sichtbarkeit geaendert in: " + _visibility);
         System.out.println("Klickable: "+ bool);
 

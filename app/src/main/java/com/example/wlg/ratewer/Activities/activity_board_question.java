@@ -132,7 +132,7 @@ public class activity_board_question extends ActionBarActivity
 
         InitializeFinishButton();   // place finish button, make it invisible at beginning
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        expListView = (ExpandableListView) findViewById(R.id.lvExp1);
         SetExpandableListVisibility(0);
 
 
@@ -182,46 +182,9 @@ public class activity_board_question extends ActionBarActivity
 
     private void prepareListData()
     {
-        ExpandableListAdapter listAdapter2;
-        ExpandableListView expListView2;
-        List<String> listDataHeader2;
-        HashMap<String, List<String>> listDataChild2;
-
-        expListView2 = (ExpandableListView) findViewById(R.id.lvExp1);
-
-
-
-        listDataHeader2 = new ArrayList<String>();
-        listDataChild2 = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader2.add("Top 250");
-        listDataHeader2.add("Now Showing");
-        listDataHeader2.add("Coming Soon..");
-
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-
-        System.out.println("listDataHeader2.get(0) " + listDataHeader2.get(0));
-
-        listDataChild2.put(listDataHeader2.get(0), top250); // Header, Child data
-        listDataChild2.put(listDataHeader2.get(1), nowShowing);
-
-        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
-
-        // setting list adapter
-        expListView2.setAdapter(listAdapter2);
-
-
         //listDataHeader = new ArrayList<String>();
         //listDataChild = new HashMap<String, List<String>>();
-        /*
+
         CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
         if( m_PlayerController.HaveAllPlayersSelectedWhoTheyAre()
                 && !m_PlayerController.GetCurrentPlayer().IsAI()
@@ -243,13 +206,13 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("question: "+question+"  submenu: "+submenu.get(0));
                 listDataChild.put(question, submenu); // Header, Child data
 
-                /*
+
                 // part 2 : add questions
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
 
                 int currGroupId = -1;
                 // iterate all attributs
-                for (int index = 0; index < m_Attribs.attriList.size(); )
+                for ( int index = 0; index < m_Attribs.attriList.size(); )
                 {
                     // at the beginning, set new group id, not necessary if stay the same (if below)
                     currGroupId = m_Attribs.attriList.get(index).groupId;
@@ -298,19 +261,16 @@ public class activity_board_question extends ActionBarActivity
             System.out.println("listDataHeader.size() "+listDataHeader.size());
             if(listDataHeader.size() > 0)
             {
-                System.out.println("curPLayer "+m_PlayerController.GetCurrentPlayer().GetPlayerID() );
-
                 listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
                 // setting list adapter
                 expListView.setAdapter(listAdapter);
-                System.out.println("Nach set Adapter ");
             }
 
 
 
         }   // end of: option menu only visible if both players have chosen their character
-*/
+
 
 
         //listDataChild.put(listDataHeader.get(0), top250); // Header, Child data

@@ -177,10 +177,28 @@ public class activity_board_question extends ActionBarActivity
 
     private void InitializeExpandableList()
     {
-        // get the listview
-        //expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
+        {
 
-        // preparing list data
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id)
+            {
+                // hier muss Überprüfung rein
+
+                // TODO Auto-generated method stub
+                Toast.makeText(
+                        getApplicationContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
         prepareListData();
 
 

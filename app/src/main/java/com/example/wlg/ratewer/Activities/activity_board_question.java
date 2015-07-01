@@ -132,7 +132,7 @@ public class activity_board_question extends ActionBarActivity
 
         InitializeFinishButton();   // place finish button, make it invisible at beginning
 
-        expListView = (ExpandableListView) findViewById(R.id.lvExp1);
+        expListView = (ExpandableListView) findViewById(R.id.abq_lvExp);
         SetExpandableListVisibility(0);
 
 
@@ -150,21 +150,28 @@ public class activity_board_question extends ActionBarActivity
 
     private void SetExpandableListVisibility(int _visibility)
     {
-        /*
-        ExpandableListView elv = (ExpandableListView)findViewById(R.id.lvExp1);
+
+        ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
         elv.setVisibility(_visibility);
-        boolean bool = false;
+        boolean bool = true;
         if(_visibility == 1)
         {
-            bool = true;
+            bool = false;
+            expListView.bringToFront();
+            //expListView.setX(1);
+        }
+        else
+        {
+            //expListView.setX(-1);
         }
         elv.setClickable(bool);
 
         TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
         tvExp.setVisibility(_visibility);
         tvExp.setClickable(bool);
-        System.out.println("Sichtbarkeit geaendert in: "+_visibility);
-        */
+        System.out.println("Sichtbarkeit geaendert in: " + _visibility);
+        System.out.println("Klickable: "+ bool);
+
     }
 
 
@@ -718,7 +725,7 @@ public class activity_board_question extends ActionBarActivity
 
                     // turn is over !!!
                     s_isTurnOver = true;
-                    SetExpandableListVisibility(0);
+                    SetExpandableListVisibility(1);
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -774,7 +781,7 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
-                SetExpandableListVisibility(0);
+                SetExpandableListVisibility(1);
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
 
                 SetFinishBTVisibility(true);    // make finish button visible

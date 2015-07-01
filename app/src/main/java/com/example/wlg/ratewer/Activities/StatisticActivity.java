@@ -22,7 +22,8 @@ public class StatisticActivity extends ActionBarActivity {
     HashMap<String, List<String>> listDataChild;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
 
@@ -74,6 +75,8 @@ public class StatisticActivity extends ActionBarActivity {
         comingSoon.add("The Spectacular Now");
         comingSoon.add("The Canyons");
         comingSoon.add("Europa Report");
+
+        System.out.println("listDataHeader.get(0) "+listDataHeader.get(0));
 
         listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
         listDataChild.put(listDataHeader.get(1), nowShowing);

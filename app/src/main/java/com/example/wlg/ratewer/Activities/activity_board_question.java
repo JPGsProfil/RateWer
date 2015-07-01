@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.example.wlg.ratewer.Controller.AIController;
+import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttribValue;
@@ -43,6 +45,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -129,7 +132,192 @@ public class activity_board_question extends ActionBarActivity
 
         InitializeFinishButton();   // place finish button, make it invisible at beginning
 
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        SetExpandableListVisibility(0);
+
+
+
     }   // end of OnCreate
+
+
+
+    private static ExpandableListAdapter listAdapter;
+    private static ExpandableListView expListView;
+    private static List<String> listDataHeader = new ArrayList<String>();
+    private static HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+    //listDataChild = new HashMap<String, List<String>>();
+
+
+    private void SetExpandableListVisibility(int _visibility)
+    {
+        /*
+        ExpandableListView elv = (ExpandableListView)findViewById(R.id.lvExp1);
+        elv.setVisibility(_visibility);
+        boolean bool = false;
+        if(_visibility == 1)
+        {
+            bool = true;
+        }
+        elv.setClickable(bool);
+
+        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
+        tvExp.setVisibility(_visibility);
+        tvExp.setClickable(bool);
+        System.out.println("Sichtbarkeit geaendert in: "+_visibility);
+        */
+    }
+
+
+    private void InitializeExpandableList()
+    {
+        // get the listview
+        //expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        // preparing list data
+        prepareListData();
+
+
+    }
+
+
+    private void prepareListData()
+    {
+        ExpandableListAdapter listAdapter2;
+        ExpandableListView expListView2;
+        List<String> listDataHeader2;
+        HashMap<String, List<String>> listDataChild2;
+
+        expListView2 = (ExpandableListView) findViewById(R.id.lvExp1);
+
+
+
+        listDataHeader2 = new ArrayList<String>();
+        listDataChild2 = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader2.add("Top 250");
+        listDataHeader2.add("Now Showing");
+        listDataHeader2.add("Coming Soon..");
+
+        // Adding child data
+        List<String> top250 = new ArrayList<String>();
+        top250.add("The Shawshank Redemption");
+        top250.add("The Godfather");
+
+        List<String> nowShowing = new ArrayList<String>();
+        nowShowing.add("The Conjuring");
+        nowShowing.add("Despicable Me 2");
+
+        System.out.println("listDataHeader2.get(0) " + listDataHeader2.get(0));
+
+        listDataChild2.put(listDataHeader2.get(0), top250); // Header, Child data
+        listDataChild2.put(listDataHeader2.get(1), nowShowing);
+
+        listAdapter2 = new ExpandableListAdapter(this, listDataHeader2, listDataChild2);
+
+        // setting list adapter
+        expListView2.setAdapter(listAdapter2);
+
+
+        //listDataHeader = new ArrayList<String>();
+        //listDataChild = new HashMap<String, List<String>>();
+        /*
+        CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
+        if( m_PlayerController.HaveAllPlayersSelectedWhoTheyAre()
+                && !m_PlayerController.GetCurrentPlayer().IsAI()
+                && curCardList.GetSize() > 0 )
+        {
+            if (!s_isTurnOver)
+            {
+                String question = "Ist es ?";
+                // submenu to choose "is it ...?"
+
+                // Adding child data
+                listDataHeader.add(question);
+                List<String> submenu = new ArrayList<String>();
+                for (int index = 0; index < curCardList.GetSize(); index++)
+                {
+                    // Adding child data
+                    submenu.add(curCardList.Get(index).name);
+                }
+                System.out.println("question: "+question+"  submenu: "+submenu.get(0));
+                listDataChild.put(question, submenu); // Header, Child data
+
+                /*
+                // part 2 : add questions
+                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+
+                int currGroupId = -1;
+                // iterate all attributs
+                for (int index = 0; index < m_Attribs.attriList.size(); )
+                {
+                    // at the beginning, set new group id, not necessary if stay the same (if below)
+                    currGroupId = m_Attribs.attriList.get(index).groupId;
+
+
+                    // if more than two -> submenu required, if one or two not (like bool)
+                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
+                    {
+                        question = m_Attribs.attriList.get(index).attr;
+                        listDataHeader.add(question);
+                        List<String> curSubmenu = new ArrayList<String>();
+
+                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+                        {
+                            //sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
+                            curSubmenu.add(m_Attribs.attriList.get(index).value);
+                            //itemId++;
+                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
+                            index++;
+                        }
+                        listDataChild.put(question, curSubmenu); // Header, Child data
+                    }
+                    else    // only bool attributes (like wearGlasses ...) -> no submenu required
+                    {
+
+                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                        {
+
+                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
+
+                            question = m_Attribs.attriList.get(index).attr;
+                            listDataHeader.add(question);
+                            List<String> curSubmenu = new ArrayList<String>();
+                            curSubmenu.add(attriValStr);
+                            listDataChild.put(question, curSubmenu); // Header, Child data
+
+                            index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
+                        } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
+                        {
+                            index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
+                        }
+                    }
+                }
+            }   // end of: only display categories if players turn isn't over
+
+            System.out.println("listDataHeader.size() "+listDataHeader.size());
+            if(listDataHeader.size() > 0)
+            {
+                System.out.println("curPLayer "+m_PlayerController.GetCurrentPlayer().GetPlayerID() );
+
+                listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+                // setting list adapter
+                expListView.setAdapter(listAdapter);
+                System.out.println("Nach set Adapter ");
+            }
+
+
+
+        }   // end of: option menu only visible if both players have chosen their character
+*/
+
+
+        //listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+        //listDataChild.put(listDataHeader.get(1), nowShowing);
+        //listDataChild.put(listDataHeader.get(2), comingSoon);
+    }
+
 
 
 
@@ -138,7 +326,8 @@ public class activity_board_question extends ActionBarActivity
         // make finish button:
         Button bt = (Button)findViewById(R.id.bFinished);
         bt.setOnClickListener(
-                new ImageButton.OnClickListener() {
+                new ImageButton.OnClickListener()
+                {
                     public void onClick(View v)
                     {
                         BeginNewTurn();
@@ -197,6 +386,11 @@ public class activity_board_question extends ActionBarActivity
         s_isTurnOver = false;
 
         SetFinishBTVisibility(false);    // make finish button invisible (first do turn)
+
+
+
+        SetExpandableListVisibility(1);
+
 
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
@@ -321,6 +515,7 @@ public class activity_board_question extends ActionBarActivity
             //BeginNewTurn();
         }
         s_isTurnOver = true;
+        SetExpandableListVisibility(0);
         UpdateFieldV2();
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
@@ -355,6 +550,7 @@ public class activity_board_question extends ActionBarActivity
 
         if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
         {
+
             if (!s_isTurnOver)
             {
                 // submenu to choose "is it ...?"
@@ -562,6 +758,7 @@ public class activity_board_question extends ActionBarActivity
 
                     // turn is over !!!
                     s_isTurnOver = true;
+                    SetExpandableListVisibility(0);
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -617,6 +814,7 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
+                SetExpandableListVisibility(0);
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
 
                 SetFinishBTVisibility(true);    // make finish button visible
@@ -800,6 +998,8 @@ public class activity_board_question extends ActionBarActivity
             // place the card at the next free position of the grid
             gridCards.addView(ib);
         }
+
+
         return true;
     }
 
@@ -888,6 +1088,10 @@ public class activity_board_question extends ActionBarActivity
             // place the card at the next free position of the grid
             gridCards.addView(ib);
         }
+
+        // initialize expandableList
+        InitializeExpandableList();
+
         return true;
     }
 

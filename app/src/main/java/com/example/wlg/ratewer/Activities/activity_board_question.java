@@ -133,7 +133,7 @@ public class activity_board_question extends ActionBarActivity
         InitializeFinishButton();   // place finish button, make it invisible at beginning
 
         expListView = (ExpandableListView) findViewById(R.id.abq_lvExp);
-        SetExpandableListVisibility(0);
+        SetExpandableListVisibility(false);
 
 
 
@@ -148,29 +148,34 @@ public class activity_board_question extends ActionBarActivity
     //listDataChild = new HashMap<String, List<String>>();
 
 
-    private void SetExpandableListVisibility(int _visibility)
+    private void SetExpandableListVisibility(boolean _isVisible)
     {
 
         ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
         TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
+        //com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
         //elv.setVisibility(_visibility);
-        boolean bool = true;
-        if(_visibility == 1)
+        if(_isVisible == true)
         {
-            bool = false;
             elv.setVisibility(View.VISIBLE);
             tvExp.setVisibility(View.VISIBLE);
+            tvExp.setClickable(false);
+            elv.setClickable(false);
+            //lay.setClickable(_isVisible);
         }
         else
         {
             elv.setVisibility(View.INVISIBLE);
             tvExp.setVisibility(View.INVISIBLE);
+            tvExp.setClickable(true);
+            elv.setClickable(true);
+            //lay.setClickable(_isVisible);
         }
-        elv.setClickable(bool);
-        tvExp.setClickable(bool);
+        //elv.setClickable(_isVisible);
+        //tvExp.setClickable(_isVisible);
 
-        System.out.println("Sichtbarkeit geaendert in: " + _visibility);
-        System.out.println("Klickable: "+ bool);
+        System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
 
     }
 
@@ -374,7 +379,7 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-        SetExpandableListVisibility(1);
+        SetExpandableListVisibility(true);
 
 
         // change backgorund
@@ -500,7 +505,7 @@ public class activity_board_question extends ActionBarActivity
             //BeginNewTurn();
         }
         s_isTurnOver = true;
-        SetExpandableListVisibility(0);
+        SetExpandableListVisibility(false);
         UpdateFieldV2();
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
@@ -743,7 +748,7 @@ public class activity_board_question extends ActionBarActivity
 
                     // turn is over !!!
                     s_isTurnOver = true;
-                    SetExpandableListVisibility(1);
+                    SetExpandableListVisibility(true);
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -799,7 +804,7 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
-                SetExpandableListVisibility(1);
+                SetExpandableListVisibility(true);
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
 
                 SetFinishBTVisibility(true);    // make finish button visible

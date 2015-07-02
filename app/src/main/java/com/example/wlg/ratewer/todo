@@ -8,16 +8,23 @@ Sonstiges:
 Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
 
+!!!!!Umklappanimation (Swipe) !!!!!!!!!!!!!!!!!!!!!
+
 Sabine:
-Hardgecoded Text Auslagern  (R.id. ...)
+    Hardgecoded Text Auslagern  (R.id. ...)
 
 Bilder erstellen (Köpfe)
 Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
 Daniel
+    Toast (attrib anzeigen) hübscher machen
 Layover als ablöse für Navipunkt    // idealerweise custom option menu // done
 Optionsmenu unten
 GUI
 Jean
+    expandable List -> option menu ersetzen, mappen
+
+
+
 bei ja nein Fragen:
     ist person männlich? keine Antwort
     done: Größe anpassen der Bilder (Skallieren) oder scrollen

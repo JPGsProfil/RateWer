@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 //import com.example.wlg.ratewer.Controller.AIController;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
+import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttribValue;
@@ -391,7 +393,13 @@ public class activity_board_question extends ActionBarActivity
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
         // end of: change background
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+
+
+         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+
+
 
         // set title
         alertDialogBuilder.setTitle("Zug beendet");
@@ -1118,14 +1126,28 @@ public class activity_board_question extends ActionBarActivity
      */
     private void DisplayAttributes(Card currentCard)
     {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+
+
+        //
+        //change here if not working
+        //
+        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+        //alertDialogBuilder.setView(getLayoutInflater().inflate( R.layout.alert_dialog,null));
+
+
+
 
         // set title
         alertDialogBuilder.setTitle(currentCard.name);
 
         //System.out.println("Bin in Display");
         // set dialog message
-        String attributes = "Eigenschaften\n";
+        String attributes = "Eigenschaften\n\n";
         for(int index = 0; index <currentCard.attriList.size(); index ++)
         {
             attributes += currentCard.attriList.get(index).attr + ":  "+ currentCard.attriList.get(index).value + "\n";

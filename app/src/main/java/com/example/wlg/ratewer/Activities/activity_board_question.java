@@ -153,28 +153,30 @@ public class activity_board_question extends ActionBarActivity
 
         ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
         TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
-        //com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
         //elv.setVisibility(_visibility);
         if(_isVisible == true)
         {
             elv.setVisibility(View.VISIBLE);
             tvExp.setVisibility(View.VISIBLE);
-            tvExp.setClickable(false);
-            elv.setClickable(false);
+            //tvExp.setClickable(false);
+            //elv.setClickable(false);
             //lay.setClickable(_isVisible);
         }
         else
         {
             elv.setVisibility(View.INVISIBLE);
             tvExp.setVisibility(View.INVISIBLE);
-            tvExp.setClickable(true);
-            elv.setClickable(true);
+            //tvExp.setClickable(true);
+            //elv.setClickable(true);
             //lay.setClickable(_isVisible);
         }
-        //elv.setClickable(_isVisible);
-        //tvExp.setClickable(_isVisible);
-
+        boolean oposite = !_isVisible;
+        elv.setClickable(oposite);
+        tvExp.setClickable(oposite);
+        lay.setClickable(oposite);
+        lay.setOverlayed(oposite);
         System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
 
     }

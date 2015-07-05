@@ -219,13 +219,15 @@ public class activity_board_question extends ActionBarActivity
                 //}
 
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+                OnclickAttributes(parent,v,groupPosition,childPosition,id);
+                return true;
 
 
-
+                /*
                 // hier muss Überprüfung rein
-                String  txt = "   GroupPosition:" + groupPosition;
-                        txt +="  childPosition:  "+childPosition + "  ";
-                        txt +="   GroupAtriVal: "+m_Attribs.attriList.get(groupPosition)
+                String txt = "   GroupPosition:" + groupPosition;
+                txt += "  childPosition:  " + childPosition + "  ";
+                txt += "   GroupAtriVal: " + m_Attribs.attriList.get(groupPosition);
                 // TODO Auto-generated method stub
                 Toast.makeText(
                         getApplicationContext(),
@@ -237,12 +239,191 @@ public class activity_board_question extends ActionBarActivity
                                 + txt, Toast.LENGTH_SHORT)
                         .show();
                 return false;
+                */
             }
         });
         prepareListData();
 
 
     }
+
+
+    ///////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    private boolean OnclickAttributes(ExpandableListView _parent, View _v,
+                                   int _groupPosition, int _childPosition, long _id)
+    {
+        if(s_isTurnOver)
+        {
+            String msg = "Dein Zug ist beendet!\n Du kannst keine weiteren Attribute erfragen!";
+            ShowDialog("Hinweis",msg);
+            return false;
+        }
+        CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
+        m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+        // print of target person has this attribut:
+        boolean hasId = false;
+        // get playerCard (enemy)
+
+        Card cardEnemy = curCardList.GetCardByCardID(m_PlayerController.GetNextPlayer().GetChosenCardId());
+
+        System.out.println("Gegner ist: " + cardEnemy.name);
+
+        final String clickedAttrib = listDataHeader.get(_groupPosition);
+        final String clickedValue = listDataChild.get( listDataHeader.get(_groupPosition)).get(_childPosition);
+
+        hasId = cardEnemy.DoesCardContainAttrValue(clickedAttrib, clickedValue);
+
+        if (hasId)
+        {
+            ShowDialog("Ergebnis", "hat das gewählte Attribut");
+
+        } else
+        {
+            ShowDialog("Ergebnis","hat das gewählte Attribut nicht");
+        }
+        // End of: print of target person has this attribut
+
+        List<Integer> CardsToRemove = new ArrayList<>();
+
+        String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
+
+        // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
+        for (int index1 = 0; index1 < curCardList.GetSize(); index1++)
+        {
+            //System.out.println("curCardList.m_List.size() "+curCardList.m_List.size());
+            //System.out.println("In for1:"+index1);
+            // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
+            for (int index2 = 0; index2 < curCardList.Get(index1).attriList.size(); index2++)
+            {
+                //System.out.println("Vergleiche Attribute: "+curCardList.Get(index1).attriList.get(index2).attr+ " mit "+clickedAttrib);
+                if (curCardList.Get(index1).attriList.get(index2).attr.equals(clickedAttrib))
+                {
+                    // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
+                    // wenn ja:
+                    if (hasId)
+                    {
+                        // add persons to list who have this attribute (klicked)
+                        if (curCardList.Get(index1).attriList.get(index2).value.equals(clickedValue))
+                        {
+                            //System.out.println("Bin in if2");
+                            personsWithSameValue += curCardList.Get(index1).name + "\n";
+                            //System.out.println("personsWithSameValue "+personsWithSameValue);
+                            //break; // because we want to delete all cards exept those with this attribute / value
+                        } else
+                        {
+                            if(s_TurnCardsAuto)
+                            {
+                                CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
+                            }
+                        }
+                    } else
+                    {
+                        // only add person to list (print) if they don't have this attribute
+                        if (curCardList.Get(index1).attriList.get(index2).value.equals(clickedValue))
+                        {
+                            if(s_TurnCardsAuto)
+                            {
+                                CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
+                                System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
+                            }
+                        } else    // only add person if not the same value (like other haircolor)
+                        {
+                            //System.out.println("Bin in if3");
+                            personsWithSameValue += curCardList.Get(index1).name + "\n";
+                            //System.out.println("personsWithSameValue "+personsWithSameValue);
+                            //break;
+                        }
+                    }
+
+                }
+            }
+        }
+        System.out.println("Personen: " + personsWithSameValue); //
+
+        // turn is over !!!
+        s_isTurnOver = true;
+        SetExpandableListVisibility(true);
+        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+        String txt_display = ": Beende den Zug!";
+        if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
+        {
+            txt_display = "  Drehe die Karten um!";
+        }
+        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+
+        SetFinishBTVisibility(true);    // make finish button visible
+
+
+        //System.out.println("Anz Karten: " + curCardList.GetSize());
+        //System.out.println("cardsToRemove: " + CardsToRemove.size());
+        // remove unwanted cards:
+        //debug
+
+        ///// auslagern!!!!
+        if(s_TurnCardsAuto)
+        {
+            System.out.println();
+            for (int index = CardsToRemove.size() - 1; index >= 0; index--)
+            {
+                ChangeButtonVisibility(curCardList.Get(CardsToRemove.get(index)).viewID, false);
+
+                // remove from option menu
+                //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
+                curCardList.Remove(curCardList.Get(CardsToRemove.get(index)));// int list of  all cards wich should be deleted // with index not working
+            }
+        }
+
+
+        // now update option menu list:
+        m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
+        // Ende auslagern!!!!
+        return true;    // only false if turn is already over
+    }
+
+    private void ChangeButtonVisibility(int _viewId, boolean isVisible)
+    {
+        ImageButton btn = (ImageButton) findViewById(_viewId);
+        if(isVisible)
+        {
+            btn.setAlpha(1.0f);
+            btn.setClickable(true);
+        }
+        else
+        {
+            btn.setAlpha(0.4f);
+            btn.setClickable(false);
+        }
+    }
+
+
+    private void ShowDialog(String _title, String _txt)
+    {
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+        alertDialogBuilder.setTitle(_title);
+        alertDialogBuilder
+                .setMessage(_txt)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
 
 
     private void prepareListData()
@@ -390,21 +571,7 @@ public class activity_board_question extends ActionBarActivity
             // later replace with gui element, Karten sind addon
             String error = "Karten konnten nicht eingelesen werden";
             System.out.println(error);
-
-            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-            alertDialogBuilder.setTitle("Ups..");
-            alertDialogBuilder
-                    .setMessage(error)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            ShowDialog("Ups",error);
         }
         // end of: set cards
     }
@@ -495,7 +662,8 @@ public class activity_board_question extends ActionBarActivity
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener()
                     {
-                        public void onClick(DialogInterface dialog, int id) {
+                        public void onClick(DialogInterface dialog, int id)
+                        {
                             dialog.cancel();
                         }
                     });
@@ -1003,8 +1171,10 @@ public class activity_board_question extends ActionBarActivity
                     alertDialogBuilder
                             .setMessage("msg")
                             .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
                                     dialog.cancel();
                                 }
                             });
@@ -1290,52 +1460,16 @@ public class activity_board_question extends ActionBarActivity
      */
     private void DisplayAttributes(Card currentCard)
     {
-
-
-        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-
-
-        //
-        //change here if not working
-        //
-        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
-
-        //alertDialogBuilder.setView(getLayoutInflater().inflate( R.layout.alert_dialog,null));
-
-
-
-
-        // set title
-        alertDialogBuilder.setTitle(currentCard.name);
-
-        //System.out.println("Bin in Display");
-        // set dialog message
+        String title = currentCard.name;
         String attributes = "Eigenschaften\n\n";
         for(int index = 0; index <currentCard.attriList.size(); index ++)
         {
             attributes += currentCard.attriList.get(index).attr + ":  "+ currentCard.attriList.get(index).value + "\n";
         }
 
-        alertDialogBuilder
-                .setMessage(attributes)
-                // not need to click ok to cancel alert, simply click outside the box
-                .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        // if this button is clicked, close
-                        // current activity
-                        //activity_board_question.this.finish();
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show alert
-        alertDialog.show();
+        ShowDialog(title,attributes);
     }
+
 
     // at the beginning of the game you have to select who you are
     private void SelectWhoYouAre(final Card _currentCard)

@@ -34,5 +34,7 @@
     <string name="tv_Select_Cardset">Da</string>
     <string name="title_activity_end_game">EndGameActivity</string>
 
+    <string name="txt_activity_board_question_isIt">Ist es?</string>
+
 
 </resources>

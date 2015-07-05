@@ -192,8 +192,21 @@ public class activity_board_question extends ActionBarActivity
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id)
             {
-                // hier muss Überprüfung rein
 
+                //if(listDataHeader.get(groupPosition).equals(getString(R.string.txt_activity_board_question_isIt)))
+                //{
+                //    System.out.println("Wow, du hast ist es angeklickt!!!");
+                //    System.out.println("Group0: "+listDataHeader.get(groupPosition));
+                //}
+
+                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+
+
+
+                // hier muss Überprüfung rein
+                String  txt = "   GroupPosition:" + groupPosition;
+                        txt +="  childPosition:  "+childPosition + "  ";
+                        txt +="   GroupAtriVal: "+m_Attribs.attriList.get(groupPosition)
                 // TODO Auto-generated method stub
                 Toast.makeText(
                         getApplicationContext(),
@@ -201,7 +214,8 @@ public class activity_board_question extends ActionBarActivity
                                 + " : "
                                 + listDataChild.get(
                                 listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
+                                childPosition)
+                                + txt, Toast.LENGTH_SHORT)
                         .show();
                 return false;
             }
@@ -224,7 +238,7 @@ public class activity_board_question extends ActionBarActivity
         {
             if (!s_isTurnOver)
             {
-                String question = "Ist es ?";
+                String question = getString(R.string.txt_activity_board_question_isIt); // is it?
                 // submenu to choose "is it ...?"
 
                 // Adding child data
@@ -299,15 +313,8 @@ public class activity_board_question extends ActionBarActivity
                 expListView.setAdapter(listAdapter);
             }
 
-
-
         }   // end of: option menu only visible if both players have chosen their character
 
-
-
-        //listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        //listDataChild.put(listDataHeader.get(1), nowShowing);
-        //listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 
 

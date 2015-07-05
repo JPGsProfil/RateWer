@@ -44,5 +44,6 @@
     <string name="title_activity_end_game">EndGameActivity</string>
     <string name="title_activity_sliding_menu_up_test">slidingMenuUpTestActivity</string>
 
+    <string name="txt_activity_board_question_isIt">Ist es?</string>
 
 </resources>

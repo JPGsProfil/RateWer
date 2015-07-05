@@ -66,10 +66,11 @@ public class Card
                 {
                     return true;
                 }
+                /*  // now could contain 2 values for one attribut hair = blond, hair = long ...
                 else    // may not have 2 attributes (hair = yellow, hair = black) -> if value doesn't match, break)
                 {
                     return false;
-                }
+                }*/
             }
         }
         return false;

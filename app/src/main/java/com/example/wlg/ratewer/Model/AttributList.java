@@ -118,6 +118,23 @@ public class AttributList
     }
 
 
+
+    public List<String> GetValuesForAnAttribute(String _attribute)
+    {
+        List<String> valueList = new ArrayList();
+        for(int index = 0; index < attriList.size(); index++)
+        {
+            if(attriList.get(index).attr.equals(_attribute))
+            {
+                valueList.add(attriList.get(index).value);
+            }
+        }
+        return valueList;
+
+    }
+
+
+
     /* old version, read from separate json-object
     private void FillAttributeList(String jsonAttriString)
     {

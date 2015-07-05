@@ -8,6 +8,9 @@ Sonstiges:
 Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
 
+
+setOnGroupClickListener -> Überprüfte Wörter auslagern ( bei ja nein Fragen soll es kein Untermenü geben ) (schaue ob "ja", "nein" "yes" ....)
+
 !!!!!Umklappanimation (Swipe) !!!!!!!!!!!!!!!!!!!!!
 
 Sabine:

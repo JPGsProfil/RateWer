@@ -209,6 +209,23 @@ public class activity_board_question extends ActionBarActivity
 
     private void InitializeExpandableList()
     {
+
+        // Group Listener (used for yes / no questions) (no child needed)
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id)
+            {
+                OnclickCathegory(groupPosition);
+
+
+                return false;
+            }
+        });
+
+
+
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
         {
@@ -225,7 +242,7 @@ public class activity_board_question extends ActionBarActivity
                 //}
 
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-                OnclickAttributes(parent,v,groupPosition,childPosition,id);
+                OnclickAttributes(groupPosition,childPosition);
                 return true;
 
 
@@ -241,8 +258,45 @@ public class activity_board_question extends ActionBarActivity
     ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-    private boolean OnclickAttributes(ExpandableListView _parent, View _v,
-                                   int _groupPosition, int _childPosition, long _id)
+    private boolean OnclickCathegory(int groupPosition)
+    {
+        boolean returnVal = false;  // not really needed (anymore)
+        String attrib = listDataHeader.get(groupPosition);
+        List<String> values = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.GetValuesForAnAttribute(attrib);
+        boolean isYesNoQuestion = false;
+        String curVal = "";
+        if(values.size()<3)
+        {
+            for(int i=0; i< values.size(); i++)
+            {
+                curVal = values.get(i);
+                if(curVal.equalsIgnoreCase("yes") || curVal.equalsIgnoreCase("ja") || curVal.equalsIgnoreCase("true"))
+                {
+                    isYesNoQuestion = true;
+                    break;
+                }
+            }
+            if(isYesNoQuestion)
+            {
+                System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
+                returnVal = ExpandableListClick(attrib,curVal);
+            }
+        }
+        return returnVal;
+    }
+
+
+    private boolean OnclickAttributes(int _groupPosition, int _childPosition)
+    {
+
+        final String clickedAttrib = listDataHeader.get(_groupPosition);
+        final String clickedValue = listDataChild.get( listDataHeader.get(_groupPosition)).get(_childPosition);
+        boolean returnVal = ExpandableListClick(clickedAttrib,clickedValue);
+        return returnVal;
+    }
+
+
+    private boolean ExpandableListClick(String clickedAttrib, String clickedValue)
     {
         if(s_isTurnOver)
         {
@@ -260,8 +314,7 @@ public class activity_board_question extends ActionBarActivity
 
         System.out.println("Gegner ist: " + cardEnemy.name);
 
-        final String clickedAttrib = listDataHeader.get(_groupPosition);
-        final String clickedValue = listDataChild.get( listDataHeader.get(_groupPosition)).get(_childPosition);
+
 
         hasId = cardEnemy.DoesCardContainAttrValue(clickedAttrib, clickedValue);
 
@@ -372,6 +425,7 @@ public class activity_board_question extends ActionBarActivity
         // Ende auslagern!!!!
         return true;    // only false if turn is already over
     }
+
 
     private void ChangeButtonVisibility(int _viewId, boolean isVisible)
     {

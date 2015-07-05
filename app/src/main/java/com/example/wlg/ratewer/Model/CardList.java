@@ -194,6 +194,30 @@ public class CardList
     }
 
 
+    ///**
+    // * used for yes / no question
+   //  * @param _attribute
+   //  * @return
+   //  */
+    /*
+    public List<String> GetValuesForAnAttribute(String _attribute)
+    {
+        List<String> valueList = new ArrayList();
+        for(int cardIndex = 0; cardIndex < m_List.size(); cardIndex++)
+        {
+            for(int attribIndex = 0; attribIndex < m_List.get(cardIndex).attriList.size())
+            {
+                if(m_List.get(cardIndex).attriList.get(attribIndex).attr.equals(_attribute))
+                {
+                    valueList.add(m_List.get(cardIndex).attriList.get(attribIndex).value);
+                }
+            }
+        }
+        return valueList;
+
+    }*/
+
+
     /**
      * get cards from json
      * save them into list

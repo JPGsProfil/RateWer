@@ -309,6 +309,7 @@ public class activity_board_question extends ActionBarActivity
 
         final String clickedAttrib = listDataHeader.get(_groupPosition);
         final String clickedValue = listDataChild.get( listDataHeader.get(_groupPosition)).get(_childPosition);
+        System.out.println("clickedAttrib "+clickedAttrib+ "  clickedValue "+clickedValue);
         boolean returnVal = ExpandableListClick(clickedAttrib,clickedValue);
         return returnVal;
     }
@@ -357,54 +358,40 @@ public class activity_board_question extends ActionBarActivity
         String personsWithSameValue = "Folgende Personen kommen in Frage:\n";
 
         // könnte ausgelagert werden in GetCardsWithThisAttribut(attributid)
-        for (int index1 = 0; index1 < curCardList.GetSize(); index1++)
+        for (int curCardIndex = 0; curCardIndex < curCardList.GetSize(); curCardIndex++)
         {
-            //System.out.println("curCardList.m_List.size() "+curCardList.m_List.size());
-            //System.out.println("In for1:"+index1);
-            // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
-            for (int index2 = 0; index2 < curCardList.Get(index1).attriList.size(); index2++)
+            Card curCard = curCardList.Get(curCardIndex);
+            boolean doesCardContainAttrVal = curCard.DoesCardContainAttrValue(clickedAttrib, clickedValue);
+            //System.out.println("Bin aktuell bei: "+curCard.name+ " ; hasId = "+hasId + " doesContain: "+doesCardContainAttrVal);
+            if (hasId)
             {
-                //System.out.println("Vergleiche Attribute: "+curCardList.Get(index1).attriList.get(index2).attr+ " mit "+clickedAttrib);
-                if (curCardList.Get(index1).attriList.get(index2).attr.equals(clickedAttrib))
+                if(doesCardContainAttrVal)
                 {
-                    // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
-                    // wenn ja:
-                    if (hasId)
+                    personsWithSameValue += curCardList.Get(curCardIndex).name + "\n";
+                }
+                else
+                {
+                    if (s_TurnCardsAuto)
                     {
-                        // add persons to list who have this attribute (klicked)
-                        if (curCardList.Get(index1).attriList.get(index2).value.equals(clickedValue))
-                        {
-                            //System.out.println("Bin in if2");
-                            personsWithSameValue += curCardList.Get(index1).name + "\n";
-                            //System.out.println("personsWithSameValue "+personsWithSameValue);
-                            //break; // because we want to delete all cards exept those with this attribute / value
-                        } else
-                        {
-                            if(s_TurnCardsAuto)
-                            {
-                                CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
-                            }
-                        }
-                    } else
-                    {
-                        // only add person to list (print) if they don't have this attribute
-                        if (curCardList.Get(index1).attriList.get(index2).value.equals(clickedValue))
-                        {
-                            if(s_TurnCardsAuto)
-                            {
-                                CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
-                                System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
-                            }
-                        } else    // only add person if not the same value (like other haircolor)
-                        {
-                            //System.out.println("Bin in if3");
-                            personsWithSameValue += curCardList.Get(index1).name + "\n";
-                            //System.out.println("personsWithSameValue "+personsWithSameValue);
-                            //break;
-                        }
+                        CardsToRemove.add(curCardIndex);  // because we want to delete entries at the end, not now
+                        System.out.println("zu loeschende Person: " + curCardList.Get(curCardIndex).name + " index = " + curCardIndex);
                     }
+                }
 
+            }
+            else
+            {
+                if(doesCardContainAttrVal)
+                {
+                    if (s_TurnCardsAuto)
+                    {
+                        CardsToRemove.add(curCardIndex);  // because we want to delete entries at the end, not now
+                        System.out.println("zu loeschende Person: " + curCardList.Get(curCardIndex).name + " index = " + curCardIndex);
+                    }
+                }
+                else
+                {
+                    personsWithSameValue += curCardList.Get(curCardIndex).name + "\n";
                 }
             }
         }
@@ -488,11 +475,6 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    //////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////
-
-
     private void prepareListData()
     {
         //listDataHeader = new ArrayList<String>();
@@ -556,12 +538,13 @@ public class activity_board_question extends ActionBarActivity
                         if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
                         {
 
-                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
+                            //String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
 
                             question = m_Attribs.attriList.get(index).attr;
+                            String curVal = m_Attribs.attriList.get(index).value;
                             listDataHeader.add(question);
                             List<String> curSubmenu = new ArrayList<String>();
-                            curSubmenu.add(attriValStr);
+                            curSubmenu.add(curVal);
                             listDataChild.put(question, curSubmenu); // Header, Child data
 
                             index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?

@@ -51,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|top"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/abq_slidingLinear">
 
             <TextView
                 android:layout_width="match_parent"

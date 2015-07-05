@@ -174,9 +174,14 @@ public class activity_board_question extends ActionBarActivity
         TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
         com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
+
+        LinearLayout slidingLinear = (LinearLayout) findViewById(R.id.abq_slidingLinear);
+
         //elv.setVisibility(_visibility);
-        if(_isVisible == true)
+        if(_isVisible)
         {
+            //slidingLinear.setVisibility(View.VISIBLE);
+            //slidingLinear.invalidate();
             elv.setVisibility(View.VISIBLE);
             tvExp.setVisibility(View.VISIBLE);
             //tvExp.setClickable(false);
@@ -186,16 +191,17 @@ public class activity_board_question extends ActionBarActivity
         else
         {
             elv.setVisibility(View.INVISIBLE);
+
             tvExp.setVisibility(View.INVISIBLE);
-            //tvExp.setClickable(true);
-            //elv.setClickable(true);
-            //lay.setClickable(_isVisible);
+            //slidingLinear.setVisibility(View.GONE);
+            //slidingLinear.invalidate();
         }
+
+        //slidingLinear.setClickable(_isVisible);
+
         boolean oposite = !_isVisible;
-        elv.setClickable(oposite);
-        tvExp.setClickable(oposite);
-        lay.setClickable(oposite);
         lay.setOverlayed(oposite);
+
         System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
 
     }
@@ -223,23 +229,6 @@ public class activity_board_question extends ActionBarActivity
                 return true;
 
 
-                /*
-                // hier muss Überprüfung rein
-                String txt = "   GroupPosition:" + groupPosition;
-                txt += "  childPosition:  " + childPosition + "  ";
-                txt += "   GroupAtriVal: " + m_Attribs.attriList.get(groupPosition);
-                // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition)
-                                + txt, Toast.LENGTH_SHORT)
-                        .show();
-                return false;
-                */
             }
         });
         prepareListData();
@@ -346,7 +335,7 @@ public class activity_board_question extends ActionBarActivity
 
         // turn is over !!!
         s_isTurnOver = true;
-        SetExpandableListVisibility(true);
+        SetExpandableListVisibility(false);
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         String txt_display = ": Beende den Zug!";
         if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -582,17 +571,28 @@ public class activity_board_question extends ActionBarActivity
      */
     private void BeginNewTurn()
     {
-        s_isTurnOver = false;
-
-        SetFinishBTVisibility(false);    // make finish button invisible (first do turn)
-
-
-
-        SetExpandableListVisibility(true);
-
-
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
+
+        SetFinishBTVisibility(false);    // make finish button invisible (first do turn)
+        s_isTurnOver = false;
+
+
+        System.out.println("Bin in begin new Turn");
+
+        if(!m_PlayerController.GetCurrentPlayer().IsAI())
+        {
+            System.out.println("Der aktuelle Spieler ist ein Mensch");
+            SetExpandableListVisibility(true);
+        }
+        else
+        {
+            System.out.println("Der aktuelle Spieler ist KI. var isAI "+m_PlayerController.GetCurrentPlayer().IsAI());
+        }
+
+
+
+
         UpdateFieldV2(); // draw new grid with cards of the current player
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
@@ -752,7 +752,7 @@ public class activity_board_question extends ActionBarActivity
             //BeginNewTurn();
         }
         s_isTurnOver = true;
-        SetExpandableListVisibility(false);
+        //SetExpandableListVisibility(false);
         UpdateFieldV2();
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
@@ -1076,7 +1076,7 @@ public class activity_board_question extends ActionBarActivity
 
                     // turn is over !!!
                     s_isTurnOver = true;
-                    SetExpandableListVisibility(true);
+                    SetExpandableListVisibility(false);
                     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -1132,7 +1132,7 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("itemid-100:" + curPlayerId + "  ChosenCardOfPlayer: " + m_PlayerController.GetNextPlayer().GetChosenCardId());
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
-                SetExpandableListVisibility(true);
+                SetExpandableListVisibility(false);
                 TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
 
                 SetFinishBTVisibility(true);    // make finish button visible

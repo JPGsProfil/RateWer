@@ -17,6 +17,8 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.GridLayout;
@@ -65,7 +67,8 @@ public class activity_board_question extends ActionBarActivity
     //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
     private static boolean s_TurnCardsAuto = false;
 
-
+    private Animation animation_card_part_1;
+    private Animation animation_card_part_2;
 
     /**
      * fill member variables
@@ -154,6 +157,8 @@ public class activity_board_question extends ActionBarActivity
         expListView = (ExpandableListView) findViewById(R.id.abq_lvExp);
         SetExpandableListVisibility(false);
 
+        animation_card_part_1 = AnimationUtils.loadAnimation(this, R.anim.anim_to_middle);
+        animation_card_part_2 = AnimationUtils.loadAnimation(this, R.anim.anim_from_middle);
 
 
     }   // end of OnCreate
@@ -612,8 +617,13 @@ public class activity_board_question extends ActionBarActivity
         else
         {
             // later replace with gui element, Karten sind addon
-            String error = "Karten konnten nicht eingelesen werden";
+            String error = "Die Karten konnten nicht eingelesen werden";
             System.out.println(error);
+
+            String Title ="Oh Weh...";
+            String Message =error;
+            String ButtonText ="OK";
+            showSimpleDialog(Title, Message, ButtonText);
             ShowDialog("Ups",error);
         }
         // end of: set cards
@@ -707,23 +717,12 @@ public class activity_board_question extends ActionBarActivity
             String msg = "Ich habe mich entschieden!!!";
 
 
-            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+            String Title ="Computer: ";
+            String Message =msg;
+            String ButtonText ="OK";
+            showSimpleDialog(Title, Message, ButtonText);
 
-            alertDialogBuilder.setTitle("Computer: ");
-            alertDialogBuilder
-                    .setMessage(msg)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            dialog.cancel();
-                        }
-                    });
 
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
 
             String name = m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(randCardId).name;
             System.out.println("Ki waehlte: " + name);
@@ -753,16 +752,16 @@ public class activity_board_question extends ActionBarActivity
                 int indexEnemyCard = m_PlayerController.GetCurrentPlayer().cardListRemaining.GetIndexFromCardId(idEnemy);
                 if(indexEnemyCard == ivalue)
                 {
-                    AIout+= "ja, ist es!!! Ich habe gewonnen!!!";
+                    AIout+= "Richtig geraten";
                     final Intent lastIntent = new Intent(this, EndGameActivity.class);
-                    String msg = "Ich habe gewonnen,\n du hast verloren!!!";
+                    String msg = "Computer: Ich habe gewonnen,\n du hast verloren!!!";
                     lastIntent.putExtra("msg",msg);
                     startActivity(lastIntent);
                 }
                 else
                 {
                     m_PlayerController.GetCurrentPlayer().cardListRemaining.Remove(ivalue);
-                    AIout+= "nein, leider nicht!!! \n Du bist!";
+                    AIout+= "Computer: nein, leider nicht!!! \n Du bist!";
 
                 }
             }
@@ -786,22 +785,10 @@ public class activity_board_question extends ActionBarActivity
             }
 
 
-            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-
-            alertDialogBuilder.setTitle("Computer: ");
-            alertDialogBuilder
-                    .setMessage(AIout)
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            String Title ="Computer: ";
+            String Message =AIout;
+            String ButtonText ="OK";
+            showSimpleDialog(Title, Message, ButtonText);
 
             //BeginNewTurn();
         }
@@ -922,21 +909,10 @@ public class activity_board_question extends ActionBarActivity
         // game can't start if player hasn't chosen his card, maybe extra activity later
         if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
         {
-
-            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-            alertDialogBuilder.setTitle("Achtung!");
-            alertDialogBuilder
-                    .setMessage("Du musst erst einen Spieler auswählen!!")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            String Title ="Achtung!";
+            String Message ="Du musst erst einen Spieler auswählen!!";
+            String ButtonText ="OK";
+            showSimpleDialog(Title, Message, ButtonText);
 
         }
         else // begin of -> first choose your character!!
@@ -951,23 +927,10 @@ public class activity_board_question extends ActionBarActivity
             {
                 if (s_isTurnOver)
                 {
-                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-                    alertDialogBuilder.setTitle("Nur eine Frage pro Zug");
-                    alertDialogBuilder
-                            .setMessage("Dein Zug ist vorbei\n" +
-                                    " Du kannst kein weiteres Attribut erfragen")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    String Title ="Nur eine Frage pro Zug";
+                    String Message ="Dein Zug ist vorbei\n" +" Du kannst kein weiteres Attribut erfragen";
+                    String ButtonText ="OK";
+                    showSimpleDialog(Title, Message, ButtonText);
 
                 }
                 else
@@ -1005,42 +968,17 @@ public class activity_board_question extends ActionBarActivity
                     if (hasId)
                     {
 
-                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-                        alertDialogBuilder.setTitle("hat das gewählte Attribut");
-                        alertDialogBuilder
-                                .setMessage("")
-                                .setCancelable(false)
-                                .setPositiveButton("Weiter", new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int id)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                        String Title ="Gut geraten";
+                        String Message ="";
+                        String ButtonText ="Weiter";
+                        showSimpleDialog(Title, Message, ButtonText);
 
                     } else
                     {
-
-                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-                        alertDialogBuilder.setTitle("hat das gewählte Attribut nicht");
-                        alertDialogBuilder
-                                .setMessage("")
-                                .setCancelable(false)
-                                .setPositiveButton("Weiter", new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int id)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                        String Title ="Falsch geraten";
+                        String Message ="";
+                        String ButtonText ="Weiter";
+                        showSimpleDialog(Title, Message, ButtonText);
                     }
                     // End of: print of target person has this attribut
 
@@ -1076,6 +1014,8 @@ public class activity_board_question extends ActionBarActivity
                                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
                                             btn.setAlpha(0.4f);
                                             btn.setClickable(false);
+
+                                            TurnCard(btn);
                                             CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
                                             System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
                                         }
@@ -1090,6 +1030,9 @@ public class activity_board_question extends ActionBarActivity
                                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
                                             btn.setAlpha(0.4f);
                                             btn.setClickable(false);
+
+                                            TurnCard(btn);
+
                                             CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
                                             System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
                                         }
@@ -1108,23 +1051,10 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Personen: " + personsWithSameValue); //
                     if(s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())   // only display persons if cards turned by pc, else player want to find out by himself /herself
                     {
-
-                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-                        alertDialogBuilder.setTitle("Nur eine Frage pro Zug");
-                        alertDialogBuilder
-                                .setMessage(personsWithSameValue)
-                                .setCancelable(false)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int id)
-                                    {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                        String Title ="Nur eine Frage pro Zug";
+                        String Message =personsWithSameValue;
+                        String ButtonText ="OK";
+                        showSimpleDialog(Title, Message, ButtonText);
                     }
 
 
@@ -1164,6 +1094,8 @@ public class activity_board_question extends ActionBarActivity
                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
                             btn.setAlpha(0.4f);
                             btn.setClickable(false);
+
+                            TurnCard(btn);
 
                             // remove from option menu
                             //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
@@ -1212,6 +1144,9 @@ public class activity_board_question extends ActionBarActivity
                     btn.setAlpha(0.4f);
                     btn.setClickable(false);
 
+                    TurnCard(btn);
+
+
                     String msg = "Es ist leider nicht " + playerName;
                     if(s_TurnCardsAuto)
                     {
@@ -1219,22 +1154,10 @@ public class activity_board_question extends ActionBarActivity
                     }
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
 
-                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-                    alertDialogBuilder.setTitle("Schade");
-                    alertDialogBuilder
-                            .setMessage("msg")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                            {
-                                public void onClick(DialogInterface dialog, int id)
-                                {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    String Title ="Schade";
+                    String Message =msg;
+                    String ButtonText ="OK";
+                    showSimpleDialog(Title, Message, ButtonText);
 
                     System.out.println("msg: " + msg);
                 }
@@ -1318,7 +1241,7 @@ public class activity_board_question extends ActionBarActivity
         {
             // create a new button
             ImageButton ib = new ImageButton(this);
-            ib.setPadding(0,0,5,5); // border between images
+            ib.setPadding(0,0,2,2); // border between images
 
 
             //ib.setLayoutParams(lp);
@@ -1430,6 +1353,9 @@ public class activity_board_question extends ActionBarActivity
             {
                 ib.setAlpha(0.4f);
                 ib.setClickable(false);
+
+                TurnCard(ib);
+
             }
 
             ib.setOnClickListener(new View.OnClickListener()
@@ -1462,6 +1388,9 @@ public class activity_board_question extends ActionBarActivity
                             ImageButton btn = (ImageButton) findViewById(view.getId());
                             btn.setAlpha(0.4f);
                             btn.setClickable(false);
+
+                            TurnCard(btn);
+
                             m_PlayerController.GetCurrentPlayer().cardListRemaining.RemoveCardByViewId(view.getId());
                         }
                         else
@@ -1578,6 +1507,55 @@ public class activity_board_question extends ActionBarActivity
         alertDialog.show();
     }
 
+
+    private void showSimpleDialog(String _Title, String _Message, String _ButtonText)
+    {
+        showSimpleDialog(_Title, _Message, _ButtonText,false);
+    }
+
+    private void showSimpleDialog(String _Title, String _Message, String _ButtonText, boolean _IsQuestion)
+    {
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+        alertDialogBuilder.setTitle(_Title);
+
+        if(_IsQuestion)
+        {
+            alertDialogBuilder.setIcon(R.drawable.icon_question);
+        }
+        else
+        {
+            alertDialogBuilder.setIcon(R.drawable.icon_exclamation);
+        }
+
+        alertDialogBuilder
+                .setMessage(_Message)
+                .setCancelable(false)
+                .setPositiveButton(_ButtonText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+
+    private void TurnCard(ImageButton _ImageButton)
+    {
+        int imageWidthHeight = GetImageWithHeight();
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.icon_x_big );
+        Bitmap resized = Bitmap.createScaledBitmap(bm, imageWidthHeight, imageWidthHeight, true);
+
+        _ImageButton.setImageBitmap(resized);
+
+        AnimationSet as = new AnimationSet(true);
+        as.addAnimation(animation_card_part_1);
+        as.addAnimation(animation_card_part_2);
+        _ImageButton.startAnimation(as);
+    }
 
     /**
      * alternative field, working, but not used anymore, can be activated

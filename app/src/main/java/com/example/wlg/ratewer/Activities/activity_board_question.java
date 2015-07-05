@@ -1456,9 +1456,24 @@ public class activity_board_question extends ActionBarActivity
 
     private void showSimpleDialog(String _Title, String _Message, String _ButtonText)
     {
+        showSimpleDialog(_Title, _Message, _ButtonText,false);
+    }
+
+    private void showSimpleDialog(String _Title, String _Message, String _ButtonText, boolean _IsQuestion)
+    {
         ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
         CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
         alertDialogBuilder.setTitle(_Title);
+
+        if(_IsQuestion)
+        {
+            alertDialogBuilder.setIcon(R.drawable.icon_question);
+        }
+        else
+        {
+            alertDialogBuilder.setIcon(R.drawable.icon_exclamation);
+        }
+
         alertDialogBuilder
                 .setMessage(_Message)
                 .setCancelable(false)
@@ -1477,7 +1492,7 @@ public class activity_board_question extends ActionBarActivity
     private void TurnCard(ImageButton _ImageButton)
     {
         int imageWidthHeight = GetImageWithHeight();
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.appicon );
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.icon_x_big );
         Bitmap resized = Bitmap.createScaledBitmap(bm, imageWidthHeight, imageWidthHeight, true);
 
         _ImageButton.setImageBitmap(resized);

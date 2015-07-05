@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 //import com.example.wlg.ratewer.Controller.AIController;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
+import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttribValue;
@@ -106,8 +108,25 @@ public class activity_board_question extends ActionBarActivity
             {
                 if(diff.equals("Hellseher"))
                 {
-                    String msg = "Ein Hellseher braucht beim ersten ANlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    //String msg = "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
+                    //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+
+
+                    alertDialogBuilder.setTitle("Hellseher gewählt");
+                    alertDialogBuilder
+                            .setMessage( "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
 
                 difficulty = diff;
@@ -371,7 +390,21 @@ public class activity_board_question extends ActionBarActivity
             // later replace with gui element, Karten sind addon
             String error = "Karten konnten nicht eingelesen werden";
             System.out.println(error);
-            Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+
+            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+            alertDialogBuilder.setTitle("Ups..");
+            alertDialogBuilder
+                    .setMessage(error)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
         // end of: set cards
     }
@@ -398,7 +431,9 @@ public class activity_board_question extends ActionBarActivity
         tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
         // end of: change background
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
 
         // set title
         alertDialogBuilder.setTitle("Zug beendet");
@@ -449,7 +484,25 @@ public class activity_board_question extends ActionBarActivity
             m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs = true;
             invalidateOptionsMenu(); // because ai doens't use the options menu
             String msg = "Ich habe mich entschieden!!!";
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+
+            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+
+            alertDialogBuilder.setTitle("Computer: ");
+            alertDialogBuilder
+                    .setMessage(msg)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
             String name = m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(randCardId).name;
             System.out.println("Ki waehlte: " + name);
             String debug = "Reihenfolge ids: \n";
@@ -510,7 +563,24 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("verbleibende Karten: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
             }
 
-            Toast.makeText(getApplicationContext(), AIout, Toast.LENGTH_SHORT).show();
+
+            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+
+            alertDialogBuilder.setTitle("Computer: ");
+            alertDialogBuilder
+                    .setMessage(AIout)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
             //BeginNewTurn();
         }
         s_isTurnOver = true;
@@ -630,7 +700,22 @@ public class activity_board_question extends ActionBarActivity
         // game can't start if player hasn't chosen his card, maybe extra activity later
         if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
         {
-            Toast.makeText(getApplicationContext(), "Du musst erst einen Spieler auswählen!!", Toast.LENGTH_SHORT).show();
+
+            ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+            CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+            alertDialogBuilder.setTitle("Achtung!");
+            alertDialogBuilder
+                    .setMessage("Du musst erst einen Spieler auswählen!!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
         }
         else // begin of -> first choose your character!!
         {
@@ -644,7 +729,24 @@ public class activity_board_question extends ActionBarActivity
             {
                 if (s_isTurnOver)
                 {
-                    Toast.makeText(getApplicationContext(), "Dein Zug ist vorbei\n Du kannst kein weiteres Attribut erfragen", Toast.LENGTH_SHORT).show();
+                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+                    alertDialogBuilder.setTitle("Nur eine Frage pro Zug");
+                    alertDialogBuilder
+                            .setMessage("Dein Zug ist vorbei\n" +
+                                    " Du kannst kein weiteres Attribut erfragen")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int id)
+                                {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
                 }
                 else
                 {
@@ -680,10 +782,43 @@ public class activity_board_question extends ActionBarActivity
                     }
                     if (hasId)
                     {
-                        Toast.makeText(getApplicationContext(), "hat Attribut", Toast.LENGTH_SHORT).show();
+
+                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+                        alertDialogBuilder.setTitle("hat das gewählte Attribut");
+                        alertDialogBuilder
+                                .setMessage("")
+                                .setCancelable(false)
+                                .setPositiveButton("Weiter", new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int id)
+                                    {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
                     } else
                     {
-                        Toast.makeText(getApplicationContext(), "hat Attribut nicht", Toast.LENGTH_SHORT).show();
+
+                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+                        alertDialogBuilder.setTitle("hat das gewählte Attribut nicht");
+                        alertDialogBuilder
+                                .setMessage("")
+                                .setCancelable(false)
+                                .setPositiveButton("Weiter", new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int id)
+                                    {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
                     // End of: print of target person has this attribut
 
@@ -751,7 +886,23 @@ public class activity_board_question extends ActionBarActivity
                     //System.out.println("Personen: " + personsWithSameValue); //
                     if(s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())   // only display persons if cards turned by pc, else player want to find out by himself /herself
                     {
-                        Toast.makeText(getApplicationContext(), personsWithSameValue, Toast.LENGTH_LONG).show();
+
+                        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+                        alertDialogBuilder.setTitle("Nur eine Frage pro Zug");
+                        alertDialogBuilder
+                                .setMessage(personsWithSameValue)
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                                {
+                                    public void onClick(DialogInterface dialog, int id)
+                                    {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
 
 
@@ -839,17 +990,31 @@ public class activity_board_question extends ActionBarActivity
                     btn.setAlpha(0.4f);
                     btn.setClickable(false);
 
-                    String msg = "Es ist nicht " + playerName;
+                    String msg = "Es ist leider nicht " + playerName;
                     if(s_TurnCardsAuto)
                     {
                         curCardList.Remove(curCardList.Get(curPlayerId));
                     }
                     m_PlayerController.GetCurrentPlayer().RecalculateRemainingAttributes();
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+                    alertDialogBuilder.setTitle("Schade");
+                    alertDialogBuilder
+                            .setMessage("msg")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
                     System.out.println("msg: " + msg);
                 }
-            }
-            else    // only for debugging, can be removed
+            } else    // only for debugging, can be removed
             {
                 System.out.println("komische item id :" + itemId); // called if no clicked menu has a submenu
             }
@@ -1125,14 +1290,28 @@ public class activity_board_question extends ActionBarActivity
      */
     private void DisplayAttributes(Card currentCard)
     {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+
+
+        //
+        //change here if not working
+        //
+        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+
+        //alertDialogBuilder.setView(getLayoutInflater().inflate( R.layout.alert_dialog,null));
+
+
+
 
         // set title
         alertDialogBuilder.setTitle(currentCard.name);
 
         //System.out.println("Bin in Display");
         // set dialog message
-        String attributes = "Eigenschaften\n";
+        String attributes = "Eigenschaften\n\n";
         for(int index = 0; index <currentCard.attriList.size(); index ++)
         {
             attributes += currentCard.attriList.get(index).attr + ":  "+ currentCard.attriList.get(index).value + "\n";
@@ -1161,10 +1340,14 @@ public class activity_board_question extends ActionBarActivity
     // at the beginning of the game you have to select who you are
     private void SelectWhoYouAre(final Card _currentCard)
     {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
+        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
+        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
         // set title
         alertDialogBuilder.setTitle("Wer möchtest du sein?");
+
+
 
         //System.out.println("Bin in Display");
         // set dialog message

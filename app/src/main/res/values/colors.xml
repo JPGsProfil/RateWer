@@ -6,6 +6,7 @@
     <item name="accentnegativ" type="color">#FFCC0000</item>
     <item name="textcolorbright" type="color">#FFFFFF</item>
     <item name="backgroundbright" type="color">#FFFFFF</item>
+    <item name="backgroundgrey" type="color">#EEE</item>
 
 
 

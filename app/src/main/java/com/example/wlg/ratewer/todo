@@ -15,10 +15,24 @@ Sabine:
 
 Bilder erstellen (Köpfe)
 Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
+
+
 Daniel
-    Toast (attrib anzeigen) hübscher machen
-Layover als ablöse für Navipunkt    // idealerweise custom option menu // done
-Optionsmenu unten
+
+
+
+    Bugreporting:
+        - Spieler 2 bekommt als erste eldung : Mache deinen Zug
+        - Toast bei Attribut auswahl kann es weg : ist noch da falls es jean zum debuggen braucht
+        - Attributauswahl sollte die Liste wieder verkleinern
+
+    Verwirrend:
+        - Warum muss man nach dem KI zug noch fertig klicken ?
+        - -> und das auch noch in der action bar
+
+    BugFixing:
+
+
 GUI
 Jean
     expandable List -> option menu ersetzen, mappen
@@ -81,6 +95,8 @@ Extra Thread für Hellseher Zugberechnung,
 sauebere Implementierung von compareTo in AttribValue bzw. Festlegung eines Standards für bool (true, false, 0,1, ja, nein ...) (json)
 
 
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 done:
 Speicherproblem -> Überbleibsel wenn zurück button und neues Spiel
@@ -99,3 +115,9 @@ und setclickable = false
 Siegernachricht ändern
 da Spieler gegen SPieler möglich ist
 "Du hast gewonnen oder verloren ungünstig"
+
+Toast (attrib anzeigen) hübscher machen
+    ich meinte eigentlich die Dialoge, aber toast ist auch nicht ganz falsch^^
+
+Layover als ablöse für Navipunkt    // idealerweise custom option menu // done
+Optionsmenu unten

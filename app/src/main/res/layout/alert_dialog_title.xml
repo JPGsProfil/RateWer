@@ -22,7 +22,7 @@
 			android:layout_gravity="top"
 			android:paddingTop="6dip"
 			android:paddingRight="10dip"
-			android:src="@drawable/woman1" />
+			android:src="@drawable/warning_icon" />
 
 		<TextView android:id="@+id/alertTitle"
 			style="?android:attr/textAppearanceLarge"

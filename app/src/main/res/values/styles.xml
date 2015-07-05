@@ -1,8 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-
     </style>
 
     <style name="NormalHeading" parent="@android:style/TextAppearance.Medium">
@@ -40,6 +40,7 @@
             <item name="android:textSize">20sp</item>
         </style>
 
+        <!-- is completely ignored -->
         <style name="dialog" >
             <item name="android:bottomBright">#ffffff</item>
             <item name="android:bottomDark">#ffffff</item>

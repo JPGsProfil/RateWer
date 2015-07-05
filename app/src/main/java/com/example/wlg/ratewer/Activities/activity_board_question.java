@@ -58,14 +58,14 @@ import java.util.Random;
 public class activity_board_question extends ActionBarActivity
 {
 
-    private static AttributList m_Attribs;  // attribs of the current player, only reference
+    private AttributList m_Attribs;  // attribs of the current player, only reference
     // there is only one cardList, this is list two because a long time ago a gson list existed next to this
-    private static CardList cardList;  // list where the cards will be saved (name and attributtes)
-    private static PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
-    private static boolean s_isTurnOver = false;  // needed for human (can't ask two question in one turn)
+    private CardList cardList;  // list where the cards will be saved (name and attributtes)
+    private PlayerController m_PlayerController ;    // initialize two players, accessable via list or Get
+    private boolean s_isTurnOver = false;  // needed for human (can't ask two question in one turn)
     //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
     //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
-    private static boolean s_TurnCardsAuto = false;
+    private boolean s_TurnCardsAuto = false;
 
     private Animation animation_card_part_1;
     private Animation animation_card_part_2;
@@ -165,10 +165,10 @@ public class activity_board_question extends ActionBarActivity
 
 
 
-    private static ExpandableListAdapter listAdapter;
-    private static ExpandableListView expListView;
-    private static List<String> listDataHeader = new ArrayList<String>();
-    private static HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expListView;
+    private List<String> listDataHeader = new ArrayList<String>();
+    private HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
     //listDataChild = new HashMap<String, List<String>>();
 
 
@@ -215,8 +215,11 @@ public class activity_board_question extends ActionBarActivity
     private void InitializeExpandableList()
     {
 
+        prepareListData();
+
         // Group Listener (used for yes / no questions) (no child needed)
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
+        {
 
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v,
@@ -247,13 +250,12 @@ public class activity_board_question extends ActionBarActivity
                 //}
 
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-                OnclickAttributes(groupPosition,childPosition);
+                OnclickAttributes(groupPosition, childPosition);
                 return true;
 
 
             }
         });
-        prepareListData();
 
 
     }
@@ -263,6 +265,11 @@ public class activity_board_question extends ActionBarActivity
     ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
 
+    /**
+     * called if yes / now question
+     * @param groupPosition
+     * @return
+     */
     private boolean OnclickCathegory(int groupPosition)
     {
         boolean returnVal = false;  // not really needed (anymore)
@@ -291,6 +298,12 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
+    /**
+     * called by click on expandable list item
+     * @param _groupPosition id from expandable list
+     * @param _childPosition id from expandable list
+     * @return
+     */
     private boolean OnclickAttributes(int _groupPosition, int _childPosition)
     {
 
@@ -301,6 +314,12 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
+    /**
+     * called by click on expandable list item
+     * @param clickedAttrib
+     * @param clickedValue
+     * @return
+     */
     private boolean ExpandableListClick(String clickedAttrib, String clickedValue)
     {
         if(s_isTurnOver)
@@ -478,6 +497,8 @@ public class activity_board_question extends ActionBarActivity
     {
         //listDataHeader = new ArrayList<String>();
         //listDataChild = new HashMap<String, List<String>>();
+        listDataHeader.clear();
+        listDataChild.clear();
 
         CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
         if( m_PlayerController.HaveAllPlayersSelectedWhoTheyAre()
@@ -1406,8 +1427,12 @@ public class activity_board_question extends ActionBarActivity
             gridCards.addView(ib);
         }
 
-        // initialize expandableList
-        InitializeExpandableList();
+        if(!m_PlayerController.GetCurrentPlayer().IsAI())
+        {
+            // initialize expandableList
+            InitializeExpandableList();
+        }
+
 
         return true;
     }
@@ -1424,7 +1449,7 @@ public class activity_board_question extends ActionBarActivity
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
         int ressourceId = getResources().getIdentifier(_cardsetName, "raw",getPackageName());
-        InputStream is  = getResources().openRawResource(ressourceId);
+        InputStream is = getResources().openRawResource(ressourceId);
         return FileToString.ReadTextFile(is);
     }
 

@@ -160,6 +160,7 @@ public class activity_board_question extends ActionBarActivity
         animation_card_part_1 = AnimationUtils.loadAnimation(this, R.anim.anim_to_middle);
         animation_card_part_2 = AnimationUtils.loadAnimation(this, R.anim.anim_from_middle);
 
+
     }   // end of OnCreate
 
 
@@ -517,8 +518,6 @@ public class activity_board_question extends ActionBarActivity
                 expListView.setAdapter(listAdapter);
             }
 
-
-
         }   // end of: option menu only visible if both players have chosen their character
 
     }
@@ -602,7 +601,7 @@ public class activity_board_question extends ActionBarActivity
         SetExpandableListVisibility(true);
 
 
-        // change background
+        // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
         UpdateFieldV2(); // draw new grid with cards of the current player
         TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
@@ -668,6 +667,8 @@ public class activity_board_question extends ActionBarActivity
             String Message =msg;
             String ButtonText ="OK";
             showSimpleDialog(Title, Message, ButtonText);
+
+
 
             String name = m_PlayerController.GetCurrentPlayer().cardListRemaining.Get(randCardId).name;
             System.out.println("Ki waehlte: " + name);

@@ -12,12 +12,21 @@
 	},
 	{
 	  "id": 2,
+<<<<<<< HEAD
+	  "name": "Fabulunder",
+	  "hair": "brown",
+	  "eye": "blau",
+	  "moustache": "false",
+	  "isWoman": "false",
+	  "wearGlasses": "false",
+=======
 	  "name": "Frank",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Nein",
 	  "Geschlecht": "Mann",
 	  "Brillenträger": "Nein",
+>>>>>>> a6c0fe2622d18c140e3ab86d31beadbbd711c37f
 	  "image": "man2"
 	},
 	{
@@ -113,11 +122,19 @@
 	{
 	  "id": 12,
 	  "name": "Dieter",
+<<<<<<< HEAD
+	  "hair": "blond",
+	  "eye": "green",
+	  "moustache": "false",
+	  "isWoman": "false",
+	  "wearGlasses": "false",
+=======
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
 	  "Geschlecht": "Mann",
 	  "Brillenträger": "Nein",
+>>>>>>> a6c0fe2622d18c140e3ab86d31beadbbd711c37f
 	  "image": "man12"
 	},
 	{

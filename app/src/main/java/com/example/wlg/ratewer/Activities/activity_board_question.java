@@ -184,76 +184,10 @@ public class activity_board_question extends ActionBarActivity
     //listDataChild = new HashMap<String, List<String>>();
 
 
-    private void SetExpandableListVisibility(boolean _isVisible)
-    {
-        com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
-        if(_isVisible)
-        {
-            //System.out.println("panelHeigth "+panelHeigth);
-            slidingUpPanelLayout.setPanelHeight(panelHeigth);
-
-        }
-        else
-        {
-            slidingUpPanelLayout.setPanelHeight(0);
-        }
-        System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
-    }
-
-
-    private void InitializeExpandableList()
-    {
-
-        prepareListData();
-
-        // Group Listener (used for yes / no questions) (no child needed)
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
-        {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id)
-            {
-                OnclickCathegory(groupPosition);
 
 
 
-                return false;
-            }
-        });
 
-
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
-        {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id)
-            {
-
-                //if(listDataHeader.get(groupPosition).equals(getString(R.string.txt_activity_board_question_isIt)))
-                //{
-                //    System.out.println("Wow, du hast ist es angeklickt!!!");
-                //    System.out.println("Group0: "+listDataHeader.get(groupPosition));
-                //}
-
-                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-                OnclickAttributes(groupPosition, childPosition);
-
-                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-
-                return true;
-
-
-            }
-        });
-
-
-    }
 
 
     ///////////////////////////////////////////////////////////////
@@ -325,7 +259,7 @@ public class activity_board_question extends ActionBarActivity
         if(s_isTurnOver)
         {
             String msg = "Dein Zug ist beendet!\n Du kannst keine weiteren Attribute erfragen!";
-            ShowDialog("Hinweis",msg);
+            showSimpleDialog("Hinweis", msg, "OK");
             return false;
         }
         CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
@@ -344,11 +278,11 @@ public class activity_board_question extends ActionBarActivity
 
         if (hasId)
         {
-            ShowDialog("Ergebnis", "hat das gewählte Attribut");
+            showSimpleDialog("Ergebnis", "hat das gewählte Attribut", "OK");
 
         } else
         {
-            ShowDialog("Ergebnis","hat das gewählte Attribut nicht");
+            showSimpleDialog("Ergebnis","hat das gewählte Attribut nicht", "OK");
         }
         // End of: print of target person has this attribut
 
@@ -437,44 +371,65 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    private void ChangeButtonVisibility(int _viewId, boolean isVisible)
+
+
+
+    /**
+     * Update expandable list
+     * set listeners
+     * add question and answers to list ( FillExpandableList() )
+     *
+     */
+    private void SetExpandableList()
     {
-        ImageButton btn = (ImageButton) findViewById(_viewId);
-        if(isVisible)
+        FillExpandableList();
+
+        // Group Listener (used for yes / no questions) (no child needed)
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
         {
-            btn.setAlpha(1.0f);
-            btn.setClickable(true);
-        }
-        else
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id)
+            {
+                OnclickCathegory(groupPosition);
+                return false;
+            }
+        });
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
         {
-            btn.setAlpha(0.4f);
-            btn.setClickable(false);
-        }
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id)
+            {
+
+                //if(listDataHeader.get(groupPosition).equals(getString(R.string.txt_activity_board_question_isIt)))
+                //{
+                //    System.out.println("Wow, du hast ist es angeklickt!!!");
+                //    System.out.println("Group0: "+listDataHeader.get(groupPosition));
+                //}
+
+                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+                OnclickAttributes(groupPosition, childPosition);
+
+                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                return true;
+
+
+            }
+        });
     }
 
 
-    private void ShowDialog(String _title, String _txt)
-    {
-        ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-        CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-        alertDialogBuilder.setTitle(_title);
-        alertDialogBuilder
-                .setMessage(_txt)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-
-    private void prepareListData()
+    /**
+     * only call from SetExpandableList !!!!
+     * // fill list with remaining question and answers
+     */
+    private void FillExpandableList()
     {
         //listDataHeader = new ArrayList<String>();
         //listDataChild = new HashMap<String, List<String>>();
@@ -555,7 +510,7 @@ public class activity_board_question extends ActionBarActivity
                 }
             }   // end of: only display categories if players turn isn't over
 
-            System.out.println("listDataHeader.size() "+listDataHeader.size());
+            System.out.println("listDataHeader.size() " + listDataHeader.size());
             if(listDataHeader.size() > 0)
             {
                 listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
@@ -570,7 +525,15 @@ public class activity_board_question extends ActionBarActivity
 
 
 
+    ///////////////////////////////////////////////////
+    //////////////////////////Button Visibility
+    ////////////////////////////////////////
 
+
+    /**
+     * initialize finish button
+     * makes new turn begin after click
+     */
     private void InitializeFinishButton()
     {
         // make finish button:
@@ -588,6 +551,12 @@ public class activity_board_question extends ActionBarActivity
         bt.setAlpha(0);
     }
 
+
+    /**
+     * after finish button is initialized
+     * it could be changed to visible or invisible depending on wether the turn is over or not
+     * @param _displayIt if true button is visible, else invisible
+     */
     private void SetFinishBTVisibility(boolean _displayIt)
     {
         Button bt = (Button)findViewById(R.id.bFinished);
@@ -601,8 +570,58 @@ public class activity_board_question extends ActionBarActivity
             bt.setAlpha(1);
             bt.setClickable(true); // only visible if turn is over
         }
-
     }
+
+
+    /**
+     * used to change visibility of the cards
+     * changes clickable
+     * @param _viewId
+     * @param isVisible
+     */
+    private void ChangeButtonVisibility(int _viewId, boolean isVisible)
+    {
+        ImageButton btn = (ImageButton) findViewById(_viewId);
+        if(isVisible)
+        {
+            btn.setAlpha(1.0f);
+            btn.setClickable(true);
+        }
+        else
+        {
+            btn.setAlpha(0.4f);
+            btn.setClickable(false);
+        }
+    }
+
+
+    /**
+     * hide expandable eg. if asking a question isn't allowed (eg. turn is over)
+     * @param _isVisible boolean if true, list is visible and clickable, else not
+     */
+    private void SetExpandableListVisibility(boolean _isVisible)
+    {
+        com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
+        if(_isVisible)
+        {
+            //System.out.println("panelHeigth "+panelHeigth);
+            slidingUpPanelLayout.setPanelHeight(panelHeigth);
+        }
+        else
+        {
+            slidingUpPanelLayout.setPanelHeight(0);
+        }
+        System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
+    }
+
+
+
+
+    ///////////////////////////////////////////////////
+    ////////////////////////// End of: Button Visibility
+    ////////////////////////////////////////
+
 
 
     /**
@@ -627,7 +646,6 @@ public class activity_board_question extends ActionBarActivity
             String Message =error;
             String ButtonText ="OK";
             showSimpleDialog(Title, Message, ButtonText);
-            ShowDialog("Ups", error);
         }
         // end of: set cards
     }
@@ -708,8 +726,6 @@ public class activity_board_question extends ActionBarActivity
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
-
 
 
     /**
@@ -1284,11 +1300,6 @@ public class activity_board_question extends ActionBarActivity
             ib.setId(viewId);
             cardList.Get(currentCardID).viewID = viewId;
 
-
-
-
-
-
             //ib.setImageResource(imageID);
             // set image id in class to find it later
             cardList.Get(currentCardID).imageID = imageID;
@@ -1430,9 +1441,8 @@ public class activity_board_question extends ActionBarActivity
         if(!m_PlayerController.GetCurrentPlayer().IsAI())
         {
             // initialize expandableList
-            InitializeExpandableList();
+            SetExpandableList();
         }
-
 
         return true;
     }
@@ -1448,19 +1458,11 @@ public class activity_board_question extends ActionBarActivity
     private String ReturnCardJSONAsString(String _cardsetName)
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
-        int ressourceId = getResources().getIdentifier(_cardsetName, "raw",getPackageName());
+        int ressourceId = getResources().getIdentifier(_cardsetName, "raw", getPackageName());
         InputStream is = getResources().openRawResource(ressourceId);
         return FileToString.ReadTextFile(is);
     }
 
-    /*  // now only ReturnCardJSONAsString
-    private String ReturnCardAttributesAsString()
-    {
-        // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
-        InputStream is = getResources().openRawResource(R.raw.cardattributes);
-        return FileToString.ReadTextFile(is);
-    }
-*/
 
     /**
      * ingame klick on card -> displays attributes of this card (from json, )
@@ -1475,7 +1477,7 @@ public class activity_board_question extends ActionBarActivity
             attributes += currentCard.attriList.get(index).attr + ":  "+ currentCard.attriList.get(index).value + "\n";
         }
 
-        ShowDialog(title,attributes);
+        showSimpleDialog(title, attributes, "OK");
     }
 
 
@@ -1488,8 +1490,6 @@ public class activity_board_question extends ActionBarActivity
 
         // set title
         alertDialogBuilder.setTitle("Auswahl:");
-
-
 
         //System.out.println("Bin in Display");
         // set dialog message
@@ -1580,7 +1580,6 @@ public class activity_board_question extends ActionBarActivity
         as.addAnimation(animation_card_part_2);
         _ImageButton.startAnimation(as);
     }
-
 
 }
 

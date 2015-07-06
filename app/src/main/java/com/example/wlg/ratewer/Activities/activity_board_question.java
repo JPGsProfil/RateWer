@@ -222,8 +222,8 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
                 returnVal = ExpandableListClick(attrib,curVal);
 
-                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                //com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
             }
         }
@@ -414,8 +414,8 @@ public class activity_board_question extends ActionBarActivity
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
                 OnclickAttributes(groupPosition, childPosition);
 
-                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                //com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
                 return true;
 
@@ -602,17 +602,29 @@ public class activity_board_question extends ActionBarActivity
     private void SetExpandableListVisibility(boolean _isVisible)
     {
         com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
+        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
+
 
         if(_isVisible)
         {
             //System.out.println("panelHeigth "+panelHeigth);
             slidingUpPanelLayout.setPanelHeight(panelHeigth);
+            elv.setVisibility(View.VISIBLE);
+            tvExp.setVisibility(View.VISIBLE);
         }
         else
         {
             slidingUpPanelLayout.setPanelHeight(0);
+            elv.setVisibility(View.INVISIBLE);
+            tvExp.setVisibility(View.INVISIBLE);
         }
+
+        boolean oposite = !_isVisible;
+        slidingUpPanelLayout.setOverlayed(oposite);
+
         System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
+
     }
 
 

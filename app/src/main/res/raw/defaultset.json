@@ -32,7 +32,7 @@
 	},
 	{
 	  "id": 4,
-	  "name": "TiNein",
+	  "name": "Timmey",
 	  "Haarfarbe": "Schwarz",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Nein",
@@ -62,7 +62,7 @@
 	},
 	{
 	  "id": 7,
-	  "name": "Böcking",
+	  "name": "Baldur",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Grün",
 	  "Bart": "Ja",
@@ -72,7 +72,7 @@
 	},
 	{
 	  "id": 8,
-	  "name": "Neinrbert",
+	  "name": "Reinhart",
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Nein",
@@ -82,7 +82,7 @@
 	},
 	{
 	  "id": 9,
-	  "name": "Namenloser Typ",
+	  "name": "Nelson",
 	  "Haarfarbe": "keine",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Ja",
@@ -102,7 +102,7 @@
 	},
 	{
 	  "id": 11,
-	  "name": "Jens",
+	  "name": "Charles",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Ja",
@@ -112,7 +112,7 @@
 	},
 	{
 	  "id": 12,
-	  "name": "Dieter",
+	  "name": "Erik",
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -122,7 +122,7 @@
 	},
 	{
 	  "id": 13,
-	  "name": "Hempel",
+	  "name": "Hermann",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Braun",
 	  "Bart": "Ja",
@@ -162,7 +162,7 @@
 	},
 	{
 	  "id": 17,
-	  "name": "Sandra7",
+	  "name": "Sara",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -172,7 +172,7 @@
 	},
 	{
 	  "id": 18,
-	  "name": "Sandra8",
+	  "name": "Alice",
 	  "Haarfarbe": "Brunette",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -182,7 +182,7 @@
 	},
 	{
 	  "id": 19,
-	  "name": "Sandra9",
+	  "name": "Miriam",
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -192,7 +192,7 @@
 	},
 	{
 	  "id": 20,
-	  "name": "Sandra10",
+	  "name": "Nele",
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -202,7 +202,7 @@
 	},
 	{
 	  "id": 21,
-	  "name": "Sandra11",
+	  "name": "Judith",
 	  "Haarfarbe": "Blond",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",
@@ -212,7 +212,7 @@
 	},
 	{
 	  "id": 22,
-	  "name": "Sandra12",
+	  "name": "Dori",
 	  "Haarfarbe": "Schwarz",
 	  "Augenfarbe": "Blau",
 	  "Bart": "Nein",

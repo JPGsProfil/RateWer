@@ -92,11 +92,11 @@ public class StartNewGameActivity extends ActionBarActivity
         Spinner sp_diff = (Spinner)findViewById(R.id.sp_sng_difficulty);
 
         List<String> difflist = new ArrayList<>();
-        difflist.add("einfach");
-        difflist.add("normal");
-        difflist.add("schwer");
-        difflist.add("Hellseher");
         difflist.add("Mensch");
+        difflist.add("leichter Gegner");
+        difflist.add("normaler Gegner");
+        difflist.add("schwerer Gegner");
+        difflist.add("Hellseher");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,

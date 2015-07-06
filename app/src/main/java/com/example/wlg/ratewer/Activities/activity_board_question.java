@@ -89,7 +89,7 @@ public class activity_board_question extends ActionBarActivity
 
 
         String usedCardset = "simpsons"; // "simpsons" OR "defaultset" possible
-        String difficulty = "einfach";
+        String difficulty = "leichter Gegner";
         Bundle extras = getIntent().getExtras();
         if (extras != null)
         {
@@ -270,7 +270,7 @@ public class activity_board_question extends ActionBarActivity
 
         Card cardEnemy = curCardList.GetCardByCardID(m_PlayerController.GetNextPlayer().GetChosenCardId());
 
-        System.out.println("Gegner ist: " + cardEnemy.name);
+        System.out.println("Gegner wähle: " + cardEnemy.name);
 
 
 
@@ -278,11 +278,11 @@ public class activity_board_question extends ActionBarActivity
 
         if (hasId)
         {
-            showSimpleDialog("Ergebnis", "hat das gewählte Attribut", "OK");
+            showSimpleDialog(clickedAttrib +" : "+ clickedValue, "Gut Geraten" , "Yay");
 
         } else
         {
-            showSimpleDialog("Ergebnis","hat das gewählte Attribut nicht", "OK");
+            showSimpleDialog(clickedAttrib +" : "+ clickedValue,"leider Falsch", "Nagut");
         }
         // End of: print of target person has this attribut
 
@@ -339,7 +339,7 @@ public class activity_board_question extends ActionBarActivity
         {
             txt_display = "  Drehe die Karten um!";
         }
-        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " : " + txt_display);
 
         SetFinishBTVisibility(true);    // make finish button visible
 
@@ -589,7 +589,7 @@ public class activity_board_question extends ActionBarActivity
         }
         else
         {
-            btn.setAlpha(0.4f);
+            //btn.setAlpha(0.4f);
             btn.setClickable(false);
         }
     }
@@ -707,7 +707,7 @@ public class activity_board_question extends ActionBarActivity
         }
         else
         {
-            SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+            SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Fragestunde!");
         }
 
         // end of: change background
@@ -722,10 +722,8 @@ public class activity_board_question extends ActionBarActivity
                 .setMessage("Spieler" + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " ist dran")
                         // not need to click ok to cancel alert, simply click outside the box
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         System.out.println("Spielerid:" + m_PlayerController.GetCurrentPlayer().GetPlayerID());
                         if (m_PlayerController.GetCurrentPlayer().IsAI())   // only call ai if it's ai's turn
                         {
@@ -1060,7 +1058,7 @@ public class activity_board_question extends ActionBarActivity
                                         if(s_TurnCardsAuto)
                                         {
                                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                            btn.setAlpha(0.4f);
+                                            //btn.setAlpha(0.4f);
                                             btn.setClickable(false);
 
                                             TurnCard(btn);
@@ -1076,7 +1074,7 @@ public class activity_board_question extends ActionBarActivity
                                         if(s_TurnCardsAuto)
                                         {
                                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(index1).viewID);
-                                            btn.setAlpha(0.4f);
+                                            //btn.setAlpha(0.4f);
                                             btn.setClickable(false);
 
                                             TurnCard(btn);
@@ -1140,7 +1138,7 @@ public class activity_board_question extends ActionBarActivity
 
                             // set visibility of imagebutton
                             ImageButton btn = (ImageButton) findViewById(curCardList.Get(CardsToRemove.get(index)).viewID);
-                            btn.setAlpha(0.4f);
+                            //btn.setAlpha(0.4f);
                             btn.setClickable(false);
 
                             TurnCard(btn);
@@ -1182,7 +1180,7 @@ public class activity_board_question extends ActionBarActivity
                 if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
                 {
                     final Intent lastIntent = new Intent(this, EndGameActivity.class);
-                    String msg = "Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID()+" hat gewonnen !!! ";
+                    String msg = "Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID()+ " hat gewonnen !!! ";
                     lastIntent.putExtra("msg", msg);
                     startActivity(lastIntent);
                 } else
@@ -1190,7 +1188,7 @@ public class activity_board_question extends ActionBarActivity
                     String playerName = curCardList.Get(curPlayerId).name;
 
                     ImageButton btn = (ImageButton) findViewById(curCardList.Get(curPlayerId).viewID);
-                    btn.setAlpha(0.4f);
+                    //btn.setAlpha(0.4f);
                     btn.setClickable(false);
 
                     TurnCard(btn);
@@ -1291,6 +1289,7 @@ public class activity_board_question extends ActionBarActivity
             // create a new button
             ImageButton ib = new ImageButton(this);
             ib.setPadding(0,0,2,2); // border between images
+            //ib.setStateListAnimator(null); API 21...
 
 
             //ib.setLayoutParams(lp);
@@ -1395,7 +1394,7 @@ public class activity_board_question extends ActionBarActivity
 
             if(!m_PlayerController.GetCurrentPlayer().cardListRemaining.DoesCardIdExist(currentCardID))
             {
-                ib.setAlpha(0.4f);
+                //ib.setAlpha(0.4f);
                 ib.setClickable(false);
 
                 TurnCard(ib);
@@ -1430,7 +1429,7 @@ public class activity_board_question extends ActionBarActivity
                         {
                             System.out.println("debug: bin in manuell umdrehen!");
                             ImageButton btn = (ImageButton) findViewById(view.getId());
-                            btn.setAlpha(0.4f);
+                            //btn.setAlpha(0.4f);
                             btn.setClickable(false);
 
                             TurnCard(btn);
@@ -1506,7 +1505,7 @@ public class activity_board_question extends ActionBarActivity
         //System.out.println("Bin in Display");
         // set dialog message
         alertDialogBuilder
-                .setMessage("Möchtest du "+_currentCard.name+" sein?")
+                .setMessage("Möchtest du "+_currentCard.name+" wählen?")
                         // choose yes or no
                 .setCancelable(false)
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener()
@@ -1523,7 +1522,7 @@ public class activity_board_question extends ActionBarActivity
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
                         System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = " + _currentCard.id);
                         dialog.cancel();
-                        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende deinen Zug!");
+                        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " : Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
 
                         SetFinishBTVisibility(true);    // make finish button visible
@@ -1546,7 +1545,7 @@ public class activity_board_question extends ActionBarActivity
 
     private void showSimpleDialog(String _Title, String _Message, String _ButtonText)
     {
-        showSimpleDialog(_Title, _Message, _ButtonText,false);
+        showSimpleDialog(_Title, _Message, _ButtonText, false);
     }
 
     private void showSimpleDialog(String _Title, String _Message, String _ButtonText, boolean _IsQuestion)
@@ -1591,6 +1590,8 @@ public class activity_board_question extends ActionBarActivity
         as.addAnimation(animation_card_part_1);
         as.addAnimation(animation_card_part_2);
         _ImageButton.startAnimation(as);
+        _ImageButton.setPadding(0,0,2,2);
+
     }
 
 }

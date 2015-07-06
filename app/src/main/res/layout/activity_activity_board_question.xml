@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/GridForCards"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:padding="0dp"
                 >
             </GridLayout>

@@ -42,6 +42,7 @@ import com.example.wlg.ratewer.Model.Card;
 import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.R;
 import com.google.gson.Gson;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -189,8 +190,9 @@ public class activity_board_question extends ActionBarActivity
 
         if(_isVisible)
         {
-            System.out.println("panelHeigth "+panelHeigth);
+            //System.out.println("panelHeigth "+panelHeigth);
             slidingUpPanelLayout.setPanelHeight(panelHeigth);
+
         }
         else
         {
@@ -216,6 +218,7 @@ public class activity_board_question extends ActionBarActivity
                 OnclickCathegory(groupPosition);
 
 
+
                 return false;
             }
         });
@@ -239,6 +242,10 @@ public class activity_board_question extends ActionBarActivity
 
                 m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
                 OnclickAttributes(groupPosition, childPosition);
+
+                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
                 return true;
 
 
@@ -280,6 +287,10 @@ public class activity_board_question extends ActionBarActivity
             {
                 System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
                 returnVal = ExpandableListClick(attrib,curVal);
+
+                com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
             }
         }
         return returnVal;

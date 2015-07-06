@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
 import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
+import com.example.wlg.ratewer.Core.Resolution;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttribValue;
 import com.example.wlg.ratewer.Model.AttributList;
@@ -66,6 +67,8 @@ public class activity_board_question extends ActionBarActivity
     //private static List<JSONCards> cardList = new ArrayList<>();  // for GSON implementation
     //private static boolean HavePlayersSelectedWhoTheyAre = false;   // to handle onclick -> first select player, later onlick to view details
     private boolean s_TurnCardsAuto = false;
+
+    int panelHeigth = 0;
 
     private Animation animation_card_part_1;
     private Animation animation_card_part_2;
@@ -155,10 +158,18 @@ public class activity_board_question extends ActionBarActivity
         InitializeFinishButton();   // place finish button, make it invisible at beginning
 
         expListView = (ExpandableListView) findViewById(R.id.abq_lvExp);
+
+
+        // read height of expandable list because we need the dp value
+        com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        panelHeigth = lay.getPanelHeight();
+
         SetExpandableListVisibility(false);
 
         animation_card_part_1 = AnimationUtils.loadAnimation(this, R.anim.anim_to_middle);
         animation_card_part_2 = AnimationUtils.loadAnimation(this, R.anim.anim_from_middle);
+
+
 
 
     }   // end of OnCreate
@@ -174,41 +185,18 @@ public class activity_board_question extends ActionBarActivity
 
     private void SetExpandableListVisibility(boolean _isVisible)
     {
+        com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
-        ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
-        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
-        com.sothree.slidinguppanel.SlidingUpPanelLayout lay = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
-
-        LinearLayout slidingLinear = (LinearLayout) findViewById(R.id.abq_slidingLinear);
-
-        //elv.setVisibility(_visibility);
         if(_isVisible)
         {
-            //slidingLinear.setVisibility(View.VISIBLE);
-            //slidingLinear.invalidate();
-            elv.setVisibility(View.VISIBLE);
-            tvExp.setVisibility(View.VISIBLE);
-            //tvExp.setClickable(false);
-            //elv.setClickable(false);
-            //lay.setClickable(_isVisible);
+            System.out.println("panelHeigth "+panelHeigth);
+            slidingUpPanelLayout.setPanelHeight(panelHeigth);
         }
         else
         {
-            elv.setVisibility(View.INVISIBLE);
-
-            tvExp.setVisibility(View.INVISIBLE);
-            //slidingLinear.setVisibility(View.GONE);
-            //slidingLinear.invalidate();
+            slidingUpPanelLayout.setPanelHeight(0);
         }
-
-        //slidingLinear.setClickable(_isVisible);
-
-        boolean oposite = !_isVisible;
-        lay.setOverlayed(oposite);
-
         System.out.println("Sichtbarkeit geaendert in: " + _isVisible);
-
     }
 
 

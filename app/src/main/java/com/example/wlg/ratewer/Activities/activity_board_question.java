@@ -400,13 +400,13 @@ public class activity_board_question extends ActionBarActivity
         // turn is over !!!
         s_isTurnOver = true;
         SetExpandableListVisibility(false);
-        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+
         String txt_display = ": Beende den Zug!";
         if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
         {
             txt_display = "  Drehe die Karten um!";
         }
-        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
 
         SetFinishBTVisibility(true);    // make finish button visible
 
@@ -628,9 +628,16 @@ public class activity_board_question extends ActionBarActivity
             String Message =error;
             String ButtonText ="OK";
             showSimpleDialog(Title, Message, ButtonText);
-            ShowDialog("Ups",error);
+            ShowDialog("Ups", error);
         }
         // end of: set cards
+    }
+
+
+    public void SetTitle(String _txt)
+    {
+        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+        tv_title.setText(_txt);
     }
 
 
@@ -662,8 +669,18 @@ public class activity_board_question extends ActionBarActivity
 
 
         UpdateFieldV2(); // draw new grid with cards of the current player
-        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+
+        System.out.println("hasPlayersSelectedWhoHeIs "+m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs);
+        if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
+        {
+            SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Wähle deinen Charakter!");
+            SetExpandableListVisibility(false);
+        }
+        else
+        {
+            SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Mache deinen Zug!");
+        }
+
         // end of: change background
 
 
@@ -799,8 +816,8 @@ public class activity_board_question extends ActionBarActivity
         s_isTurnOver = true;
         //SetExpandableListVisibility(false);
         UpdateFieldV2();
-        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
+
+        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
 
         SetFinishBTVisibility(true);    // make finish bt visible
 
@@ -1065,13 +1082,13 @@ public class activity_board_question extends ActionBarActivity
                     // turn is over !!!
                     s_isTurnOver = true;
                     SetExpandableListVisibility(false);
-                    TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
+
                     String txt_display = ": Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
                     {
                         txt_display = "  Drehe die Karten um!";
                     }
-                    tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+                    SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
 
                     SetFinishBTVisibility(true);    // make finish button visible
 
@@ -1123,7 +1140,6 @@ public class activity_board_question extends ActionBarActivity
                 System.out.println("Gegner wählte:" + m_PlayerController.GetNextPlayer().GetChosenCardId() + " = "+cardList.Get(m_PlayerController.GetNextPlayer().GetChosenCardId()).name);
                 s_isTurnOver = true;
                 SetExpandableListVisibility(false);
-                TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
 
                 SetFinishBTVisibility(true);    // make finish button visible
 
@@ -1132,7 +1148,9 @@ public class activity_board_question extends ActionBarActivity
                 {
                     txt_display = "  Drehe die Karten um!";
                 }
-                tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+
+                SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
+
                 //int cardId = curCardList.GetIndexFromCardId(curPlayerId);
                 if (curPlayerId == m_PlayerController.GetNextPlayer().GetChosenCardId())
                 {
@@ -1470,7 +1488,7 @@ public class activity_board_question extends ActionBarActivity
         //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
 
         // set title
-        alertDialogBuilder.setTitle("Wer möchtest du sein?");
+        alertDialogBuilder.setTitle("Auswahl:");
 
 
 
@@ -1494,8 +1512,7 @@ public class activity_board_question extends ActionBarActivity
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
                         System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = " + _currentCard.id);
                         dialog.cancel();
-                        TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
-                        tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende deinen Zug!");
+                        SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
 
                         SetFinishBTVisibility(true);    // make finish button visible
@@ -1565,97 +1582,8 @@ public class activity_board_question extends ActionBarActivity
         _ImageButton.startAnimation(as);
     }
 
-    /**
-     * alternative field, working, but not used anymore, can be activated
-     * removes all cards wich are irrelevant instead of decreasing alpha
-     * @return false if field doesn't contain cards
-     */
-    /*
-    public boolean UpdateField()
-    {
-        final CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-        // nothing to add -> nothing else to do
-        if(curCardList.GetSize() < 1)
-        {
-            return false;
-        }
-        GridLayout gridCards = (GridLayout) findViewById(R.id.GridForCards);
-        gridCards.removeAllViews();
-
-        for (int currentCardID = 0; currentCardID < curCardList.GetSize(); currentCardID++)
-        {
-            // create a new button
-            ImageButton ib = new ImageButton(this);
-            ib.setClickable(true);
-            ib.setId(curCardList.Get(currentCardID).viewID);
-            ib.setImageResource(curCardList.Get(currentCardID).imageID);
-
-            ib.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    System.out.println("id clicked: " + view.getId());  // needed for debugging
-
-
-                    // map clicked id with card from cardlist -> iterate cardlist
-                    Card currentCard = curCardList.Get(0);  // = get(0) not needed
-                    int currentIndex = 0;
-
-                    while (currentIndex < curCardList.GetSize() - 1 && curCardList.Get(currentIndex).viewID != view.getId())
-                    {
-                        currentIndex++; // because we already checked index 0 in while loop
-                        currentCard = curCardList.Get(currentIndex);
-                    }
-
-
-                    if (currentCard != null)
-                    {
-                        if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
-                        {
-                            SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
-                        }
-                        else
-                        {
-                            System.out.println("KartenViewId: " + currentCard.viewID + " Name = " + currentCard.name + " ViewID: " + view.getId());
-                            DisplayAttributes(curCardList.Get(currentIndex));
-                        }
-
-                    }
-                }
-            });
-            // place the card at the next free position of the grid
-            gridCards.addView(ib);
-        }
-        return true;
-    }
-*/
 
 }
 
 
-
-
-/*
-    // later outdated, is in extra json
-    private void SetUniqueEyeAndHairColors()
-    {
-    CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-        HashSet <String> eyeColors = new HashSet<String>();
-        for(int index=0; index < curCardList.size(); index++)
-        {
-            eyeColors.add(curCardList.get(index).GetEye());
-        }
-        eyeColorsUnique.addAll(eyeColors);
-
-        HashSet <String> hairColors = new HashSet<String>();
-        for(int index=0; index < curCardList.size(); index++)
-        {
-            hairColors.add(curCardList.get(index).GetHair());
-        }
-        hairColorsUnique.addAll(hairColors);
-
-
-    }
-*/
 

@@ -272,6 +272,19 @@ public class activity_board_question extends ActionBarActivity
 
         System.out.println("Gegner wähle: " + cardEnemy.name);
 
+        String isItQuestion = getString(R.string.txt_activity_board_question_isIt);
+        if(clickedAttrib.equals(isItQuestion) )
+        {
+            if(cardEnemy.name.equals(clickedValue))
+            {
+                final Intent lastIntent = new Intent(this, EndGameActivity.class);
+                String msg = "Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID()+ " hat gewonnen";
+                lastIntent.putExtra("msg",msg);
+                startActivity(lastIntent);
+            }
+
+        }
+
 
 
         hasId = cardEnemy.DoesCardContainAttrValue(clickedAttrib, clickedValue);
@@ -591,6 +604,7 @@ public class activity_board_question extends ActionBarActivity
         {
             //btn.setAlpha(0.4f);
             btn.setClickable(false);
+            TurnCard(btn);
         }
     }
 
@@ -1108,7 +1122,7 @@ public class activity_board_question extends ActionBarActivity
                     s_isTurnOver = true;
                     SetExpandableListVisibility(false);
 
-                    String txt_display = ": Beende den Zug!";
+                    String txt_display = " Beende den Zug!";
                     if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
                     {
                         txt_display = "  Drehe die Karten um!";

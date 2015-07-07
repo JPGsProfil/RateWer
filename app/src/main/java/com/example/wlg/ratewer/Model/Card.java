@@ -58,6 +58,17 @@ public class Card
 
     public boolean DoesCardContainAttrValue(String _attr, String _val)
     {
+        if(_attr.equals("Ist es?"))
+        {
+            if(_val.equals(name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         for (int i=0; i<attriList.size(); i++)
         {
             if(attriList.get(i).attr.equals(_attr))

@@ -176,12 +176,12 @@ public class PlayerController
         {
             attribValueReturn = Hellseher(_curPlayer, _nextPlayer);
         }
-        else if(_curPlayer.GetAiDifficulty().equals("normal"))
+        else if(_curPlayer.GetAiDifficulty().equals("normaler Gegner"))
         {
             System.out.println("normale KI");
             attribValueReturn = NormalEnemy(_curPlayer, _nextPlayer);
         }
-        else if(_curPlayer.GetAiDifficulty().equals("schwer"))
+        else if(_curPlayer.GetAiDifficulty().equals("schwerer Gegner"))
         {
             System.out.println("schwere KI");
             attribValueReturn = GoodEnemy(_curPlayer, _nextPlayer);

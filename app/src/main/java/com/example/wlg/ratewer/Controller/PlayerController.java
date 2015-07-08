@@ -300,7 +300,8 @@ public class PlayerController
 //    /**
 //     * like normal enemy, but with deep search
 //     * needs a lot of time in first round
-//     * not much better than hard
+//     * not much better than hard enemy
+    // * only useful if many attributes and values (deep search)
 //     * @param _curPlayer
 //     * @param _enemy
 //     * @return calculated move (String type, String move)

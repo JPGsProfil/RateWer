@@ -172,11 +172,11 @@ public class PlayerController
         {
             calculatedMove = MAKEMOVECALLED -1;
         }else */
-        if(_curPlayer.GetAiDifficulty().equals("Hellseher"))
-        {
-            attribValueReturn = Hellseher(_curPlayer, _nextPlayer);
-        }
-        else if(_curPlayer.GetAiDifficulty().equals("normaler Gegner"))
+        //if(_curPlayer.GetAiDifficulty().equals("Hellseher"))
+        //{
+        //    attribValueReturn = Hellseher(_curPlayer, _nextPlayer);
+        //}
+        if(_curPlayer.GetAiDifficulty().equals("normaler Gegner"))
         {
             System.out.println("normale KI");
             attribValueReturn = NormalEnemy(_curPlayer, _nextPlayer);
@@ -294,98 +294,117 @@ public class PlayerController
         return AttribValReturn;
     }
 
-
-    // used for statistic and debugging
-    static double CheckedWays = 0;
-    /**
-     * like normal enemy, but with deep search
-     * needs a lot of time in first round
-     * not much better than hard
-     * @param _curPlayer
-     * @param _enemy
-     * @return calculated move (String type, String move)
-     */
-    private AttribValue Hellseher(PlayerInformation _curPlayer, PlayerInformation _enemy)
-    {
-        CardList _cardListRemaining = _curPlayer.cardListRemaining;
-        CardList cardListcpy = new CardList(_cardListRemaining);
-        AIReturn bestMove = DeepSearch(cardListcpy, 0, _enemy.GetChosenCardId());
-
-        AttributList attrListOrig = new AttributList(_cardListRemaining);
-        AttribValue AttribValReturn = new AttribValue("IsIt","0");
-        if(bestMove.attrValId != -1)
-        {
-            AttribValReturn.attr  = attrListOrig.attriList.get(bestMove.attrValId).attr;
-            AttribValReturn.value = attrListOrig.attriList.get(bestMove.attrValId).value;
-        }
-        // else use isIt instead of looking after attributes
-        System.out.println("checked ways: "+CheckedWays);
-        return AttribValReturn;
-    }
-
-
-    /**
-     * used by Hellseher, don't call it otherwise
-     * @param _cardListRemaining one card of this list is the card the enemy has chosen
-     * @param _curDeep  // current deep, needed because end game in 3 steps is better than 5 steps and to avoid overflow by calculating
-     * @param _targetCardId // if of enemy card, needed to find perfect question
-     * @return calculated move (String type, String move)
-     */
-    private AIReturn DeepSearch(CardList _cardListRemaining, int _curDeep, int _targetCardId)
-    {
-        _curDeep++;
-        AIReturn bestAIReturn = new AIReturn();
-        int remainingCards = _cardListRemaining.GetSize();
-        // if something changed:    // look at next deep
-
-        AttributList attrList = new AttributList(_cardListRemaining);
-        for(int index=0; index < attrList.attriList.size(); index ++)
-        {
-            CheckedWays +=1;
-            //System.out.println("Deep: "+_curDeep+ "  index: "+index);
-            CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
-            // get current index of the target card id:
-            int targetId = cardListCpy.GetIndexFromCardId(_targetCardId);
-
-            // if enemy card has the target attribute -> remove all cards wich have not
-            if(cardListCpy.Get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
-            {
-                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
-            }
-            else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
-            {
-                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
-            }
-
-            int remainingCardsNew = cardListCpy.GetSize();
-            if(remainingCards != remainingCardsNew && _curDeep < 4)
-            {
-                AIReturn tempReturn = DeepSearch(cardListCpy, _curDeep, _targetCardId);
-                if(tempReturn.rating < bestAIReturn.rating)
-                {
-                    bestAIReturn = tempReturn;
-                    bestAIReturn.attrValId = index;     // because we want the next move, move in 4 rounds doesn't matter
-                }
-            }
-            else
-            {
-                bestAIReturn.deepestDeep = _curDeep;
-                bestAIReturn.rating = (_curDeep * 1000) + cardListCpy.GetSize() * 150;
-                bestAIReturn.attrValId = index;     // todo -> should be saved into list because it won't change -> you don't have to calculate the best move each round
-                // rating = remaining cards * 600, 5 cards left -> worse rating
-
-                if(_curDeep == 1 && remainingCardsNew <= 3)
-                {
-                    bestAIReturn.deepestDeep = _curDeep;
-                    bestAIReturn.rating = 5;
-                    bestAIReturn.attrValId = -1;
-                    return bestAIReturn;    // game could end now, ask for person, not for attribute
-                }
-
-            }
-        }
-        System.out.println("bestAIReturn:"+bestAIReturn);
-        return bestAIReturn;
-    }
+//
+//    // used for statistic and debugging
+//    static double CheckedWays = 0;
+//    /**
+//     * like normal enemy, but with deep search
+//     * needs a lot of time in first round
+//     * not much better than hard
+//     * @param _curPlayer
+//     * @param _enemy
+//     * @return calculated move (String type, String move)
+//     */
+//    private AttribValue Hellseher(PlayerInformation _curPlayer, PlayerInformation _enemy)
+//    {
+//        CardList _cardListRemaining = _curPlayer.cardListRemaining;
+//        CardList cardListcpy = new CardList(_cardListRemaining);
+//        AIReturn bestMove = DeepSearch(cardListcpy, 0, _enemy.GetChosenCardId());
+//
+//        AttributList attrListOrig = new AttributList(_cardListRemaining);
+//        AttribValue AttribValReturn = new AttribValue("IsIt","0");
+//        if(bestMove.attrValId != -1)
+//        {
+//            AttribValReturn.attr  = attrListOrig.attriList.get(bestMove.attrValId).attr;
+//            AttribValReturn.value = attrListOrig.attriList.get(bestMove.attrValId).value;
+//        }
+//        // else use isIt instead of looking after attributes
+//        System.out.println("checked ways: "+CheckedWays);
+//        return AttribValReturn;
+//    }
+//
+//
+//    /**
+//     * used by Hellseher, don't call it otherwise
+//     * @param _cardListRemaining one card of this list is the card the enemy has chosen
+//     * @param _curDeep  // current deep, needed because end game in 3 steps is better than 5 steps and to avoid overflow by calculating
+//     * @param _targetCardId // if of enemy card, needed to find perfect question
+//     * @return calculated move (String type, String move)
+//     */
+//    private AIReturn DeepSearch(CardList _cardListRemaining, int _curDeep, int _targetCardId)
+//    {
+//        _curDeep++;
+//        AIReturn bestAIReturn = new AIReturn();
+//        int remainingCards = _cardListRemaining.GetSize();
+//        // if something changed:    // look at next deep
+//
+//        AttributList attrList = new AttributList(_cardListRemaining);
+//        for(int index=0; index < attrList.attriList.size(); index ++)
+//        {
+//            CheckedWays +=1;
+//            //System.out.println("Deep: "+_curDeep+ "  index: "+index);
+//            CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
+//            // get current index of the target card id:
+//            int targetId = cardListCpy.GetIndexFromCardId(_targetCardId);
+//
+//            String debug = "Ueberpruefe "+attrList.attriList.get(index).attr+ "  "+attrList.attriList.get(index).value;
+//
+//            // if enemy card has the target attribute -> remove all cards wich have not
+//            if(cardListCpy.Get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+//            {
+//                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
+//            }
+//            else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
+//            {
+//                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
+//            }
+//
+//            int remainingCardsNew = cardListCpy.GetSize();
+//            AIReturn tempReturn = new AIReturn();
+//            if(remainingCards != remainingCardsNew && _curDeep < 4)
+//            {
+//                tempReturn = DeepSearch(cardListCpy, _curDeep, _targetCardId);
+//            }
+//            else
+//            {
+//                if(remainingCards == remainingCardsNew) // nothing changed //maybe not enough attributes
+//                {
+//                    tempReturn.deepestDeep = _curDeep;
+//                    tempReturn.rating = 1000000;
+//                    tempReturn.attrValId = -1;
+//                }
+//                else
+//                {
+//                    tempReturn.deepestDeep = _curDeep;
+//                    tempReturn.rating = (_curDeep * 100) + cardListCpy.GetSize() * 15;
+//                    tempReturn.attrValId = index;     // todo -> should be saved into list because it won't change -> you don't have to calculate the best move each round
+//                }
+//
+//                // rating = remaining cards * 600, 5 cards left -> worse rating
+//
+//                if(_curDeep == 1 && remainingCardsNew <= 3)
+//                {
+//                    bestAIReturn.deepestDeep = _curDeep;
+//                    bestAIReturn.rating = 5;
+//                    bestAIReturn.attrValId = -1;
+//                    return bestAIReturn;    // game could end now, ask for person, not for attribute
+//                }
+//
+//            }
+//
+//
+//                    System.out.println("Ueberpruefe "+attrList.attriList.get(index).attr+ "  "+attrList.attriList.get(index).value);
+//            if(tempReturn.rating < bestAIReturn.rating)
+//            {
+//                bestAIReturn = tempReturn;
+//                bestAIReturn.attrValId = index;     // because we want the next move, move in 4 rounds doesn't matter
+//            }
+//            debug += "  akt Rat: "+tempReturn.rating;
+//            debug += "  bestR "+bestAIReturn.rating;
+//            System.out.println("debug: "+debug);
+//        }
+//        System.out.println("bestAIReturn:"+bestAIReturn);
+//        return bestAIReturn;
+//    }
 
 }

@@ -96,7 +96,7 @@ public class StartNewGameActivity extends ActionBarActivity
         difflist.add("leichter Gegner");
         difflist.add("normaler Gegner");
         difflist.add("schwerer Gegner");
-        difflist.add("Hellseher");
+        //difflist.add("Hellseher");    // not needed anymore, "schwerer Gegner " nearly same result
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,

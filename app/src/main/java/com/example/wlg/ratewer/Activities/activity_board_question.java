@@ -113,28 +113,13 @@ public class activity_board_question extends ActionBarActivity
             String diff = extras.getString("difficulty");
             if (diff != null)
             {
-                if(diff.equals("Hellseher"))
-                {
-                    //String msg = "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
-                    //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-
-                    ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
-                    CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-
-
-                    alertDialogBuilder.setTitle("Hellseher gewählt");
-                    alertDialogBuilder
-                            .setMessage( "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                }
+//                if(diff.equals("Hellseher"))
+//                {
+//                    //String msg = "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
+//                    //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+//                    String txt = "Ein Hellseher braucht beim ersten Anlauf etwas Laenger. Geduld, wenn Spieler 2 dran ist!";
+//                    showSimpleDialog("Hellseher gewählt",txt,"OK");
+//                }
 
                 difficulty = diff;
             }

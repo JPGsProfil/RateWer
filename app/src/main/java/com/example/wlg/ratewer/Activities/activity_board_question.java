@@ -88,7 +88,7 @@ public class activity_board_question extends ActionBarActivity
         setContentView(R.layout.activity_activity_board_question);
 
 
-        String usedCardset = "simpsons"; // "simpsons" OR "defaultset" possible
+        String usedCardset = "defaultset"; // "simpsons" OR "defaultset" possible
         String difficulty = "leichter Gegner";
         Bundle extras = getIntent().getExtras();
         if (extras != null)

@@ -40,7 +40,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Activities.activity_board_question"
+            android:name=".Activities.GameBoardActivity"
             android:label="@string/title_activity_activity_board_question"
             android:parentActivityName=".Activities.StartActivity"
             android:screenOrientation="portrait">

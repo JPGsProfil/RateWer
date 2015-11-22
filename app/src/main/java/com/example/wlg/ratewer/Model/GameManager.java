@@ -1,7 +1,7 @@
 package com.example.wlg.ratewer.Model;
 
 /**
- * activity_board_question is gamemanager
+ * GameBoardActivity is gamemanager
  */
 public class GameManager
 {

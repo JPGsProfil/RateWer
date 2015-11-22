@@ -5,17 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -23,9 +20,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +27,6 @@ import android.widget.Toast;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
 import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
-import com.example.wlg.ratewer.Core.Resolution;
 import com.example.wlg.ratewer.IO.FileToString;
 import com.example.wlg.ratewer.Model.AttribValue;
 import com.example.wlg.ratewer.Model.AttributList;
@@ -41,23 +34,14 @@ import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.Model.Card;
 import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.R;
-import com.google.gson.Gson;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class activity_board_question extends ActionBarActivity
+public class GameBoardActivity extends ActionBarActivity
 {
 
     private AttributList m_Attribs;  // attribs of the current player, only reference
@@ -184,36 +168,36 @@ public class activity_board_question extends ActionBarActivity
      * @param groupPosition
      * @return
      */
-    private boolean OnclickCathegory(int groupPosition)
-    {
-        boolean returnVal = false;  // not really needed (anymore)
-        String attrib = listDataHeader.get(groupPosition);
-        List<String> values = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.GetValuesForAnAttribute(attrib);
-        boolean isYesNoQuestion = false;
-        String curVal = "";
-        if(values.size()<3)
-        {
-            for(int i=0; i< values.size(); i++)
-            {
-                curVal = values.get(i);
-                if(curVal.equalsIgnoreCase("yes") || curVal.equalsIgnoreCase("ja") || curVal.equalsIgnoreCase("true"))
-                {
-                    isYesNoQuestion = true;
-                    break;
-                }
-            }
-            if(isYesNoQuestion)
-            {
-                System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
-                returnVal = ExpandableListClick(attrib,curVal);
-
-                //com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-                //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-
-            }
-        }
-        return returnVal;
-    }
+//    private boolean onClickCategory(int groupPosition)
+//    {
+//        boolean returnVal = false;  // not really needed (anymore)
+//        String attrib = listDataHeader.get(groupPosition);
+//        List<String> values = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.GetValuesForAnAttribute(attrib);
+//        boolean isYesNoQuestion = false;
+//        String curVal = "";
+//        if(values.size()<3)
+//        {
+//            for(int i=0; i< values.size(); i++)
+//            {
+//                curVal = values.get(i);
+//                if(curVal.equalsIgnoreCase("yes") || curVal.equalsIgnoreCase("ja") || curVal.equalsIgnoreCase("true"))
+//                {
+//                    isYesNoQuestion = true;
+//                    break;
+//                }
+//            }
+//            if(isYesNoQuestion)
+//            {
+//                System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
+//                returnVal = ExpandableListClick(attrib,curVal);
+//
+//                //com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+//                //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+//
+//            }
+//        }
+//        return returnVal;
+//    }
 
 
     /**
@@ -382,18 +366,18 @@ public class activity_board_question extends ActionBarActivity
     {
         FillExpandableList();
 
-        // Group Listener (used for yes / no questions) (no child needed)
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
-        {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id)
-            {
-                OnclickCathegory(groupPosition);
-                return false;
-            }
-        });
+//        // Group Listener (used for yes / no questions) (no child needed)
+//        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
+//        {
+//
+//            @Override
+//            public boolean onGroupClick(ExpandableListView parent, View v,
+//                                        int groupPosition, long id)
+//            {
+//                onClickCategory(groupPosition);
+//                return false;
+//            }
+//        });
 
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
@@ -848,90 +832,91 @@ public class activity_board_question extends ActionBarActivity
     }
 
 
-    /**
-     * to interact
-     * ask question or "is it.."
-     * diplayed values depending on game state (players turn, turn over) and remaining cards ...
-     * @param menu interact by using option menu
-     * @return always true
-     */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        System.out.println("aktueller Spieler "+ m_PlayerController.GetCurrentPlayer().GetPlayerID());
-        CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-        //SetCurrentCardList();   // make sure you use the the correct cardlist (of the current player)
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
-        menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
-        if(m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
-        {
-            // menu entry to end own turn, only possible if player already selected who he /she want to be
-            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry))
-        }
-
-
-        if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
-        {
-
-            if (!s_isTurnOver)
-            {
-                // submenu to choose "is it ...?"
-                SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
-                for (int index = 0; index < curCardList.GetSize(); index++)
-                {
-                    // add the names of the card (person)
-                    int newItemId = 100 + curCardList.Get(index).id;
-                    sm1.add(100, newItemId, 0, curCardList.Get(index).name);
-                }
-
-                // part 2 : add questions
-                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-                System.out.println("playercontroller cardRem: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
-                System.out.println("playercontroller attribremaining: "+m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.attriList.size());
-                // dynamically add menue item
-                int currGroupId = -1;
-                // iterate all attributs
-                for (int index = 0; index < m_Attribs.attriList.size(); )
-                {
-                    // at the beginning, set new group id, not necessary if stay the same (if below)
-                    currGroupId = m_Attribs.attriList.get(index).groupId;
-
-                    // if more than two -> submenu required, if one or two not (like bool)
-                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
-                    {
-                        SubMenu sm = menu.addSubMenu(currGroupId, -1, 0, m_Attribs.attriList.get(index).attr);
-                        //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
-                        String que = m_Attribs.attriList.get(index).attr;
-
-                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
-                        {
-                            sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
-                            //itemId++;
-                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
-                            index++;
-                        }
-                    }
-                    else    // only bool attributes (like wearGlasses ...) -> no submenu required
-                    {
-
-                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
-                        {
-                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
-                            menu.add(currGroupId, index, 0, attriValStr);
-                            //itemId ++;
-                            //System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
-                            index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
-                        } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
-                        {
-                            index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
-                        }
-                    }
-                }
-            }   // end of: only display categories if players turn isn't over
-        }   // end of: option menu only visible if both players have chosen their character
-        return true;
-    }
+//    /**
+//     * to interact
+//     * ask question or "is it.."
+//     * diplayed values depending on game state (players turn, turn over) and remaining cards ...
+//     * @param menu interact by using option menu
+//     * @return always true
+//     */
+//
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu)
+//    {
+//        System.out.println("aktueller Spieler "+ m_PlayerController.GetCurrentPlayer().GetPlayerID());
+//        CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
+//        //SetCurrentCardList();   // make sure you use the the correct cardlist (of the current player)
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
+//        menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
+//        if(m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
+//        {
+//            // menu entry to end own turn, only possible if player already selected who he /she want to be
+//            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry))
+//        }
+//
+//
+//        if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
+//        {
+//
+//            if (!s_isTurnOver)
+//            {
+//                // submenu to choose "is it ...?"
+//                SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
+//                for (int index = 0; index < curCardList.GetSize(); index++)
+//                {
+//                    // add the names of the card (person)
+//                    int newItemId = 100 + curCardList.Get(index).id;
+//                    sm1.add(100, newItemId, 0, curCardList.Get(index).name);
+//                }
+//
+//                // part 2 : add questions
+//                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
+//                System.out.println("playercontroller cardRem: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
+//                System.out.println("playercontroller attribremaining: "+m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.attriList.size());
+//                // dynamically add menue item
+//                int currGroupId = -1;
+//                // iterate all attributs
+//                for (int index = 0; index < m_Attribs.attriList.size(); )
+//                {
+//                    // at the beginning, set new group id, not necessary if stay the same (if below)
+//                    currGroupId = m_Attribs.attriList.get(index).groupId;
+//
+//                    // if more than two -> submenu required, if one or two not (like bool)
+//                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
+//                    {
+//                        SubMenu sm = menu.addSubMenu(currGroupId, -1, 0, m_Attribs.attriList.get(index).attr);
+//                        //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
+//                        String que = m_Attribs.attriList.get(index).attr;
+//
+//                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+//                        {
+//                            sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
+//                            //itemId++;
+//                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
+//                            index++;
+//                        }
+//                    }
+//                    else    // only bool attributes (like wearGlasses ...) -> no submenu required
+//                    {
+//
+//                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+//                        {
+//                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
+//                            menu.add(currGroupId, index, 0, attriValStr);
+//                            //itemId ++;
+//                            //System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
+//                            index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
+//                        } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
+//                        {
+//                            index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
+//                        }
+//                    }
+//                }
+//            }   // end of: only display categories if players turn isn't over
+//        }   // end of: option menu only visible if both players have chosen their character
+//        return true;
+//    }
 
 
     /**
@@ -942,7 +927,9 @@ public class activity_board_question extends ActionBarActivity
      * @param item
      * @return true
      */
+
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item)
     {
         CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
@@ -1496,7 +1483,7 @@ public class activity_board_question extends ActionBarActivity
     {
         ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
         CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity_board_question.this);
+        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GameBoardActivity.this);
 
         // set title
         alertDialogBuilder.setTitle("Auswahl:");

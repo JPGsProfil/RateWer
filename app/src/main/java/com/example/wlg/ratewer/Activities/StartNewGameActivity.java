@@ -34,7 +34,7 @@ public class StartNewGameActivity extends ActionBarActivity
         {
             public void onClick(View v)
             {
-                final Intent firstIntent = new Intent(v.getContext(), activity_board_question.class);
+                final Intent firstIntent = new Intent(v.getContext(), GameBoardActivity.class);
 
                 Spinner sp_cardsets = (Spinner)findViewById(R.id.sp_cardsets);
                 String cardSet = sp_cardsets.getSelectedItem().toString();

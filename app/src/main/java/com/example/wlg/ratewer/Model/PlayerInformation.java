@@ -125,22 +125,5 @@ public class PlayerInformation
     }
 
 
-    /**
-     * to make sure own copy fuction is working
-     * @param _curPlayer
-     */
-    /*
-    public void debug(PlayerInformation _curPlayer)
-    {
 
-        // debug
-        Card card1 = _curPlayer.cardListRemaining.Get(0);
-        Card card2 = new Card(card1);
-        System.out.println("Karte 1 Attri0: "+card1.attriList.get(0).attr);
-        System.out.println("Karte 2 Name: "+card2.attriList.get(0).attr);
-        card1.attriList.get(0).attr = "jens";
-        System.out.println("Karte 1 Name: "+card1.attriList.get(0).attr);
-        System.out.println("Karte 2 Name: "+card2.attriList.get(0).attr);
-        // debug end
-    }*/
 }

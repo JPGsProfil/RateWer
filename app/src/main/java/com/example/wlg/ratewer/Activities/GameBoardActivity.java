@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ContextThemeWrapper;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -41,7 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class GameBoardActivity extends ActionBarActivity
+public class GameBoardActivity extends AppCompatActivity
 {
 
     private AttributList m_Attribs;  // attribs of the current player, only reference
@@ -72,8 +70,8 @@ public class GameBoardActivity extends ActionBarActivity
         setContentView(R.layout.activity_activity_board_question);
 
 
-        String usedCardset = "defaultset"; // "simpsons" OR "defaultset" possible
-        String difficulty = "leichter Gegner";
+        String usedCardset = getString(R.string.default_card_set_name);
+        String difficulty = getString(R.string.difficulty_easy);
         Bundle extras = getIntent().getExtras();
         if (extras != null)
         {
@@ -159,45 +157,7 @@ public class GameBoardActivity extends ActionBarActivity
 
 
 
-    ///////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////
 
-    /**
-     * called if yes / now question
-     * @param groupPosition
-     * @return
-     */
-//    private boolean onClickCategory(int groupPosition)
-//    {
-//        boolean returnVal = false;  // not really needed (anymore)
-//        String attrib = listDataHeader.get(groupPosition);
-//        List<String> values = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.GetValuesForAnAttribute(attrib);
-//        boolean isYesNoQuestion = false;
-//        String curVal = "";
-//        if(values.size()<3)
-//        {
-//            for(int i=0; i< values.size(); i++)
-//            {
-//                curVal = values.get(i);
-//                if(curVal.equalsIgnoreCase("yes") || curVal.equalsIgnoreCase("ja") || curVal.equalsIgnoreCase("true"))
-//                {
-//                    isYesNoQuestion = true;
-//                    break;
-//                }
-//            }
-//            if(isYesNoQuestion)
-//            {
-//                System.out.println("Du hast eine ja / nein Kathegorie angeklickt!!!");
-//                returnVal = ExpandableListClick(attrib,curVal);
-//
-//                //com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-//                //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-//
-//            }
-//        }
-//        return returnVal;
-//    }
 
 
     /**
@@ -323,7 +283,7 @@ public class GameBoardActivity extends ActionBarActivity
         }
         SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " : " + txt_display);
 
-        SetFinishBTVisibility(true);    // make finish button visible
+        SetFinishButtonVisibility(true);    // make finish button visible
 
 
         //System.out.println("Anz Karten: " + curCardList.GetSize());
@@ -366,19 +326,7 @@ public class GameBoardActivity extends ActionBarActivity
     {
         FillExpandableList();
 
-//        // Group Listener (used for yes / no questions) (no child needed)
-//        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener()
-//        {
-//
-//            @Override
-//            public boolean onGroupClick(ExpandableListView parent, View v,
-//                                        int groupPosition, long id)
-//            {
-//                onClickCategory(groupPosition);
-//                return false;
-//            }
-//        });
-
+        
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener()
         {
@@ -539,7 +487,7 @@ public class GameBoardActivity extends ActionBarActivity
      * it could be changed to visible or invisible depending on wether the turn is over or not
      * @param _displayIt if true button is visible, else invisible
      */
-    private void SetFinishBTVisibility(boolean _displayIt)
+    private void SetFinishButtonVisibility(boolean _displayIt)
     {
         Button bt = (Button)findViewById(R.id.bFinished);
         if(!_displayIt)
@@ -585,22 +533,22 @@ public class GameBoardActivity extends ActionBarActivity
     private void SetExpandableListVisibility(boolean _isVisible)
     {
         com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout = (com.sothree.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        ExpandableListView elv = (ExpandableListView)findViewById(R.id.abq_lvExp);
-        TextView tvExp = (TextView) findViewById(R.id.SlideUp_Heading);
+        ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.abq_lvExp);
+        TextView textView = (TextView) findViewById(R.id.SlideUp_Heading);
 
 
         if(_isVisible)
         {
             //System.out.println("panelHeigth "+panelHeigth);
             slidingUpPanelLayout.setPanelHeight(panelHeigth);
-            elv.setVisibility(View.VISIBLE);
-            tvExp.setVisibility(View.VISIBLE);
+            expandableListView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
         }
         else
         {
             slidingUpPanelLayout.setPanelHeight(0);
-            elv.setVisibility(View.INVISIBLE);
-            tvExp.setVisibility(View.INVISIBLE);
+            expandableListView.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
         }
 
         boolean oposite = !_isVisible;
@@ -661,7 +609,7 @@ public class GameBoardActivity extends ActionBarActivity
         // change backgorund
         m_PlayerController.ChangeCurrentPlayer();
 
-        SetFinishBTVisibility(false);    // make finish button invisible (first do turn)
+        SetFinishButtonVisibility(false);    // make finish button invisible (first do turn)
         s_isTurnOver = false;
 
 
@@ -680,7 +628,7 @@ public class GameBoardActivity extends ActionBarActivity
 
 
 
-        UpdateFieldV2(); // draw new grid with cards of the current player
+        UpdateField(); // draw new grid with cards of the current player
 
         System.out.println("hasPlayersSelectedWhoHeIs "+m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs);
         if(!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
@@ -823,100 +771,15 @@ public class GameBoardActivity extends ActionBarActivity
         }
         s_isTurnOver = true;
         //SetExpandableListVisibility(false);
-        UpdateFieldV2();
+        UpdateField();
 
         SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Hat den Zug beendet!");
 
-        SetFinishBTVisibility(true);    // make finish bt visible
+        SetFinishButtonVisibility(true);    // make finish bt visible
 
     }
 
 
-//    /**
-//     * to interact
-//     * ask question or "is it.."
-//     * diplayed values depending on game state (players turn, turn over) and remaining cards ...
-//     * @param menu interact by using option menu
-//     * @return always true
-//     */
-//
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu)
-//    {
-//        System.out.println("aktueller Spieler "+ m_PlayerController.GetCurrentPlayer().GetPlayerID());
-//        CardList curCardList = m_PlayerController.GetCurrentPlayer().cardListRemaining;
-//        //SetCurrentCardList();   // make sure you use the the correct cardlist (of the current player)
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_activity_board_question, menu);
-//        menu.clear();   // delete all entries, only add remaining, chose this way instead of visibility because if human vs human -> need to display 2 independend menus
-//        if(m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
-//        {
-//            // menu entry to end own turn, only possible if player already selected who he /she want to be
-//            menu.add(10000, 10000, 10000, "Zug beenden");   // end turn (option menu entry))
-//        }
-//
-//
-//        if(m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
-//        {
-//
-//            if (!s_isTurnOver)
-//            {
-//                // submenu to choose "is it ...?"
-//                SubMenu sm1 = menu.addSubMenu(100, -1, 100, "Ist es?");
-//                for (int index = 0; index < curCardList.GetSize(); index++)
-//                {
-//                    // add the names of the card (person)
-//                    int newItemId = 100 + curCardList.Get(index).id;
-//                    sm1.add(100, newItemId, 0, curCardList.Get(index).name);
-//                }
-//
-//                // part 2 : add questions
-//                m_Attribs = m_PlayerController.GetCurrentPlayer().m_AttribsRemaining;
-//                System.out.println("playercontroller cardRem: "+m_PlayerController.GetCurrentPlayer().cardListRemaining.GetSize());
-//                System.out.println("playercontroller attribremaining: "+m_PlayerController.GetCurrentPlayer().m_AttribsRemaining.attriList.size());
-//                // dynamically add menue item
-//                int currGroupId = -1;
-//                // iterate all attributs
-//                for (int index = 0; index < m_Attribs.attriList.size(); )
-//                {
-//                    // at the beginning, set new group id, not necessary if stay the same (if below)
-//                    currGroupId = m_Attribs.attriList.get(index).groupId;
-//
-//                    // if more than two -> submenu required, if one or two not (like bool)
-//                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
-//                    {
-//                        SubMenu sm = menu.addSubMenu(currGroupId, -1, 0, m_Attribs.attriList.get(index).attr);
-//                        //System.out.println("add: currGroupId "+currGroupId+ " index: -1 " + " eintrag:"+m_Attribs.attriList.get(index).attr);
-//                        String que = m_Attribs.attriList.get(index).attr;
-//
-//                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
-//                        {
-//                            sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
-//                            //itemId++;
-//                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
-//                            index++;
-//                        }
-//                    }
-//                    else    // only bool attributes (like wearGlasses ...) -> no submenu required
-//                    {
-//
-//                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
-//                        {
-//                            String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
-//                            menu.add(currGroupId, index, 0, attriValStr);
-//                            //itemId ++;
-//                            //System.out.println("add: currGroupId " + currGroupId + "  eintrag:" + m_Attribs.attriList.get(index).attr);
-//                            index += 2;  // we don't want to print bool twice (has hair hair yes?, has hair no? -> only has hair?
-//                        } else // only one value for this attribut (eg all cards have haircolor brown -> have to be at least two values (brown, black, ..)
-//                        {
-//                            index++;    // not really necessary, because always min. yes or no in question, otherwhise not a question
-//                        }
-//                    }
-//                }
-//            }   // end of: only display categories if players turn isn't over
-//        }   // end of: option menu only visible if both players have chosen their character
-//        return true;
-//    }
 
 
     /**
@@ -1101,7 +964,7 @@ public class GameBoardActivity extends ActionBarActivity
                     }
                     SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + txt_display);
 
-                    SetFinishBTVisibility(true);    // make finish button visible
+                    SetFinishButtonVisibility(true);    // make finish button visible
 
 
                     //System.out.println("Anz Karten: " + curCardList.GetSize());
@@ -1152,7 +1015,7 @@ public class GameBoardActivity extends ActionBarActivity
                 s_isTurnOver = true;
                 SetExpandableListVisibility(false);
 
-                SetFinishBTVisibility(true);    // make finish button visible
+                SetFinishButtonVisibility(true);    // make finish button visible
 
                 String txt_display = ": Beende den Zug!";
                 if(!s_TurnCardsAuto && !m_PlayerController.GetCurrentPlayer().IsAI())
@@ -1325,7 +1188,7 @@ public class GameBoardActivity extends ActionBarActivity
                         // at the beginning choose which character you want to be, could be outsourced, but nearly same code
                         if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
                         {
-                            SelectWhoYouAre(cardList.Get(currentIndex));
+                            selectTheSecretCard(cardList.Get(currentIndex));
                         }
                         else    // player selected who he want to be -> now onclick to view details
                         {
@@ -1352,7 +1215,7 @@ public class GameBoardActivity extends ActionBarActivity
      * Version 1 removes unwanted cards from screen instead of alpha
      * @return false if no cards to display, should never happen
      */
-    public boolean UpdateFieldV2()
+    public boolean UpdateField()
     {
         // nothing to add -> nothing else to do
         if(cardList.GetSize() < 1)
@@ -1409,7 +1272,7 @@ public class GameBoardActivity extends ActionBarActivity
                     {
                         if (!m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs)
                         {
-                            SelectWhoYouAre(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
+                            selectTheSecretCard(cardList.Get(currentIndex));    // //bug, darf nicht currentIndex sein, da index für viewId
                         }
                         else if(s_TurnCardsAuto == false && s_isTurnOver && !m_PlayerController.GetCurrentPlayer().IsAI())
                         {
@@ -1479,7 +1342,7 @@ public class GameBoardActivity extends ActionBarActivity
 
 
     // at the beginning of the game you have to select who you are
-    private void SelectWhoYouAre(final Card _currentCard)
+    private void selectTheSecretCard(final Card _currentCard)
     {
         ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
         CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
@@ -1511,7 +1374,7 @@ public class GameBoardActivity extends ActionBarActivity
                         SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " : Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
 
-                        SetFinishBTVisibility(true);    // make finish button visible
+                        SetFinishButtonVisibility(true);    // make finish button visible
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()

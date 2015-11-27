@@ -9,12 +9,6 @@
     tools:context="com.example.wlg.ratewer.Activities.OptionsActivity">
 
     <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txt_language"
@@ -22,7 +16,9 @@
         android:layout_alignBottom="@+id/spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="67dp" />
+        android:layout_marginBottom="67dp"
+        style="@style/StandartFont"
+        android:textColor="@color/primarydark" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -31,7 +27,11 @@
         android:entries="@array/lang_array"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        style="@style/StandartFont"
+        android:dropDownSelector="#180505"
+        android:dropDownWidth="match_parent"
+        android:focusableInTouchMode="false" />
 
 
 

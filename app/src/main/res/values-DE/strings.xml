@@ -3,7 +3,7 @@
 
     <string name="app_name">Is it ... ?</string>
 
-    <string name="hello_world">Hallo Sabine!</string>
+    <string name="hello_world">Hallo!</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_settings2">Beenden</string>
     <string name="txt_start">Spiel Starten</string>
@@ -36,5 +36,12 @@
 
     <string name="txt_activity_board_question_isIt">Ist es?</string>
 
+    <!-- BoardGameActivity -->
+    <string name="difficulty_easy">leichter Gegner</string>
+    <string name="difficulty_normal">normaler Gegner</string>
+    <string name="difficulty_hard">schwerer Gegner</string>
+    <string name="difficulty_unfair">Hellseher</string>
+
+    <string name="default_card_set_name">defaultset</string>
 
 </resources>

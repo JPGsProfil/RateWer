@@ -46,4 +46,12 @@
 
     <string name="txt_activity_board_question_isIt">Ist es?</string>
 
+    <!-- BoardGameActivity -->
+    <string name="difficulty_easy">leichter Gegner</string>
+    <string name="difficulty_normal">normaler Gegner</string>
+    <string name="difficulty_hard">schwerer Gegner</string>
+    <string name="difficulty_unfair">Hellseher</string>
+
+    <string name="default_card_set_name">defaultset</string>
+
 </resources>

@@ -70,9 +70,14 @@ public class GameBoardActivity extends AppCompatActivity
         setContentView(R.layout.activity_activity_board_question);
 
 
+
         String usedCardset = getString(R.string.default_card_set_name);
         String difficulty = getString(R.string.difficulty_easy);
+
+
         Bundle extras = getIntent().getExtras();
+
+
         if (extras != null)
         {
             // get chosen cardset from prev. activity:

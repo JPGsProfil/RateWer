@@ -11,6 +11,7 @@ public class AIReturn
     public int attrValId;
     public int rating;
     public int deepestDeep;
+
     public AIReturn()
     {
         attrValId = 0;

@@ -398,25 +398,25 @@ public class GameBoardActivity extends AppCompatActivity
 
                 int currGroupId = -1;
                 // iterate all attributs
-                for ( int index = 0; index < m_Attribs.attriList.size(); )
+                for ( int index = 0; index < m_Attribs.attributList.size(); )
                 {
                     // at the beginning, set new group id, not necessary if stay the same (if below)
-                    currGroupId = m_Attribs.attriList.get(index).groupId;
+                    currGroupId = m_Attribs.attributList.get(index).groupId;
 
 
                     // if more than two -> submenu required, if one or two not (like bool)
-                    if (index + 2 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 2).groupId)
+                    if (index + 2 < m_Attribs.attributList.size() && m_Attribs.attributList.get(index).groupId == m_Attribs.attributList.get(index + 2).groupId)
                     {
-                        question = m_Attribs.attriList.get(index).attr;
+                        question = m_Attribs.attributList.get(index).attr;
                         listDataHeader.add(question);
                         List<String> curSubmenu = new ArrayList<String>();
 
-                        while (index < m_Attribs.attriList.size() && currGroupId == m_Attribs.attriList.get(index).groupId) // it's a new menu item (kategory)
+                        while (index < m_Attribs.attributList.size() && currGroupId == m_Attribs.attributList.get(index).groupId) // it's a new menu item (kategory)
                         {
-                            //sm.add(currGroupId, index, index, m_Attribs.attriList.get(index).value);
-                            curSubmenu.add(m_Attribs.attriList.get(index).value);
+                            //sm.add(currGroupId, index, index, m_Attribs.attributList.get(index).value);
+                            curSubmenu.add(m_Attribs.attributList.get(index).value);
                             //itemId++;
-                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attriList.get(index).value);
+                            //System.out.println("add: currGroupId "+currGroupId+ " index: "+index+ " eintrag:"+m_Attribs.attributList.get(index).value);
                             index++;
                         }
                         listDataChild.put(question, curSubmenu); // Header, Child data
@@ -424,13 +424,13 @@ public class GameBoardActivity extends AppCompatActivity
                     else    // only bool attributes (like wearGlasses ...) -> no submenu required
                     {
 
-                        if (index + 1 < m_Attribs.attriList.size() && m_Attribs.attriList.get(index).groupId == m_Attribs.attriList.get(index + 1).groupId)
+                        if (index + 1 < m_Attribs.attributList.size() && m_Attribs.attributList.get(index).groupId == m_Attribs.attributList.get(index + 1).groupId)
                         {
 
-                            //String attriValStr = m_Attribs.attriList.get(index).attr + ": "+m_Attribs.attriList.get(index).value;
+                            //String attriValStr = m_Attribs.attributList.get(index).attr + ": "+m_Attribs.attributList.get(index).value;
 
-                            question = m_Attribs.attriList.get(index).attr;
-                            String curVal = m_Attribs.attriList.get(index).value;
+                            question = m_Attribs.attributList.get(index).attr;
+                            String curVal = m_Attribs.attributList.get(index).value;
                             listDataHeader.add(question);
                             List<String> curSubmenu = new ArrayList<String>();
                             curSubmenu.add(curVal);
@@ -526,7 +526,7 @@ public class GameBoardActivity extends AppCompatActivity
         {
             //btn.setAlpha(0.4f);
             btn.setClickable(false);
-            TurnCard(btn);
+            turnCard(btn);
         }
     }
 
@@ -855,10 +855,10 @@ public class GameBoardActivity extends AppCompatActivity
                     for (int index = 0; index < cardEnemy.attriList.size(); index++)
                     {
                         // look for attribut
-                        if (m_Attribs.attriList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
+                        if (m_Attribs.attributList.get(itemId).attr.equals(cardEnemy.attriList.get(index).attr))
                         {
                             // attribut (kategory) found, now compare value
-                            if (m_Attribs.attriList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
+                            if (m_Attribs.attributList.get(itemId).value.equals(cardEnemy.attriList.get(index).value))
                             {
                                 hasId = true;
                                 break;
@@ -894,14 +894,14 @@ public class GameBoardActivity extends AppCompatActivity
                         // look through all attributes to find the name of the clicked attributte  (hair, eyecolor ...), necessary because dynamic,
                         for (int index2 = 0; index2 < curCardList.Get(index1).attriList.size(); index2++)
                         {
-                            if (curCardList.Get(index1).attriList.get(index2).attr.equals(m_Attribs.attriList.get(itemId).attr))
+                            if (curCardList.Get(index1).attriList.get(index2).attr.equals(m_Attribs.attributList.get(itemId).attr))
                             {
                                 // hier muss unterschieden werden, ob die Person des Gegners das gewünschte Attribut hat oder nicht
                                 // wenn ja:
                                 if (hasId)
                                 {
                                     // add persons to list who have this attribute (klicked)
-                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attributList.get(itemId).value))
                                     {
                                         //System.out.println("Bin in if2");
                                         personsWithSameValue += curCardList.Get(index1).name + "\n";
@@ -915,7 +915,7 @@ public class GameBoardActivity extends AppCompatActivity
                                             //btn.setAlpha(0.4f);
                                             btn.setClickable(false);
 
-                                            TurnCard(btn);
+                                            turnCard(btn);
                                             CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
                                             System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + " index = " + index1);
                                         }
@@ -923,7 +923,7 @@ public class GameBoardActivity extends AppCompatActivity
                                 } else
                                 {
                                     // only add person to list (print) if they don't have this attribute
-                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attriList.get(itemId).value))
+                                    if (curCardList.Get(index1).attriList.get(index2).value.equals(m_Attribs.attributList.get(itemId).value))
                                     {
                                         if(s_TurnCardsAuto)
                                         {
@@ -931,7 +931,7 @@ public class GameBoardActivity extends AppCompatActivity
                                             //btn.setAlpha(0.4f);
                                             btn.setClickable(false);
 
-                                            TurnCard(btn);
+                                            turnCard(btn);
 
                                             CardsToRemove.add(index1);  // because we want to delete entries at the end, not now
                                             System.out.println("zu loeschende Person: " + curCardList.Get(index1).name + "index = " + index1);
@@ -995,7 +995,7 @@ public class GameBoardActivity extends AppCompatActivity
                             //btn.setAlpha(0.4f);
                             btn.setClickable(false);
 
-                            TurnCard(btn);
+                            turnCard(btn);
 
                             // remove from option menu
                             //System.out.println("Remove element: " + CardsToRemove.get(index) + "  "+curCardList.Get(CardsToRemove.get(index)).name);
@@ -1045,7 +1045,7 @@ public class GameBoardActivity extends AppCompatActivity
                     //btn.setAlpha(0.4f);
                     btn.setClickable(false);
 
-                    TurnCard(btn);
+                    turnCard(btn);
 
 
                     String msg = "Es ist leider nicht " + playerName;
@@ -1213,7 +1213,7 @@ public class GameBoardActivity extends AppCompatActivity
 
 
     /**
-     * Version 2
+     * Version
      * display cards on screen
      * uses gridView
      * displays all cards (incl. removed cards with less alpha)
@@ -1251,7 +1251,7 @@ public class GameBoardActivity extends AppCompatActivity
                 //ib.setAlpha(0.4f);
                 ib.setClickable(false);
 
-                TurnCard(ib);
+                turnCard(ib);
 
             }
 
@@ -1286,7 +1286,7 @@ public class GameBoardActivity extends AppCompatActivity
                             //btn.setAlpha(0.4f);
                             btn.setClickable(false);
 
-                            TurnCard(btn);
+                            turnCard(btn);
 
                             m_PlayerController.GetCurrentPlayer().cardListRemaining.RemoveCardByViewId(view.getId());
                         }
@@ -1317,13 +1317,13 @@ public class GameBoardActivity extends AppCompatActivity
      * reads cardsets from json file in raw folder
      * put them into string
      * because later maybe different sets (chinese, latino, ... ) -> maybe different files
-     * @param _cardsetName file name of the cardset
+     * @param _cardSetName file name of the cardset
      * @return String of extracted cardset json
      */
-    private String ReturnCardJSONAsString(String _cardsetName)
+    private String ReturnCardJSONAsString(String _cardSetName)
     {
         // outsourcing not recommended because memory leaks ... ( http://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class 08.05.15)
-        int ressourceId = getResources().getIdentifier(_cardsetName, "raw", getPackageName());
+        int ressourceId = getResources().getIdentifier(_cardSetName, "raw", getPackageName());
         InputStream is = getResources().openRawResource(ressourceId);
         return FileToString.ReadTextFile(is);
     }
@@ -1351,35 +1351,20 @@ public class GameBoardActivity extends AppCompatActivity
     {
         ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.MyDialogTheme );
         CustomAlertDialogBuilder alertDialogBuilder = new CustomAlertDialogBuilder(ctw);
-        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GameBoardActivity.this);
 
-        // set title
-        alertDialogBuilder.setTitle("Auswahl:");
-
-        //System.out.println("Bin in Display");
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Möchtest du "+_currentCard.name+" wählen?")
-                        // choose yes or no
+        alertDialogBuilder.setTitle("Auswahl:")
+                .setMessage("Möchtest du " + _currentCard.name + " wählen?")
                 .setCancelable(false)
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
                         m_PlayerController.GetCurrentPlayer().hasPlayersSelectedWhoHeIs = true;
-                        //if (m_PlayerController.HaveAllPlayersSelectedWhoTheyAre())
-                        //{
-                        //    HavePlayersSelectedWhoTheyAre = true;
-                        //}
-
-
                         m_PlayerController.GetCurrentPlayer().SetChosenCardId(_currentCard.id);
-                        System.out.println("Du hast " + _currentCard.name + " ausgewaehlt. ID = " + _currentCard.id);
                         dialog.cancel();
                         SetTitle("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + " : Beende deinen Zug!");
                         invalidateOptionsMenu();    // because now we have entries
-
-                        SetFinishButtonVisibility(true);    // make finish button visible
+                        SetFinishButtonVisibility(true);
                     }
                 })
                 .setNegativeButton("Nein", new DialogInterface.OnClickListener()
@@ -1390,9 +1375,7 @@ public class GameBoardActivity extends AppCompatActivity
                     }
                 })
         ;
-
         AlertDialog alertDialog = alertDialogBuilder.create();
-        // show alert
         alertDialog.show();
     }
 
@@ -1432,7 +1415,7 @@ public class GameBoardActivity extends AppCompatActivity
 
 
 
-    private void TurnCard(ImageButton _ImageButton)
+    private void turnCard(ImageButton _ImageButton)
     {
         int imageWidthHeight = GetImageWithHeight();
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.icon_x_big );

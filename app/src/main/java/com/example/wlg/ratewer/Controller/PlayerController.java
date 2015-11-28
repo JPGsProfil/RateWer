@@ -1,6 +1,5 @@
 package com.example.wlg.ratewer.Controller;
 
-import com.example.wlg.ratewer.Model.AIReturn;
 import com.example.wlg.ratewer.Model.AttribValue;
 import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.CardList;
@@ -205,10 +204,10 @@ public class PlayerController
 
         int lowestRemainingCards = 50000;
         List<IntInt> amountList = new ArrayList<IntInt>();
-        for(int index=0; index < attrList.attriList.size(); index ++)
+        for(int index=0; index < attrList.attributList.size(); index ++)
         {
             int amount = 0;
-            StringsToDisplayAttributes curAttribVal = attrList.attriList.get(index);
+            StringsToDisplayAttributes curAttribVal = attrList.attributList.get(index);
             String debug = "verbleibende Pers: ";
             for(int cardIndex=0; cardIndex < _cardListRemaining.GetSize(); cardIndex++)
             {
@@ -230,8 +229,8 @@ public class PlayerController
         {
             Collections.sort(amountList);
             int bestIndex = (_cardListRemaining.GetSize()-1)/2;
-            AttribValReturn.attr  = attrList.attriList.get(amountList.get(bestIndex).index).attr;
-            AttribValReturn.value = attrList.attriList.get(amountList.get(bestIndex).index).value;
+            AttribValReturn.attr  = attrList.attributList.get(amountList.get(bestIndex).index).attr;
+            AttribValReturn.value = attrList.attributList.get(amountList.get(bestIndex).index).value;
         }
         return AttribValReturn;
     }
@@ -260,20 +259,20 @@ public class PlayerController
         int targetId = _enemy.GetChosenCardId();
         AttributList attrList = new AttributList(_cardListRemaining);
         int lowestRemainingCards = 50000;
-        for(int index=0; index < attrList.attriList.size(); index ++)
+        for(int index=0; index < attrList.attributList.size(); index ++)
         {
             //System.out.println("deb: Index ist: "+index);
             CardList cardListCpy = new CardList(_cardListRemaining); // make copy, because each way has it's own attributlist
             int clcpysize = cardListCpy.GetSize();
             //System.out.println("cardListCpy Groesse: "+clcpysize+ " OrigListSize: "+_cardListRemaining.GetSize()); // wenn veraendert, dann nicht kopiert, sondern referenz
             // if enemy card has the target attribute -> remove all cards wich have not
-            if (cardListCpy.Get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+            if (cardListCpy.Get(cardListCpy.GetIndexFromCardId(targetId)).DoesCardContainAttrValue(attrList.attributList.get(index).attr,attrList.attributList.get(index).value))
             {
-                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
+                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attributList.get(index).attr,attrList.attributList.get(index).value);
             }
             else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
             {
-                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
+                cardListCpy.RemoveCardsWithAttriValue(attrList.attributList.get(index).attr, attrList.attributList.get(index).value);
             }
 
             int remainingCardsNew = cardListCpy.GetSize();
@@ -289,8 +288,8 @@ public class PlayerController
 
         // get Attrib and Value from list id
         AttributList attrListOrig = new AttributList(_cardListRemaining);
-        AttribValReturn.attr  = attrListOrig.attriList.get(bestMoveId).attr;
-        AttribValReturn.value = attrListOrig.attriList.get(bestMoveId).value;
+        AttribValReturn.attr  = attrListOrig.attributList.get(bestMoveId).attr;
+        AttribValReturn.value = attrListOrig.attributList.get(bestMoveId).value;
         return AttribValReturn;
     }
 
@@ -316,8 +315,8 @@ public class PlayerController
 //        AttribValue AttribValReturn = new AttribValue("IsIt","0");
 //        if(bestMove.attrValId != -1)
 //        {
-//            AttribValReturn.attr  = attrListOrig.attriList.get(bestMove.attrValId).attr;
-//            AttribValReturn.value = attrListOrig.attriList.get(bestMove.attrValId).value;
+//            AttribValReturn.attr  = attrListOrig.attributList.get(bestMove.attrValId).attr;
+//            AttribValReturn.value = attrListOrig.attributList.get(bestMove.attrValId).value;
 //        }
 //        // else use isIt instead of looking after attributes
 //        System.out.println("checked ways: "+CheckedWays);
@@ -340,7 +339,7 @@ public class PlayerController
 //        // if something changed:    // look at next deep
 //
 //        AttributList attrList = new AttributList(_cardListRemaining);
-//        for(int index=0; index < attrList.attriList.size(); index ++)
+//        for(int index=0; index < attrList.attributList.size(); index ++)
 //        {
 //            CheckedWays +=1;
 //            //System.out.println("Deep: "+_curDeep+ "  index: "+index);
@@ -348,16 +347,16 @@ public class PlayerController
 //            // get current index of the target card id:
 //            int targetId = cardListCpy.GetIndexFromCardId(_targetCardId);
 //
-//            String debug = "Ueberpruefe "+attrList.attriList.get(index).attr+ "  "+attrList.attriList.get(index).value;
+//            String debug = "Ueberpruefe "+attrList.attributList.get(index).attr+ "  "+attrList.attributList.get(index).value;
 //
 //            // if enemy card has the target attribute -> remove all cards wich have not
-//            if(cardListCpy.Get(targetId).DoesCardContainAttrValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value))
+//            if(cardListCpy.Get(targetId).DoesCardContainAttrValue(attrList.attributList.get(index).attr,attrList.attributList.get(index).value))
 //            {
-//                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attriList.get(index).attr,attrList.attriList.get(index).value);
+//                cardListCpy.RemoveCardsWithoutAttriValue(attrList.attributList.get(index).attr,attrList.attributList.get(index).value);
 //            }
 //            else    // target card has not asked attrivalue -> remove all cards which have have asked attrivalue
 //            {
-//                cardListCpy.RemoveCardsWithAttriValue(attrList.attriList.get(index).attr, attrList.attriList.get(index).value);
+//                cardListCpy.RemoveCardsWithAttriValue(attrList.attributList.get(index).attr, attrList.attributList.get(index).value);
 //            }
 //
 //            int remainingCardsNew = cardListCpy.GetSize();
@@ -394,7 +393,7 @@ public class PlayerController
 //            }
 //
 //
-//                    System.out.println("Ueberpruefe "+attrList.attriList.get(index).attr+ "  "+attrList.attriList.get(index).value);
+//                    System.out.println("Ueberpruefe "+attrList.attributList.get(index).attr+ "  "+attrList.attributList.get(index).value);
 //            if(tempReturn.rating < bestAIReturn.rating)
 //            {
 //                bestAIReturn = tempReturn;

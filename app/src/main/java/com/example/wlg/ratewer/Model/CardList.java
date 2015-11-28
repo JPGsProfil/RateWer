@@ -205,11 +205,11 @@ public class CardList
         List<String> valueList = new ArrayList();
         for(int cardIndex = 0; cardIndex < m_List.size(); cardIndex++)
         {
-            for(int attribIndex = 0; attribIndex < m_List.get(cardIndex).attriList.size())
+            for(int attribIndex = 0; attribIndex < m_List.get(cardIndex).attributList.size())
             {
-                if(m_List.get(cardIndex).attriList.get(attribIndex).attr.equals(_attribute))
+                if(m_List.get(cardIndex).attributList.get(attribIndex).attr.equals(_attribute))
                 {
-                    valueList.add(m_List.get(cardIndex).attriList.get(attribIndex).value);
+                    valueList.add(m_List.get(cardIndex).attributList.get(attribIndex).value);
                 }
             }
         }

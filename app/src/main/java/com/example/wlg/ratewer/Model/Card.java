@@ -45,7 +45,7 @@ public class Card
         image = _card.image;
         viewID = _card.viewID;
         imageID = _card.imageID;
-        //System.out.println("AttriValue List Groesse: "+_card.attriList.size());
+        //System.out.println("AttriValue List Groesse: "+_card.attributList.size());
         for(int index = 0; index < _card.attriList.size(); index ++)
         {
 
@@ -53,7 +53,7 @@ public class Card
             //System.out.println("curAttriValue " + curAttriValue.attr);
             attriList.add(curAttriValue);
         }
-        //System.out.println("Fertig mit cpy Card, neue attrvalList: "+attriList.size());
+        //System.out.println("Fertig mit cpy Card, neue attrvalList: "+attributList.size());
     }
 
     public boolean DoesCardContainAttrValue(String _attr, String _val)

@@ -20,12 +20,12 @@ public class Card_New {
     public Card_New( String _name, String _image, AttributeContainer_New _attributes)
     {
         id          = generateNextID();
-        attributes = _attributes;
-        image = _image;
-        name = _name;
-        viewID = 0;
-        imageID = 0;
-        isVisible = true;
+        attributes  = _attributes;
+        image       = _image;
+        name        = _name;
+        viewID      = 0;
+        imageID     = 0;
+        isVisible   = true;
 
     }
 

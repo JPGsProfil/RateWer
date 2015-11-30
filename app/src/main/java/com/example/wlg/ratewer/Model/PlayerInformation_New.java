@@ -12,7 +12,7 @@ public class PlayerInformation_New {
     private int playerID;
     private EAIDifficulty aiDifficulty;
     public AttributList attributesRemaining; // each player has his/her own attributlist(each player can see individual option menu)
-    public CardList cardsRemaining;  // same as attriblist
+    private CardList cardsRemaining;  // same as attriblist
     public boolean hasSelectedACard;   // because the real game can start if both players selected their character
 
     public PlayerInformation_New()
@@ -26,7 +26,7 @@ public class PlayerInformation_New {
         hasSelectedACard = false;
     }
 
-    public void refreshAttributs()
+    public void refreshAttributes()
     {
         attributesRemaining = new AttributList(cardsRemaining);
     }
@@ -66,5 +66,14 @@ public class PlayerInformation_New {
     public EAIDifficulty getAiDifficulty()
     {
         return aiDifficulty;
+    }
+
+    public CardList getCardsRemaining() {
+        return cardsRemaining;
+    }
+
+    public  int getAmountOfCardsRemaining()
+    {
+        return cardsRemaining.GetSize();
     }
 }

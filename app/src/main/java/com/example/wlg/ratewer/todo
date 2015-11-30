@@ -9,15 +9,15 @@ Code auslagern in Gamemanager Controller
 landscape: in activity_board_question Fkt: addButtonsDynamic()
 
 
-setOnGroupClickListener -> Überprüfte Wörter auslagern ( bei ja nein Fragen soll es kein Untermenü geben ) (schaue ob "ja", "nein" "yes" ....)
+setOnGroupClickListener -> ï¿½berprï¿½fte Wï¿½rter auslagern ( bei ja nein Fragen soll es kein Untermenï¿½ geben ) (schaue ob "ja", "nein" "yes" ....)
 
 !!!!!Umklappanimation (Swipe) !!!!!!!!!!!!!!!!!!!!!
 
 Sabine:
     Hardgecoded Text Auslagern  (R.id. ...)
 
-Bilder erstellen (Köpfe)
-Warten einbauen für anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
+Bilder erstellen (Kï¿½pfe)
+Warten einbauen fï¿½r anzeige vom KI Zug  // AITurn oder besser: BeginNewTurn()
 
 Card class Zeile 61
 
@@ -44,21 +44,21 @@ Jean
 
 
 bei ja nein Fragen:
-    ist person männlich? keine Antwort
-    done: Größe anpassen der Bilder (Skallieren) oder scrollen
+    ist person mï¿½nnlich? keine Antwort
+    done: Grï¿½ï¿½e anpassen der Bilder (Skallieren) oder scrollen
     done: margin zwischen Bilder wie in Design
     done: Karten automatisch umklappen                            //OnOptionItemSelected  ->setClickable
 
 Design (StartNewGame bsp Auswahl der Schwierigkeitsstufe als Slider statt aufklappend ...)
-Optionsmenu Design wenn nur noch 2 Elemente übrig sind -> Hat Bart ja, hat Bart nein ...
-Verzögerung zwischen 2 Bildschirmausgaben einbauen
+Optionsmenu Design wenn nur noch 2 Elemente ï¿½brig sind -> Hat Bart ja, hat Bart nein ...
+Verzï¿½gerung zwischen 2 Bildschirmausgaben einbauen
 
 
     Runde beenden : in FUnktionen auslagern, z.B.:
     TextView tv_title = (TextView) findViewById(R.id.tv_Title_Ingame);
             ist immer wieder das selbe, Spieler X, mache deinen ZUg, beende deinen ZUg ...
 
-Texte durch konstanten ersetzen, am besten in @string, damit mehrere sprachen möglich sind
+Texte durch konstanten ersetzen, am besten in @string, damit mehrere sprachen mï¿½glich sind
     Bsp.:  StartNewGameActicity.java zeile87
     tv_title.setText("Spieler " + m_PlayerController.GetCurrentPlayer().GetPlayerID() + ": Beende den Zug!");
     lastIntent.putExtra("msg", "gewonnen");
@@ -84,44 +84,49 @@ Landscape Modus
 Statistiken
 Profil Name bei Start
 
-neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen möglich
+neues Set: Pflanzen + Plants -> Spiel in verschiedenen Sprachen mï¿½glich
 
 
 
 done:image handling via glide
 done: glide resizing image  // without glide
 
-Extra Thread für Hellseher Zugberechnung,
-    diese gleich am Anfang, während Spieler eins noch dran ist -> dann fällt es nicht so auf
+Extra Thread fï¿½r Hellseher Zugberechnung,
+    diese gleich am Anfang, wï¿½hrend Spieler eins noch dran ist -> dann fï¿½llt es nicht so auf
     Hellseher Performance Optimierung
 
 
-sauebere Implementierung von compareTo in AttribValue bzw. Festlegung eines Standards für bool (true, false, 0,1, ja, nein ...) (json)
+sauebere Implementierung von compareTo in AttribValue bzw. Festlegung eines Standards fï¿½r bool (true, false, 0,1, ja, nein ...) (json)
 
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 
 done:
-Speicherproblem -> Überbleibsel wenn zurück button und neues Spiel
--> Speicherfreigabe nach zurück-button sicherstellen, weil wenn zu oft -> Absturz
+Speicherproblem -> ï¿½berbleibsel wenn zurï¿½ck button und neues Spiel
+-> Speicherfreigabe nach zurï¿½ck-button sicherstellen, weil wenn zu oft -> Absturz
 activity beenden oder so
 
-id auf -1 bei optionsmenü items die unwichtig sind,
+id auf -1 bei optionsmenï¿½ items die unwichtig sind,
 dann index bei 0 statt 1 beginnen (ansonten fehlen Elemente)
 
-KI: is it? random -> später ki, damit Zug möglich ist
+KI: is it? random -> spï¿½ter ki, damit Zug mï¿½glich ist
 ausgeschlossenbyplayerone
 
 wenn Karte umgeklappt, dann visibility --
 und setclickable = false
 
-Siegernachricht ändern
-da Spieler gegen SPieler möglich ist
-"Du hast gewonnen oder verloren ungünstig"
+Siegernachricht ï¿½ndern
+da Spieler gegen SPieler mï¿½glich ist
+"Du hast gewonnen oder verloren ungï¿½nstig"
 
-Toast (attrib anzeigen) hübscher machen
+Toast (attrib anzeigen) hï¿½bscher machen
     ich meinte eigentlich die Dialoge, aber toast ist auch nicht ganz falsch^^
 
-Layover als ablöse für Navipunkt    // idealerweise custom option menu // done
+Layover als ablï¿½se fï¿½r Navipunkt    // idealerweise custom option menu // done
 Optionsmenu unten
+
+-------------------------- neuer Kram MC2------------------------
+
+
+ was macht IntInt?

@@ -1,5 +1,6 @@
 package com.example.wlg.ratewer.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,6 +10,18 @@ public class Attribute_New implements Comparable<Attribute_New>{
 
     private String name;
     private List<String> values;
+
+    /*
+    escpially useful for the questions
+     */
+    public  Attribute_New(String _name, String _value)
+    {
+        name = _name;
+
+        List singleAttributList = new ArrayList<String>();
+        singleAttributList.add(_value);
+
+    }
 
     public Attribute_New(String _name, List<String> _values)
     {

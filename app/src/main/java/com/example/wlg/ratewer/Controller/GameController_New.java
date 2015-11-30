@@ -1,11 +1,9 @@
 package com.example.wlg.ratewer.Controller;
 
-import com.example.wlg.ratewer.Model.PlayerInformation;
-
 /**
  * Created by Jean on 21.04.2015.
  */
-public class GameController
+public class GameController_New
 {
 
     private enum EGamePhase {SelectCards, AskQuestions };
@@ -13,8 +11,8 @@ public class GameController
     private int amountOfPlayers;
     private int indexOfCurrentPlayer;
     private EGamePhase gamePhase;
-    private PlayerController_New [] playerControllers;
-    private PlayerController_New currentPlayerController;
+    private PlayerControllerAbstract_New[] playerControllers;
+    private PlayerControllerAbstract_New currentPlayerController;
 
 
     public void onStart()
@@ -34,12 +32,12 @@ public class GameController
 
     }
 
-    public void setPlayerController(PlayerController_New _playerController, int _index)
+    public void setPlayerController(PlayerControllerAbstract_New _playerController, int _index)
     {
         playerControllers[_index] = _playerController;
     }
 
-    public PlayerController_New getPlayerController(int _index)
+    public PlayerControllerAbstract_New getPlayerController(int _index)
     {
         if (_index < amountOfPlayers) {
         return playerControllers[_index];
@@ -48,12 +46,12 @@ public class GameController
         return null;
     }
 
-    public int getIndexofCurrentPlayerController()
+    public int getIndexOfCurrentPlayerController()
     {
         return indexOfCurrentPlayer ;
     }
 
-    public int getIndexofNextPlayerController()
+    public int getIndexOfNextPlayerController()
     {
         return (indexOfCurrentPlayer++ )% amountOfPlayers ;
     }

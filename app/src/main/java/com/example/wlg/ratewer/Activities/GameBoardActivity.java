@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.example.wlg.ratewer.Controller.AIController;
+//import com.example.wlg.ratewer.Controller.AIPlayerController;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
 import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
@@ -111,7 +111,7 @@ public class GameBoardActivity extends AppCompatActivity
                 difficulty = diff;
             }
         }
-        //m_AIController = new AIController(difficulty);
+        //m_AIController = new AIPlayerController(difficulty);
         //  m_PlayerController.GetSecondPlayer().SetAiDifficulty(difficulty);   // not used at the moment
         // lIst with all cards and their attributes
         cardList = new CardList(ReturnCardJSONAsString(usedCardset));

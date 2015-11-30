@@ -1,13 +1,11 @@
 package com.example.wlg.ratewer.Model;
 
-import com.example.wlg.ratewer.Controller.PlayerController_New;
-
 /**
  * Created by RareHue on 26.11.2015.
  */
 public class PlayerInformation_New {
 
-    public enum EAIDifficulty {Easy,Normal, Average, Hard}; // should go in another class like the ai controller
+    public enum EAIDifficulty {EASY,NORMAL, HARD, VERYHARD};
 
     private int selectedCardID;
     private boolean isAI;

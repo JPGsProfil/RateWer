@@ -240,6 +240,20 @@ public class CardList
                 List<AttribValue> curAttrValueList = new ArrayList<>();
 
                 JSONObject curCardobj = new JSONObject(allCards.get(index).toString());
+                // new: card seperated in meta-inf and attribute
+                JSONObject currentCardMetaInfobj = curCardobj.getJSONObject("metaInf");
+                Iterator MetaInfIterator = currentCardMetaInfobj.keys();
+                while (MetaInfIterator.hasNext())
+                {
+                    // get Attribute (eg Haircolor)
+                    String currentAttribute = (String) MetaInfIterator.next();
+                    // get 	associated value
+                    String currentValue = curCardobj.getString(currentAttribute);
+                    String debug = "Attribut: " + currentAttribute + " Wert: " + currentValue;
+                    System.out.println(debug);
+                }
+
+
                 Iterator curCardKeysIt = curCardobj.keys();
                 //Iterator curCardValueIt = ;
                 while (curCardKeysIt.hasNext())

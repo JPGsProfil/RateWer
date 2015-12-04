@@ -242,7 +242,6 @@ public class CardList
                 JSONObject curCardobj = new JSONObject(allCards.get(index).toString());
                 // new: card seperated in meta-inf and attribute
                 JSONObject currentCardMetaInfobj = curCardobj.getJSONObject("metaInf");
-                System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardMetaInfobj.length());
 
                 String currrentCardName = currentCardMetaInfobj.getString("name");
                 System.out.println("Kartenname " + currrentCardName);
@@ -251,14 +250,13 @@ public class CardList
                 //curId = currentCardMetaInfobj.getString("id");
 
                 JSONObject currentCardAttributes = curCardobj.getJSONObject("Attribute");
-                System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardAttributes.length());
                 Iterator curCardKeysIt = currentCardAttributes.keys();
                 while (curCardKeysIt.hasNext())
                 {
                     String curCat = (String) curCardKeysIt.next();
-                    System.out.println("curCat: " + curCat);
+                    //System.out.println("curCat: " + curCat);
                     String curValue = currentCardAttributes.getString(curCat);
-                    System.out.println(" curValue "+ curValue);
+                    //System.out.println(" curValue "+ curValue);
                     // handle bool
                     // not necessary if well formed json
                     if (curValue.equals("")  || curValue.equals("0") || curValue.equals("false"))
@@ -270,14 +268,12 @@ public class CardList
                         curValue = "yes";
                     }
 
-
                     AttribValue curAttribValue = new AttribValue(curCat,curValue);
                     curAttrValueList.add(curAttribValue);
                 }
                 Card curCard = new Card(curName,curimage,curAttrValueList);
                 m_List.add(curCard);
             }
-
         }
         catch (Exception e)
         {

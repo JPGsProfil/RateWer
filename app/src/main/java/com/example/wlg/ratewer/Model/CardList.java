@@ -242,24 +242,44 @@ public class CardList
                 JSONObject curCardobj = new JSONObject(allCards.get(index).toString());
                 // new: card seperated in meta-inf and attribute
                 JSONObject currentCardMetaInfobj = curCardobj.getJSONObject("metaInf");
-                Iterator MetaInfIterator = currentCardMetaInfobj.keys();
+                System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardMetaInfobj.length());
+                /*Iterator MetaInfIterator = currentCardMetaInfobj.keys();
                 while (MetaInfIterator.hasNext())
                 {
                     // get Attribute (eg Haircolor)
                     String currentAttribute = (String) MetaInfIterator.next();
                     // get 	associated value
+
                     String currentValue = curCardobj.getString(currentAttribute);
                     String debug = "Attribut: " + currentAttribute + " Wert: " + currentValue;
                     System.out.println(debug);
+                }*/
+                String currrentCardName = currentCardMetaInfobj.getString("name");
+                System.out.println("Kartenname " + currrentCardName);
+                curName = currrentCardName;
+                curimage = currentCardMetaInfobj.getString("image");
+                //curId = currentCardMetaInfobj.getString("id");
+                /*
+                else if(curCat.equals("image"))
+                {
+                    curimage = curValue;
                 }
 
+                else if(curCat.equals("id"))    // because we don't want the id as question
+                {
+                    //curId = curValue; not needed, shuffle later
+                }*/
 
-                Iterator curCardKeysIt = curCardobj.keys();
+                JSONObject currentCardAttributes = curCardobj.getJSONObject("Attribute");
+                System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardAttributes.length());
+                Iterator curCardKeysIt = currentCardAttributes.keys();
                 //Iterator curCardValueIt = ;
                 while (curCardKeysIt.hasNext())
                 {
                     String curCat = (String) curCardKeysIt.next();
-                    String curValue = curCardobj.getString(curCat);
+                    System.out.println("curCat: " + curCat);
+                    String curValue = currentCardAttributes.getString(curCat);
+                    System.out.println(" curValue "+ curValue);
                     // handle bool
                     // not necessary if well formed json
                     if (curValue.equals("")  || curValue.equals("0") || curValue.equals("false"))
@@ -272,24 +292,12 @@ public class CardList
                     }
 
                     //System.out.println("curCat " + curCat + "   value: "+curValue);
-                    if(curCat.equals("name"))
-                    {
-                        curName = curValue;
-                    }
-                    else if(curCat.equals("image"))
-                    {
-                        curimage = curValue;
-                    }
-
-                    else if(curCat.equals("id"))    // because we don't want the id as question
-                    {
-                        //curId = curValue; not needed, shuffle later
-                    }
-                    else
-                    {
-                        AttribValue curAttribValue = new AttribValue(curCat,curValue);
-                        curAttrValueList.add(curAttribValue);
-                    }
+                    //////////////////////!!!!!!!!!!!!!!!!!!!!!!!
+                    //else
+                    //{
+                    AttribValue curAttribValue = new AttribValue(curCat,curValue);
+                    curAttrValueList.add(curAttribValue);
+                    //} ///////!!!!!!!!!!!!!!!!!!!!!!
                 }
                 Card curCard = new Card(curName,curimage,curAttrValueList);
                 m_List.add(curCard);

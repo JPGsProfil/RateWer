@@ -226,7 +226,7 @@ public class CardList
      */
     private void FillCardList(String _jsonCardString)
     {
-        //System.out.println("jsonString "+_jsonCardString);
+        System.out.println("jsonString "+_jsonCardString);
         try
         {
             JSONObject JSONcomplete = new JSONObject(_jsonCardString);
@@ -243,37 +243,16 @@ public class CardList
                 // new: card seperated in meta-inf and attribute
                 JSONObject currentCardMetaInfobj = curCardobj.getJSONObject("metaInf");
                 System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardMetaInfobj.length());
-                /*Iterator MetaInfIterator = currentCardMetaInfobj.keys();
-                while (MetaInfIterator.hasNext())
-                {
-                    // get Attribute (eg Haircolor)
-                    String currentAttribute = (String) MetaInfIterator.next();
-                    // get 	associated value
 
-                    String currentValue = curCardobj.getString(currentAttribute);
-                    String debug = "Attribut: " + currentAttribute + " Wert: " + currentValue;
-                    System.out.println(debug);
-                }*/
                 String currrentCardName = currentCardMetaInfobj.getString("name");
                 System.out.println("Kartenname " + currrentCardName);
                 curName = currrentCardName;
                 curimage = currentCardMetaInfobj.getString("image");
                 //curId = currentCardMetaInfobj.getString("id");
-                /*
-                else if(curCat.equals("image"))
-                {
-                    curimage = curValue;
-                }
-
-                else if(curCat.equals("id"))    // because we don't want the id as question
-                {
-                    //curId = curValue; not needed, shuffle later
-                }*/
 
                 JSONObject currentCardAttributes = curCardobj.getJSONObject("Attribute");
                 System.out.println(" Anz Objekte in currentCardMetaInfobj: " + currentCardAttributes.length());
                 Iterator curCardKeysIt = currentCardAttributes.keys();
-                //Iterator curCardValueIt = ;
                 while (curCardKeysIt.hasNext())
                 {
                     String curCat = (String) curCardKeysIt.next();
@@ -291,13 +270,9 @@ public class CardList
                         curValue = "yes";
                     }
 
-                    //System.out.println("curCat " + curCat + "   value: "+curValue);
-                    //////////////////////!!!!!!!!!!!!!!!!!!!!!!!
-                    //else
-                    //{
+
                     AttribValue curAttribValue = new AttribValue(curCat,curValue);
                     curAttrValueList.add(curAttribValue);
-                    //} ///////!!!!!!!!!!!!!!!!!!!!!!
                 }
                 Card curCard = new Card(curName,curimage,curAttrValueList);
                 m_List.add(curCard);

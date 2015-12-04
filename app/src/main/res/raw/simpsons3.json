@@ -1,0 +1,369 @@
+{
+  "cards": [
+    {
+      "metaInf":{
+        "id": 1,
+        "name": "Abe",
+        "image": "si_abe"
+      },
+      "Attribute":{
+        "Haarfarbe": "gelb",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "ja",
+        "Alter": "Rentner",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 2,
+        "name": "Apu",
+        "image": "si_apu"
+      },
+      "Attribute":{
+        "Haarfarbe": "dunkelgrau",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Versorgungsindustrie"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 3,
+        "name": "Bart",
+        "image": "si_bart"
+      },
+      "Attribute":{
+        "Haarfarbe": "gelb",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 4,
+        "name": "Burns",
+        "image": "si_burns"
+      },
+      "Attribute":{
+        "Haarfarbe": "grau",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Rentner",
+        "Arbeitsplatz": "Versorgungsindustrie"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 5,
+        "name": "Horatio",
+        "image": "si_captain_horatio"
+      },
+      "Attribute":{
+        "Haarfarbe": "grau",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Versorgungsindustrie"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 6,
+        "name": "Edna",
+        "image": "si_edna"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Schule"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 7,
+        "name": "Gheet",
+        "image": "si_gheet"
+      },
+      "Attribute":{
+        "Haarfarbe": "schwarz",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 8,
+        "name": "Homer",
+        "image": "si_homer"
+      },
+      "Attribute":{
+        "Haarfarbe": "schwarz",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Versorgungsindustrie"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 9,
+        "name": "Janey",
+        "image": "si_janey"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 10,
+        "name": "Kent",
+        "image": "si_kent"
+      },
+      "Attribute":{
+        "Haarfarbe": "weiß",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Unterhaltung"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 11,
+        "name": "Lisa",
+        "image": "si_lisa"
+      },
+      "Attribute":{
+        "Haarfarbe": "gelb",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 12,
+        "name": "Maggie",
+        "image": "si_maggie"
+      },
+      "Attribute":{
+        "Haarfarbe": "gelb",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 13,
+        "name": "Manjula",
+        "image": "si_manjula"
+      },
+      "Attribute":{
+        "Haarfarbe": "schwarz",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 14,
+        "name": "Marge",
+        "image": "si_marge"
+      },
+      "Attribute":{
+        "Haarfarbe": "blau",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 15,
+        "name": "Mel",
+        "image": "si_mel"
+      },
+      "Attribute":{
+        "Haarfarbe": "grün",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Unterhaltung"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 16,
+        "name": "Milhouse",
+        "image": "si_milhouse"
+      },
+      "Attribute":{
+        "Haarfarbe": "blau",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "ja",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 17,
+        "name": "Ned",
+        "image": "si_ned"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Rentner",
+        "Arbeitsplatz": "Versorgungsindustrie"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 18,
+        "name": "Nelson",
+        "image": "si_nelson"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 19,
+        "name": "Ralph",
+        "image": "si_ralph"
+      },
+      "Attribute":{
+        "Haarfarbe": "schwarz",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 20,
+        "name": "Sashi",
+        "image": "si_sashi"
+      },
+      "Attribute":{
+        "Haarfarbe": "schwarz",
+        "Hat Bart": "nein",
+        "Ist weiblich": "ja",
+        "Trägt Brille": "nein",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 21,
+        "name": "Skinner",
+        "image": "si_skinner"
+      },
+      "Attribute":{
+        "Haarfarbe": "grau",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Schule"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 22,
+        "name": "Stu",
+        "image": "si_stu"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "ja",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Unterhaltung"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 23,
+        "name": "Todd",
+        "image": "si_todd"
+      },
+      "Attribute":{
+        "Haarfarbe": "braun",
+        "Hat Bart": "nein",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "ja",
+        "Alter": "Kind",
+        "Arbeitsplatz": "arbeitslos"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 24,
+        "name": "Chalmers",
+        "image": "si_chalmers"
+      },
+      "Attribute":{
+        "Haarfarbe": "grau",
+        "Hat Bart": "ja",
+        "Ist weiblich": "nein",
+        "Trägt Brille": "nein",
+        "Alter": "Erwachsen",
+        "Arbeitsplatz": "Schule"
+      }
+    }
+  ]
+}

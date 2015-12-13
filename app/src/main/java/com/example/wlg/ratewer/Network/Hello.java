@@ -1,4 +1,4 @@
-package com.example.wlg.ratewer.API;
+package com.example.wlg.ratewer.Network;
 
 /**
  * Created by RareHue on 11.12.2015.
@@ -15,6 +15,12 @@ public class Hello {
 
     public String getContent() {
         return this.content;
+    }
+
+    public  Hello
+        (String id, String content ) {
+        this.id = id;
+        this.content = content;
     }
 
 }

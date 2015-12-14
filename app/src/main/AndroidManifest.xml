@@ -69,6 +69,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
         </activity>
+        <activity
+            android:name=".Activities.AndroidRESTClientActivity"
+            android:label="AndroidRESTClientActivity"
+            android:parentActivityName=".Activities.StartNewGameActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
+        </activity>
     </application>
 
 </manifest>

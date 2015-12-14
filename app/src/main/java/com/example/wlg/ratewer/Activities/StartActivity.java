@@ -34,7 +34,8 @@ public class StartActivity extends ActionBarActivity {
         bOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                final Intent firstIntent = new Intent(v.getContext(), OptionsActivity.class);
+                //final Intent firstIntent = new Intent(v.getContext(), OptionsActivity.class);
+                final Intent firstIntent = new Intent(v.getContext(), AndroidRESTClientActivity.class);
                 startActivity(firstIntent);
             }
         });

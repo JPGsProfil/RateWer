@@ -1,0 +1,248 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.wlg.ratewer.Activities.EndGameActivity"
+    android:background="@color/backgroundbright">
+    <FrameLayout
+        style="@style/GreenBarTop"
+        android:id="@+id/aeg_gbt"
+        ></FrameLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:id="@+id/LL1">
+        <Button
+            android:background="@color/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="&lt;"
+            android:textSize="60sp"
+            android:id="@+id/bBack"
+            android:layout_alignTop="@+id/aeg_gbt"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="Online Lobby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_eg_msg"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold|italic"
+            android:textColor="@color/textcolorbright"
+            android:padding="40dip"
+            android:background="@color/primary"
+            />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_set_new_online_game"
+        android:id="@+id/bCreateOnlineGame"
+        android:background="@color/primary"
+        android:layout_below="@+id/LL1"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/textcolorbright"
+        android:layout_margin="10sp"
+        android:padding="20dp"/>
+
+    <TableLayout
+        android:background="@color/primary"
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bCreateOnlineGame"
+        android:stretchColumns="1"
+        android:padding="10dip"
+        android:gravity="center_horizontal">
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Online Spiele"
+                android:textSize="24dp" >
+            </TextView>
+        </TableRow>
+        <View
+            android:layout_height="2dp"
+            android:background="@color/textcolorbright" />
+
+        <TableRow
+            android:id="@+id/tableRow5">
+
+            <TextView
+
+                android:id="@+id/textView4"
+                android:background="#00022FFF"
+
+                android:text="TestSpiel 1"
+                android:textSize="18dp"
+                android:padding="3dip">
+            </TextView>
+            <TextView
+                android:id="@+id/textView2"
+                android:gravity="right"
+                android:text="Offen"
+                android:padding="3dip"
+                android:textSize="18dp" >
+            </TextView>
+        </TableRow>
+
+        <View
+            android:layout_height="2dp"
+            android:background="@color/textcolorbright" />
+
+        <TableRow
+            android:id="@+id/tableRow6">
+
+            <TextView
+                android:id="@+id/textView5"
+
+                android:text="TestSpiel 2"
+                android:textSize="18dp"
+                android:padding="3dip">
+            </TextView>
+            <TextView
+                android:id="@+id/textView3"
+                android:gravity="right"
+                android:text="Gestartet"
+                android:padding="3dip"
+                android:textSize="18dp" >
+            </TextView>
+        </TableRow>
+
+        <View
+            android:layout_height="2dp"
+            android:background="@color/textcolorbright" />
+
+        <TableRow
+            android:id="@+id/tableRow7">
+
+            <TextView
+
+                android:id="@+id/textView7"
+                android:background="#00022FFF"
+
+                android:text="Simpson"
+                android:textSize="18dp"
+                android:padding="3dip">
+            </TextView>
+            <TextView
+                android:id="@+id/textView6"
+                android:gravity="right"
+                android:text="Gestartet"
+                android:padding="3dip"
+                android:textSize="18dp" >
+            </TextView>
+        </TableRow>
+
+    <View
+        android:layout_height="2dp"
+        android:background="@color/textcolorbright" />
+
+    <TableRow
+        android:id="@+id/tableRow8">
+
+        <TextView
+
+            android:id="@+id/textView8"
+            android:background="#00022FFF"
+
+            android:text=""
+            android:textSize="18dp"
+            android:padding="3dip">
+        </TextView>
+        <TextView
+            android:id="@+id/textView10"
+            android:gravity="right"
+            android:text=""
+            android:padding="3dip"
+            android:textSize="18dp" >
+        </TextView>
+    </TableRow>
+
+        <View
+            android:layout_height="2dp"
+            android:background="@color/textcolorbright" />
+
+        <TableRow
+            android:id="@+id/tableRow9">
+
+            <TextView
+
+                android:background="#00022FFF"
+
+                android:text=""
+                android:textSize="18dp"
+                android:padding="3dip">
+            </TextView>
+            <TextView
+                android:gravity="right"
+                android:text=""
+                android:padding="3dip"
+                android:textSize="18dp" >
+            </TextView>
+        </TableRow>
+
+        <View
+        android:layout_height="2dp"
+        android:background="@color/textcolorbright" />
+
+        <TableRow
+            android:id="@+id/tableRow10">
+
+            <TextView
+
+                android:background="#00022FFF"
+
+                android:text=""
+                android:textSize="18dp"
+                android:padding="3dip">
+            </TextView>
+            <TextView
+                android:gravity="right"
+                android:text=""
+                android:padding="3dip"
+                android:textSize="18dp" >
+            </TextView>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+
+        android:textColor="@color/textcolorbright"
+        android:text="Spiel beitretten"
+        android:id="@+id/onlineJoinGame"
+        android:padding="20dp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

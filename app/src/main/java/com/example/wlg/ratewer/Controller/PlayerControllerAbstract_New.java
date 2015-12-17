@@ -6,8 +6,6 @@ package com.example.wlg.ratewer.Controller;
  * more than 2 players possible in future
  */
 
-import com.example.wlg.ratewer.Model.Attribute_New;
-import com.example.wlg.ratewer.Model.CardList;
 import com.example.wlg.ratewer.Model.PlayerInformation_New;
 import com.example.wlg.ratewer.Model.Question_New;
 

@@ -21,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.example.wlg.ratewer.Controller.AIPlayerController;
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;
 import com.example.wlg.ratewer.Builder.CustomAlertDialogBuilder;
 import com.example.wlg.ratewer.Controller.PlayerController;
@@ -38,6 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+//import com.example.wlg.ratewer.Controller.AIPlayerController;
 
 public class GameBoardActivity extends AppCompatActivity
 {

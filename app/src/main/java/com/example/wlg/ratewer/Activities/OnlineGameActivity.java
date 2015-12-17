@@ -3,32 +3,52 @@ package com.example.wlg.ratewer.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 
 import com.example.wlg.ratewer.R;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StartActivity extends ActionBarActivity {
+/**
+ * Created by Sabine on 16.12.2015.
+ */
+public class OnlineGameActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_menu);
+        setContentView(R.layout.activity_online_board);
 
 
-
-        final Button bStartGame = (Button) findViewById(R.id.bStart);
-        bStartGame.setOnClickListener(new View.OnClickListener() {
+        final Button bCreateOnlineGame = (Button) findViewById(R.id.bCreateOnlineGame);
+        bCreateOnlineGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), StartNewGameActivity.class);
+
+                final Intent firstIntent = new Intent(v.getContext(), StartNewOnlineGameActivity.class);
+
                 startActivity(firstIntent);
             }
         });
 
+        final Button bBack = (Button) findViewById(R.id.bBack);
+        bBack.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
+                startActivity(firstIntent);
+            }
+        });
+
+/*
         final Button bOnlineGame = (Button) findViewById(R.id.bOnline);
         bOnlineGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
@@ -38,14 +58,6 @@ public class StartActivity extends ActionBarActivity {
             }
         });
 
-        final Button bSetCreator = (Button) findViewById(R.id.bSetCreator);
-        bSetCreator.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
-                startActivity(firstIntent);
-            }
-        });
 
         final Button bOptions = (Button) findViewById(R.id.bOptions);
         bOptions.setOnClickListener(new View.OnClickListener() {
@@ -75,37 +87,9 @@ public class StartActivity extends ActionBarActivity {
                 finish();
             }
         });
-
+*/
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_start, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.aEnd || id == R.id.bEnd)
-        {
-            finish();
-            return true;
-        }
-
-
-
-        return super.onOptionsItemSelected(item);
-    }
 }
+
+

@@ -1,10 +1,12 @@
 package com.example.wlg.ratewer.Builder;
+
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.wlg.ratewer.R;
 
 /**

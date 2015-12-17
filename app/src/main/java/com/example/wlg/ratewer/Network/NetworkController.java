@@ -1,10 +1,6 @@
 package com.example.wlg.ratewer.Network;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
-
-import java.net.NetworkInterface;
 
 import retrofit.Retrofit;
 

@@ -1,19 +1,6 @@
 package com.example.wlg.ratewer.Controller;
 
-import com.example.wlg.ratewer.Model.AttribValue;
-import com.example.wlg.ratewer.Model.AttributList;
-import com.example.wlg.ratewer.Model.AttributeContainer_New;
-import com.example.wlg.ratewer.Model.Attribute_New;
-import com.example.wlg.ratewer.Model.CardList;
-import com.example.wlg.ratewer.Model.IntInt;
-import com.example.wlg.ratewer.Model.PlayerInformation;
-import com.example.wlg.ratewer.Model.PlayerInformation_New;
 import com.example.wlg.ratewer.Model.Question_New;
-import com.example.wlg.ratewer.Model.StringsToDisplayAttributes;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by RareHue on 30.11.2015.

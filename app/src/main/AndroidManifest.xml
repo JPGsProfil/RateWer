@@ -29,6 +29,22 @@
                 android:value=".Activities.StartActivity" />
         </activity>
         <activity
+            android:name=".Activities.OnlineGameActivity"
+            android:label="Online Game"
+            android:parentActivityName=".Activities.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.StartActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.CreatorMenuActivity"
+            android:label="Create Set"
+            android:parentActivityName=".Activities.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.StartActivity" />
+        </activity>
+        <activity
             android:name=".Activities.OptionsActivity"
             android:label="@string/title_activity_options"
             android:parentActivityName=".Activities.StartActivity"
@@ -69,6 +85,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
         </activity>
+        <activity
+            android:name=".Activities.StartNewOnlineGameActivity"
+            android:label="New Online Game"
+            android:parentActivityName=".Activities.OnlineGameActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.CreatorSetActivity"
+            android:label="New Set"
+            android:parentActivityName=".Activities.CreatorMenuActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Activities.CreatorCardActivity"
+            android:label="New Card"
+            android:parentActivityName=".Activities.CreatorSetActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
     </application>
 
 </manifest>

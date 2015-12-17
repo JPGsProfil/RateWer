@@ -3,8 +3,6 @@ package com.example.wlg.ratewer.Adapter;
 /**
  * Created by RareHue on 30.06.2015.
  */
-import java.util.HashMap;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,6 +13,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.R;
+
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {

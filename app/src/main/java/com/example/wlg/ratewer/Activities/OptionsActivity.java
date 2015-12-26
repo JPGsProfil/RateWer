@@ -1,9 +1,12 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.wlg.ratewer.R;
 
@@ -14,6 +17,22 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        //TODO: set Text of button according to the login status (Button) findViewById(R.id.btnOptionLogin)
+
+        //btnOptionLogin
+        final Button bOptionLogin = (Button) findViewById(R.id.btnOptionLogin);
+        bOptionLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO: checkup parameter if user is logged in
+                if (true) {
+                    //TODO: logout function for the user
+                } else {
+                    final Intent firstIntent = new Intent(v.getContext(), StartNewGameActivity.class);
+                    startActivity(firstIntent);
+                }
+            }
+        });
+
     }
 
 
@@ -38,4 +57,5 @@ public class OptionsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

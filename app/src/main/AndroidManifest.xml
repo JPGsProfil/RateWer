@@ -13,6 +13,18 @@
         <activity
             android:name=".Activities.StartActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".Activities.LogInActivity" >
+
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".Activities.LogInActivity"
+            android:label="@string/app_name"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.GameActivity"
             android:label="@string/title_activity_game"
@@ -104,6 +117,12 @@
             android:name=".Activities.CreatorCardActivity"
             android:label="New Card"
             android:parentActivityName=".Activities.CreatorSetActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Activities.LogRegisterActivity"
+            android:label="Register"
+            android:parentActivityName=".Activities.LogInActivity"
             android:screenOrientation="portrait" >
         </activity>
 

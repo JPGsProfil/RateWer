@@ -131,3 +131,7 @@ Optionsmenu unten
 
  was macht IntInt?
  https://spring.io/guides/gs/consuming-rest-android/
+
+ - wie wird ein set Übetragen?
+ - die JSON-Definition sieht momentan ganz anders aus
+ - @Jean waren die Anpassungen an das jetzige JSON-Format aufwendig?

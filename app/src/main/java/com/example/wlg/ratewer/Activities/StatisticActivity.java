@@ -1,9 +1,7 @@
 package com.example.wlg.ratewer.Activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.ExpandableListView;
 
 import com.example.wlg.ratewer.Adapter.ExpandableListAdapter;

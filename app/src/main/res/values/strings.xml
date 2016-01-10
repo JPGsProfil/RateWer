@@ -16,6 +16,9 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_settings2">Beenden</string>
     <string name="txt_start">Spiel Starten</string>
+    <string name="txt_set_new_online_game">Neues Spiel anlegen</string>
+    <string name="txt_online">Online Spiel</string>
+    <string name="txt_create_set">Set erstellen</string>
     <string name="txt_options">Optionen</string>
     <string name="txt_end">Beenden</string>
     <string name="title_activity_game">GameActivity</string>

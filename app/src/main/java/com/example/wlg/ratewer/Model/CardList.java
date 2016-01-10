@@ -2,10 +2,8 @@ package com.example.wlg.ratewer.Model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;

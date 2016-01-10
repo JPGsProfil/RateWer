@@ -1,7 +1,5 @@
 package com.example.wlg.ratewer.Model;
 
-import org.w3c.dom.Attr;
-
 /**
  * all cards have various categories (like hair) and values (e.g. black)
  */

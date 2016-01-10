@@ -1,18 +1,5 @@
 package com.example.wlg.ratewer.Model;
 
-import android.graphics.drawable.BitmapDrawable;
-import android.view.View;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * class for board options and properties
  * not used because board function have to be in activity

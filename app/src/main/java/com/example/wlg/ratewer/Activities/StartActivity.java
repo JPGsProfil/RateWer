@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.wlg.ratewer.Network.NetworkTestActivity;
 import com.example.wlg.ratewer.R;
 
 
@@ -23,8 +24,7 @@ public class StartActivity extends ActionBarActivity {
 
         final Button bStartGame = (Button) findViewById(R.id.bStart);
         bStartGame.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), StartNewGameActivity.class);
                 startActivity(firstIntent);
             }
@@ -59,6 +59,14 @@ public class StartActivity extends ActionBarActivity {
             }
         });
 
+        final Button bNetwork = (Button) findViewById(R.id.bNetworkTest);
+        bNetwork.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                final Intent firstIntent = new Intent(v.getContext(), NetworkTestActivity.class);
+                startActivity(firstIntent);
+            }
+        });
     }
 
 

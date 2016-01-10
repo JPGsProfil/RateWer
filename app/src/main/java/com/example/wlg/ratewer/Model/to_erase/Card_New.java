@@ -1,7 +1,4 @@
-package com.example.wlg.ratewer.Model;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.example.wlg.ratewer.Model.to_erase;
 
 /**
  * Created by RareHue on 28.11.2015.

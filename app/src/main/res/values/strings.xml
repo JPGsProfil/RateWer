@@ -53,5 +53,6 @@
     <string name="difficulty_unfair">Hellseher</string>
 
     <string name="default_card_set_name">defaultset</string>
+    <string name="title_activity_network_test">NetworkTestActivity</string>
 
 </resources>

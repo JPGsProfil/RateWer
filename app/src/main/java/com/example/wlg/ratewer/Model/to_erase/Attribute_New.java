@@ -1,4 +1,4 @@
-package com.example.wlg.ratewer.Model;
+package com.example.wlg.ratewer.Model.to_erase;
 
 import java.util.ArrayList;
 import java.util.List;

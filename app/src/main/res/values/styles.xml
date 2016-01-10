@@ -2,8 +2,7 @@
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
 
     <style name="NormalHeading" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
@@ -24,34 +23,38 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-        <style name="base">
-            <item name="android:padding">10dp</item>
-        </style>
+    <style name="base">
+        <item name="android:padding">10dp</item>
+    </style>
 
-        <style name="title" parent="@style/base">
-            <item name="android:textColor">#FFFFFF</item>
-            <item name="android:textSize">30sp</item>
-            <item name="android:textStyle">bold</item>
-        </style>
+    <style name="title" parent="@style/base">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-        <style name="body" parent="@style/base">
-            <item name="android:textColor">#FFFFFF</item>
-            <item name="android:textStyle">normal</item>
-            <item name="android:textSize">20sp</item>
-        </style>
+    <style name="body" parent="@style/base">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
-        <!-- is completely ignored -->
-        <style name="dialog" >
-            <item name="android:bottomBright">#ffffff</item>
-            <item name="android:bottomDark">#ffffff</item>
-            <item name="android:bottomMedium">#ffffff</item>
-            <item name="android:centerBright">#000000</item>
-            <item name="android:centerDark">#000000</item>
-            <item name="android:centerMedium">#000000</item>
-            <item name="android:fullBright">#ff6600</item>
-            <item name="android:fullDark">#ff6600</item>
-            <item name="android:topBright">#ff44ff</item>
-            <item name="android:topDark">#ff44ff</item>
-        </style>
+    <!-- is completely ignored -->
+    <style name="dialog">
+        <item name="android:bottomBright">#ffffff</item>
+        <item name="android:bottomDark">#ffffff</item>
+        <item name="android:bottomMedium">#ffffff</item>
+        <item name="android:centerBright">#000000</item>
+        <item name="android:centerDark">#000000</item>
+        <item name="android:centerMedium">#000000</item>
+        <item name="android:fullBright">#ff6600</item>
+        <item name="android:fullDark">#ff6600</item>
+        <item name="android:topBright">#ff44ff</item>
+        <item name="android:topDark">#ff44ff</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

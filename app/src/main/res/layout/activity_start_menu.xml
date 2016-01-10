@@ -114,6 +114,18 @@
             android:padding="20dp"
             style="@style/StandartFont"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NetworkTest"
+            android:id="@+id/bNetworkTest"
+            android:background="@color/primary"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/textcolorbright"
+            android:layout_margin="10sp"
+            android:padding="20dp"
+            style="@style/StandartFont"/>
 
 
     </LinearLayout>

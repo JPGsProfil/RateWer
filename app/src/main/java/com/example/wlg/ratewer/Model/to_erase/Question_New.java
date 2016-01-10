@@ -1,4 +1,6 @@
-package com.example.wlg.ratewer.Model;
+package com.example.wlg.ratewer.Model.to_erase;
+
+import com.example.wlg.ratewer.Model.to_erase.Attribute_New;
 
 /**
  * Created by RareHue on 30.11.2015.

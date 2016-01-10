@@ -1,6 +1,6 @@
 package com.example.wlg.ratewer.Controller;
 
-import com.example.wlg.ratewer.Model.Question_New;
+import com.example.wlg.ratewer.Model.to_erase.Question_New;
 
 /**
  * Created by RareHue on 30.11.2015.

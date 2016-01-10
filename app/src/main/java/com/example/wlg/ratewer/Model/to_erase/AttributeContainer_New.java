@@ -1,7 +1,7 @@
-package com.example.wlg.ratewer.Model;
+package com.example.wlg.ratewer.Model.to_erase;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.example.wlg.ratewer.Model.CardList;
+
 import java.util.Iterator;
 import java.util.List;
 

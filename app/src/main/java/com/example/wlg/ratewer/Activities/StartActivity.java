@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.wlg.ratewer.Network.NetworkTestActivity;
 import com.example.wlg.ratewer.R;
 
 
@@ -63,7 +62,7 @@ public class StartActivity extends ActionBarActivity {
         bNetwork.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                final Intent firstIntent = new Intent(v.getContext(), NetworkTestActivity.class);
+                final Intent firstIntent = new Intent(v.getContext(), NetworkTest2Activity.class);
                 startActivity(firstIntent);
             }
         });

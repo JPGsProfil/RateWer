@@ -6,11 +6,11 @@ package com.example.wlg.ratewer.Model.neu;
 public class Session {
 
     private int ID;
-    private int Player1ID;
-    private int Player2ID;
+    private int Player1_ID;
+    private int Player2_ID;
     private int Set_ID;
-    private String HasStarted; // TODO bool
-    private String HasEnded; //TODO bool
+    private boolean HasStarted; // TODO bool
+    private boolean HasEnded; //TODO bool
 
 
     public int getID() {
@@ -22,19 +22,19 @@ public class Session {
     }
 
     public int getPlayer1ID() {
-        return Player1ID;
+        return Player1_ID;
     }
 
     public void setPlayer1ID(int player1ID) {
-        Player1ID = player1ID;
+        Player1_ID = player1ID;
     }
 
     public int getPlayer2ID() {
-        return Player2ID;
+        return Player2_ID;
     }
 
     public void setPlayer2ID(int player2ID) {
-        Player2ID = player2ID;
+        Player2_ID = player2ID;
     }
 
     public int getSet_ID() {
@@ -45,19 +45,19 @@ public class Session {
         Set_ID = set_ID;
     }
 
-    public String getHasStarted() {
+    public boolean getHasStarted() {
         return HasStarted;
     }
 
-    public void setHasStarted(String hasStarted) {
+    public void setHasStarted(boolean hasStarted) {
         HasStarted = hasStarted;
     }
 
-    public String getHasEnded() {
+    public boolean getHasEnded() {
         return HasEnded;
     }
 
-    public void setHasEnded(String hasEnded) {
+    public void setHasEnded(boolean hasEnded) {
         HasEnded = hasEnded;
     }
 }

@@ -9,6 +9,8 @@ public class User {
     private String Email;
     private String Name;
     private String Password;
+    private Highscore Highscore;
+
 
     public int getID() {
         return ID;
@@ -41,6 +43,15 @@ public class User {
     public void setPassword(String password) {
         Password = password;
     }
+
+    public Highscore getHighscore() {
+        return Highscore;
+    }
+
+    public void setHighscore(Highscore highscore) {
+        Highscore = highscore;
+    }
+
 
 
 }

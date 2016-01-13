@@ -6,8 +6,8 @@ package com.example.wlg.ratewer.Model.neu;
 public class Highscore {
 
     private int ID;
-    private String MatchesWon;
-    private String MatchesLost;
+    private int MatchesWon;
+    private int MatchesLost;
     private int User_ID;
 
     public int getID() {
@@ -18,19 +18,19 @@ public class Highscore {
         this.ID = ID;
     }
 
-    public String getMatchesWon() {
+    public int getMatchesWon() {
         return MatchesWon;
     }
 
-    public void setMatchesWon(String matchesWon) {
+    public void setMatchesWon(int matchesWon) {
         MatchesWon = matchesWon;
     }
 
-    public String getMatchesLost() {
+    public int getMatchesLost() {
         return MatchesLost;
     }
 
-    public void setMatchesLost(String matchesLost) {
+    public void setMatchesLost(int matchesLost) {
         MatchesLost = matchesLost;
     }
 
@@ -41,4 +41,6 @@ public class Highscore {
     public void setUser_ID(int user_ID) {
         User_ID = user_ID;
     }
+
+
 }

@@ -30,12 +30,14 @@ import retrofit.Retrofit;
 public class NetworkTest2Activity extends AppCompatActivity implements Callback<JSONTESTCLASS> {
 
 
-
+    private TextView tw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_test);
+
+        tw = (TextView) findViewById(R.id.textView15);
 
 
         final Button bNetwork = (Button) findViewById(R.id.bGetJSON);
@@ -50,7 +52,7 @@ public class NetworkTest2Activity extends AppCompatActivity implements Callback<
     public void onClick2() {
 
         final TextView tw = (TextView) findViewById(R.id.textView15);
-        tw.setText("Yatta");
+        tw.setText("LADE");
 
 
         setProgressBarIndeterminateVisibility(true);
@@ -69,6 +71,7 @@ public class NetworkTest2Activity extends AppCompatActivity implements Callback<
     public void onResponse(Response<JSONTESTCLASS> response, Retrofit retrofit) {
 
         System.out.println(response.body());
+        tw.setText(response.body().toString());
     }
 
     @Override

@@ -11,6 +11,6 @@ import retrofit.http.GET;
  */
 public interface UserAPI {
 
-    @GET("/ip")
-    Call<JSONTESTCLASS> GetUser(); //TODO CHANGE TO USER AFTER TESTING
+    @GET("/api/db/user/1")
+    Call<User> GetUser(); //TODO CHANGE TO USER AFTER TESTING
 }

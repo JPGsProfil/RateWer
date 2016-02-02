@@ -5,22 +5,7 @@ package com.example.wlg.ratewer.Model.neu;
  */
 public class JSONTESTCLASS {
 
-    private String origin;
 
-    @Override
-    public String toString() {
-        return "{" +
-                "\"origin\": \"" + origin + "\"" +
-                "}";
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
 
 
 

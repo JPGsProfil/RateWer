@@ -27,7 +27,7 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class NetworkTest2Activity extends AppCompatActivity implements Callback<JSONTESTCLASS> {
+public class NetworkTest2Activity extends AppCompatActivity implements Callback<User> {
 
 
     private TextView tw;
@@ -57,21 +57,22 @@ public class NetworkTest2Activity extends AppCompatActivity implements Callback<
 
         setProgressBarIndeterminateVisibility(true);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://httpbin.org")
+                .baseUrl("https://isit-fhemc2.rhcloud.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserAPI userAPI = retrofit.create(UserAPI.class);
 
-        Call<JSONTESTCLASS> call = userAPI.GetUser();
+        Call<User> call = userAPI.GetUser();
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Response<JSONTESTCLASS> response, Retrofit retrofit) {
+    public void onResponse(Response<User> response, Retrofit retrofit) {
 
         System.out.println(response.body());
-        tw.setText(response.body().toString());
+        System.out.println(response.message());
+        //tw.setText(response.body().toString());
     }
 
     @Override

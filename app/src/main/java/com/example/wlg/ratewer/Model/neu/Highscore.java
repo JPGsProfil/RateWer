@@ -5,42 +5,50 @@ package com.example.wlg.ratewer.Model.neu;
  */
 public class Highscore {
 
-    private int ID;
-    private int MatchesWon;
-    private int MatchesLost;
-    private int User_ID;
+    private int id;
+    private int matchesWon;
+    private int matchesLost;
+    private int user_ID;
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMatchesWon() {
-        return MatchesWon;
+        return matchesWon;
     }
 
     public void setMatchesWon(int matchesWon) {
-        MatchesWon = matchesWon;
+        this.matchesWon = matchesWon;
     }
 
     public int getMatchesLost() {
-        return MatchesLost;
+        return matchesLost;
     }
 
     public void setMatchesLost(int matchesLost) {
-        MatchesLost = matchesLost;
+        this.matchesLost = matchesLost;
     }
 
     public int getUser_ID() {
-        return User_ID;
+        return user_ID;
     }
 
     public void setUser_ID(int user_ID) {
-        User_ID = user_ID;
+        this.user_ID = user_ID;
     }
 
-
+    @Override
+    public String toString() {
+        return "Highscore{" +
+                "id=" + id +
+                ", matchesWon=" + matchesWon +
+                ", matchesLost=" + matchesLost +
+                ", user_ID=" + user_ID +
+                '}';
+    }
 }

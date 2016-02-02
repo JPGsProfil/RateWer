@@ -5,53 +5,60 @@ package com.example.wlg.ratewer.Model.neu;
  */
 public class User {
 
-    private int ID;
-    private String Email;
-    private String Name;
-    private String Password;
-    private Highscore Highscore;
+    private int id;
+    private String email;
+    private String name;
+    private String password;
+    private Highscore highscore;
 
-
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public Highscore getHighscore() {
-        return Highscore;
+        return highscore;
     }
 
     public void setHighscore(Highscore highscore) {
-        Highscore = highscore;
+        this.highscore = highscore;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", highscore=" + highscore +
+                '}';
+    }
 }

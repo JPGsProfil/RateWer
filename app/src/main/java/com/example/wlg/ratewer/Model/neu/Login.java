@@ -5,27 +5,27 @@ package com.example.wlg.ratewer.Model.neu;
  */
 public class Login {
 
-    private String Name;
-    private String Password;
+    private String name;
+    private String password;
 
-    public Login(String name, String password) {
-        Name = name;
-        Password = password;
+    public Login(String _name, String _password) {
+        name = _name;
+        password = _password;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String _name) {
+        name = _name;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setPassword(String _password) {
+        password = _password;
     }
 }

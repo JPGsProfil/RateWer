@@ -6,23 +6,23 @@ package com.example.wlg.ratewer.Model.neu;
 public class LoginResult {
 
     final   String ACCEPT = "accepted";
-    private String Result; //Can be "accepted" or "<ErrorMessage>"
+    private String result; //Can be "accepted" or "<ErrorMessage>"
 
     public String getResult() {
-        return Result;
+        return result;
     }
 
     public void setResult(String result) {
-        Result = result;
+        result = result;
     }
 
     @Override
     public String toString() {
-        return Result;
+        return result;
     }
 
     public boolean checkResult()
     {
-        return Result.equals(ACCEPT);
+        return result.equals(ACCEPT);
     }
 }

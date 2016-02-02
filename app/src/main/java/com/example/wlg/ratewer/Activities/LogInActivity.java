@@ -102,13 +102,13 @@ public class LogInActivity extends AppCompatActivity implements Callback<LoginRe
         System.out.println(response.message());
         System.out.println(response.errorBody());
 
-        /*
+
         if (response.body().checkResult() ) {
             final Intent firstIntent = new Intent(context, StartActivity.class);
             startActivity(firstIntent);
         } else {
             System.out.println(response.body().getResult() );
-        }*/
+        }
     }
 
     @Override

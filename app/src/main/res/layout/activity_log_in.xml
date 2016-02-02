@@ -85,7 +85,7 @@ android:background="@color/backgroundbright">
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/editText3"
+            android:id="@+id/loginName"
             android:textColor="@color/primary"
             android:layout_weight="1" />
     </LinearLayout>
@@ -117,7 +117,7 @@ android:background="@color/backgroundbright">
             android:ems="10"
             android:text="*****"
             android:textColor="@color/primary"
-            android:id="@+id/passwordInput" />
+            android:id="@+id/loginPassword" />
 
     </LinearLayout>
 

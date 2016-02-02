@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.wlg.ratewer.Model.neu.Login;
+import com.example.wlg.ratewer.Model.neu.LoginResult;
 import com.example.wlg.ratewer.Model.neu.User;
+import com.example.wlg.ratewer.Network.LoginAPI;
 import com.example.wlg.ratewer.Network.UserAPI;
 import com.example.wlg.ratewer.R;
 
@@ -22,7 +25,7 @@ import retrofit.Retrofit;
 /**
  * Created by Sabine on 26.12.2015.
  */
-public class LogInActivity extends AppCompatActivity implements Callback<User> {
+public class LogInActivity extends AppCompatActivity implements Callback<LoginResult> {
 
     private Context context;
 
@@ -71,35 +74,41 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
     private void ClickLogin ()
     {
 
+        EditText nameEditText = (EditText) findViewById(R.id.loginName);
+        String name = nameEditText.getText().toString();
+
+        EditText passwordEditText = (EditText) findViewById(R.id.loginPassword);
+        String password = passwordEditText.getText().toString();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://isit-fhemc2.rhcloud.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        UserAPI userAPI = retrofit.create(UserAPI.class);
+        LoginAPI loginAPI = retrofit.create(LoginAPI.class);
 
-        Call<User> call = userAPI.GetUser();
+        Login login = new Login(name,password);
+        Call<LoginResult> call = loginAPI.GetLoginResult(login);
         call.enqueue(this);
+
+
 
     }
 
     @Override
-    public void onResponse(Response<User> response, Retrofit retrofit) {
+    public void onResponse(Response<LoginResult> response, Retrofit retrofit) {
 
         System.out.println(response.body());
         System.out.println(response.message());
+        System.out.println(response.errorBody());
 
-        EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
-        String password = passwordEditText.getText().toString();
-
-        // TODO wir checken immernoch mit der id....die der nutzer niemals eingibt --> beim get serverseitig den nutzernamen übergeben
-
-        if (response.body().getPassword().equals(password)) {
+        /*
+        if (response.body().checkResult() ) {
             final Intent firstIntent = new Intent(context, StartActivity.class);
             startActivity(firstIntent);
         } else {
-            System.out.println("WRONG PASSWORD : " + response.body().getPassword()+" is not " + password );
-        }
+            System.out.println(response.body().getResult() );
+        }*/
     }
 
     @Override

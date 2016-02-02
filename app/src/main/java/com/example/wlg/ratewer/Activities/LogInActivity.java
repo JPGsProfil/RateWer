@@ -92,7 +92,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
         EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
         String password = passwordEditText.getText().toString();
 
-
+        // TODO wir checken immernoch mit der id....die der nutzer niemals eingibt --> beim get serverseitig den nutzernamen übergeben
 
         if (response.body().getPassword().equals(password)) {
             final Intent firstIntent = new Intent(context, StartActivity.class);

@@ -9,7 +9,8 @@ public class User {
     private String email;
     private String name;
     private String password;
-    private Highscore highscore;
+    private int matchesWon;
+    private int matchesLost;
 
     public int getId() {
         return id;
@@ -43,13 +44,23 @@ public class User {
         this.password = password;
     }
 
-    public Highscore getHighscore() {
-        return highscore;
+    public int getMatchesWon() {
+        return matchesWon;
     }
 
-    public void setHighscore(Highscore highscore) {
-        this.highscore = highscore;
+    public void setMatchesWon(int matchesWon) {
+        this.matchesWon = matchesWon;
     }
+
+    public int getMatchesLost() {
+        return matchesLost;
+    }
+
+    public void setMatchesLost(int matchesLost) {
+        this.matchesLost = matchesLost;
+    }
+
+
 
     @Override
     public String toString() {
@@ -57,8 +68,17 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", highscore=" + highscore +
+                ", password='" + password +
                 '}';
+    }
+
+    public User(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+
+        this.matchesLost = 0;
+        this.matchesLost = 0;
+        this.id = 0; // TODO:Handle this on the server
     }
 }

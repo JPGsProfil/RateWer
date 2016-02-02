@@ -85,7 +85,7 @@ android:layout_below="@+id/llHeader">
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/userName"
         android:textColor="@color/primary"
         android:layout_weight="1" />
 </LinearLayout>
@@ -112,7 +112,7 @@ android:layout_below="@+id/llHeader">
             android:inputType="textEmailAddress"
             android:text="mustermass@mail.de"
             android:ems="10"
-            android:id="@+id/editregMail"
+            android:id="@+id/userMail"
             android:textColor="@color/primary"
             android:layout_weight="1" />
     </LinearLayout>
@@ -144,7 +144,7 @@ android:layout_below="@+id/llHeader">
         android:ems="10"
         android:text="password"
         android:textColor="@color/primary"
-        android:id="@+id/eRegPw1" />
+        android:id="@+id/userPassword1" />
 
 </LinearLayout>
 
@@ -175,7 +175,7 @@ android:layout_below="@+id/llHeader">
             android:ems="10"
             android:text="password"
             android:textColor="@color/primary"
-            android:id="@+id/editText4" />
+            android:id="@+id/userPassword2" />
 
     </LinearLayout>
 

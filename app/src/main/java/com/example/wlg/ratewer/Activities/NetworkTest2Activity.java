@@ -1,25 +1,21 @@
 package com.example.wlg.ratewer.Activities;
 
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.support.annotation.MainThread;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
+
 import android.view.View;
-import android.view.Window;
+
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.wlg.ratewer.Model.neu.JSONTESTCLASS;
+
 import com.example.wlg.ratewer.Model.neu.User;
 import com.example.wlg.ratewer.Network.UserAPI;
 import com.example.wlg.ratewer.R;
 
 
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;

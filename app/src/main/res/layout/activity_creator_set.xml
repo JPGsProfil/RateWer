@@ -22,15 +22,6 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:id="@+id/LL1">
-        <Button
-            android:background="@color/primary"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="&lt;"
-            android:textSize="60sp"
-            android:id="@+id/bBack"
-            android:layout_alignTop="@+id/aeg_gbt"
-            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_height="wrap_content"

@@ -40,14 +40,14 @@ public class OnlineGameActivity extends AppCompatActivity{
             }
         });
 
-        final Button bBack = (Button) findViewById(R.id.bBack);
+/*        final Button bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
                 startActivity(firstIntent);
             }
         });
-
+*/
 /*
         final Button bOnlineGame = (Button) findViewById(R.id.bOnline);
         bOnlineGame.setOnClickListener(new View.OnClickListener() {

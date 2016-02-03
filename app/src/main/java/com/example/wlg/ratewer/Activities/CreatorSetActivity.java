@@ -43,14 +43,14 @@ public class CreatorSetActivity extends ActionBarActivity {
                 }
             });
 
-        final Button bBack = (Button) findViewById(R.id.bBack);
+/*        final Button bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), OnlineGameActivity.class);
                 startActivity(firstIntent);
             }
         });
-
+*/
 
     }
 

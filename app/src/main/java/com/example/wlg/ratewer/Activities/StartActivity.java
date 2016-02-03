@@ -33,7 +33,7 @@ public class StartActivity extends AppCompatActivity {
         bSetCreation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
-                startActivity(firstIntent);
+               startActivity(firstIntent);
             }
         });
 

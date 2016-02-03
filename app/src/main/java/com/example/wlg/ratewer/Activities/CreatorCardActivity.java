@@ -3,6 +3,8 @@ package com.example.wlg.ratewer.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,7 +13,14 @@ import com.example.wlg.ratewer.R;
 /**
  * Created by Sabine on 16.12.2015.
  */
+
+
+
 public class CreatorCardActivity extends ActionBarActivity {
+
+    private static final int SELECT_PICTURE = 1;
+
+    private String selectedImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +54,31 @@ public class CreatorCardActivity extends ActionBarActivity {
             }
         });
 
-/*        final Button bBack = (Button) findViewById(R.id.bBack);
-        bBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                startActivity(firstIntent);
-            }
-        });
-*/
+        findViewById(R.id.iBNewCard)
+                .setOnClickListener(new View.OnClickListener() {
+
+                    public void onClick(View arg0) {
+                        final Intent firstIntent = new Intent(arg0.getContext(), CreatorCardActivity.class);
+                        startActivity(firstIntent);
+                    }
+                });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        final Intent firstIntent = new Intent(this.findViewById(android.R.id.content).getContext(), CreatorSetActivity.class);
+        startActivity(firstIntent);
     }
 }

@@ -253,15 +253,6 @@
         android:background="@color/primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bearbeiten"
-        android:id="@+id/bEditSet"
-        android:layout_alignTop="@+id/bNewSet"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:background="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Löschen"
         android:id="@+id/bDelSet"
         android:layout_alignParentBottom="true"

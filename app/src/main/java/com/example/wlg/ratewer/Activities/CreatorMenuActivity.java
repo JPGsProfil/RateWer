@@ -39,24 +39,8 @@ public class CreatorMenuActivity extends ActionBarActivity {
             }
         });
 
-        final Button bEditSet = (Button) findViewById(R.id.bEditSet);
-        bEditSet.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                startActivity(firstIntent);
-            }
-        });
 
-        /*final Button bDelSet = (Button) findViewById(R.id.bDeleteSet);
-        bDelSet.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-
-            }
-        });*/
-
-/*        final TableRow rSelectItem1 = (TableRow)findViewById(R.id.tableRow5);
+        final TableRow rSelectItem1 = (TableRow)findViewById(R.id.tableRow5);
         final TableRow rSelectItem2 = (TableRow)findViewById(R.id.tableRow6);
         final TableRow rSelectItem3 = (TableRow)findViewById(R.id.tableRow7);
 
@@ -80,15 +64,15 @@ public class CreatorMenuActivity extends ActionBarActivity {
                 EditCardSetFromList(firstIntent, 2);
             }
         });
-*/
+
 
     }
-/*
+
     public void EditCardSetFromList(Intent firstIntent, int id)
     {
         startActivity(firstIntent);
     }
-/*
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
@@ -105,9 +89,7 @@ public class CreatorMenuActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Log.d("CDA", "onBackPressed Called");
-        Intent setIntent = new Intent(Intent.ACTION_MAIN);
-        setIntent.addCategory(Intent.CATEGORY_HOME);
-        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(setIntent);
-    }*/
+        final Intent firstIntent = new Intent(this.findViewById(android.R.id.content).getContext(), StartActivity.class);
+        startActivity(firstIntent);
+    }
 }

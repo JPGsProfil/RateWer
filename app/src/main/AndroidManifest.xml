@@ -83,6 +83,33 @@
                 android:value="com.example.wlg.ratewer.Activities.StartNewGameActivity" />
         </activity>
         <activity
+            android:name=".Activities.CreatorMenuActivity"
+            android:label="@string/default_card_set_name"
+            android:parentActivityName=".Activities.StartActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.StartActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.CreatorSetActivity"
+            android:label="@string/default_card_set_name"
+            android:parentActivityName=".Activities.CreatorMenuActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.CreatorMenuActivity" />
+        </activity>
+        <activity
+            android:name=".Activities.CreatorCardActivity"
+            android:label="@string/default_card_set_name"
+            android:parentActivityName=".Activities.CreatorSetActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wlg.ratewer.Activities.CreatorSetActivity" />
+        </activity>
+        <activity
             android:name=".Activities.NetworkTest2Activity"
             android:label="NetworkTest2Activity"
             android:parentActivityName=".Activities.StartActivity"

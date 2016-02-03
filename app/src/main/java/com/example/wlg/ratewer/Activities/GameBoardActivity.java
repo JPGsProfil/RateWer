@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,9 +32,15 @@ import com.example.wlg.ratewer.Model.AttributList;
 import com.example.wlg.ratewer.Model.Board;
 import com.example.wlg.ratewer.Model.Card;
 import com.example.wlg.ratewer.Model.CardList;
+
 import com.example.wlg.ratewer.R;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +64,8 @@ public class GameBoardActivity extends AppCompatActivity
 
     private Animation animation_card_part_1;
     private Animation animation_card_part_2;
+
+    private WebSocketClient socketClient;
 
     /**
      * fill member variables
@@ -148,6 +158,64 @@ public class GameBoardActivity extends AppCompatActivity
 
     }   // end of OnCreate
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        this.connectToWebSocket();
+    }
+
+    /////WEBSOCKET_START
+
+    private void connectToWebSocket()
+    {
+        URI uri;
+        try
+        {
+            uri = new URI("ws://10.02/server_api/socket");
+            socketClient = new WebSocketClientImpl(uri);
+            socketClient.connect();
+        }
+        catch (URISyntaxException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public class WebSocketClientImpl extends WebSocketClient {
+
+        private final static String LOG_TAG = "WebSocketClientImpl";
+
+        public WebSocketClientImpl(URI serverURI) {
+            super(serverURI);
+        }
+
+
+        @Override
+        public void onOpen(ServerHandshake handshakedata) {
+            Log.i(LOG_TAG, "Opened");
+            this.send("Testmessage from" + Build.MANUFACTURER + " " + Build.MODEL);
+        }
+
+        @Override
+        public void onMessage(String _message) {
+            final String message = _message;
+            Log.i(LOG_TAG, "Received: " + message);
+
+        }
+
+        @Override
+        public void onClose(int code, String reason, boolean remote) {
+            Log.i(LOG_TAG, "Closed " + reason);
+        }
+
+        @Override
+        public void onError(Exception ex) {
+            Log.i(LOG_TAG, "Error " + ex.getMessage());
+        }
+    }
+
+    /////WEBSOCKED_END
 
 
     private ExpandableListAdapter listAdapter;

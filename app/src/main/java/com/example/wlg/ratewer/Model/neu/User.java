@@ -60,6 +60,11 @@ public class User {
         this.matchesLost = matchesLost;
     }
 
+    public boolean isValid()
+    {
+        return (this.id >= 0);
+    }
+
 
 
     @Override

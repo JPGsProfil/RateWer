@@ -1,6 +1,5 @@
 package com.example.wlg.ratewer.Network;
 
-import com.example.wlg.ratewer.Model.neu.JSONTESTCLASS;
 import com.example.wlg.ratewer.Model.neu.User;
 
 import retrofit.Call;

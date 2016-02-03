@@ -7,13 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.wlg.ratewer.Model.neu.Login;
-import com.example.wlg.ratewer.Model.neu.LoginResult;
 import com.example.wlg.ratewer.Model.neu.User;
 import com.example.wlg.ratewer.Network.LoginAPI;
-import com.example.wlg.ratewer.Network.UserAPI;
 import com.example.wlg.ratewer.R;
 
 import retrofit.Call;
@@ -25,7 +22,7 @@ import retrofit.Retrofit;
 /**
  * Created by Sabine on 26.12.2015.
  */
-public class LogInActivity extends AppCompatActivity implements Callback<LoginResult> {
+public class LogInActivity extends AppCompatActivity implements Callback<User> {
 
     private Context context;
 
@@ -88,7 +85,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<LoginRe
         LoginAPI loginAPI = retrofit.create(LoginAPI.class);
 
         Login login = new Login(name,password);
-        Call<LoginResult> call = loginAPI.GetLoginResult(login);
+        Call<User> call = loginAPI.GetLoginResult(login);
         call.enqueue(this);
 
 
@@ -96,18 +93,18 @@ public class LogInActivity extends AppCompatActivity implements Callback<LoginRe
     }
 
     @Override
-    public void onResponse(Response<LoginResult> response, Retrofit retrofit) {
+    public void onResponse(Response<User> response, Retrofit retrofit) {
 
         System.out.println(response.body());
         System.out.println(response.message());
-        System.out.println(response.errorBody());
+        System.out.println("ERROR :" +response.errorBody());
 
 
-        if (response.body().checkResult() ) {
+        if (response.body().isValid() ) {
             final Intent firstIntent = new Intent(context, StartActivity.class);
             startActivity(firstIntent);
         } else {
-            System.out.println(response.body().getResult() );
+            System.out.println("WRONG PASSWORD USER COMBINATION" );
         }
     }
 

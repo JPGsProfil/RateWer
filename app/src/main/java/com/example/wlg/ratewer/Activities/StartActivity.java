@@ -29,6 +29,14 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+        final Button bSetCreation = (Button) findViewById(R.id.bSetCreator);
+        bSetCreation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
+                startActivity(firstIntent);
+            }
+        });
+
         final Button bOptions = (Button) findViewById(R.id.bOptions);
         bOptions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)

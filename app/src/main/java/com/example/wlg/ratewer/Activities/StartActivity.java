@@ -66,14 +66,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        final Button bNetwork = (Button) findViewById(R.id.bNetworkTest);
-        bNetwork.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                final Intent firstIntent = new Intent(v.getContext(), NetworkTest2Activity.class);
-                startActivity(firstIntent);
-            }
-        });
+
     }
 
 

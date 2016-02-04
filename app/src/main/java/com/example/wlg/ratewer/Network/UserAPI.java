@@ -12,8 +12,10 @@ import retrofit.http.POST;
  */
 public interface UserAPI {
 
+    /*
     @GET("/api/db/user/1")
     Call<User> GetUser(); //TODO CHANGE TO USERNAME AFTER TESTING
+    */
 
     @POST("/api/db/user")
     Call<User> CreateUser(@Body User user);

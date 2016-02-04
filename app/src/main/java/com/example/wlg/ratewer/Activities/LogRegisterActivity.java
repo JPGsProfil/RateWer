@@ -78,8 +78,10 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
                     .build();
 
             UserAPI userAPI = retrofit.create(UserAPI.class);
-
             User user = new User(email,name,password1);
+
+            System.out.println(user);
+
             Call<User> call = userAPI.CreateUser(user);
             call.enqueue(this);
 
@@ -97,6 +99,8 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
 
         System.out.println(response.body());
         System.out.println(response.message());
+        System.out.println("Error : " + response.errorBody());
+        System.out.println(response);
 
         final Intent firstIntent = new Intent(context, StartActivity.class);
         startActivity(firstIntent);

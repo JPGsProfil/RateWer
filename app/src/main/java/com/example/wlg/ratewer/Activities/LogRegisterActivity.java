@@ -102,8 +102,8 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
         System.out.println("Error : " + response.errorBody());
         System.out.println(response);
 
-        final Intent firstIntent = new Intent(context, StartActivity.class);
-        startActivity(firstIntent);
+       /* final Intent firstIntent = new Intent(context, StartActivity.class);
+        startActivity(firstIntent);*/
     }
 
     @Override

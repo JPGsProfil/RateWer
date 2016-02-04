@@ -5,7 +5,7 @@ package com.example.wlg.ratewer.Model.neu;
  */
 public class User {
 
-    private int id;
+    private Integer id;
     private String email;
     private String name;
     private String password;
@@ -78,12 +78,13 @@ public class User {
     }
 
     public User(String email, String name, String password) {
-        this.email = email;
+        this.id = 0; // TODO:Handle this on the server */
         this.name = name;
+        this.email = email;
         this.password = password;
 /*
         this.matchesLost = 0;
         this.matchesLost = 0;*/
-        this.id = 17; // TODO:Handle this on the server
+
     }
 }

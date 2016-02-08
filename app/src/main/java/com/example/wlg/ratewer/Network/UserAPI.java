@@ -17,6 +17,6 @@ public interface UserAPI {
     Call<User> GetUser(); //TODO CHANGE TO USERNAME AFTER TESTING
     */
 
-    @POST("/api/db/user/new")
+    @POST("/api/db/user")
     Call<User> CreateUser(@Body User user);
 }

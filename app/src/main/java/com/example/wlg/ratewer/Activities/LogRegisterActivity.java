@@ -102,8 +102,17 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
         System.out.println("Error : " + response.errorBody());
         System.out.println(response);
 
-       /* final Intent firstIntent = new Intent(context, StartActivity.class);
-        startActivity(firstIntent);*/
+        // 409 bedeutet Conflict ( gibts schon)
+        if(response.code() == 409)
+        {
+            // @Daniel @todo: den User user gibts schon -> irgendwie handeln
+        }
+        else
+        {
+            final Intent firstIntent = new Intent(context, StartActivity.class);
+            startActivity(firstIntent);
+        }
+
     }
 
     @Override

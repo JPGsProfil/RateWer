@@ -95,12 +95,16 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
     @Override
     public void onResponse(Response<User> response, Retrofit retrofit) {
 
-        System.out.println(response.body());
-        System.out.println(response.message());
-        System.out.println("ERROR :" +response.errorBody());
+
+        //System.out.println("Username uebermittelt: " + response.body().getName());
+       // System.out.println("Password uebermittelt: " + response.body().getPassword());
+        System.out.println("Response body " + response.body());
+        System.out.println("Response message " + response.message());
+        System.out.println("Response code " + response.code());
+        System.out.println("Response ERROR :" +response.errorBody());
 
 
-        if (response.body().isValid() ) {
+        if (response.code() == 200 ) {
             final Intent firstIntent = new Intent(context, StartActivity.class);
             startActivity(firstIntent);
         } else {

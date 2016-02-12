@@ -8,21 +8,25 @@ import android.content.SharedPreferences;
  */
 public class LocalStorage
 {
+    public static final String PREFS_NAME = "LOCALPREFERENCES";
+    public static final String PREFS_KEY = "USER_ID";
 
 
     public static int getUserId(Context _context)
     {
-        SharedPreferences prefs = _context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        int restoredId = prefs.getInt("idName", 0);
+        int restoredId = 0;
+        SharedPreferences settings;
+        settings = _context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        restoredId = settings.getInt(PREFS_KEY, 0);
         return restoredId;
     }
 
 
-    public static void updateUserId(int _userId, Context _context)
+    public static void updateUserId(Context _context, int _userId)
     {
-        SharedPreferences sharedpreferences = _context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = _context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("userid", _userId);
-        editor.apply();
+        editor.putInt(PREFS_KEY, _userId);
+        editor.commit();
     }
 }

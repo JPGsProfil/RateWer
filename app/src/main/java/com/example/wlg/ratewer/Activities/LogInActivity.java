@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.wlg.ratewer.IO.LocalStorage;
 import com.example.wlg.ratewer.Model.neu.Login;
 import com.example.wlg.ratewer.Model.neu.User;
 import com.example.wlg.ratewer.Network.LoginAPI;
@@ -30,6 +31,17 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // auto-login:
+        int userId = LocalStorage.getUserId(this.getApplicationContext());
+        System.out.println("letzte User_ID: "+userId);
+        if(userId != 0)
+        {
+            final Intent firstIntent = new Intent(this.getApplicationContext(), StartActivity.class);
+            startActivity(firstIntent);
+        }
+
+
         setContentView(R.layout.activity_log_in);
         //TODO: set Text of button according to the login status (Button) findViewById(R.id.btnOptionLogin)
 
@@ -104,10 +116,14 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
         System.out.println("Response ERROR :" +response.errorBody());
 
 
-        if (response.code() == 200 ) {
-            final Intent firstIntent = new Intent(context, StartActivity.class);
+        if (response.code() == 200 )
+        {
+            LocalStorage.updateUserId( context, response.body().getId());
+            final Intent firstIntent = new Intent(LogInActivity.this, StartActivity.class);
             startActivity(firstIntent);
-        } else {
+        }
+        else
+        {
             System.out.println("WRONG PASSWORD USER COMBINATION" );
         }
     }

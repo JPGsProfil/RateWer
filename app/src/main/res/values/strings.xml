@@ -58,4 +58,11 @@
     <string name="default_card_set_name">defaultset</string>
     <string name="title_activity_network_test">NetworkTestActivity</string>
 
+
+    <!-- StatisticActivity -->
+    <string name="statistic_activity_LegendName">Name</string>
+    <string name="statistic_activity_LegendWon">Gewonnen</string>
+    <string name="statistic_activity_LegendLost">Verloren</string>
+
+
 </resources>

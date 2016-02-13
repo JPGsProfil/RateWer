@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.wlg.ratewer.Core.HashPassword;
 import com.example.wlg.ratewer.Model.neu.User;
 import com.example.wlg.ratewer.Network.UserAPI;
 import com.example.wlg.ratewer.R;
@@ -78,7 +79,8 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
                     .build();
 
             UserAPI userAPI = retrofit.create(UserAPI.class);
-            User user = new User(email,name,password1);
+            String passwordHashed = HashPassword.hashString(password1); // hashedpassword
+            User user = new User(email,name,passwordHashed);
 
             System.out.println(user);
 
@@ -109,7 +111,7 @@ public class LogRegisterActivity extends AppCompatActivity implements Callback<U
         }
         else
         {
-            final Intent firstIntent = new Intent(context, StartActivity.class);
+            final Intent firstIntent = new Intent(context, LogInActivity.class);
             startActivity(firstIntent);
         }
 

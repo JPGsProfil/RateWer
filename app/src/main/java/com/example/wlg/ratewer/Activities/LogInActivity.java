@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.wlg.ratewer.Core.HashPassword;
 import com.example.wlg.ratewer.IO.LocalStorage;
 import com.example.wlg.ratewer.Model.neu.Login;
 import com.example.wlg.ratewer.Model.neu.User;
@@ -88,6 +89,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
 
         EditText passwordEditText = (EditText) findViewById(R.id.loginPassword);
         String password = passwordEditText.getText().toString();
+        String hashedPassword = HashPassword.hashString(password);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://isit-fhemc2.rhcloud.com")
@@ -96,7 +98,7 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
 
         LoginAPI loginAPI = retrofit.create(LoginAPI.class);
 
-        Login login = new Login(name,password);
+        Login login = new Login(name,hashedPassword);
         Call<User> call = loginAPI.GetLoginResult(login);
         call.enqueue(this);
 

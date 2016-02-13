@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.wlg.ratewer.Builder.RetroBuilder;
+import com.example.wlg.ratewer.Core.HashPassword;
 import com.example.wlg.ratewer.IO.LocalStorage;
 import com.example.wlg.ratewer.Model.neu.User;
 import com.example.wlg.ratewer.Network.UserAPI;
@@ -24,6 +26,8 @@ import retrofit.Retrofit;
 
 
 public class OptionsActivity extends AppCompatActivity {
+
+    User displayedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,23 @@ public class OptionsActivity extends AppCompatActivity {
             });
         }
 
+        displayedUser = null;
+        final Button bChangeData = (Button) findViewById(R.id.tv_options_bt_changeUser);
+        bChangeData.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                if(displayedUser != null)
+                {
+                    updateUser();
+                }
+                else
+                {
+                    // keine online-anbindung ...
+                    System.out.println("displayedUser = null");
+                }
+            }
+        });
 
 
         displayUser();
@@ -98,6 +119,15 @@ public class OptionsActivity extends AppCompatActivity {
                 if(response.code() == 200)
                 {
                     System.out.println("Bin in OptionResponse");
+                    if(response.body() != null)
+                    {
+                        displayedUser = response.body();
+                        TextView tv_Name = (TextView) findViewById(R.id.tv_options_Name);
+                        tv_Name.setText(response.body().getName());
+
+                        TextView tv_Email = (TextView) findViewById(R.id.tv_options_Email);
+                        tv_Email.setText(response.body().getEmail());
+                    }
                 }
             }
 
@@ -107,6 +137,61 @@ public class OptionsActivity extends AppCompatActivity {
                 Log.d("Add Highscore Error ", t.getMessage());
             }
         });
+    }
+
+
+    private void updateUser()
+    {
+        // read values from textviews
+        TextView tv_Name = (TextView) findViewById(R.id.tv_options_Name);
+        String name = tv_Name.getText().toString();
+        TextView tv_Email = (TextView) findViewById(R.id.tv_options_Email);
+        String email = tv_Email.getText().toString();
+        TextView tv_Password = (TextView) findViewById(R.id.tv_options_Password);
+        String password = tv_Password.getText().toString();
+
+        if(name.length() > 1 && email.length() > 1)
+        {
+            // update user object
+            displayedUser.setName(name);
+            displayedUser.setEmail(email);
+
+            if(password.length()>1 )
+            {
+                String passwordHashed = HashPassword.hashString(password);
+                displayedUser.setPassword(passwordHashed);
+            }
+            System.out.println("name "+displayedUser.getName()+" password:"+displayedUser.getPassword()
+                    +" email "+displayedUser.getEmail());
+
+            displayedUser.setHighscores(null);
+
+            // call server
+            Retrofit retrofit = RetroBuilder.getRetroObject();
+            UserAPI userAPI = retrofit.create(UserAPI.class);
+            Call<User> call = userAPI.UpdateUser(displayedUser);
+            call.enqueue(new Callback<User>()
+            {
+                @Override
+                public void onResponse(Response<User> response,
+                                       Retrofit retrofit)
+                {
+                    RetroBuilder.printResponse(response);
+                    if(response.code() == 200)
+                    {
+                        System.out.println("Daten geaendert");
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t)
+                {
+                    Log.d("Fehler beim aendern ", t.getMessage());
+                }
+            });
+        }
+
+
     }
 
 }

@@ -283,6 +283,7 @@ public class GameBoardActivity extends AppCompatActivity
                 final Intent lastIntent = new Intent(this, EndGameActivity.class);
                 String msg = "Spieler "+m_PlayerController.GetCurrentPlayer().GetPlayerID()+ " hat gewonnen";
                 lastIntent.putExtra("msg",msg);
+                lastIntent.putExtra("numberofwinner",m_PlayerController.GetCurrentPlayer().GetPlayerID());
                 startActivity(lastIntent);
             }
 

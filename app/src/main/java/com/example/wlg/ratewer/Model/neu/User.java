@@ -1,5 +1,7 @@
 package com.example.wlg.ratewer.Model.neu;
 
+import java.util.List;
+
 /**
  * Created by RareHue on 10.01.2016.
  */
@@ -9,6 +11,7 @@ public class User {
     private String email;
     private String name;
     private String password;
+    private List<Highscore> highscores;
    /* private int matchesWon;
     private int matchesLost;*/
 
@@ -42,6 +45,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public List<Highscore> getHighscores()
+    {
+        return highscores;
+    }
+
+    public void setHighscores(List<Highscore> highscores)
+    {
+        this.highscores = highscores;
     }
 /*
     public int getMatchesWon() {

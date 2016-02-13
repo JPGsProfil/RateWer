@@ -61,8 +61,8 @@
 
     <!-- StatisticActivity -->
     <string name="statistic_activity_LegendName">Name</string>
-    <string name="statistic_activity_LegendWon">Gewonnen</string>
-    <string name="statistic_activity_LegendLost">Verloren</string>
+    <string name="statistic_activity_LegendWon">Spiele Gewonnen:</string>
+    <string name="statistic_activity_LegendLost">Spiele Verloren:</string>
 
 
 </resources>

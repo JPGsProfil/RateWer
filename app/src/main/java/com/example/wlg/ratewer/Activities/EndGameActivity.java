@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.wlg.ratewer.Builder.RetroBuilder;
 import com.example.wlg.ratewer.IO.LocalStorage;
 import com.example.wlg.ratewer.Model.neu.Highscore;
 import com.example.wlg.ratewer.Network.HighScoreAPI;
@@ -89,13 +90,8 @@ public class EndGameActivity extends ActionBarActivity implements Callback<List<
         int userId = LocalStorage.getUserId(this.getApplicationContext());
         System.out.println("letzte User_ID: "+userId);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://isit-fhemc2.rhcloud.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+        Retrofit retrofit = RetroBuilder.getRetroObject();
         HighScoreAPI highScoreAPI = retrofit.create(HighScoreAPI.class);
-
         Call<List<Highscore>> call = highScoreAPI.getHighScores(userId);
         call.enqueue(this);
     }

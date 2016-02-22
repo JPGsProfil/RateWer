@@ -13,7 +13,7 @@ import com.example.wlg.ratewer.R;
 /**
  * Created by Sabine on 16.12.2015.
  */
-
+//TODO: gallery öffnen, speicher funktion, lösch funktion
 
 
 public class CreatorCardActivity extends ActionBarActivity {

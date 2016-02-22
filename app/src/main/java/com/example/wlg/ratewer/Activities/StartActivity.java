@@ -62,6 +62,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+
                 finish();
             }
         });

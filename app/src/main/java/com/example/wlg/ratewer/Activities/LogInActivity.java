@@ -39,6 +39,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
         if(userId != 0)
         {
             final Intent firstIntent = new Intent(this.getApplicationContext(), StartActivity.class);
+            firstIntent.addCategory(Intent.CATEGORY_HOME);
+            firstIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(firstIntent);
         }
 
@@ -72,6 +74,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
             public void onClick(View v) {
                 //TODO: User gets send to the start activity page
                 final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
+                firstIntent.addCategory(Intent.CATEGORY_HOME);
+                firstIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(firstIntent);
             }
         });
@@ -122,6 +126,8 @@ public class LogInActivity extends AppCompatActivity implements Callback<User> {
         {
             LocalStorage.updateUserId( context, response.body().getId());
             final Intent firstIntent = new Intent(LogInActivity.this, StartActivity.class);
+            firstIntent.addCategory(Intent.CATEGORY_HOME);
+            firstIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(firstIntent);
         }
         else

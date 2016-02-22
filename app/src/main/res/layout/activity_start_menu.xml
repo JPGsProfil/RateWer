@@ -74,8 +74,8 @@
             android:layout_margin="10sp"
             android:padding="10dp"
             style="@style/StandartFont"/>
-
-        <Button
+        <!-- TODO: Online Game Button hidden, Option not implemented for this version-->
+        <!--<Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_online"
@@ -87,6 +87,7 @@
             android:layout_margin="10sp"
             android:padding="10dp"
             style="@style/StandartFont"/>
+            -->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

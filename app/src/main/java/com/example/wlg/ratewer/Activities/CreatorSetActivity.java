@@ -3,6 +3,7 @@ package com.example.wlg.ratewer.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,11 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.wlg.ratewer.Controller.EditorController;
 import com.example.wlg.ratewer.R;
 
 /**
  * Created by Sabine on 16.12.2015.
  */
+
+//TODO: dynammisches erstellen der Seite bei schon vorhandensein von daten
+
 public class CreatorSetActivity extends ActionBarActivity {
 
     private static final int SELECT_PICTURE = 1;
@@ -50,6 +55,10 @@ public class CreatorSetActivity extends ActionBarActivity {
             bSave.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
+                    EditorController controller = new EditorController();
+                    controller.writeFile(getApplicationContext());
+                    controller.readFile(getApplicationContext());
+                    System.out.println("file erstellt");
                     startActivity(firstIntent);
                 }
             });

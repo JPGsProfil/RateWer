@@ -1,29 +1,38 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.example.wlg.ratewer.Controller.EditorController;
+import com.example.wlg.ratewer.Model.EditorCard;
+import com.example.wlg.ratewer.Model.EditorData;
 import com.example.wlg.ratewer.R;
 
 /**
- * Created by rofel on 16.12.2015.
+ * Created by sabine on 16.12.2015.
  */
 public class CreatorMenuActivity extends ActionBarActivity {
+
+    EditorController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creator_menu);
-
-        Log.d("TEST", "oncreate started");
-
-       /* final Button bBack = (Button) findViewById(R.id.bBack);
+        /* final Button bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
@@ -38,7 +47,6 @@ public class CreatorMenuActivity extends ActionBarActivity {
                 startActivity(firstIntent);
             }
         });
-
 
         final TableRow rSelectItem1 = (TableRow)findViewById(R.id.tableRow5);
         final TableRow rSelectItem2 = (TableRow)findViewById(R.id.tableRow6);
@@ -65,7 +73,6 @@ public class CreatorMenuActivity extends ActionBarActivity {
             }
         });
 
-
     }
 
     public void EditCardSetFromList(Intent firstIntent, int id)
@@ -91,5 +98,32 @@ public class CreatorMenuActivity extends ActionBarActivity {
         Log.d("CDA", "onBackPressed Called");
         final Intent firstIntent = new Intent(this.findViewById(android.R.id.content).getContext(), StartActivity.class);
         startActivity(firstIntent);
+    }
+
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        controller = new EditorController();
+        controller.writeFile(getApplicationContext());
+        controller.readFile(getApplicationContext());
+        final TableLayout lLayout = (TableLayout) findViewById(R.id.tableLayout1);
+        for (int i = 1; i <= controller.GetSetsSize(); i++)
+        {
+            Log.d("test", "sadasd");
+            TextView tv1=new TextView(CreatorMenuActivity.this);
+            EditText et1 = new EditText(CreatorMenuActivity.this);
+            tv1.setText("Eigenschaft: ");
+            et1.setText("Unbekannt");
+            et1.setTextColor(Color.BLACK);
+            tv1.setTextColor(Color.BLACK);
+            TextView tv2=new TextView(CreatorMenuActivity.this);
+            tv2.setText("Test2");
+            lLayout.addView(tv1);
+            lLayout.addView(et1);
+
+        }
+
     }
 }

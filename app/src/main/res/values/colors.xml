@@ -7,6 +7,7 @@
     <item name="textcolorbright" type="color">#FFFFFF</item>
     <item name="backgroundbright" type="color">#FFFFFF</item>
     <item name="backgroundgrey" type="color">#EEE</item>
+    <item name="transparent" type="color">#00ffffff</item>
 
 
 

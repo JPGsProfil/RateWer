@@ -60,7 +60,8 @@ android:layout_height="match_parent"
 android:layout_alignParentBottom="true"
 android:layout_centerHorizontal="true"
 android:id="@+id/llMenu"
-android:layout_below="@+id/llHeader">
+android:layout_below="@+id/llHeader"
+    android:gravity="center">
 
 <LinearLayout
     android:orientation="horizontal"
@@ -87,7 +88,7 @@ android:layout_below="@+id/llHeader">
         android:ems="10"
         android:id="@+id/userName"
         android:textColor="@color/primary"
-        android:layout_weight="1" />
+        android:layout_weight="0.6" />
 </LinearLayout>
 <LinearLayout
     android:orientation="horizontal"
@@ -110,11 +111,11 @@ android:layout_below="@+id/llHeader">
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
-            android:text="mustermass@mail.de"
+            android:text="muster@mail.de"
             android:ems="10"
             android:id="@+id/userMail"
             android:textColor="@color/primary"
-            android:layout_weight="1" />
+            android:layout_weight="0.6" />
     </LinearLayout>
 
 <LinearLayout
@@ -152,8 +153,9 @@ android:layout_below="@+id/llHeader">
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
-        <!-- TODO: set the text string dynamicly for multilingual app-->
+        android:weightSum="1"
+        android:layout_marginBottom="12dp">
+
         <TextView
             android:layout_width="120dp"
             android:layout_height="match_parent"
@@ -188,28 +190,23 @@ android:layout_below="@+id/llHeader">
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:textColor="@color/textcolorbright"
-    android:layout_margin="10sp"
     android:padding="10dp"
     style="@style/StandartFont"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Abbruch"
+        android:id="@+id/bCancel"
+        android:background="@color/primary"
+        android:textColor="@color/textcolorbright"
+        android:padding="10dp"
+        style="@style/StandartFont" />
 
 
 </LinearLayout>
 
 
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Abbruch"
-    android:id="@+id/bCancel"
-    android:background="@color/primary"
-    android:textColor="@color/textcolorbright"
-    android:padding="10dp"
-    style="@style/StandartFont"
-    android:layout_marginLeft="10sp"
-    android:layout_marginRight="10sp"
-    android:layout_marginBottom="10sp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentStart="true"
-    android:layout_weight="0.36" />
+
 </RelativeLayout>

@@ -60,122 +60,95 @@ android:background="@color/backgroundbright">
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:id="@+id/llMenu"
-    android:layout_below="@+id/llHeader">
+    android:layout_below="@+id/llHeader"
+    android:gravity="center"
+    android:background="@color/primary">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <FrameLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="147dp"
-            android:layout_height="match_parent"
-            android:text="Username :"
-            android:textColor="@color/primary"
-            android:id="@+id/textView14"
-            android:ems="10"
-            android:textSize="18dp"
-            android:paddingLeft="10dp"
-            android:textStyle="bold"
-            android:gravity="center_vertical" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/backgroundbright"
+        android:layout_margin="20dp"
+       >
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="Username"
             android:ems="10"
             android:id="@+id/loginName"
             android:textColor="@color/primary"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:gravity="left|center_vertical" />
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
-<!-- TODO: set the text string dynamicly for multilingual app-->
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:text="Passwort :"
-            android:textColor="@color/primary"
-            android:id="@+id/textPasswordLogIn"
-            android:ems="10"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_weight="0.60"
-            android:paddingLeft="10dp" />
-
-
+        android:gravity="center"
+        android:background="@color/backgroundbright"
+        android:layout_margin="20dp">
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:text="*****"
+            android:text="Password"
             android:textColor="@color/primary"
-            android:id="@+id/loginPassword" />
+            android:id="@+id/loginPassword"
+            android:gravity="left|center_vertical" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/bLogin"
-        android:background="@color/primary"
+        android:background="@color/accentnegativ"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textColor="@color/textcolorbright"
-        android:layout_margin="10sp"
+        android:padding="10dp"
+        style="@style/StandartFont"
+        android:layout_margin="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Dont have an Account already?"
+        android:id="@+id/textView12"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrieren"
+        android:id="@+id/bRegister"
+        android:textColor="@color/accentnegativ"
+        android:background="@color/transparent"
+        android:padding="10dp"
+        style="@style/StandartFont"
+
+        android:layout_alignParentBottom="true"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Überspringen"
+        android:id="@+id/bjumpToStart"
+        android:textColor="@color/accentnegativ"
+        android:background="@color/transparent"
         android:padding="10dp"
         style="@style/StandartFont"/>
 
-
 </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrieren"
-            android:id="@+id/bRegister"
-            android:background="@color/primary"
-            android:textColor="@color/textcolorbright"
-            android:padding="10dp"
-            style="@style/StandartFont"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/bjumpToStart"
-            android:layout_marginStart="173dp"
-            android:layout_weight="0.67" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Überspringen"
-            android:id="@+id/bjumpToStart"
-            android:background="@color/primary"
-            android:textColor="@color/textcolorbright"
-            android:padding="10dp"
-            style="@style/StandartFont"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="0.36" />
-    </LinearLayout>
 
 
 </RelativeLayout>

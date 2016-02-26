@@ -8,267 +8,295 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/backgroundbright">
 
-    <FrameLayout
-        style="@style/GreenBarTop"
-        android:id="@+id/aeg_gbt"
-        >
 
-    </FrameLayout>
+
+
+
+
+
+
+
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutWrap">
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            style="@style/GreenBarTop"
+            android:id="@+id/aeg_gbt"
+            >
+
+        </FrameLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            android:id="@+id/LL1">
+            android:id="@+id/layoutWrap">
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Neues Set erstellen"
-                android:id="@+id/textView4"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="@color/textcolorbright"
-                android:layout_alignParentTop="true"
-                android:padding="30dip"
+                android:layout_height="wrap_content"
                 android:background="@color/primary"
-                />
+                android:id="@+id/LL1">
 
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tVSetCards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="angelegte Karten"
-            android:textColor="@color/primary"
-            android:ems="10"
-            android:textSize="18dp"
-            android:paddingLeft="10dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Neues Set erstellen"
+                    android:id="@+id/textView4"
+                    android:layout_below="@+id/textView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textcolorbright"
+                    android:layout_alignParentTop="true"
+                    android:padding="30dip"
+                    android:background="@color/primary"
+                    />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/iCard1"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/si_manjula"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/iCard2"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/si_manjula"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/iCard3"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/si_manjula"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/iCard4"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/si_manjula"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/linearLayout1">
-
+            </LinearLayout>
             <TextView
-                android:id="@+id/textView16"
-                android:layout_width="147dp"
-                android:layout_height="match_parent"
-                android:text="Set Name:"
-                android:textColor="@color/primary"
-                android:ems="10"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/eSetName"
-                android:textColor="#7ca300"
-                android:layout_alignBottom="@+id/textView11"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/bSave"
-                android:text="Test Set"
-                android:layout_below="@+id/LL1"
-             />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout2">
-
-            <TextView
-                android:id="@+id/tVAttri1"
-                android:layout_width="147dp"
-                android:layout_height="match_parent"
-                android:text="Eigenschaft 1:"
-                android:textColor="@color/primary"
-                android:ems="10"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/eAttr1"
-                android:text="Hautfarbe"
-                android:autoText="false"
-                android:minWidth="20dip"
-                android:textColor="#7ca300"
-                android:layout_centerVertical="true" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout3">
-
-            <TextView
-                android:id="@+id/tVAttri2"
-                android:layout_width="147dp"
-                android:layout_height="match_parent"
-                android:text="Eigenschaft 2:"
-                android:textColor="@color/primary"
-                android:ems="10"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/eAttr2"
-                android:text="Augenfarbe"
-                android:autoText="false"
-                android:minWidth="20dip"
-                android:textColor="#7ca300"
-                android:layout_centerVertical="true" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout4">
-
-            <TextView
-                android:id="@+id/tVAttri3"
-                android:layout_width="147dp"
-                android:layout_height="match_parent"
-                android:text="Eigenschaft 3:"
-                android:textColor="@color/primary"
-                android:ems="10"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                />
-            <EditText
+                android:id="@+id/tVSetCards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/eAttr3"
-                android:text="Job"
-                android:autoText="false"
-                android:minWidth="20dip"
-                android:textColor="#7ca300"
-                android:layout_centerVertical="true" />
+                android:text="angelegte Karten"
+                android:textColor="@color/backgroundbright"
+                android:ems="10"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@color/primary"
+                android:padding="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iCard1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/si_manjula"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iCard2"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/si_manjula"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iCard3"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/si_manjula"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iCard4"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/si_manjula"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/linearLayout1">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="147dp"
+                    android:layout_height="match_parent"
+                    android:text="Set Name:"
+                    android:textColor="@color/primary"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eSetName"
+                    android:textColor="#7ca300"
+                    android:layout_alignBottom="@+id/textView11"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/bSave"
+                    android:text="Test Set"
+                    android:layout_below="@+id/LL1"
+                 />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout2">
+
+                <TextView
+                    android:id="@+id/tVAttri1"
+                    android:layout_width="147dp"
+                    android:layout_height="match_parent"
+                    android:text="Eigenschaft 1:"
+                    android:textColor="@color/primary"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eAttr1"
+                    android:text="Hautfarbe"
+                    android:autoText="false"
+                    android:minWidth="20dip"
+                    android:textColor="#7ca300"
+                    android:layout_centerVertical="true" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout3">
+
+                <TextView
+                    android:id="@+id/tVAttri2"
+                    android:layout_width="147dp"
+                    android:layout_height="match_parent"
+                    android:text="Eigenschaft 2:"
+                    android:textColor="@color/primary"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eAttr2"
+                    android:text="Augenfarbe"
+                    android:autoText="false"
+                    android:minWidth="20dip"
+                    android:textColor="#7ca300"
+                    android:layout_centerVertical="true" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout4">
+
+                <TextView
+                    android:id="@+id/tVAttri3"
+                    android:layout_width="147dp"
+                    android:layout_height="match_parent"
+                    android:text="Eigenschaft 3:"
+                    android:textColor="@color/primary"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eAttr3"
+                    android:text="Job"
+                    android:autoText="false"
+                    android:minWidth="20dip"
+                    android:textColor="#7ca300"
+                    android:layout_centerVertical="true" />
+            </LinearLayout>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="+ Eigenschaft"
+                android:id="@+id/bAddAttribute"
+                android:layout_alignParentBottom="true"
+                android:background="@color/accentnegativ"
+                android:layout_margin="30dp" />
         </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="+ Eigenschaft"
-            android:id="@+id/bAddAttribute"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="48dp" />
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <Button
+                android:background="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Speichern"
+                android:id="@+id/bSave"
+                android:layout_weight="0.33"
+                />
+
+
+            <Button
+                android:background="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Löschen"
+                android:id="@+id/bDeleteSet"
+
+                android:layout_weight="0.33"/>
+
+
+
+            <Button
+                android:background="@color/primary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Karte\nHinzufügen"
+                android:id="@+id/bAddCard"
+                android:layout_weight="0.33"/>
+        </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:background="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Karte\nHinzufügen"
-        android:id="@+id/bAddCard"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
-
-    <Button
-        android:background="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Löschen"
-        android:id="@+id/bDeleteSet"
-        android:layout_alignParentBottom="true" />
-
-    <Button
-        android:background="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Speichern"
-        android:id="@+id/bSave"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

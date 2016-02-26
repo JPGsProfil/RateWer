@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="primary" type="color">#ccdb38</item>
-    <item name="primarydark" type="color">#aeb32a</item>
-    <item name="accentpositiv" type="color">#FF99CC00</item>
-    <item name="accentnegativ" type="color">#FFCC0000</item>
+    <item name="primary" type="color">#79c1cc</item>
+    <item name="primarydark" type="color">#3c7c86</item>
+    <item name="accentpositiv" type="color">#cef2f7</item>
+    <item name="accentnegativ" type="color">#f55752</item>
     <item name="textcolorbright" type="color">#FFFFFF</item>
     <item name="backgroundbright" type="color">#FFFFFF</item>
     <item name="backgroundgrey" type="color">#EEE</item>

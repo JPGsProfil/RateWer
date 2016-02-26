@@ -61,132 +61,104 @@ android:layout_alignParentBottom="true"
 android:layout_centerHorizontal="true"
 android:id="@+id/llMenu"
 android:layout_below="@+id/llHeader"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/primary"
+    android:padding="40dp">
 
-<LinearLayout
+
+
+<FrameLayout
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundbright"
+    android:layout_marginBottom="10dp">
 
-    <TextView
-        android:layout_width="147dp"
-        android:layout_height="match_parent"
-        android:text="Username :"
-        android:textColor="@color/primary"
-        android:id="@+id/textView14"
-        android:ems="10"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:textStyle="bold"
-        android:gravity="center_vertical" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/userName"
         android:textColor="@color/primary"
-        android:layout_weight="0.6" />
-</LinearLayout>
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:padding="10dp"
+        android:hint="Username"
+        android:textColorHint="@color/primary"
+        android:layout_gravity="center" />
+</FrameLayout>
 
-    <TextView
-        android:layout_width="147dp"
-        android:layout_height="match_parent"
-        android:text="eMail :"
-        android:textColor="@color/primary"
-        android:id="@+id/textregEmail"
-        android:ems="10"
-        android:textSize="18dp"
-        android:paddingLeft="10dp"
-        android:textStyle="bold"
-        android:gravity="center_vertical" />
+<FrameLayout
+    android:orientation="horizontal"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundbright"
+    android:layout_marginBottom="10dp">
+
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
-            android:text="muster@mail.de"
             android:ems="10"
             android:id="@+id/userMail"
             android:textColor="@color/primary"
-            android:layout_weight="0.6" />
-    </LinearLayout>
+            android:padding="10dp"
+            android:hint="EMail"
+            android:textColorHint="@color/primary"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
-<LinearLayout
+<FrameLayout
     android:orientation="horizontal"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:weightSum="1">
-    <!-- TODO: set the text string dynamicly for multilingual app-->
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:text="Passwort :"
-        android:textColor="@color/primary"
-        android:id="@+id/textRegPassword1"
-        android:ems="10"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:layout_weight="0.60"
-        android:paddingLeft="10dp" />
-
+    android:weightSum="1"
+    android:background="@color/backgroundbright"
+    android:layout_marginBottom="10dp">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:text="password"
         android:textColor="@color/primary"
-        android:id="@+id/userPassword1" />
+        android:id="@+id/userPassword1"
+        android:padding="10dp"
+        android:hint="Password"
+        android:textColorHint="@color/primary"
+        android:layout_gravity="center" />
 
-</LinearLayout>
+</FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:layout_marginBottom="12dp">
-
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:text="Passwort wiederholen :"
-            android:textColor="@color/primary"
-            android:id="@+id/textRegPassword2"
-            android:ems="10"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_weight="0.60"
-            android:paddingLeft="10dp" />
-
+        android:layout_marginBottom="10dp"
+        android:background="@color/backgroundbright">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:text="password"
             android:textColor="@color/primary"
-            android:id="@+id/userPassword2" />
+            android:id="@+id/userPassword2"
+            android:padding="10dp"
+            android:hint="repeat Password"
+            android:textColorHint="@color/primary"
+            android:layout_gravity="center" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <Button
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:text="Registrieren"
     android:id="@+id/bRegister"
-    android:background="@color/primary"
+    android:background="@color/accentnegativ"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:textColor="@color/textcolorbright"
@@ -198,10 +170,11 @@ android:layout_below="@+id/llHeader"
         android:layout_height="wrap_content"
         android:text="Abbruch"
         android:id="@+id/bCancel"
-        android:background="@color/primary"
-        android:textColor="@color/textcolorbright"
+        android:background="@color/transparent"
+        android:textColor="@color/primarydark"
         android:padding="10dp"
-        style="@style/StandartFont" />
+        style="@style/StandartFont"
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

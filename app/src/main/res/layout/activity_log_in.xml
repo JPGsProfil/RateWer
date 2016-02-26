@@ -62,49 +62,56 @@ android:background="@color/backgroundbright">
     android:id="@+id/llMenu"
     android:layout_below="@+id/llHeader"
     android:gravity="center"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:padding="40dp">
 
     <FrameLayout
 
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
+
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@color/backgroundbright"
-        android:layout_margin="20dp"
-       >
+        android:layout_marginBottom="10dp"
+        android:padding="5dp">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:inputType="textPersonName"
-            android:text="Username"
             android:ems="10"
             android:id="@+id/loginName"
             android:textColor="@color/primary"
-            android:gravity="left|center_vertical" />
+            android:gravity="left|center_vertical"
+            android:textAlignment="center"
+            android:hint="Username"
+            android:textColorHint="@color/primary" />
     </FrameLayout>
 
     <FrameLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@color/backgroundbright"
-        android:layout_margin="20dp">
+        android:layout_marginBottom="10dp"
+        android:padding="5dp">
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:text="Password"
             android:textColor="@color/primary"
             android:id="@+id/loginPassword"
-            android:gravity="left|center_vertical" />
+            android:gravity="left|center_vertical"
+            android:hint="Password"
+            android:textColorHint="@color/primary" />
 
     </FrameLayout>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/bLogin"
@@ -114,7 +121,7 @@ android:background="@color/backgroundbright">
         android:textColor="@color/textcolorbright"
         android:padding="10dp"
         style="@style/StandartFont"
-        android:layout_margin="20dp"/>
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -130,7 +137,7 @@ android:background="@color/backgroundbright">
         android:layout_height="wrap_content"
         android:text="Registrieren"
         android:id="@+id/bRegister"
-        android:textColor="@color/accentnegativ"
+        android:textColor="@color/primarydark"
         android:background="@color/transparent"
         android:padding="10dp"
         style="@style/StandartFont"
@@ -143,7 +150,7 @@ android:background="@color/backgroundbright">
         android:layout_height="wrap_content"
         android:text="Überspringen"
         android:id="@+id/bjumpToStart"
-        android:textColor="@color/accentnegativ"
+        android:textColor="@color/primarydark"
         android:background="@color/transparent"
         android:padding="10dp"
         style="@style/StandartFont"/>

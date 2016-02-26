@@ -16,7 +16,7 @@
     <style name="GreenBarTop" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30px</item>
-        <item name="android:background">#aeb32a</item>
+        <item name="android:background">#3c7c86</item>
     </style>
 
     <style name="StandartFont" parent="@android:style/TextAppearance.Medium">

@@ -9,99 +9,142 @@
                 tools:context="com.example.wlg.ratewer.Activities.StartNewGameActivity"
                 android:background="@color/backgroundbright">
 
-    <LinearLayout
 
+    <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/llHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-       >
+        android:layout_height="match_parent"
+        android:background="@color/primarydark">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/primary"
+            android:id="@+id/llHeader"
+            >
+
+
+            <FrameLayout
+                style="@style/GreenBarTop">
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Neues Spiel"
+                android:id="@+id/textView4"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="40sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/textcolorbright"
+                android:layout_marginBottom="30dp" />
+
+
+
+        </LinearLayout>
 
         <FrameLayout
-            style="@style/GreenBarTop"></FrameLayout>
-
-        <TextView
-            android:text="Neues Spiel"
-            android:id="@+id/menuHeading"
-            android:layout_marginTop="@dimen/options_vertical_margin"
-            style="@style/NormalHeading"/>
-
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_startng_selectCardset"
-            android:id="@+id/textView3"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/options_vertical_margin"
-            android:textColor="@color/textcolorbright"
-            android:background="@color/primary"
-            android:padding="5dp"
-            style="@style/StandartFont"/>
+            android:layout_height="match_parent">
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sp_cardsets"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_alignParentRight="true"
-            android:gravity="left"
-            android:layout_margin="5dp"
-            style="@style/StandartFont"
-            android:background="@color/primary"></Spinner>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="40dp"
+                android:paddingTop="10dp"
+                android:paddingRight="40dp"
+                android:paddingBottom="40dp"
+                android:gravity="center_vertical|center|center_horizontal"
+                android:layout_gravity="center">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_startng_selectCardset"
+                    android:id="@+id/textView3"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/options_vertical_margin"
+                    android:textColor="@color/textcolorbright"
+                    android:padding="5dp"
+                    style="@style/StandartFont"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_startng_selectEnemyDifficulty"
-            android:id="@+id/textView6"
-            android:layout_alignTop="@+id/sp_sng_difficulty"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/textcolorbright"
-            android:background="@color/primary"
-            android:padding="5dp"
-            style="@style/StandartFont"/>
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sp_cardsets"
+                    android:layout_toEndOf="@+id/textView3"
+                    android:layout_alignParentRight="true"
+                    android:gravity="left"
+                    android:layout_margin="5dp"
+                    style="@style/StandartFont"
+                    android:background="@color/primary"
+                    android:padding="15dp"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@color/primary"></Spinner>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_startng_selectEnemyDifficulty"
+                    android:id="@+id/textView6"
+                    android:layout_alignTop="@+id/sp_sng_difficulty"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/textcolorbright"
+                    android:padding="5dp"
+                    style="@style/StandartFont"
+                    android:textStyle="bold" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sp_sng_difficulty"
-            android:layout_below="@+id/seekBar"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_margin="5dp"
-            style="@style/StandartFont"
-            android:background="@color/primary" />
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sp_sng_difficulty"
+                    android:layout_below="@+id/seekBar"
+                    android:layout_toEndOf="@+id/textView3"
+                    android:layout_margin="5dp"
+                    style="@style/StandartFont"
+                    android:background="@color/primary"
+                    android:padding="15dp"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@color/primary" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sng_FlipCardsAuto"
+                    android:id="@+id/tv_sng_FlipCardsAuto"
+                    android:checked="false"
+                    android:layout_below="@+id/llHeader"
+                    android:layout_above="@+id/b_sng_start"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/b_sng_startGame"
+                    android:id="@+id/b_sng_start"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/accentnegativ"
+                    android:textColor="@color/textcolorbright"
+                    style="@style/StandartFont"
+                    android:padding="20dp"
+                    />
+            </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_sng_FlipCardsAuto"
-        android:id="@+id/tv_sng_FlipCardsAuto"
-        android:checked="false"
-        android:layout_below="@+id/llHeader"
-        android:layout_above="@+id/b_sng_start"
-        android:layout_alignParentStart="true"
-        android:layout_margin="36dp"/>
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/b_sng_startGame"
-        android:id="@+id/b_sng_start"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/primary"
-        android:textColor="@color/textcolorbright"
-        style="@style/StandartFont"
-        android:padding="20dp"
-        />
-
 
 
 </RelativeLayout>

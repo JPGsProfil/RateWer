@@ -61,15 +61,18 @@
 
     <!-- StatisticActivity -->
     <string name="statistic_activity_LegendName">Name</string>
-    <string name="statistic_activity_LegendWon">Spiele Gewonnen:</string>
-    <string name="statistic_activity_LegendLost">Spiele Verloren:</string>
+    <string name="statistic_activity_LegendWon">Siege:</string>
+    <string name="statistic_activity_LegendLost">Niederlagen:</string>
 
 
     <!-- OptionsActivity -->
-    <string name="option_activity_LegendName">Name:</string>
-    <string name="option_activity_LegendPassword">Passwort:</string>
-    <string name="option_activity_LegendEmail">Email:</string>
+    <string name="option_activity_LegendTitle">Profildaten anpassen</string>
+    <string name="option_activity_LegendName">Nutzername</string>
+    <string name="option_activity_LegendPassword">Passwort</string>
+    <string name="option_activity_LegendEmail">Email</string>
     <string name="option_activity_btDatanAendern">Daten ändern</string>
+
+    <string name="Logout">Logout</string>
 
 
 </resources>

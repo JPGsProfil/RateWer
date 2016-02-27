@@ -29,17 +29,24 @@
             >
 
         </FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="498dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/layoutWrap">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/primary"
                 android:id="@+id/LL1">
 
@@ -152,9 +159,7 @@
                     android:id="@+id/eSetName"
                     android:textColor="#7ca300"
                     android:layout_alignBottom="@+id/textView11"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/bSave"
-                    android:text="Test Set"
+                    android:text=""
                     android:layout_below="@+id/LL1"
                  />
             </LinearLayout>
@@ -163,7 +168,6 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout2">
 
                 <TextView
@@ -182,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/eAttr1"
-                    android:text="Hautfarbe"
+                    android:text=""
                     android:autoText="false"
                     android:minWidth="20dip"
                     android:textColor="#7ca300"
@@ -192,7 +196,6 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout3">
 
                 <TextView
@@ -211,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/eAttr2"
-                    android:text="Augenfarbe"
+                    android:text=""
                     android:autoText="false"
                     android:minWidth="20dip"
                     android:textColor="#7ca300"
@@ -222,7 +225,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout2"
-                android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout4">
 
                 <TextView
@@ -241,14 +243,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/eAttr3"
-                    android:text="Job"
+                    android:text=""
                     android:autoText="false"
                     android:minWidth="20dip"
                     android:textColor="#7ca300"
                     android:layout_centerVertical="true" />
             </LinearLayout>
 
-            <Button
+
+        </LinearLayout>
+<!--            <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -257,15 +261,15 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/accentnegativ"
                 android:layout_margin="30dp" />
+-->
         </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            android:gravity="bottom">
+            android:layout_height="wrap_content">
 
             <Button
                 android:background="@color/primary"

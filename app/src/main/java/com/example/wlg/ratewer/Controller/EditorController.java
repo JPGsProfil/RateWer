@@ -41,6 +41,21 @@ public class EditorController {
         editor = new EditorData();
     }
 
+    public void FillData(String text)
+    {
+        editor.FillSets(text);
+    }
+
+    public EditorSet GetSet(int _Position)
+    {
+        return editor.getSet(_Position);
+    }
+
+    public void RemoveSet(int _Position)
+    {
+        editor.RemoveSet(_Position);
+    }
+
     public void FillList(int viewID)
     {
         for (int i =0 ; i < editor.GetSetsSize(); i++)
@@ -102,37 +117,46 @@ public class EditorController {
     {
         return editor.GetSetsSize();
     }
+
+    public void AddNewSet(EditorSet _Set)
+    {
+        editor.addNewSet(_Set);
+    }
+
     //write file
     public  void writeFile(Context _ctx)
     {
+        String jsonString;
         //test json element erstellen und dann in die datei schreiben!
-
+/*
         Log.d("", "start");
         String jsonString;
             ArrayList sets = new ArrayList();
             EditorSet testset = new EditorSet();
             testset.SetName("test1");
             testset.SetID(1);
+            testset.SetAttributes("Job, Haarfarbe, Brille, test");
             testset.SetCard(new EditorCard(1, "card", "", null));
         Log.d("", "start2");
 
         EditorSet testset2 = new EditorSet();
-            testset2.SetName("test1");
+            testset2.SetName("test 2");
             testset2.SetID(2);
+            testset2.SetAttributes("Haarfarbe, Brille, X");
             testset2.SetCard(new EditorCard(1, "card", "", null));
 
             sets.add(testset);
             sets.add(testset2);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            jsonString = gson.toJson(sets);
+  */        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            jsonString = gson.toJson(editor.GetSets());
 
 
         BufferedWriter bufferWriter = null;
         FileOutputStream outputStream;
+
         try
         {
             File file = new File(_ctx.getFilesDir() + "sets.json");
-            Log.d("",_ctx.getFilesDir().toString());
 
             if (!file.exists())
             {

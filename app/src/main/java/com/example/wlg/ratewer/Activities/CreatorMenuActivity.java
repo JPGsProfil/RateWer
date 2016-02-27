@@ -46,18 +46,12 @@ public class CreatorMenuActivity extends ActionBarActivity {
         bNewSet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
+                firstIntent.putExtra("data", controller.GetData());
                 startActivity(firstIntent);
             }
         });
 
 
-    }
-
-    public void EditCardSetFromList(Intent firstIntent, int id)
-    {
-        firstIntent.putExtra("data", controller.GetData());
-        firstIntent.putExtra("id",id);
-        startActivity(firstIntent);
     }
 
     @Override
@@ -80,39 +74,42 @@ public class CreatorMenuActivity extends ActionBarActivity {
         startActivity(firstIntent);
     }
 
-    int counter;
+    int[] counter;
 
     @Override
     public void onStart()
     {
         super.onStart();
-        counter = 0;
         int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
         controller = new EditorController();
         //controller.writeFile(getApplicationContext());
         controller.readFile(getApplicationContext());
         final TableLayout lLayout = (TableLayout) findViewById(R.id.tableLayout1);
+        counter = new int[controller.GetSetsSize()];
         for (int i = 1; i <= controller.GetSetsSize(); i++)
         {
-            counter = i;
-
+            final int number;
+            int j = i;
             TableRow row            = new TableRow(CreatorMenuActivity.this);
             TextView setName        = new TextView(CreatorMenuActivity.this);
             TextView onlineStatus   = new TextView(CreatorMenuActivity.this);
-            setName.setText(controller.GetSetName(counter));
+
+            setName.setText(controller.GetSetName(i));
             setName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
             setName.setPadding(dipPaddingValue, dipPaddingValue, dipPaddingValue, dipPaddingValue);
             setName.setBackgroundColor(0x00022FFF);
 
             onlineStatus.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
             onlineStatus.setPadding(dipPaddingValue, dipPaddingValue, dipPaddingValue, dipPaddingValue);
-            onlineStatus.setText("Offline");
+            onlineStatus.setText(String.valueOf(i));
             onlineStatus.setGravity(Gravity.RIGHT);
-
+            row.setId(Integer.valueOf(i));
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                    EditCardSetFromList(firstIntent, counter);
+                    firstIntent.putExtra("data", controller.GetData());
+                    firstIntent.putExtra("id",v.getId());
+                    startActivity(firstIntent);
                 }
             });
             row.addView(setName);

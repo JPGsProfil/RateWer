@@ -47,6 +47,10 @@ public class EditorData
 
     }
 
+    public List<EditorSet> GetSets()
+    {
+        return sets;
+    }
     public void editSet(EditorSet _Set)
     {
         sets.add(_Set);
@@ -55,6 +59,11 @@ public class EditorData
     public void addNewSet(EditorSet _Set)
     {
         sets.add(_Set);
+    }
+
+    public void RemoveSet(int _Position)
+    {
+        sets.remove(_Position);
     }
 
     public EditorSet getSet(int _Position)
@@ -66,10 +75,12 @@ public class EditorData
     {
         return sets.get(_ID);
     }
+
     public JSONObject getCard(int _SetID, int _CardID)
     {
         return null;
     }
+
 /*
     public void SetGameList(String viewName)
     {

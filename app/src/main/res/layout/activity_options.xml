@@ -8,100 +8,162 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.wlg.ratewer.Activities.OptionsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_language"
-        android:id="@+id/tvLanguage"
-        android:layout_alignBottom="@+id/spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="67dp"
-        style="@style/StandartFont"
-        android:textColor="@color/primarydark" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:entries="@array/lang_array"
-        style="@style/StandartFont"
-        android:dropDownSelector="#180505"
-        android:dropDownWidth="match_parent"
-        android:focusableInTouchMode="false"
-        android:layout_above="@+id/btnOptionLogin"
-        android:layout_alignParentStart="true"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/btnOptionLogin"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="41dp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/primary"
+            android:id="@+id/llHeader"
+            >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/option_activity_LegendName"
-        android:id="@+id/tv_options_LegendName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_options_Name"
-        android:layout_marginEnd="23dp"
-        android:layout_alignTop="@+id/tv_options_LegendName"
-        android:layout_alignParentEnd="true"
-        android:text="______________"/>
+            <FrameLayout
+                style="@style/GreenBarTop">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/option_activity_LegendPassword"
-        android:id="@+id/tv_options_LegendPassword"
-        android:layout_below="@+id/tv_options_Name"
-        android:layout_alignEnd="@+id/tvLanguage"
-        android:layout_marginTop="43dp"/>
+            </FrameLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/tv_options_Password"
-        android:layout_alignTop="@+id/tv_options_LegendPassword"
-        android:layout_alignParentEnd="true"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Optionen"
+                android:id="@+id/textView4"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="40sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/textcolorbright"
+                android:layout_marginBottom="30dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/option_activity_LegendEmail"
-        android:id="@+id/tv_options_LegendEmail"
-        android:layout_below="@+id/tv_options_Password"
-        android:layout_alignStart="@+id/tv_options_LegendPassword"
-        android:layout_marginTop="43dp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/tv_options_Email"
-        android:layout_alignTop="@+id/tv_options_LegendEmail"
-        android:layout_alignParentEnd="true"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/option_activity_btDatanAendern"
-        android:id="@+id/tv_options_bt_changeUser"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primarydark"
+            android:padding="40dp">
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/option_activity_LegendTitle"
+                android:id="@+id/tv_options_LegendName"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="22dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_options_Name"
+                android:layout_alignTop="@+id/tv_options_LegendName"
+                android:layout_alignParentEnd="true"
+                android:hint="@string/option_activity_LegendName"
+                android:textColorHint="@color/primarydark"
+                android:background="@color/backgroundbright"
+                android:textColor="@color/primarydark"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/tv_options_Password"
+                android:layout_alignTop="@+id/tv_options_LegendPassword"
+                android:layout_alignParentEnd="true"
+                android:hint="@string/option_activity_LegendPassword"
+                android:background="@color/backgroundbright"
+                android:textColorHint="@color/primarydark"
+                android:textColor="@color/primarydark"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/tv_options_Email"
+                android:layout_alignTop="@+id/tv_options_LegendEmail"
+                android:layout_alignParentEnd="true"
+                android:hint="@string/option_activity_LegendEmail"
+                android:background="@color/backgroundbright"
+                android:textColorHint="@color/primarydark"
+                android:textColor="@color/primarydark"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp" />
+
+            <!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_language"
+                android:id="@+id/tvLanguage"
+                style="@style/StandartFont"
+                android:textColor="@color/primarydark" />-->
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:entries="@array/lang_array"
+                style="@style/StandartFont"
+                android:dropDownSelector="@color/backgroundbright"
+                android:dropDownWidth="match_parent"
+                android:focusableInTouchMode="false"
+                android:layout_above="@+id/btnOptionLogin"
+                android:layout_alignParentStart="true"
+                android:padding="15dp"
+                android:background="@color/primary"
+                android:popupBackground="@color/primary"
+                android:layout_marginBottom="10dp" />
+
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/option_activity_btDatanAendern"
+                    android:id="@+id/tv_options_bt_changeUser"
+                    android:background="@color/primary"
+                    android:textColor="@color/primarydark"
+                    android:layout_weight="0.5" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Logout"
+                    android:id="@+id/btnOptionLogin"
+                    android:background="@color/accentnegativ"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

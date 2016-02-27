@@ -82,10 +82,11 @@ android:background="@color/backgroundbright">
             android:ems="10"
             android:id="@+id/loginName"
             android:textColor="@color/primary"
-            android:gravity="left|center_vertical"
+            android:gravity="center_vertical"
             android:textAlignment="center"
-            android:hint="Username"
-            android:textColorHint="@color/primary" />
+            android:hint="Nutzername"
+            android:textColorHint="@color/primary"
+            android:layout_gravity="center_horizontal" />
     </FrameLayout>
 
     <FrameLayout
@@ -104,9 +105,11 @@ android:background="@color/backgroundbright">
             android:ems="10"
             android:textColor="@color/primary"
             android:id="@+id/loginPassword"
-            android:gravity="left|center_vertical"
-            android:hint="Password"
-            android:textColorHint="@color/primary" />
+            android:gravity="center_vertical"
+            android:hint="Passwort"
+            android:textColorHint="@color/primary"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
 
     </FrameLayout>
 
@@ -127,7 +130,7 @@ android:background="@color/backgroundbright">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Dont have an Account already?"
+        android:text="Noch keinen Account ?"
         android:id="@+id/textView12"
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"/>

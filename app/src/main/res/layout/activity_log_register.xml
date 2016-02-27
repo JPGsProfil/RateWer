@@ -83,7 +83,7 @@ android:layout_below="@+id/llHeader"
         android:id="@+id/userName"
         android:textColor="@color/primary"
         android:padding="10dp"
-        android:hint="Username"
+        android:hint="Nutzername"
         android:textColorHint="@color/primary"
         android:layout_gravity="center" />
 </FrameLayout>
@@ -125,7 +125,7 @@ android:layout_below="@+id/llHeader"
         android:textColor="@color/primary"
         android:id="@+id/userPassword1"
         android:padding="10dp"
-        android:hint="Password"
+        android:hint="Passwort"
         android:textColorHint="@color/primary"
         android:layout_gravity="center" />
 
@@ -147,7 +147,7 @@ android:layout_below="@+id/llHeader"
             android:textColor="@color/primary"
             android:id="@+id/userPassword2"
             android:padding="10dp"
-            android:hint="repeat Password"
+            android:hint="Passwort wiederholen"
             android:textColorHint="@color/primary"
             android:layout_gravity="center" />
 

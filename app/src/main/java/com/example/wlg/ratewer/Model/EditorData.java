@@ -57,11 +57,15 @@ public class EditorData
         sets.add(_Set);
     }
 
-    public EditorSet getSet(int _ID)
+    public EditorSet getSet(int _Position)
+    {
+        return sets.get(_Position);
+    }
+
+    public EditorSet getSetByID(int _ID)
     {
         return sets.get(_ID);
     }
-
     public JSONObject getCard(int _SetID, int _CardID)
     {
         return null;

@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,35 +50,13 @@ public class CreatorMenuActivity extends ActionBarActivity {
             }
         });
 
-        final TableRow rSelectItem1 = (TableRow)findViewById(R.id.tableRow5);
-        final TableRow rSelectItem2 = (TableRow)findViewById(R.id.tableRow6);
-        final TableRow rSelectItem3 = (TableRow)findViewById(R.id.tableRow7);
-
-        rSelectItem1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                EditCardSetFromList(firstIntent, 1);
-            }
-        });
-
-        rSelectItem2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                EditCardSetFromList(firstIntent, 2);
-            }
-        });
-
-        rSelectItem3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                EditCardSetFromList(firstIntent, 2);
-            }
-        });
 
     }
 
     public void EditCardSetFromList(Intent firstIntent, int id)
     {
+        firstIntent.putExtra("data", controller.GetData());
+        firstIntent.putExtra("id",id);
         startActivity(firstIntent);
     }
 
@@ -100,28 +80,44 @@ public class CreatorMenuActivity extends ActionBarActivity {
         startActivity(firstIntent);
     }
 
+    int counter;
 
     @Override
     public void onStart()
     {
         super.onStart();
+        counter = 0;
+        int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
         controller = new EditorController();
-        controller.writeFile(getApplicationContext());
+        //controller.writeFile(getApplicationContext());
         controller.readFile(getApplicationContext());
         final TableLayout lLayout = (TableLayout) findViewById(R.id.tableLayout1);
         for (int i = 1; i <= controller.GetSetsSize(); i++)
         {
-            Log.d("test", "sadasd");
-            TextView tv1=new TextView(CreatorMenuActivity.this);
-            EditText et1 = new EditText(CreatorMenuActivity.this);
-            tv1.setText("Eigenschaft: ");
-            et1.setText("Unbekannt");
-            et1.setTextColor(Color.BLACK);
-            tv1.setTextColor(Color.BLACK);
-            TextView tv2=new TextView(CreatorMenuActivity.this);
-            tv2.setText("Test2");
-            lLayout.addView(tv1);
-            lLayout.addView(et1);
+            counter = i;
+
+            TableRow row            = new TableRow(CreatorMenuActivity.this);
+            TextView setName        = new TextView(CreatorMenuActivity.this);
+            TextView onlineStatus   = new TextView(CreatorMenuActivity.this);
+            setName.setText(controller.GetSetName(counter));
+            setName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+            setName.setPadding(dipPaddingValue, dipPaddingValue, dipPaddingValue, dipPaddingValue);
+            setName.setBackgroundColor(0x00022FFF);
+
+            onlineStatus.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+            onlineStatus.setPadding(dipPaddingValue, dipPaddingValue, dipPaddingValue, dipPaddingValue);
+            onlineStatus.setText("Offline");
+            onlineStatus.setGravity(Gravity.RIGHT);
+
+            row.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
+                    EditCardSetFromList(firstIntent, counter);
+                }
+            });
+            row.addView(setName);
+            row.addView(onlineStatus);
+            lLayout.addView(row);
 
         }
 

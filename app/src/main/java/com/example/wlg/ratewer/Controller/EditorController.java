@@ -33,15 +33,17 @@ import com.google.gson.GsonBuilder;
 public class EditorController {
 
     EditorData editor;
+    String DataString;
 
     public  EditorController()
     {
+        DataString = "";
         editor = new EditorData();
     }
 
     public void FillList(int viewID)
     {
-        for (int i =0 ; i <editor.GetSetsSize(); i++)
+        for (int i =0 ; i < editor.GetSetsSize(); i++)
         {
             editor.getSet(i).getSetName();
         }
@@ -73,11 +75,27 @@ public class EditorController {
             fileReader.close();
             Gson gson = new Gson();
             editor.FillSets(text);
+            DataString = text;
 
         }catch(IOException e)
         {
             e.printStackTrace();
         }
+    }
+
+    public String GetData()
+    {
+        return DataString;
+    }
+
+    public String GetSetName(int id)
+    {
+
+        String text = "";
+
+        text = editor.getSet(id-1).getSetName();
+
+        return text;
     }
 
     public int GetSetsSize()
@@ -100,7 +118,7 @@ public class EditorController {
 
         EditorSet testset2 = new EditorSet();
             testset2.SetName("test1");
-            testset2.SetID(1);
+            testset2.SetID(2);
             testset2.SetCard(new EditorCard(1, "card", "", null));
 
             sets.add(testset);

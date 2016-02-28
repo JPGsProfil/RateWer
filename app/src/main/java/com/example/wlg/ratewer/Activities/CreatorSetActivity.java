@@ -30,7 +30,6 @@ public class CreatorSetActivity extends ActionBarActivity {
 
     private static final int SELECT_PICTURE = 1;
 
-    private String selectedImagePath;
     private EditorController controller;
 
 
@@ -39,6 +38,7 @@ public class CreatorSetActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creator_set);
 
+        //Add new Card to the Set
         final Button bAddCard = (Button) findViewById(R.id.bAddCard);
         bAddCard.setOnClickListener(new View.OnClickListener()
         {
@@ -60,17 +60,20 @@ public class CreatorSetActivity extends ActionBarActivity {
                 if(pos  > -1)
                 {
                     firstIntent.putExtra("setPos", pos);
-
-                }else{
+                }else
+                {
                     firstIntent.putExtra("setPos", controller.GetSetsSize());
                 }
+
                 getIntent().removeExtra("id");
                 startActivity(firstIntent);
+
             }
         });
 
-            final Button bDelSet = (Button) findViewById(R.id.bDeleteSet);
-            bDelSet.setOnClickListener(new View.OnClickListener() {
+        //Delete the Set, Images from Setup Cards wont be effect and stay on the phone
+        final Button bDelSet = (Button) findViewById(R.id.bDeleteSet);
+        bDelSet.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
 
@@ -82,18 +85,20 @@ public class CreatorSetActivity extends ActionBarActivity {
                     getIntent().removeExtra("id");
                     startActivity(firstIntent);
                 }
-            });
+        });
 
 
-            final Button bSave = (Button) findViewById(R.id.bSave);
-            bSave.setOnClickListener(new View.OnClickListener() {
+        //Save the set
+        final Button bSave = (Button) findViewById(R.id.bSave);
+        bSave.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v)
                 {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
                     saveData();
+                    getIntent().removeExtra("id");
                     startActivity(firstIntent);
                 }
-            });
+        });
 
 /*        findViewById(R.id.iCard1).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {editCard(arg0); }});
@@ -148,16 +153,13 @@ public class CreatorSetActivity extends ActionBarActivity {
     }
 
 
+    //Android Return BUtton is used as Cancel, which wont save
     @Override
     public void onBackPressed() {
         final Intent firstIntent = new Intent(this.findViewById(android.R.id.content).getContext(), CreatorMenuActivity.class);
-        startActivity(firstIntent);
-    }
+        if(getIntent().hasExtra("id"))
+            getIntent().removeExtra("id");
 
-    public void editCard(View v){
-        // in onCreate or any event where your want the user to
-        // select a file
-        final Intent firstIntent = new Intent(v.getContext(), CreatorCardActivity.class);
         startActivity(firstIntent);
     }
 
@@ -183,8 +185,6 @@ public class CreatorSetActivity extends ActionBarActivity {
 
             EditText name = (EditText)findViewById(R.id.eSetName);
             name.setText(set.getSetName());
-
-            Log.d("test", String.valueOf(set.getCardCount()));
 
             String[] attributes = set.getAttributes().split(",");
 
@@ -214,8 +214,6 @@ public class CreatorSetActivity extends ActionBarActivity {
             LinearLayout hll = new LinearLayout(getApplicationContext());
             LinearLayout ll = (LinearLayout)findViewById(R.id.vPLL);
 
-            Log.d("test",String.valueOf(set.getCardCount()));
-
             if(set.getCardCount() > 0)
             {
 
@@ -235,6 +233,22 @@ public class CreatorSetActivity extends ActionBarActivity {
                     img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
                     img.setId(i);
                     img.setLayoutParams(lp);
+                    img.setOnClickListener(new View.OnClickListener()
+                    {
+                        public void onClick(View arg0)
+                        {
+                            final Intent firstIntent = new Intent(arg0.getContext(), CreatorCardActivity.class);
+                            saveData();
+
+                            firstIntent.putExtra("cardPos", arg0.getId());
+                            firstIntent.putExtra("setPos",getIntent().getExtras().getInt("id"));
+
+                            getIntent().removeExtra("id");
+                            Log.d("test",String.valueOf(arg0.getId()));
+
+                            startActivity(firstIntent);
+                        }
+                    });
 
                     hll.addView(img);
                     if(i % 5==0) {
@@ -299,8 +313,10 @@ public class CreatorSetActivity extends ActionBarActivity {
 
         if(attr1String.isEmpty())
             attr1String = " ";
+
         EditText attr2 = (EditText)findViewById(R.id.eAttr2);
         String attr2String = attr2.getText().toString();
+
         if(attr2String.isEmpty())
             attr2String = " ";
 
@@ -320,6 +336,7 @@ public class CreatorSetActivity extends ActionBarActivity {
             String attr = new String(attr1String + "," +  attr2String + "," + attr3String);
             newSet.setAttributes(attr);
             controller.AddNewSet(newSet);
+            getIntent().putExtra("id",controller.GetSetsSize());
 
         }else
         {
@@ -329,8 +346,6 @@ public class CreatorSetActivity extends ActionBarActivity {
             EditorSet editSet = controller.GetSet(position);
             editSet.setName(nameString);
             editSet.setAttributes(new String(attr1String + "," + attr2String + "," + attr3String));
-
-            getIntent().removeExtra("id");
         }
         controller.writeFile(getApplicationContext());
     }

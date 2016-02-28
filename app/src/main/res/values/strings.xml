@@ -27,6 +27,7 @@
     <string name="txt_Statistic_title">Statistiken</string>
     <string name="txt_bStatistic">Statistik</string>
     <string name="title_activity_statistic">StatisticActivity</string>
+    <string name="txt_startmenu">Zurück zum Hauptmenü</string>
 
 
     <!-- Start new game options menu-->

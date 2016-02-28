@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.wlg.ratewer.R;
 
@@ -77,7 +78,7 @@ public class StartNewGameActivity extends AppCompatActivity
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, cardsets);
+                R.layout.spinner_item, cardsets);
         sp_cardsets.setAdapter(adapter);
     }
 
@@ -100,7 +101,7 @@ public class StartNewGameActivity extends AppCompatActivity
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, difflist);
+                R.layout.spinner_item, difflist);
         sp_diff.setAdapter(adapter);
     }
 

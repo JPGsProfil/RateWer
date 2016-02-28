@@ -1,10 +1,13 @@
 package com.example.wlg.ratewer.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Builder.RetroBuilder;
@@ -33,6 +36,14 @@ public class EndGameActivity extends ActionBarActivity implements Callback<List<
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
+
+        final Button bStartGame = (Button) findViewById(R.id.bStartMenu);
+        bStartGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
+                startActivity(firstIntent);
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)

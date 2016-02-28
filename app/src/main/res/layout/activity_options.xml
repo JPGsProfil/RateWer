@@ -130,8 +130,6 @@
                 android:dropDownSelector="@color/backgroundbright"
                 android:dropDownWidth="match_parent"
                 android:focusableInTouchMode="false"
-                android:layout_above="@+id/btnOptionLogin"
-                android:layout_alignParentStart="true"
                 android:padding="15dp"
                 android:background="@color/primary"
                 android:popupBackground="@color/primary"

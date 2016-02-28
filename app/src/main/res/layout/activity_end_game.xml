@@ -36,25 +36,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_start"
-        android:id="@+id/bCreateOnlineGame"
-        android:background="@color/primary"
-        android:layout_below="@+id/tv_eg_msg"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/textcolorbright"
-        android:layout_margin="10sp"
-        android:padding="20dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_options"
+        android:text="@string/txt_startmenu"
         android:id="@+id/bStartMenu"
-        android:background="@color/primary"
-        android:layout_below="@+id/bCreateOnlineGame"
-        android:layout_centerVertical="true"
+        android:background="@color/accentnegativ"
         android:textColor="@color/textcolorbright"
         android:layout_margin="10sp"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:layout_below="@+id/tv_eg_msg"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

@@ -84,13 +84,15 @@
                     android:id="@+id/sp_cardsets"
                     android:layout_toEndOf="@+id/textView3"
                     android:layout_alignParentRight="true"
-                    android:gravity="left"
                     android:layout_margin="5dp"
                     style="@style/StandartFont"
                     android:background="@color/primary"
                     android:padding="15dp"
                     android:dropDownWidth="match_parent"
-                    android:popupBackground="@color/primary"></Spinner>
+                    android:popupBackground="@color/primary"
+                    android:spinnerMode="dropdown"
+                    android:dropDownSelector="@color/backgroundbright"/>
+
 
                 <TextView
                     android:layout_width="match_parent"

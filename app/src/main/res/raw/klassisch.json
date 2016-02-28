@@ -1,0 +1,417 @@
+{
+  "cards": [
+    {
+      "metaInf":{
+        "id": 1,
+        "name": "Amelie",
+        "image": "face_1"
+      },
+      "Attribute":{
+        "Haarfarbe": "Blond",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Bordeux"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 2,
+        "name": "Jenny",
+        "image": "face_2"
+      },
+      "Attribute":{
+        "Haarfarbe": "Brunette",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Hat einen Zopf",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Grün",
+		"Lippenstift": "Rosa"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 3,
+        "name": "Selina",
+        "image": "face_3"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+       "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Rosa"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 4,
+        "name": "Chivonne",
+        "image": "face_4"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Dunkel",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Bordeux"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 5,
+        "name": "Frank",
+        "image": "face_5"
+      },
+      "Attribute":{
+        "Haarfarbe": "Brunette",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Keinen"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 6,
+        "name": "Herrman",
+        "image": "face_6"
+      },
+      "Attribute":{
+        "Haarfarbe": "Blond",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 7,
+        "name": "Justus",
+        "image": "face_7"
+      },
+      "Attribute":{
+        "Haarfarbe": "Rotschopf",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Grün",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 8,
+        "name": "Mike",
+        "image": "face_8"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Dunkel",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 9,
+        "name": "Patrick",
+        "image": "face_9"
+      },
+      "Attribute":{
+        "Haarfarbe": "Brunette",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+
+    },
+    {
+      "metaInf":{
+        "id": 10,
+        "name": "Lee",
+        "image": "face_10"
+      },
+      "Attribute":{
+        "Haarfarbe": "Brunette",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Hat einen Zopf",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Grün",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 11,
+        "name": "Edgar",
+        "image": "face_11"
+      },
+      "Attribute":{
+        "Haarfarbe": "Grau",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 12,
+        "name": "Robert",
+        "image": "face_12"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Dunkel",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 13,
+        "name": "Penny",
+        "image": "face_13"
+      },
+      "Attribute":{
+        "Haarfarbe": "Blond",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Hat einen Zopf",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Rosa"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 14,
+        "name": "Sakura",
+        "image": "face_14"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Bordeux"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 15,
+        "name": "Sabrina",
+        "image": "face_15"
+      },
+      "Attribute":{
+        "Haarfarbe": "Brunette",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Grün",
+		"Lippenstift": "Rosa"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 16,
+        "name": "Andrea",
+        "image": "face_16"
+      },
+      "Attribute":{
+        "Haarfarbe": "Rotschopf",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Bordeux"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 17,
+        "name": "Gerard",
+        "image": "face_17"
+      },
+      "Attribute":{
+        "Haarfarbe": "Grau",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 18,
+        "name": "Nelson",
+        "image": "face_18"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 19,
+        "name": "Ralph",
+        "image": "face_19"
+      },
+      "Attribute":{
+        "Haarfarbe": "Rotschopf",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 20,
+        "name": "Dave",
+        "image": "face_20"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 21,
+        "name": "Kim",
+        "image": "face_21"
+      },
+      "Attribute":{
+        "Haarfarbe": "Rotschopf",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Hat einen Zopf",
+        "Hautfarbe": "Gebräunt",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Rosa"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 22,
+        "name": "Hilda",
+        "image": "face_22"
+      },
+      "Attribute":{
+        "Haarfarbe": "Grau",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Brille",
+        "Zopf": "Keine",
+        "Hautfarbe": "Bleich",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Bordeux"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 23,
+        "name": "Nidalee",
+        "image": "face_23"
+      },
+      "Attribute":{
+        "Haarfarbe": "Grau",
+        "Gesichtsbehaarung": "Ohne Bart",
+        "Geschlecht": "Weiblich",
+        "Accessoires": "Keine",
+        "Zopf": "Hat einen Zopf",
+        "Hautfarbe": "Dunkel",
+		"Augenfarbe": "Braun",
+		"Lippenstift": "Bordeux"
+      }
+    },
+    {
+      "metaInf":{
+        "id": 24,
+        "name": "Hassan",
+        "image": "face_24"
+      },
+      "Attribute":{
+        "Haarfarbe": "Schwarz",
+        "Gesichtsbehaarung": "Mit Bart",
+        "Geschlecht": "Männlich",
+        "Accessoires": "Keine",
+        "Zopf": "Keine",
+        "Hautfarbe": "Dunkel",
+		"Augenfarbe": "Blau",
+		"Lippenstift": "Keinen"
+      }
+    }
+  ]
+}

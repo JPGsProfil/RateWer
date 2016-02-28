@@ -40,8 +40,6 @@ public class CreatorCardActivity extends ActionBarActivity {
 
     private String selectedImagePath;
 
-    private String dataString;
-
     private EditorController controller;
 
     private EditorCard Card;
@@ -61,22 +59,28 @@ public class CreatorCardActivity extends ActionBarActivity {
         final Button bNewCard = (Button) findViewById(R.id.bNextNewCard);
         bNewCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 final Intent firstIntent = new Intent(v.getContext(), CreatorCardActivity.class);
+                int count = controller.GetSet(getIntent().getExtras().getInt("setPos")).getCardCount();
 
                 Card.setCardName(((EditText) findViewById(R.id.eCardName)).getText().toString());
-                Card.addCardAttribute(((EditText) findViewById(R.id.eAttr1)).getText().toString());
-                Card.addCardAttribute(((EditText) findViewById(R.id.eAttr2)).getText().toString());
-                Card.addCardAttribute(((EditText) findViewById(R.id.eAttr3)).getText().toString());
-                Card.setID(controller.GetSet(getIntent().getExtras().getInt("setPos")).getCardCount()+1);
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute1)).getText().toString());
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute2)).getText().toString());
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute3)).getText().toString());
 
                 if(!getIntent().hasExtra("cardPos"))
                 {
-                    Card.setID(controller.GetSet(getIntent().getExtras().getInt("setPos")).getCardCount()+1);
+                    Card.setID(count + 1);
 
                     controller.GetSet(getIntent().getExtras().getInt("setPos")).addCard(Card);
+
                 }else{
+                    if(getIntent().hasExtra("cardPos") && getIntent().getExtras().getInt("cardPos") <  count)
+                        firstIntent.putExtra("cardPos", getIntent().getExtras().getInt("cardPos") +1);
+
                     controller.GetSet(getIntent().getExtras().getInt("setPos")).setCard(Card.getID(),Card);
                 }
+
                 controller.writeFile(getApplicationContext());
 
                 startActivity(firstIntent);
@@ -87,9 +91,11 @@ public class CreatorCardActivity extends ActionBarActivity {
         final Button bDone = (Button) findViewById(R.id.bDoneCard);
         bDone.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
+
                 firstIntent.putExtra("id", getIntent().getExtras().getInt("setPos"));
-                firstIntent.putExtra("data", getIntent().getExtras().getString("data"));
+
                 Card.setCardName(((EditText) findViewById(R.id.eCardName)).getText().toString());
 
                 if(!getIntent().hasExtra("cardPos"))
@@ -100,7 +106,10 @@ public class CreatorCardActivity extends ActionBarActivity {
                     Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute3)).getText().toString());
 
                     controller.GetSet(getIntent().getExtras().getInt("setPos")-1).addCard(Card);
-                }else{
+
+                }else
+                {
+
                     Card.setCardAttribute(0,((EditText) findViewById(R.id.eAttribute1)).getText().toString());
                     Card.setCardAttribute(1,((EditText)findViewById(R.id.eAttribute2)).getText().toString());
                     Card.setCardAttribute(2,((EditText) findViewById(R.id.eAttribute3)).getText().toString());
@@ -113,7 +122,6 @@ public class CreatorCardActivity extends ActionBarActivity {
                 controller.writeFile(getApplicationContext());
 
                 getIntent().removeExtra("setPos");
-                getIntent().removeExtra("data");
 
                 startActivity(firstIntent);
             }
@@ -125,17 +133,19 @@ public class CreatorCardActivity extends ActionBarActivity {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
 
-                controller.GetSet(getIntent().getExtras().getInt("setPos")).removeCard(getIntent().getExtras().getInt("setPos"));
+                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).removeCard(getIntent().getExtras().getInt("cardPos")-1);
 
                 controller.writeFile(v.getContext());
+
                 firstIntent.putExtra("id", getIntent().getExtras().getInt("setPos"));
-                firstIntent.putExtra("data", getIntent().getExtras().getInt("data"));
+
                 getIntent().removeExtra("setPos");
-                getIntent().removeExtra("data");
+
                 if(getIntent().hasExtra("cardPos"))
                 {
                     getIntent().removeExtra("cardPos");
                 }
+
                 controller.writeFile(getApplicationContext());
 
                 startActivity(firstIntent);
@@ -177,13 +187,12 @@ public class CreatorCardActivity extends ActionBarActivity {
         super.onStart();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
+        //client.connect();
 
         Card = new EditorCard();
 
-        dataString = getIntent().getExtras().getString("data");
         controller = new EditorController();
-        controller.FillData(dataString);
+        controller.readFile(getApplicationContext());
 
         EditorSet set = new EditorSet();
 
@@ -196,7 +205,9 @@ public class CreatorCardActivity extends ActionBarActivity {
         EditText eAttr2 = (EditText) findViewById(R.id.eAttribute2);
         EditText eAttr3 = (EditText) findViewById(R.id.eAttribute3);
 
-        if (getIntent().hasExtra("setPos")) {
+        if (getIntent().hasExtra("setPos"))
+        {
+
             set = controller.GetSet(getIntent().getExtras().getInt("setPos")-1);
             String[] attributes = set.getAttributes().split(",");
             attr1.setText(attributes[0]);
@@ -205,7 +216,9 @@ public class CreatorCardActivity extends ActionBarActivity {
 
         }
         Button btn = (Button) findViewById(R.id.bDelete);
-        if (getIntent().hasExtra("cardID")) {
+
+        if (getIntent().hasExtra("cardID"))
+        {
             btn.setVisibility(View.VISIBLE);
             EditorCard card = set.getCard(getIntent().getExtras().getInt("cardPos"));
 
@@ -221,6 +234,7 @@ public class CreatorCardActivity extends ActionBarActivity {
             eAttr2.setText(card.getCardAttribute(1));
             eAttr3.setText(card.getCardAttribute(2));
             ImageButton img = (ImageButton) findViewById(R.id.iImage);
+
             if (card.getCardImagePath().isEmpty())
             {
 
@@ -247,7 +261,6 @@ public class CreatorCardActivity extends ActionBarActivity {
             eAttr3.setText("Test3");
             ImageButton img = (ImageButton) findViewById(R.id.iImage);
             img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
-
         }
 
 /*        // ATTENTION: This was auto-generated to implement the App Indexing API.

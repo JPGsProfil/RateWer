@@ -27,14 +27,7 @@ public class CreatorMenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creator_menu);
-        /* final Button bBack = (Button) findViewById(R.id.bBack);
-        bBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Intent firstIntent = new Intent(v.getContext(), StartActivity.class);
-                startActivity(firstIntent);
-            }
-        });
-*/
+
         final Button bNewSet = (Button) findViewById(R.id.bNewSet);
         bNewSet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -75,8 +68,10 @@ public class CreatorMenuActivity extends ActionBarActivity {
         super.onStart();
         int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
         controller = new EditorController();
-        //controller.writeFile(getApplicationContext());
-        controller.readFile(getApplicationContext());
+
+        if(!getIntent().hasExtra("data")) {
+            controller.readFile(getApplicationContext());
+        }
         final TableLayout lLayout = (TableLayout) findViewById(R.id.tableLayout1);
         counter = new int[controller.GetSetsSize()];
         for (int i = 1; i <= controller.GetSetsSize(); i++)
@@ -100,7 +95,6 @@ public class CreatorMenuActivity extends ActionBarActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
-                    firstIntent.putExtra("data", controller.GetData());
                     firstIntent.putExtra("id",v.getId());
                     startActivity(firstIntent);
                 }

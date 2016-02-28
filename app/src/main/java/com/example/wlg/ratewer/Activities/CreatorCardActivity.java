@@ -2,6 +2,7 @@ package com.example.wlg.ratewer.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Controller.EditorController;
@@ -36,6 +38,8 @@ import java.io.File;
 
 public class CreatorCardActivity extends ActionBarActivity {
 
+    // Image loading result to pass to startActivityForResult method.
+    private static int LOAD_IMAGE_RESULTS = 1;
     private static final int SELECT_PICTURE = 1;
 
     private String selectedImagePath;
@@ -52,6 +56,7 @@ public class CreatorCardActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int dipSizeValue = (int) (100 * getResources().getDisplayMetrics().density);
 
         setContentView(R.layout.activity_creator_card);
 
@@ -78,11 +83,11 @@ public class CreatorCardActivity extends ActionBarActivity {
                     if(getIntent().hasExtra("cardPos") && getIntent().getExtras().getInt("cardPos") <  count-1)
                         firstIntent.putExtra("cardPos", Integer.valueOf(getIntent().getExtras().getInt("cardPos") + 1));
 
-                    controller.GetSet(getIntent().getExtras().getInt("setPos")-1).setCard(getIntent().getExtras().getInt("cardPos"),Card);
+                    controller.GetSet(getIntent().getExtras().getInt("setPos") - 1).setCard(getIntent().getExtras().getInt("cardPos"), Card);
                 }
 
                 controller.writeFile(getApplicationContext());
-                firstIntent.putExtra("setPos",getIntent().getExtras().getInt("setPos"));
+                firstIntent.putExtra("setPos", getIntent().getExtras().getInt("setPos"));
                 startActivity(firstIntent);
             }
         });
@@ -133,7 +138,7 @@ public class CreatorCardActivity extends ActionBarActivity {
             public void onClick(View v) {
                 final Intent firstIntent = new Intent(v.getContext(), CreatorSetActivity.class);
 
-                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).removeCard(getIntent().getExtras().getInt("cardPos") - 1);
+                controller.GetSet(getIntent().getExtras().getInt("setPos") - 1).removeCard(getIntent().getExtras().getInt("cardPos") - 1);
 
                 controller.writeFile(v.getContext());
 
@@ -141,8 +146,7 @@ public class CreatorCardActivity extends ActionBarActivity {
 
                 getIntent().removeExtra("setPos");
 
-                if(getIntent().hasExtra("cardPos"))
-                {
+                if (getIntent().hasExtra("cardPos")) {
                     getIntent().removeExtra("cardPos");
                 }
 
@@ -151,16 +155,20 @@ public class CreatorCardActivity extends ActionBarActivity {
                 startActivity(firstIntent);
             }
         });
+        final ImageButton imgBtn = (ImageButton)findViewById(R.id.iImage);
+        findViewById(R.id.iImage).setOnClickListener(new View.OnClickListener() {
 
-        findViewById(R.id.iImage)
-                .setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
 
-                    public void onClick(View arg0) {
-                    }
-                });
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                // Start new activity with the LOAD_IMAGE_RESULTS to handle back the results when image is picked from the Image Gallery.
+                startActivityForResult(i, LOAD_IMAGE_RESULTS);
+            }
+        });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -185,12 +193,14 @@ public class CreatorCardActivity extends ActionBarActivity {
 
     public void onStart() {
         super.onStart();
+        int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
+        Log.d("start", "GGGGGGGGGG");
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //client.connect();
-
-        Card = new EditorCard();
-
+        if(Card == null) {
+            Card = new EditorCard();
+        }
         controller = new EditorController();
         controller.readFile(getApplicationContext());
 
@@ -219,9 +229,6 @@ public class CreatorCardActivity extends ActionBarActivity {
 
         if (getIntent().hasExtra("cardPos"))
         {
-            Log.d("test", String.valueOf("CardPos: " +getIntent().getExtras().getInt("cardPos")));
-            Log.d("test", String.valueOf("Card Count: " + controller.GetSet(getIntent().getExtras().getInt("setPos")-1).getCardCount()));
-
             btn.setVisibility(View.VISIBLE);
             EditorCard card = set.getCard(getIntent().getExtras().getInt("cardPos"));
 
@@ -240,8 +247,9 @@ public class CreatorCardActivity extends ActionBarActivity {
 
             if (card.getCardImagePath().isEmpty())
             {
+                img.setBackground(null);
 
-                img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
+                img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
 
             }else
             {
@@ -250,11 +258,18 @@ public class CreatorCardActivity extends ActionBarActivity {
                 if (file.exists())
                 {
                     Bitmap bImage = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    img.setBackground(null);
                     img.setImageBitmap(bImage);
+
                 }else{
-                    img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
+                    img.setBackground(null);
+                    img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
                 }
             }
+            img.setMaxHeight(dipPaddingValue);
+            img.setMaxWidth(dipPaddingValue);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            img.setAdjustViewBounds(true);
         } else
         {
             btn.setVisibility(View.INVISIBLE);
@@ -263,7 +278,12 @@ public class CreatorCardActivity extends ActionBarActivity {
             eAttr2.setText("Test2");
             eAttr3.setText("Test3");
             ImageButton img = (ImageButton) findViewById(R.id.iImage);
-            img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
+            img.setMaxHeight(dipPaddingValue);
+            img.setMaxWidth(dipPaddingValue);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+            img.setBackground(null);
+            img.setAdjustViewBounds(true);
         }
 
 /*        // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -300,4 +320,59 @@ public class CreatorCardActivity extends ActionBarActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Here we need to check if the activity that was triggers was the Image Gallery.
+        // If it is the requestCode will match the LOAD_IMAGE_RESULTS value.
+        // If the resultCode is RESULT_OK and there is some data we know that an image was picked.
+        if (requestCode == LOAD_IMAGE_RESULTS && resultCode == RESULT_OK && data != null) {
+            // Let's read picked image data - its URI
+            Uri pickedImage = data.getData();
+            // Let's read picked image path using content resolver
+            String[] filePath = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+            Card.setCardImagePath(imagePath);
+            ImageButton img = (ImageButton)findViewById(R.id.iImage);
+            img.setImageBitmap (BitmapFactory.decodeFile(imagePath));
+            img.setBackground(null);
+
+            Card.setCardName(((EditText) findViewById(R.id.eCardName)).getText().toString());
+
+            if(!getIntent().hasExtra("cardPos"))
+            {
+                Card.setID(controller.GetSet(getIntent().getExtras().getInt("setPos")-1).getCardCount() + 1);
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute1)).getText().toString());
+                Card.addCardAttribute(((EditText)findViewById(R.id.eAttribute2)).getText().toString());
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute3)).getText().toString());
+
+                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).addCard(Card);
+
+            }else
+            {
+
+                Card.setCardAttribute(0,((EditText) findViewById(R.id.eAttribute1)).getText().toString());
+                Card.setCardAttribute(1,((EditText)findViewById(R.id.eAttribute2)).getText().toString());
+                Card.setCardAttribute(2,((EditText) findViewById(R.id.eAttribute3)).getText().toString());
+
+                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).setCard(getIntent().getExtras().getInt("cardPos"),Card);
+
+            }
+
+            controller.writeFile(getApplicationContext());
+
+
+
+
+
+            // close the cursor to not end with the RuntimeException!
+            cursor.close();
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.wlg.ratewer.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.wlg.ratewer.Model.EditorData;
@@ -169,6 +170,5 @@ public class EditorController {
             }
         }
     }
-
 
 }

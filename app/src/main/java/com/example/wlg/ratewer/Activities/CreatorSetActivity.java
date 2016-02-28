@@ -3,6 +3,7 @@ package com.example.wlg.ratewer.Activities;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -167,6 +169,7 @@ public class CreatorSetActivity extends ActionBarActivity {
     {
 
         super.onStart();
+        int dipSizeValue = (int) (100 * getResources().getDisplayMetrics().density);
 
         if(!getIntent().hasExtra("id"))
         {
@@ -230,9 +233,21 @@ public class CreatorSetActivity extends ActionBarActivity {
                         hll.setLayoutParams(params);
                     }
                     img = new ImageButton(getApplicationContext());
-                    img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
+                    // Now we need to set the GUI ImageView data with data read from the picked file.
+                    if(set.getCard(i).getCardImagePath().isEmpty())
+                    {
+                        img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+                    }else{
+                        img.setBackground(null);
+                        img.setImageBitmap (BitmapFactory.decodeFile(set.getCard(i).getCardImagePath()));
+                    }
                     img.setId(i);
+                    img.setMaxWidth(dipSizeValue);
+                    img.setMaxHeight(dipSizeValue);
+                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    img.setAdjustViewBounds(true);
                     img.setLayoutParams(lp);
+
                     img.setOnClickListener(new View.OnClickListener()
                     {
                         public void onClick(View arg0)
@@ -241,10 +256,9 @@ public class CreatorSetActivity extends ActionBarActivity {
                             saveData();
 
                             firstIntent.putExtra("cardPos", arg0.getId());
-                            firstIntent.putExtra("setPos",getIntent().getExtras().getInt("id"));
+                            firstIntent.putExtra("setPos", getIntent().getExtras().getInt("id"));
 
                             getIntent().removeExtra("id");
-                            Log.d("test",String.valueOf(arg0.getId()));
 
                             startActivity(firstIntent);
                         }

@@ -194,13 +194,13 @@ public class CreatorCardActivity extends ActionBarActivity {
     public void onStart() {
         super.onStart();
         int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
-
+        Log.d("start", "GGGGGGGGGG");
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         //client.connect();
-
-        Card = new EditorCard();
-
+        if(Card == null) {
+            Card = new EditorCard();
+        }
         controller = new EditorController();
         controller.readFile(getApplicationContext());
 
@@ -340,6 +340,35 @@ public class CreatorCardActivity extends ActionBarActivity {
             ImageButton img = (ImageButton)findViewById(R.id.iImage);
             img.setImageBitmap (BitmapFactory.decodeFile(imagePath));
             img.setBackground(null);
+
+            Card.setCardName(((EditText) findViewById(R.id.eCardName)).getText().toString());
+
+            if(!getIntent().hasExtra("cardPos"))
+            {
+                Card.setID(controller.GetSet(getIntent().getExtras().getInt("setPos")-1).getCardCount() + 1);
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute1)).getText().toString());
+                Card.addCardAttribute(((EditText)findViewById(R.id.eAttribute2)).getText().toString());
+                Card.addCardAttribute(((EditText) findViewById(R.id.eAttribute3)).getText().toString());
+
+                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).addCard(Card);
+
+            }else
+            {
+
+                Card.setCardAttribute(0,((EditText) findViewById(R.id.eAttribute1)).getText().toString());
+                Card.setCardAttribute(1,((EditText)findViewById(R.id.eAttribute2)).getText().toString());
+                Card.setCardAttribute(2,((EditText) findViewById(R.id.eAttribute3)).getText().toString());
+
+                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).setCard(getIntent().getExtras().getInt("cardPos"),Card);
+
+            }
+
+            controller.writeFile(getApplicationContext());
+
+
+
+
+
             // close the cursor to not end with the RuntimeException!
             cursor.close();
         }

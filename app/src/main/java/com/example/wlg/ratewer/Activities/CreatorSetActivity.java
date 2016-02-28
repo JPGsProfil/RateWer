@@ -19,9 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Controller.EditorController;
+import com.example.wlg.ratewer.Model.Card;
 import com.example.wlg.ratewer.Model.EditorSet;
 import com.example.wlg.ratewer.R;
 
+import java.io.File;
 import java.util.jar.Attributes;
 
 /**
@@ -221,7 +223,7 @@ public class CreatorSetActivity extends ActionBarActivity {
             {
 
                 ImageButton img;
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dipSizeValue,dipSizeValue);
                 lp.setMargins(15,15,5,15);
                 for (int i = 0; i < set.getCardCount();i++)
                 {
@@ -239,7 +241,14 @@ public class CreatorSetActivity extends ActionBarActivity {
                         img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
                     }else{
                         img.setBackground(null);
-                        img.setImageBitmap (BitmapFactory.decodeFile(set.getCard(i).getCardImagePath()));
+                        File file = new File(set.getCard(i).getCardImagePath());
+                        Log.d("test", String.valueOf("Path   " + set.getCard(i).getCardImagePath()));
+                        if(file.exists())
+                            img.setImageBitmap (BitmapFactory.decodeFile(set.getCard(i).getCardImagePath()));
+                        else {
+                            set.getCard(i).setCardImagePath("");
+                            img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+                        }
                     }
                     img.setId(i);
                     img.setMaxWidth(dipSizeValue);

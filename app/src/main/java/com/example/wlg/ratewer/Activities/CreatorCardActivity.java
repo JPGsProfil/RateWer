@@ -59,6 +59,94 @@ public class CreatorCardActivity extends ActionBarActivity {
         int dipSizeValue = (int) (100 * getResources().getDisplayMetrics().density);
 
         setContentView(R.layout.activity_creator_card);
+        int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
+        if(Card == null) {
+            Card = new EditorCard();
+        }
+        controller = new EditorController();
+        controller.readFile(getApplicationContext());
+
+        EditorSet set = new EditorSet();
+
+        EditText eName = (EditText) findViewById(R.id.eCardName);
+        TextView attr1 = (TextView) findViewById(R.id.tAttr1);
+        TextView attr2 = (TextView) findViewById(R.id.tAttr2);
+        TextView attr3 = (TextView) findViewById(R.id.tAttr3);
+
+        EditText eAttr1 = (EditText) findViewById(R.id.eAttribute1);
+        EditText eAttr2 = (EditText) findViewById(R.id.eAttribute2);
+        EditText eAttr3 = (EditText) findViewById(R.id.eAttribute3);
+
+        if (getIntent().hasExtra("setPos"))
+        {
+
+            set = controller.GetSet(getIntent().getExtras().getInt("setPos")-1);
+            String[] attributes = set.getAttributes().split(",");
+            attr1.setText(attributes[0]);
+            attr2.setText(attributes[1]);
+            attr3.setText(attributes[2]);
+
+        }
+        Button btn = (Button) findViewById(R.id.bDelete);
+
+        if (getIntent().hasExtra("cardPos"))
+        {
+            btn.setVisibility(View.VISIBLE);
+            EditorCard card = set.getCard(getIntent().getExtras().getInt("cardPos"));
+
+            Card.setCardName(card.getCardName());
+            Card.setCardName(card.getCardImagePath());
+            Card.addCardAttribute(card.getCardAttribute(0));
+            Card.addCardAttribute(card.getCardAttribute(1));
+            Card.addCardAttribute(card.getCardAttribute(2));
+            Card.setID(getIntent().getExtras().getInt("cardPos"));
+
+            eName.setText(card.getCardName());
+            eAttr1.setText(card.getCardAttribute(0));
+            eAttr2.setText(card.getCardAttribute(1));
+            eAttr3.setText(card.getCardAttribute(2));
+            ImageButton img = (ImageButton) findViewById(R.id.iImage);
+
+            if (card.getCardImagePath().isEmpty())
+            {
+                img.setBackground(null);
+
+                img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+
+            }else
+            {
+                File file = new File(card.getCardImagePath());
+
+                if (file.exists())
+                {
+                    Bitmap bImage = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    img.setBackground(null);
+                    img.setImageBitmap(bImage);
+
+                }else{
+                    img.setBackground(null);
+                    img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+                }
+            }
+            img.setMaxHeight(dipPaddingValue);
+            img.setMaxWidth(dipPaddingValue);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            img.setAdjustViewBounds(true);
+        } else
+        {
+            btn.setVisibility(View.INVISIBLE);
+            eName.setText("Testkarte");
+            eAttr1.setText("Test1");
+            eAttr2.setText("Test2");
+            eAttr3.setText("Test3");
+            ImageButton img = (ImageButton) findViewById(R.id.iImage);
+            img.setMaxHeight(dipPaddingValue);
+            img.setMaxWidth(dipPaddingValue);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            img.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.si_manjula));
+            img.setBackground(null);
+            img.setAdjustViewBounds(true);
+        }
 
         //save progress of new card to the set and clean cache of the activity for new card
         final Button bNewCard = (Button) findViewById(R.id.bNextNewCard);
@@ -166,9 +254,9 @@ public class CreatorCardActivity extends ActionBarActivity {
                 startActivityForResult(i, LOAD_IMAGE_RESULTS);
             }
         });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+
     }
 
     @Override
@@ -190,7 +278,7 @@ public class CreatorCardActivity extends ActionBarActivity {
         firstIntent.removeExtra("setPos");
         startActivity(firstIntent);
     }
-
+/*
     public void onStart() {
         super.onStart();
         int dipPaddingValue = (int) (3 * getResources().getDisplayMetrics().density);
@@ -299,7 +387,7 @@ public class CreatorCardActivity extends ActionBarActivity {
                 Uri.parse("android-app://com.example.wlg.ratewer.Activities/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
-  */  }
+   }   }
 
 /*    @Override
     public void onStop() {
@@ -357,9 +445,9 @@ public class CreatorCardActivity extends ActionBarActivity {
 
                 Card.setCardAttribute(0,((EditText) findViewById(R.id.eAttribute1)).getText().toString());
                 Card.setCardAttribute(1,((EditText)findViewById(R.id.eAttribute2)).getText().toString());
-                Card.setCardAttribute(2,((EditText) findViewById(R.id.eAttribute3)).getText().toString());
+                Card.setCardAttribute(2, ((EditText) findViewById(R.id.eAttribute3)).getText().toString());
 
-                controller.GetSet(getIntent().getExtras().getInt("setPos")-1).setCard(getIntent().getExtras().getInt("cardPos"),Card);
+                controller.GetSet(getIntent().getExtras().getInt("setPos") - 1).setCard(getIntent().getExtras().getInt("cardPos"), Card);
 
             }
 

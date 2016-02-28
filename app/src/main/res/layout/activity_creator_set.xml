@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Neues Set erstellen"
+                    android:text="Set Editor"
                     android:id="@+id/textView4"
                     android:layout_below="@+id/setEditorTitel"
                     android:layout_centerHorizontal="true"

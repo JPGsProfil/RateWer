@@ -46,7 +46,7 @@
 
 
                     <TextView
-                        android:text="Neues Karte anlegen"
+                        android:text="Karten Editor"
                         android:id="@+id/textView4"
                         android:layout_below="@+id/textView"
                         style="@style/NormalHeading"

@@ -32,7 +32,7 @@
             </FrameLayout>
 
             <TextView
-                android:text="Set Editor"
+                android:text="Lobby Editor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_eg_msg"
@@ -104,7 +104,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="Status"
+                    android:text="ID"
                     android:textSize="24dp"
                     android:textColor="@color/primarydark">
                 </TextView>

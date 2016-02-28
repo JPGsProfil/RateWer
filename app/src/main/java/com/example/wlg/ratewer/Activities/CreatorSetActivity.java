@@ -1,28 +1,26 @@
 package com.example.wlg.ratewer.Activities;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.Debug;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Layout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Controller.EditorController;
 import com.example.wlg.ratewer.Model.EditorSet;
 import com.example.wlg.ratewer.R;
+
+import java.util.jar.Attributes;
 
 /**
  * Created by Sabine on 16.12.2015.
@@ -44,9 +42,35 @@ public class CreatorSetActivity extends ActionBarActivity {
         setContentView(R.layout.activity_creator_set);
 
         final Button bAddCard = (Button) findViewById(R.id.bAddCard);
-        bAddCard.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        bAddCard.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+
                 final Intent firstIntent = new Intent(v.getContext(), CreatorCardActivity.class);
+
+                int pos = -1;
+
+                if(getIntent().hasExtra("data"))
+                    firstIntent.putExtra("data",getIntent().getExtras().getString("data"));
+
+                if(getIntent().hasExtra("id"))
+                {
+                    pos = getIntent().getExtras().getInt("id");
+                }
+
+                //Save data
+                saveData();
+
+                if(pos  > -1)
+                {
+                    firstIntent.putExtra("setPos", pos);
+
+                }else{
+                    firstIntent.putExtra("setPos", controller.GetSetsSize());
+                }
+                getIntent().removeExtra("id");
+                getIntent().removeExtra("data");
                 startActivity(firstIntent);
             }
         });
@@ -70,59 +94,15 @@ public class CreatorSetActivity extends ActionBarActivity {
 
             final Button bSave = (Button) findViewById(R.id.bSave);
             bSave.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
+                public void onClick(View v)
+                {
                     final Intent firstIntent = new Intent(v.getContext(), CreatorMenuActivity.class);
-
-                    EditText name = (EditText)findViewById(R.id.eSetName);
-
-                    String nameString = name.getText().toString();
-                    if(nameString.isEmpty())
-                        nameString = "Set Name";
-
-                    EditText attr1 = (EditText)findViewById(R.id.eAttr1);
-
-                    String attr1String = attr1.getText().toString();
-                    if(attr1String.isEmpty())
-                        attr1String = " ";
-                    EditText attr2 = (EditText)findViewById(R.id.eAttr2);
-                    String attr2String = attr2.getText().toString();
-                    if(attr2String.isEmpty())
-                        attr2String = " ";
-
-                    EditText attr3 = (EditText)findViewById(R.id.eAttr3);
-                    String attr3String = attr3.getText().toString();
-
-                    if(attr3String.isEmpty())
-                        attr3String = " ";
-
-                    if(!getIntent().hasExtra("id"))
-                    {
-
-                        EditorSet newSet = new EditorSet();
-                        newSet.SetName(nameString);
-
-                        newSet.SetID(controller.GetSetsSize() + 1);
-                        String attr = new String(attr1String + "," +  attr2String + "," + attr3String);
-                        newSet.SetAttributes(attr);
-                        controller.AddNewSet(newSet);
-
-                    }else{
-
-                        int position = getIntent().getExtras().getInt("id") - 1;
-                        EditorSet editSet = controller.GetSet(position);
-                        editSet.SetName(nameString);
-                        editSet.SetAttributes(new String(attr1String + "," + attr2String + "," + attr3String));
-
-                        getIntent().removeExtra("id");
-                        getIntent().removeExtra("data");
-                    }
-                    controller.writeFile(getApplicationContext());
+                    saveData();
                     startActivity(firstIntent);
                 }
             });
 
-        findViewById(R.id.iCard1).setOnClickListener(new View.OnClickListener() {
+/*        findViewById(R.id.iCard1).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {editCard(arg0); }});
 
         findViewById(R.id.iCard2).setOnClickListener(new View.OnClickListener() {
@@ -135,7 +115,7 @@ public class CreatorSetActivity extends ActionBarActivity {
         findViewById(R.id.iCard4).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) { editCard(arg0);}});
 
-
+*/
         //TODO: fix set up new attribute
         //final Button bAddAttribute = (Button) findViewById(R.id.bAddAttribute);
         //final LinearLayout lLayout = (LinearLayout) findViewById(R.id.layoutWrap);
@@ -207,14 +187,14 @@ public class CreatorSetActivity extends ActionBarActivity {
             controller.GetSetsSize();
             if(getIntent().getExtras().containsKey("id"))
             {
-
                 EditorSet set = controller.GetSet(getIntent().getExtras().getInt("id") - 1);
 
                 EditText name = (EditText)findViewById(R.id.eSetName);
                 name.setText(set.getSetName());
 
+                Log.d("test", String.valueOf(set.getCardCount()));
 
-                String[] attributes = set.getAttributes ().split(",");
+                String[] attributes = set.getAttributes().split(",");
                 if(attributes.length < 3)
                 {
                     EditText attr1 = (EditText) findViewById(R.id.eAttr1);
@@ -226,8 +206,7 @@ public class CreatorSetActivity extends ActionBarActivity {
                     EditText attr3 = (EditText) findViewById(R.id.eAttr3);
                     attr3.setText(" ");
 
-                }else
-                {
+                }else {
                     EditText attr1 = (EditText) findViewById(R.id.eAttr1);
                     attr1.setText(attributes[0]);
 
@@ -236,6 +215,44 @@ public class CreatorSetActivity extends ActionBarActivity {
 
                     EditText attr3 = (EditText) findViewById(R.id.eAttr3);
                     attr3.setText(attributes[2]);
+                }
+                LinearLayout hll = new LinearLayout(getApplicationContext());
+                LinearLayout ll = (LinearLayout)findViewById(R.id.vPLL);
+                Log.d("test",String.valueOf(set.getCardCount()));
+                if(set.getCardCount() > 0)
+                {
+
+                    ImageButton img;
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(15,15,5,15);
+                    for (int i = 0; i < set.getCardCount();i++)
+                    {
+                        if(i % 5==0)
+                        {
+                            hll = new LinearLayout(getApplicationContext());
+                            hll.setOrientation(LinearLayout.HORIZONTAL);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                            hll.setLayoutParams(params);
+                        }
+                        img = new ImageButton(getApplicationContext());
+                        img.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.si_manjula));
+                        img.setId(i);
+                        img.setLayoutParams(lp);
+
+                        hll.addView(img);
+
+                        ll.addView(hll);
+
+
+                        /*
+
+
+                    <ImageButton
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/si_manjula"/>
+                         */
+                    }
                 }
 
                 final LinearLayout llwrap = (LinearLayout)findViewById(R.id.layoutWrap);
@@ -267,7 +284,7 @@ public class CreatorSetActivity extends ActionBarActivity {
                     ll.addView(attrX);
                     llwrap.addView(ll);
   */              }
-
+                set.getCardCount();
 
 
 
@@ -276,5 +293,55 @@ public class CreatorSetActivity extends ActionBarActivity {
             }
         }
 
+    }
+
+    public void saveData()
+    {
+
+
+        EditText name = (EditText)findViewById(R.id.eSetName);
+
+        String nameString = name.getText().toString();
+        if(nameString.isEmpty())
+            nameString = "Set Name";
+
+        EditText attr1 = (EditText)findViewById(R.id.eAttr1);
+
+        String attr1String = attr1.getText().toString();
+        if(attr1String.isEmpty())
+            attr1String = " ";
+        EditText attr2 = (EditText)findViewById(R.id.eAttr2);
+        String attr2String = attr2.getText().toString();
+        if(attr2String.isEmpty())
+            attr2String = " ";
+
+        EditText attr3 = (EditText)findViewById(R.id.eAttr3);
+        String attr3String = attr3.getText().toString();
+
+        if(attr3String.isEmpty())
+            attr3String = " ";
+
+        if(!getIntent().hasExtra("id"))
+        {
+
+            EditorSet newSet = new EditorSet();
+            newSet.setName(nameString);
+
+            newSet.setID(controller.GetSetsSize() + 1);
+            String attr = new String(attr1String + "," +  attr2String + "," + attr3String);
+            newSet.setAttributes(attr);
+            controller.AddNewSet(newSet);
+
+        }else{
+
+            int position = getIntent().getExtras().getInt("id") - 1;
+            EditorSet editSet = controller.GetSet(position);
+            editSet.setName(nameString);
+            editSet.setAttributes(new String(attr1String + "," + attr2String + "," + attr3String));
+
+            getIntent().removeExtra("id");
+            getIntent().removeExtra("data");
+        }
+        controller.writeFile(getApplicationContext());
     }
 }

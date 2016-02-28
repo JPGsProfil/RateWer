@@ -1,16 +1,10 @@
 package com.example.wlg.ratewer.Model;
 
-import android.util.Log;
-
-import com.example.wlg.ratewer.Controller.EditorController;
-import com.example.wlg.ratewer.Model.neu.Cardset;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +31,7 @@ public class EditorData
         return  fileName;
     }
 
-    public void FillSets(String text)
+    public void fillSets(String text)
     {
         Gson gson = new Gson();
         EditorSet[] obj = gson.fromJson(text,EditorSet[].class);
@@ -47,7 +41,7 @@ public class EditorData
 
     }
 
-    public List<EditorSet> GetSets()
+    public List<EditorSet> getSets()
     {
         return sets;
     }
@@ -61,7 +55,7 @@ public class EditorData
         sets.add(_Set);
     }
 
-    public void RemoveSet(int _Position)
+    public void removeSet(int _Position)
     {
         sets.remove(_Position);
     }
@@ -97,7 +91,7 @@ public class EditorData
             sets.add(new EditorSet(_Name,_SetID,_AttributList,_CardList));
     }
 
-    public int GetSetsSize() {
+    public int getSetsSize() {
         return sets.size();
     }
 }

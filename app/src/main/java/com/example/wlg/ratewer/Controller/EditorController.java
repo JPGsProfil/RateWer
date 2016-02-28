@@ -1,31 +1,20 @@
 package com.example.wlg.ratewer.Controller;
 
 import android.content.Context;
-import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
-import com.example.wlg.ratewer.Model.EditorCard;
 import com.example.wlg.ratewer.Model.EditorData;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.wlg.ratewer.Model.EditorSet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
-import com.example.wlg.ratewer.Model.EditorSet;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Created by sabine
@@ -43,7 +32,7 @@ public class EditorController {
 
     public void FillData(String text)
     {
-        editor.FillSets(text);
+        editor.fillSets(text);
     }
 
     public EditorSet GetSet(int _Position)
@@ -53,12 +42,12 @@ public class EditorController {
 
     public void RemoveSet(int _Position)
     {
-        editor.RemoveSet(_Position);
+        editor.removeSet(_Position);
     }
 
     public void FillList(int viewID)
     {
-        for (int i =0 ; i < editor.GetSetsSize(); i++)
+        for (int i =0 ; i < editor.getSetsSize(); i++)
         {
             editor.getSet(i).getSetName();
         }
@@ -89,7 +78,7 @@ public class EditorController {
             }
             fileReader.close();
             Gson gson = new Gson();
-            editor.FillSets(text);
+            editor.fillSets(text);
             DataString = text;
 
         }catch(IOException e)
@@ -115,7 +104,7 @@ public class EditorController {
 
     public int GetSetsSize()
     {
-        return editor.GetSetsSize();
+        return editor.getSetsSize();
     }
 
     public void AddNewSet(EditorSet _Set)
@@ -148,7 +137,7 @@ public class EditorController {
             sets.add(testset);
             sets.add(testset2);
   */        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            jsonString = gson.toJson(editor.GetSets());
+            jsonString = gson.toJson(editor.getSets());
 
 
         BufferedWriter bufferWriter = null;

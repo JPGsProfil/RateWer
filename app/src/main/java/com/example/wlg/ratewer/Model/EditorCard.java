@@ -8,48 +8,69 @@ import java.util.List;
  */
 public class EditorCard
 {
-    public int id;
-    public String name;
-    public String image; //image path on the device
-    public List<String> attriList; // attributes of this card (hair = yellow ...), extra class for options menu
+    public int ID;
+    public String Name;
+    public String ImagePath; //image path on the device
+    public List<String> AttriList; // attributes of this card (hair = yellow ...), extra class for options menu
+
+    public EditorCard()
+    {
+        ID = -1;
+        AttriList = new ArrayList<String>();
+        ImagePath = "";
+        Name = "";
+    }
 
     public EditorCard(int _id, String _name, String _image, List<String> _attriList)
     {
-        id = _id;
-        attriList = new ArrayList<>();
-        attriList = _attriList;
-        image = _image;
+        ID = _id;
+        AttriList = new ArrayList<>();
+        AttriList = _attriList;
+        ImagePath = _image;
         if(_name.equals(""))
         {
-            _name = "er";
+            _name = "Karte";
         }
-        name = _name;
+        Name = _name;
     }
 
     // copy object
     public EditorCard(EditorCard _card)
     {
-        attriList = new ArrayList<>();
-        //System.out.println("Bin in copy constructor von Card");
-        id =_card.id;
-        name = _card.name;
-        image = _card.image;
-        //System.out.println("AttriValue List Groesse: "+_card.attributList.size());
-        for(int index = 0; index < _card.attriList.size(); index ++)
+        AttriList = new ArrayList<>();
+        ID =_card.ID;
+        Name = _card.Name;
+        ImagePath = _card.ImagePath;
+        for(int index = 0; index < _card.AttriList.size(); index ++)
         {
-
-            String curAttriValue = _card.attriList.get(index);
-            //System.out.println("curAttriValue " + curAttriValue.attr);
-            attriList.add(curAttriValue);
+            String curAttriValue = _card.AttriList.get(index);
+            AttriList.add(curAttriValue);
         }
-        //System.out.println("Fertig mit cpy Card, neue attrvalList: "+attributList.size());
     }
 
-    public boolean DoesCardContainAttrValue(String _attr, String _val)
+    public String getCardName(){ return Name; }
+
+    public String getCardImagePath(){ return ImagePath; }
+
+    public String getCardAttribute(int pos){return AttriList.get(pos);}
+
+    public void setCardName(String _CardName){ Name = _CardName; }
+
+    public void setCardImagePath(String _ImagePath){ ImagePath = _ImagePath; }
+
+    public void setCardAttribute(int pos, String _Attr){AttriList.set(pos,_Attr);}
+
+    public void addCardAttribute(String _Attr){AttriList.add(_Attr);}
+
+    public void setID(int _ID){ID = _ID;}
+
+    public int getID(){return ID;}
+
+    public boolean doesCardContainAttrValue(String _attr, String _val)
     {
         if(_attr.equals("Ist es?"))
         {
-            if(_val.equals(name))
+            if(_val.equals(Name))
             {
                 return true;
             }
@@ -58,11 +79,11 @@ public class EditorCard
                 return false;
             }
         }
-        for (int i=0; i<attriList.size(); i++)
+        for (int i=0; i<AttriList.size(); i++)
         {
-            if(attriList.get(i).equals(_attr))
+            if(AttriList.get(i).equals(_attr))
             {
-                if(attriList.get(i).equals(_val))
+                if(AttriList.get(i).equals(_val))
                 {
                     return true;
                 }

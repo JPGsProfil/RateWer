@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by rofel on 21.02.2016.
+ * Created by Sabine on 21.02.2016.
  */
 public class EditorSet {
 
@@ -70,31 +70,47 @@ public class EditorSet {
         return Cards.get(index);
     }
 
+    public int getCardCount() {return Cards.size();}
+
     public String getAttributes()
     {
         return Eigenschaften;
     }
 
 
-    public void SetName(String _Name)
+    public void setName(String _Name)
     {
         Name= _Name;
     }
 
 
-    public void SetID(int _ID)
+    public void setID(int _ID)
     {
         ID = _ID;
     }
 
-    public void SetCard(EditorCard _Card)
+    public void addCard(EditorCard _Card)
     {
-
-        int count = Cards.size();
         Cards.add(_Card);
     }
 
-    public void SetAttributes(String _Attri)
+    public void setCard(int _Pos,EditorCard _Card)
+    {
+        EditorCard tmpCard = Cards.get(_Pos);
+        tmpCard.setCardName(_Card.getCardName());
+        tmpCard.setCardImagePath(_Card.getCardImagePath());
+        tmpCard.setCardAttribute(0, _Card.getCardAttribute(0));
+        tmpCard.setCardAttribute(1,_Card.getCardAttribute(1));
+        tmpCard.setCardAttribute(2,_Card.getCardAttribute(2));
+
+    }
+
+    public void removeCard(int _Pos)
+    {
+        Cards.remove(_Pos);
+    }
+
+    public void setAttributes(String _Attri)
     {
         Eigenschaften = _Attri;
     }

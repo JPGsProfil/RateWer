@@ -1,8 +1,6 @@
 package com.example.wlg.ratewer.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -10,17 +8,12 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.wlg.ratewer.Controller.EditorController;
-import com.example.wlg.ratewer.Model.EditorCard;
-import com.example.wlg.ratewer.Model.EditorData;
 import com.example.wlg.ratewer.R;
 
 /**
